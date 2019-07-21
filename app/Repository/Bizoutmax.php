@@ -10,7 +10,6 @@ class Bizoutmax
 
 	public function __construct() {
 		$this->yml_file = $this->get_yml_file();
-		return $this;
 	}
 	private function get_yml_file() {
 		$yml = cache()->remember('YML_FILE', Carbon::now()->addMinutes(30), function () {
@@ -19,11 +18,7 @@ class Bizoutmax
 		return simplexml_load_string($yml);
 	}
 	public function get_products() {
-		$products = $this->yml_file->shop->offers->offer;
-		foreach ($products as $key => $value) {
-			$products['param'] = $this->get_attr_params($products[$key]);
-		}
-		return;
+		return $this->yml_file->shop->offers->offer;
 	}
 	public function get_attr_params($product) {
 		$params = [];
@@ -40,16 +35,21 @@ class Bizoutmax
 	}
 	public function whereParameter($parameter, $string, $products) {
 		$results = [];
-		foreach ($products as $value) {
-			if ($this->get_attr_params($value)[$parameter] === $string)
-				array_push($results, $value);
+		foreach ($products as $product) {
+			$parameters = $this->get_attr_params($product)[$parameter];
+			foreach ($parameters as $value) {
+				if ($string == $value)
+					array_push($results, $product);
+			}
 		}
 		return $results;
 	}
 	public function get_by_group_id($id) {
+		$results = [];
 		foreach ($this->get_products() as $product) {
 			if ((string) $product['group_id'] == (string) $id)
-				return $product;
+				array_push($results, $product);
 		}
+		return $results;
 	}
 }
