@@ -11,9 +11,9 @@ use View;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function __construct() {
-    	View::addExtension('svg', 'file');
-    }
+	public function __construct() {
+		View::addExtension('svg', 'file');
+	}
 }

@@ -2,6 +2,8 @@
 
 return [
 
+    'import_link' => 'http://bizoutmax.ru/price/export/4.yml',
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

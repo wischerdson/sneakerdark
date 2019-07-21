@@ -1,0 +1,63 @@
+.desktop {
+	width: 100%;
+	max-width: 1400px;
+	padding: 20px 10px;
+	margin: auto;
+	padding-bottom: 7px;
+	display: flex;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	-webkit-user-select: none;
+
+	.brand {
+		display: flex;
+		align-items: center;
+		color: black;
+
+		.brand-logo svg {
+			height: 55px;
+		}
+		.text {
+			margin-left: 20px;
+
+			.brand-name svg {
+				height: 24px;
+			}
+			.description {
+				margin-top: 3px;
+			}
+		}
+	}
+	.contacts {
+		margin-left: auto;
+		display: flex;
+		justify-content: space-between;
+
+		.label {
+			font-size: 1.1rem;
+			letter-spacing: .02rem;
+		}
+
+		.call {
+			.phone-number {
+				font-size: 2.2rem;
+				line-height: 1.7rem;
+				color: black;
+			}
+		}
+		.manager-contacts {
+			margin-left: 35px;
+
+			.variants {
+				display: flex;
+				justify-content: flex-end;
+
+				a {
+					svg { width: 27px; }
+					&:not(:last-child) { margin-right: 7px; }
+				}
+			}
+		}
+	}
+}

@@ -12,3 +12,5 @@
 */
 
 Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
+Route::get('/search/{query}', ['uses' => 'SearchController@index', 'as' => 'search']);
+Route::post('/search', ['uses' => 'SearchController@process_ajax_query', 'as' => 'search.process_ajax_query']);

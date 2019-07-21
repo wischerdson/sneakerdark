@@ -48,6 +48,7 @@
 	<meta name="msapplication-TileImage" content="{{ asset('/favicon/ms-tile-144.png') }}">
 	<link rel="manifest" href="{{ asset('/favicon/site.webmanifest') }}">
 
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	@foreach (isset($links) ? $links : [] as $link)
 	<link rel="stylesheet" type="text/css" href="{{ asset($link) }}">
 	@endforeach
@@ -55,6 +56,7 @@
 	<script type="text/javascript" src="{{ asset('/js/jquery.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/vue.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/materialize.min.js') }}"></script>
 	@foreach (isset($scripts) ? $scripts : [] as $script)
 	<script type="text/javascript" src="{{ asset($script) }}"></script>
 	@endforeach

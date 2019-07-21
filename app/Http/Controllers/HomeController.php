@@ -10,7 +10,8 @@ class HomeController extends Controller
 		return view('home')->with([
 			'links' => ['/css/home.css'],
 			'scripts' => ['/js/slick.min.js'],
-			'title' => 'Sneakerdark'
+			'title' => 'Sneakerdark',
+			'yml' => simplexml_load_file('http://bizoutmax.ru/price/export/4.yml')
 		]);
 	}
 }
