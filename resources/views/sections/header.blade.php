@@ -173,18 +173,44 @@
 			<div class="for-whom">
 				<div class="content">
 					<div class="item">
-						<input type="radio" name="forwhom" id="her" value="Женский">
+						<input type="radio" v-model="forwhom" name="forwhom" id="her" value="Женский">
 						<label for="her">Для нее</label>
 					</div>
 					<div class="item">
-						<input type="radio" checked name="forwhom" id="him" value="Мужской">
+						<input type="radio" v-model="forwhom" name="forwhom" id="him" value="Мужской">
 						<label for="him">Для него</label>
 					</div>
 				</div>
 			</div>
+			<div class="body">
+				<div class="field-is-empty-notice">
+					
+				</div>
+				<ul class="results">
+					<li class="product">
+						<div class="image">
+							<div class="content" style="background-image: url(https://wallbox.ru/wallpapers/main/201101/ec314c2063912a86c57037af4ee75009.jpg)"></div>
+						</div>
+						<div class="text">
+							<div class="name grey-text text-darken-2">Air Max 720</div>
+							<div class="article grey-text">13766</div>
+							<div class="price">3 490 руб</div>
+						</div>
+						<ul class="sizes">
+							<li>36</li>
+							<li>37</li>
+							<li>39</li>
+							<li>40</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</transition>
 </div>
+
+
+
 
 
 
@@ -218,7 +244,8 @@
 			isMoved: false,
 			mobileMenuIsOpened: false,
 			searchResultsIsOpened: true,
-			searchQuery: ''
+			searchQuery: '',
+			forwhom: 'Мужской'
 		},
 		methods: {
 			changeList: function (list, outgoingList, whereToGo) {
@@ -234,23 +261,32 @@
 			searchQuery: function (value) {
 				clearTimeout(searchQueryTimeout);
 				searchQueryTimeout = setTimeout(() => {
-					$.ajax({
-						url: '{{ route('search.process_ajax_query') }}',
-						type: 'POST',
-						data: {
-							query: value,
-							forwhom: $('[name=forwhom]').val()
-						},
-						cache: false,
-						success: (data) => {
-							console.log(data);
-						},
-						error: (error) => {
-							console.log(error);
-							// alert('Произошла ошибка');
-						}
-					});
+					this.updateProducts();
 				}, 700);
+			},
+			forwhom: function () {
+				this.updateProducts();
+			}
+		},
+		methods: {
+			updateProducts: function () {
+				if (!this.searchQuery) return;
+				$.ajax({
+					url: '{{ route('search.process_ajax_query') }}',
+					type: 'POST',
+					data: {
+						query: this.searchQuery,
+						forwhom: this.forwhom
+					},
+					cache: false,
+					success: (data) => {
+						console.log(data);
+					},
+					error: (error) => {
+						M.toast({html: 'An error occurred', classes: 'red lighten-3 black-text'});
+						console.log(error);
+					}
+				});
 			}
 		}
 	});

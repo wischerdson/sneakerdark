@@ -100,4 +100,77 @@
 			}
 		}
 	}
+	.body {
+		width: 100%;
+
+		.results {
+			margin: auto;
+			width: 100%;
+			max-width: 1400px;
+			padding: 0 10px;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			column-gap: 40px;
+			margin-top: 25px;
+
+			.product {
+				display: flex;
+				padding: 10px 0;
+
+				.image {
+					position: relative;
+					width: 60px;
+
+					&:after {
+						content: '';
+						display: block;
+						padding-top: 100%;
+					}
+					& > .content {
+						position: absolute;
+						top: 0; left: 0; right: 0; bottom: 0;
+						background-repeat: no-repeat;
+						background-size: cover;
+						background-position: center;
+					}
+				}
+				.text {
+					margin-left: 20px;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					height: 100%;
+
+					.name {
+						font-size: 1.15rem;
+					}
+					.article {
+						font-size: .8rem;
+					}
+					.price {
+						font-size: 1.2rem;
+						font-weight: 500;
+					}
+				}
+				.sizes {
+					height: 100%;
+					display: flex;
+					align-items: center;
+					margin-left: 40px;
+
+					li {
+						margin-right: 4px;
+						padding: 4px 10px;
+						border-radius: 3px;
+						border: 2px solid #e7e7e7;
+						font-size: .8rem;
+					}
+				}
+
+				&:not(:first-child):not(:nth-of-type(2)) {
+					border-top: 1px solid #d9d9d9;
+				}
+			}
+		}
+	}
 }
