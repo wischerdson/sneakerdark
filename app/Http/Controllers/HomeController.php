@@ -11,7 +11,7 @@ class HomeController extends Controller
 			'links' => ['/css/home.css'],
 			'scripts' => ['/js/slick.min.js'],
 			'title' => 'Sneakerdark',
-			'yml' => simplexml_load_file('http://bizoutmax.ru/price/export/4.yml')
+			// 'yml' => simplexml_load_file('http://bizoutmax.ru/price/export/4.yml')
 		]);
 	}
 }

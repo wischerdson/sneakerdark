@@ -1,0 +1,142 @@
+footer {
+	width: 100%;
+	
+
+	.desktop {
+		background-color: @footer-bg;
+		width: 100%;
+
+		.top, .bottom {
+			& > .inner {
+				.container;
+			}
+		}
+		.top {
+			padding: 65px 0;
+
+			.columns {
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+
+				.logo {
+					svg {
+						width: 80px;
+						fill: #535353;
+						transition: all .25s ease;
+					}
+					&:hover svg {
+						fill: white;
+						box-shadow: 0 0 17px -2px white;
+					}
+				}
+				.column {
+					.column-title {
+						//color: darken(@footer-color, 40%);
+						color: fade(@footer-color, 60%);
+						font-size: 1.4rem;
+						margin-bottom: 10px;
+					}
+					.link-list {
+						a {
+							color: @footer-color;
+							font-size: 1.05rem;
+
+							&:hover {
+								opacity: .7;
+							}
+						}
+					}
+					&:not(:last-child) { margin-right: 67px; }
+					&.сooperation {
+						a {
+							display: block;
+							color: fade(@footer-color, 60%);
+							border: 1px solid fade(@footer-color, 60%);
+							font-size: 1.3rem;
+							font-weight: 300;
+							padding: 2px 10px;
+							transition: all .15s ease;
+
+							&:not(:last-child) { margin-bottom: 15px; }
+							&:hover {
+								color: @footer-color;
+								border: 1px solid @footer-color;
+							}
+						}
+					}
+					&.mailing-list-subscribe {
+						margin-left: auto;
+
+						.column-title { text-align: right; }
+						.form-group {
+							display: flex;
+
+							.email-field {
+								background-color: #303030;
+								border: none;
+								padding: 16px 22px;
+								color: white;
+								font-size: .9rem;
+								width: 19.3vw;
+							}
+							.subscribe-btn {
+								font-size: .8rem;
+								padding: 0 22px;
+								background-color: fade(@footer-color, 70%);
+								//background-color: @btn-secondary-bg;
+								border: none;
+								cursor: pointer;
+								border-radius: 0;
+								display: flex;
+								align-items: center;
+							}
+						}
+						.social-media {
+							display: flex;
+							justify-content: flex-end;
+							margin-top: 50px;
+
+							svg {
+								fill: fade(@footer-color, 60%);
+								width: 37px;
+								transition: all .25s ease;
+								border-radius: 999999px;
+							}
+							li a:hover svg {
+								fill: white;
+								box-shadow: 0 0 10px -4px white;
+							}
+							li:not(:last-child) { margin-right: 15px; }
+						}
+					}
+				}
+			}
+		}
+		.bottom {
+			background-color: @footer-bottom-bg;
+			padding: 10px 10px;
+
+			.inner {
+				display: flex;
+				align-items: center;
+
+				& > *:not(:last-child) { margin-right: 30px; }
+				.copyright {
+					color: fade(@footer-color, 30%);
+				}
+				a {
+					color: fade(@footer-color, 30%);
+					font-size: .93rem;
+					text-decoration: underline;
+
+					&:hover {
+						color: white;
+					}
+				}
+			}
+
+			
+		}
+	}
+}

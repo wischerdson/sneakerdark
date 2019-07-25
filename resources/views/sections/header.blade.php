@@ -205,6 +205,9 @@
 					</li>
 				</ul>
 			</div>
+			<div class="show-all-results-line">
+				Посмотреть все результаты >
+			</div>
 		</div>
 	</transition>
 </div>
@@ -222,7 +225,7 @@
 	let vHeader = new Vue({
 		el: '#site_header',
 		data: {
-			searchResultsIsOpened: true
+			searchResultsIsOpened: false
 		},
 		watch: {
 			searchResultsIsOpened: function (value) {
@@ -243,7 +246,7 @@
 		data: {
 			isMoved: false,
 			mobileMenuIsOpened: false,
-			searchResultsIsOpened: true,
+			searchResultsIsOpened: false,
 			searchQuery: '',
 			forwhom: 'Мужской'
 		},
@@ -252,23 +255,7 @@
 				$(this.$refs['wrapper']).css('height', $(this.$refs[list]).outerHeight());
 				$(this.$refs[list]).removeClass('hidden-left').removeClass('hidden-right');
 				$(this.$refs[outgoingList]).addClass(whereToGo);
-			}
-		},
-		created: function () {
-			$('#mobile_header_links_wrapper').css('height', $('#header_mobile_list_root').outerHeight());
-		},
-		watch: {
-			searchQuery: function (value) {
-				clearTimeout(searchQueryTimeout);
-				searchQueryTimeout = setTimeout(() => {
-					this.updateProducts();
-				}, 700);
 			},
-			forwhom: function () {
-				this.updateProducts();
-			}
-		},
-		methods: {
 			updateProducts: function () {
 				if (!this.searchQuery) return;
 				$.ajax({
@@ -287,6 +274,20 @@
 						console.log(error);
 					}
 				});
+			}
+		},
+		created: function () {
+			$('#mobile_header_links_wrapper').css('height', $('#header_mobile_list_root').outerHeight());
+		},
+		watch: {
+			searchQuery: function (value) {
+				clearTimeout(searchQueryTimeout);
+				searchQueryTimeout = setTimeout(() => {
+					this.updateProducts();
+				}, 700);
+			},
+			forwhom: function () {
+				this.updateProducts();
 			}
 		}
 	});

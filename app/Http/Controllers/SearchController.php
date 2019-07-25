@@ -22,7 +22,8 @@ class SearchController extends Controller
 		$products = $bizoutmax->get_products();
 		$products = $bizoutmax->whereParameter('Пол', $forwhom, $products);
 
-		return (array) $bizoutmax->get_unique_products($products);
+		//return (array) $bizoutmax->get_unique_products($products);
+		return config('app.import_link');
 
 		$result = [];
 		foreach ($products as $product) {
@@ -33,6 +34,7 @@ class SearchController extends Controller
 				stripos($product->group_id, $query) !== false
 			) array_push($result, $product);
 		}
+		return $result;
 		return [
 			'html' => view('/sections/nav-search-result')->with([
 				'products' => $result

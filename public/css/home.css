@@ -7537,11 +7537,14 @@ input[type=range]::-ms-thumb {
     margin-top: 1.2rem;
   }
 }
+/* Colors */
+/* Static values */
 * {
   margin: 0;
   padding: 0;
   font-family: MyriadPro, sans-serif;
   box-sizing: border-box;
+  box-shadow: none;
   outline: none;
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.2);
@@ -7550,6 +7553,7 @@ input[type=range]::-ms-thumb {
 }
 body {
   -webkit-text-size-adjust: none;
+  background-color: #f2f2f2;
 }
 .hidden {
   display: none !important;
@@ -7602,6 +7606,7 @@ input[type="text"]:-ms-input-placeholder {
   border-radius: 999px;
   -webkit-animation: blink 1s infinite linear;
           animation: blink 1s infinite linear;
+  display: inline-block;
 }
 @-webkit-keyframes blink {
   0% {
@@ -7627,6 +7632,12 @@ input[type="text"]:-ms-input-placeholder {
 }
 svg {
   display: block;
+}
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 10px;
 }
 .search {
   position: relative;
@@ -8382,6 +8393,18 @@ header .mobile .right .profile .icon svg {
 #search_results .body .results .product:not(:first-child):not(:nth-of-type(2)) {
   border-top: 1px solid #d9d9d9;
 }
+#search_results .show-all-results-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 55px;
+  background-color: #7122e3;
+  opacity: 0.65;
+  color: white;
+  display: flex;
+  align-items: center;
+}
 /* Slider */
 .slick-slider {
   position: relative;
@@ -8530,4 +8553,135 @@ header .mobile .right .profile .icon svg {
   background-position: center;
   background-size: cover;
   height: calc(100vh - 82px - 50px - 50px);
+}
+footer {
+  width: 100%;
+}
+footer .desktop {
+  background-color: #161616;
+  width: 100%;
+}
+footer .desktop .top > .inner,
+footer .desktop .bottom > .inner {
+  max-width: 1280px;
+  width: 90%;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 10px;
+}
+footer .desktop .top {
+  padding: 65px 0;
+}
+footer .desktop .top .columns {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+footer .desktop .top .columns .logo svg {
+  width: 80px;
+  fill: #535353;
+  transition: all 0.25s ease;
+}
+footer .desktop .top .columns .logo:hover svg {
+  fill: white;
+  box-shadow: 0 0 17px -2px white;
+}
+footer .desktop .top .columns .column .column-title {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+footer .desktop .top .columns .column .link-list a {
+  color: white;
+  font-size: 1.05rem;
+}
+footer .desktop .top .columns .column .link-list a:hover {
+  opacity: 0.7;
+}
+footer .desktop .top .columns .column:not(:last-child) {
+  margin-right: 67px;
+}
+footer .desktop .top .columns .column.сooperation a {
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  font-size: 1.3rem;
+  font-weight: 300;
+  padding: 2px 10px;
+  transition: all 0.15s ease;
+}
+footer .desktop .top .columns .column.сooperation a:not(:last-child) {
+  margin-bottom: 15px;
+}
+footer .desktop .top .columns .column.сooperation a:hover {
+  color: white;
+  border: 1px solid white;
+}
+footer .desktop .top .columns .column.mailing-list-subscribe {
+  margin-left: auto;
+}
+footer .desktop .top .columns .column.mailing-list-subscribe .column-title {
+  text-align: right;
+}
+footer .desktop .top .columns .column.mailing-list-subscribe .form-group {
+  display: flex;
+}
+footer .desktop .top .columns .column.mailing-list-subscribe .form-group .email-field {
+  background-color: #303030;
+  border: none;
+  padding: 16px 22px;
+  color: white;
+  font-size: 0.9rem;
+  width: 19.3vw;
+}
+footer .desktop .top .columns .column.mailing-list-subscribe .form-group .subscribe-btn {
+  font-size: 0.8rem;
+  padding: 0 22px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  cursor: pointer;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+}
+footer .desktop .top .columns .column.mailing-list-subscribe .social-media {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 50px;
+}
+footer .desktop .top .columns .column.mailing-list-subscribe .social-media svg {
+  fill: rgba(255, 255, 255, 0.6);
+  width: 37px;
+  transition: all 0.25s ease;
+  border-radius: 999999px;
+}
+footer .desktop .top .columns .column.mailing-list-subscribe .social-media li a:hover svg {
+  fill: white;
+  box-shadow: 0 0 10px -4px white;
+}
+footer .desktop .top .columns .column.mailing-list-subscribe .social-media li:not(:last-child) {
+  margin-right: 15px;
+}
+footer .desktop .bottom {
+  background-color: #303030;
+  padding: 10px 10px;
+}
+footer .desktop .bottom .inner {
+  display: flex;
+  align-items: center;
+}
+footer .desktop .bottom .inner > *:not(:last-child) {
+  margin-right: 30px;
+}
+footer .desktop .bottom .inner .copyright {
+  color: rgba(255, 255, 255, 0.3);
+}
+footer .desktop .bottom .inner a {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.93rem;
+  text-decoration: underline;
+}
+footer .desktop .bottom .inner a:hover {
+  color: white;
 }

@@ -1,9 +1,5 @@
 
-@main-color: #7122e3;
-@btn-secondary-bg: #eeeff4;
-@btn-secondary-color: black;
-@input-bg: #eeeff4;
-@input-placeholder-color: #565759;
+@import "variables.less";
 
 
 * {
@@ -11,6 +7,7 @@
 	padding: 0;
 	font-family: MyriadPro, sans-serif;
 	box-sizing: border-box;
+	box-shadow: none;
 	outline: none;
 	-webkit-overflow-scrolling: touch;
 	-webkit-tap-highlight-color: rgba(0,0,0,.2);
@@ -19,6 +16,7 @@
 }
 body {
 	-webkit-text-size-adjust: none;
+	background-color: @body-bg;
 }
 .hidden {
 	display: none !important;
@@ -64,6 +62,7 @@ input[type="text"] {
 	margin-right: 7px;
 	border-radius: 999px;
 	animation: blink 1s infinite linear;
+	display: inline-block;
 }
 
 @keyframes blink {
@@ -83,6 +82,13 @@ svg {
 	display: block;
 }
 
+
+.container {
+	margin: 0 auto;
+	width: 100%;
+	max-width: @max-screen-width;
+	padding: 0 10px;
+}
 
 .search {
 	position: relative;
