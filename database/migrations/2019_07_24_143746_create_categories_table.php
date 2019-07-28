@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateParametersTable extends Migration
+class CreateCategoriesTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,13 +13,10 @@ class CreateParametersTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('parameters', function (Blueprint $table) {
+		Schema::create('categories', function (Blueprint $table) {
 			$table->bigIncrements('id');
-			$table->bigInteger('product_id')->unsigned();
-			$table->string('key');
+			$table->bigInteger('bizoutmax_id')->unique()->unsigned();
 			$table->string('value');
-
-			$table->foreign('product_id')->references('id')->on('products');
 		});
 	}
 
@@ -30,6 +27,6 @@ class CreateParametersTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('parameters');
+		Schema::dropIfExists('categories');
 	}
 }

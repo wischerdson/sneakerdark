@@ -6,7 +6,33 @@ use Carbon\Carbon;
 
 class Bizoutmax
 {
+	private $import_path;
 	private $yml_file;
+	private $products;
+	private $categories;
+
+	public function __construct($import_path) {
+		$this->import_path = $import_path;
+		$this->yml_file = $this->get_yml_file();
+		$this->products = $this->yml_file->shop->offers->offer;
+		$this->categories = $this->yml_file->shop->categories->category;
+	}
+
+	public function get_categories() {
+		return $this->categories;
+	}
+	public function get_products() {
+		return $this->products;
+	}
+
+	private function get_yml_file() {
+		$yml = cache()->remember('YML_FILE', Carbon::now()->addMinutes(5), function () {
+			return (string) file_get_contents($this->import_path);
+		});
+		return simplexml_load_string($yml);
+	}
+
+	/*private $yml_file;
 	private $products;
 
 	public function __construct() {
@@ -29,12 +55,7 @@ class Bizoutmax
 		}
 		$this->products = $result;
 	}
-	private function get_yml_file() {
-		$yml = cache()->remember('YML_FILE', Carbon::now()->addMinutes(30), function () {
-			return (string) file_get_contents(config('app.import_link'));
-		});
-		return simplexml_load_string($yml);
-	}
+	
 	public function get_products() {
 		return $this->products;
 	}
@@ -79,5 +100,5 @@ class Bizoutmax
 				array_push($results, $product);
 		}
 		return $results;
-	}
+	}*/
 }

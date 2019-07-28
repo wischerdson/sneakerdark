@@ -14,7 +14,8 @@ class SearchController extends Controller
 	}
 
 	public function process_ajax_query(Request $request) {
-		$query = $request->input('query');
+		return;
+		/*$query = $request->input('query');
 		$forwhom = $request->input('forwhom');
 
 		$bizoutmax = new Bizoutmax();
@@ -22,7 +23,6 @@ class SearchController extends Controller
 		$products = $bizoutmax->get_products();
 		$products = $bizoutmax->whereParameter('Пол', $forwhom, $products);
 
-		//return (array) $bizoutmax->get_unique_products($products);
 		return config('app.import_link');
 
 		$result = [];
@@ -40,6 +40,6 @@ class SearchController extends Controller
 				'products' => $result
 			]),
 			'matches' => count($result)
-		];
+		];*/
 	}
 }

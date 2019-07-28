@@ -26,4 +26,16 @@ let cleanCSSPlugin = new LessPluginCleanCSS({
  |
 */
 
-mix.less('resources/less/home.less', 'public/css');
+mix.less('resources/less/home.less', 'public/css').options({
+	postCss: [
+		require('cssnano')({
+			preset: ['default', {
+				discardComments: {
+					removeAll: true,
+				},
+			}]
+		}),
+		require("css-mqpacker")(),
+		require('autoprefixer')
+	]
+});
