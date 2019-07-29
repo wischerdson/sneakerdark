@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
 			$table->bigIncrements('id');
 			$table->string('title');
 			$table->double('price', 7, 2);
-			$table->bigInteger('article')->unsigned();
+			$table->bigInteger('article')->unsigned()->unique();
 			$table->string('bizoutmax_url');
 			$table->bigInteger('category_id')->unsigned();
 			$table->string('model');

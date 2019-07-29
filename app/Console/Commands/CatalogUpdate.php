@@ -10,6 +10,7 @@ use App\Category;
 use App\Product;
 use App\Parameter;
 use App\Picture;
+use App\Size;
 
 class CatalogUpdate extends Command
 {
@@ -60,6 +61,42 @@ class CatalogUpdate extends Command
 		$this->products();
 		$this->parameters();
 		$this->pictures();
+		$this->sizes();
+	}
+
+	private function sizes() {
+		$this->comment('Sizes importing');
+
+		$old_count = Picture::count();
+		$new_count = $this->get_sizes_count();
+
+		$this->bar = $this->output->createProgressBar($new_count);
+		$this->bar->start();
+
+		$this->j = 0;
+
+		$this->iterate_products(null, function ($i, $product) {
+			foreach ($product->param as $key => $value) {
+				if (preg_match('/Размер/', $value['name'])) {
+					$this->j++;
+					Size::updateOrCreate(['id' => $this->j], [
+						'product_id' => $product->vendorCode,
+						'size' => (string) $value,
+						'instock' => $product->outlets->outlet[0]['instock'] < 0 ? 0 : $product->outlets->outlet[0]['instock'],
+						'available' => $product['available'] ? 1 : 0,
+						'bitoutmax_id' => $product['id'],
+						'delivery' => $product->delivery ? 1 : 0
+					]);
+					$this->bar->advance();
+				}
+			}
+		});
+
+		if ($new_count < $old_count)
+			Size::where('id', '>', $new_count)->delete();
+
+		$this->bar->finish();
+		$this->line('');
 	}
 
 	private function pictures() {
@@ -72,29 +109,22 @@ class CatalogUpdate extends Command
 		$this->bar->start();
 
 		$this->j = 0;
-		$this->ex = [];
 
-		$this->iterate_products(function () {
-			$this->ex = [];
-		}, function ($i, $product) {
+		$this->iterate_products(function ($i, $product) {
 			foreach ($product->picture as $key => $picture) {
-				if (!in_array((string) $picture, $this->ex)) {
-					$this->j++;
-
-					Picture::updateOrCreate(['id' => $this->j], [
-						'product_id' => $i,
-						'src' => (string) $picture,
+				$this->j++;
+				Picture::updateOrCreate(['id' => $this->j], [
+					'product_id' => $i,
+					'src' => (string) $picture,
 						// 'width' => getimagesize((string) $picture)[0],
 						// 'height' => getimagesize((string) $picture)[1],
-					]);
-					$this->bar->advance();
-					array_push($this->ex, (string) $picture);
-				}
+				]);
+				$this->bar->advance();
 			}
 		});
 
 		if ($new_count < $old_count)
-			Parameter::where('id', '>', $new_count)->delete();
+			Picture::where('id', '>', $new_count)->delete();
 		
 		$this->bar->finish();
 		$this->line('');
@@ -216,18 +246,24 @@ class CatalogUpdate extends Command
 	}
 	private function get_pictures_count() {
 		$this->j = 0;
-		$this->ex = [];
 
-		$this->iterate_products(function () {
-			$this->ex = [];
-		}, function ($i, $product) {
+		$this->iterate_products(function ($i, $product) {
 			foreach ($product->picture as $key => $picture) {
-				if (!in_array((string) $picture, $this->ex)) {
-					$this->j++;
-					array_push($this->ex, (string) $picture);
-				}
+				$this->j++;
 			}
 		});
+		return $this->j;
+	}
+	private function get_sizes_count() {
+		$this->j = 0;
+
+		$this->iterate_products(null, function ($i, $product) {
+			foreach ($product->param as $key => $value) {
+				if (preg_match('/Размер/', $value['name']))
+					$this->j++;
+			}
+		});
+
 		return $this->j;
 	}
 

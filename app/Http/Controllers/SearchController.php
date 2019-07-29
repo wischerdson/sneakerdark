@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repository\Bizoutmax;
 
+use App\Product;
+
 class SearchController extends Controller
 {
 	public function index(Request $request, $query = null) {
@@ -14,7 +16,23 @@ class SearchController extends Controller
 	}
 
 	public function process_ajax_query(Request $request) {
-		return;
+
+		$search_query = $request->input('query');
+		$forwhom = $request->input('forwhom');
+
+		if (preg_match('/^[0-9]+$/', $search_query)) {
+			$matches = Product::where('article', 'like', '%'.$search_query.'%')->get();
+
+			return $matches;
+		}
+
+
+		$matches = Product::where('title', 'like', '%'.$search_query.'%')
+			->orWhere('model', 'like', '%'.$search_query.'%')
+			->orWhere('vendor', 'like', '%'.$search_query.'%')
+			->get();
+
+		return $request;
 		/*$query = $request->input('query');
 		$forwhom = $request->input('forwhom');
 
