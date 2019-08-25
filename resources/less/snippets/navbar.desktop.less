@@ -43,6 +43,7 @@
 				align-items: center;
 				color: black;
 				font-size: 1.1rem;
+				font-weight: 300;
 				border-top: 2px solid transparent;
 				position: relative;
 				z-index: 2;
@@ -56,7 +57,10 @@
 					&:hover { border-top: initial; }
 					svg { height: 70%; }
 				}
-				&.active { color: @main-color; }
+				&.active {
+					color: @main-color;
+					font-weight: 400;
+				}
 			}
 			& > a:hover {
 				color: @main-color;
@@ -116,12 +120,17 @@
 			text-transform: initial;
 			display: flex;
 			align-items: center;
+			font-weight: 300;
 			padding: 0 10px;
+			height: 100%;
 		}
 		.shopping-cart {
 			i { margin-right: 6px; }
 		}
 		.entrance {
+			background-color: @dark-gray;
+			color: white;
+
 			i {
 				margin-right: 6px;
 				height: initial;
@@ -130,6 +139,9 @@
 					fill: white;
 					height: 16px;
 				}
+			}
+			&.authenticated {
+				background-color: @main-color;
 			}
 		}
 	}

@@ -26,9 +26,11 @@ class Bizoutmax
 	}
 
 	private function get_yml_file() {
-		$yml = cache()->remember('YML_FILE', Carbon::now()->addMinutes(5), function () {
+		/*$yml = cache()->remember('YML_FILE', Carbon::now()->addMinutes(5), function () {
 			return (string) file_get_contents($this->import_path);
-		});
+		});*/
+		
+		$yml = (string) file_get_contents($this->import_path);
 		return simplexml_load_string($yml);
 	}
 

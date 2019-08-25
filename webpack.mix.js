@@ -26,7 +26,13 @@ let cleanCSSPlugin = new LessPluginCleanCSS({
  |
 */
 
-mix.less('resources/less/home.less', 'public/css').options({
+mix
+.less('resources/less/home.less', 'public/css')
+/*.less('resources/less/account.less', 'public/css')
+.less('resources/less/account.auth.login.less', 'public/css')
+.less('resources/less/account.auth.register.less', 'public/css')*/
+
+.options({
 	postCss: [
 		require('cssnano')({
 			preset: ['default', {
@@ -39,3 +45,6 @@ mix.less('resources/less/home.less', 'public/css').options({
 		require('autoprefixer')
 	]
 });
+
+mix.browserSync('sd.loc');
+mix.disableNotifications();

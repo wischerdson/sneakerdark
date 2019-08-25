@@ -73,10 +73,20 @@
 				<i class="prefix">@include('icons.magnifying-glass')</i>
 				<input v-model="searchQuery" class="browser-default" @focus="vHeader.searchResultsIsOpened = true" placeholder="Поиск" id="search" type="text">
 			</div>
-			<a class="waves-effect waves-light btn grey darken-4 entrance">
+			
+
+			@if (\Auth::guard('customer')->check())
+			<a href="{{ route('account') }}" class="waves-effect waves-light btn entrance authenticated">
+				<i class="material-icons left">@include('icons.user')</i>
+				Профиль
+			</a>
+			@else
+			<a href="{{ route('account') }}" class="waves-effect waves-light btn entrance">
 				<i class="material-icons left">@include('icons.user')</i>
 				Войти
 			</a>
+			@endif
+
 			<a class="waves-effect btn btn-secondary shopping-cart">
 				<i class="material-icons left">shopping_cart</i>
 				Корзина
@@ -165,7 +175,7 @@
 				<div class="content">
 					<div class="form-group">
 						<i class="prefix">@include('icons.magnifying-glass')</i>
-						<input v-model="searchQuery" type="text" class="search-field browser-default" placeholder="Поиск по названию, бренду или артикулу">
+						<input v-model="searchQuery" type="text" class="search-field browser-default" placeholder="Поиск по названию, модели, бренду или артикулу">
 					</div>
 					<div class="close-btn" @click="vHeader.searchResultsIsOpened = false"><i class="material-icons">add</i></div>
 				</div>
@@ -180,41 +190,57 @@
 						<input type="radio" v-model="forwhom" name="forwhom" id="him" value="Мужской">
 						<label for="him">Для него</label>
 					</div>
+					<div class="count-matches" v-show="!ajaxStatus.waiting && (searchQuery || searchResults.length)">Найдено @{{ searchResults.length }} @{{ result_word }}</div>
 				</div>
 			</div>
 			<div class="body">
-				<div class="field-is-empty-notice">
-					
+				<div class="field-is-empty-notice" v-if="!searchQuery && !searchResults.length">
+					<center>
+						@include('icons.magnifying-glass')
+						<p>Введите поисковый запрос</p>
+						<p>Например "Кроссовки Adidas Yeezy 350"</p>
+					</center>
 				</div>
-				<ul class="results">
-					<li class="product">
-						<div class="image">
-							<div class="content" style="background-image: url(https://wallbox.ru/wallpapers/main/201101/ec314c2063912a86c57037af4ee75009.jpg)"></div>
-						</div>
-						<div class="text">
-							<div class="name grey-text text-darken-2">Air Max 720</div>
-							<div class="article grey-text">13766</div>
-							<div class="price">3 490 руб</div>
-						</div>
-						<ul class="sizes">
-							<li>36</li>
-							<li>37</li>
-							<li>39</li>
-							<li>40</li>
-						</ul>
-					</li>
+				<div v-if="ajaxStatus.waiting" class="preloader-wrapper"><div class="preloader"></div></div>
+				<ul class="results" v-if="searchResults && !ajaxStatus.waiting">
+					<search-result
+					v-for="(value, index) in searchResults"
+					v-if="index < 11"
+					:name="value.title"
+					:article="value.article"
+					:price="value.price"
+					:image="getPicture(value.pictures)"
+					:sizes="value.sizes"
+					></search-result>
+					<a href="#" v-show="searchResults.length > 10" class="show-all-results"><span>Посмотреть все результаты &#8594;</span></a>
 				</ul>
 			</div>
-			<div class="show-all-results-line">
-				Посмотреть все результаты >
-			</div>
+			<!-- <a href="#" class="show-all-results-line" v-show="searchResults.length > 0">
+				<div class="content">Посмотреть все результаты &#8594;</div>
+			</a> -->
 		</div>
 	</transition>
 </div>
 
 
 
-
+<template id="search_result_template">
+	<li class="product">
+		<div class="image">
+			<div class="content"
+			:style="`background-image: url(${ image })`"
+			></div>
+		</div>
+		<div class="text">
+			<div class="name grey-text text-darken-2">@{{ name }}</div>
+			<div class="article grey-text">Артикул: @{{ article }}</div>
+			<div class="price">@{{ price }} руб</div>
+		</div>
+		<ul class="sizes">
+			<li :instock="value.instock" v-for="(value, index) in sizes">@{{ value.size }}</li>
+		</ul>
+	</li>
+</template>
 
 
 
@@ -248,6 +274,8 @@
 			mobileMenuIsOpened: false,
 			searchResultsIsOpened: false,
 			searchQuery: '',
+			searchResults: [],
+			ajaxStatus: { waiting: false },
 			forwhom: 'Мужской'
 		},
 		methods: {
@@ -258,6 +286,7 @@
 			},
 			updateProducts: function () {
 				if (!this.searchQuery) return;
+				this.ajaxStatus.waiting = true;
 				$.ajax({
 					url: '{{ route('search.process_ajax_query') }}',
 					type: 'POST',
@@ -267,13 +296,43 @@
 					},
 					cache: false,
 					success: (data) => {
-						console.log(data);
+						console.log(data[0]);
+						this.searchResults = data;
+						this.ajaxStatus.waiting = false;
 					},
 					error: (error) => {
 						M.toast({html: 'An error occurred', classes: 'red lighten-3 black-text'});
 						console.log(error);
+						this.ajaxStatus.waiting = false;
 					}
 				});
+			},
+			getPicture: function (picture) {
+				if (picture.length == 0) return '{{ asset('/image/no-image.jpg') }}';
+				else return picture[0].src;
+			}
+		},
+		computed: {
+			result_word: function () {
+				let ending = '';
+				let count = this.searchResults.length;
+				let lastDigit = count.toString().slice(-1);
+
+				switch (lastDigit) {
+					case '2': ending = 'а'; break;
+					case '3': ending = 'а'; break;
+					case '4': ending = 'а'; break;
+					case '5': ending = 'ов'; break;
+					case '6': ending = 'ов'; break;
+					case '7': ending = 'ов'; break;
+					case '8': ending = 'ов'; break;
+					case '9': ending = 'ов'; break;
+					case '0': ending = 'ов'; break;
+				}
+
+				if (count > 10 && count < 20) ending = 'ов';
+
+				return 'результат' + ending;
 			}
 		},
 		created: function () {
@@ -288,6 +347,12 @@
 			},
 			forwhom: function () {
 				this.updateProducts();
+			}
+		},
+		components: {
+			'search-result': {
+				template : '#search_result_template',
+				props: ['name', 'article', 'price', 'image', 'sizes']
 			}
 		}
 	});

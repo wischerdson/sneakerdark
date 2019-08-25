@@ -192,7 +192,7 @@ class CatalogUpdate extends Command
 	private function products() {
 		$this->comment('Products importing');
 
-		$old_count = Product::count();
+		$this->truncate_table(Product::class);
 		$new_count = $this->get_products_count();
 
 		$this->bar = $this->output->createProgressBar($new_count);
@@ -214,9 +214,6 @@ class CatalogUpdate extends Command
 			);
 			$this->bar->advance();
 		});
-
-		if ($new_count < $old_count)
-			Product::where('id', '>', $new_count)->delete();
 
 		$this->bar->finish();
 		$this->line('');

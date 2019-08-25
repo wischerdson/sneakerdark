@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Crypt;
+
 class HomeController extends Controller
 {
 	public function index() {
@@ -11,7 +13,6 @@ class HomeController extends Controller
 			'links' => ['/css/home.css'],
 			'scripts' => ['/js/slick.min.js'],
 			'title' => 'Sneakerdark',
-			// 'yml' => simplexml_load_file('http://bizoutmax.ru/price/export/4.yml')
 		]);
 	}
 }

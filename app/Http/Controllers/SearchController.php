@@ -9,6 +9,9 @@ use App\Product;
 
 class SearchController extends Controller
 {
+	private $forwhom;
+	private $search_query;
+
 	public function index(Request $request, $query = null) {
 		/*if ($request->isMethod('post'))
 		return $this->process_ajax_query($request->input('query'));*/
@@ -16,48 +19,25 @@ class SearchController extends Controller
 	}
 
 	public function process_ajax_query(Request $request) {
+		$this->search_query = $request->input('query');
+		$this->forwhom = $request->input('forwhom');
 
-		$search_query = $request->input('query');
-		$forwhom = $request->input('forwhom');
+		$matches = Product::where('article', $this->search_query)->with('pictures')->with('sizes')->get()->toArray();
 
-		if (preg_match('/^[0-9]+$/', $search_query)) {
-			$matches = Product::where('article', 'like', '%'.$search_query.'%')->get();
+		$matches += Product::where(function ($query) {
+			$query
+				->where('title', 'like', '%'.$this->search_query.'%')
+				->orWhere('model', 'like', '%'.$this->search_query.'%')
+				->orWhere('vendor', 'like', '%'.$this->search_query.'%');
+		})->whereHas('parameters', function ($query) {
+				$query->where('value', '=', $this->forwhom);
+		})
+			->with('pictures')
+			->with('sizes')
+			->get()
+			->toArray();
+		
 
-			return $matches;
-		}
-
-
-		$matches = Product::where('title', 'like', '%'.$search_query.'%')
-			->orWhere('model', 'like', '%'.$search_query.'%')
-			->orWhere('vendor', 'like', '%'.$search_query.'%')
-			->get();
-
-		return $request;
-		/*$query = $request->input('query');
-		$forwhom = $request->input('forwhom');
-
-		$bizoutmax = new Bizoutmax();
-
-		$products = $bizoutmax->get_products();
-		$products = $bizoutmax->whereParameter('Пол', $forwhom, $products);
-
-		return config('app.import_link');
-
-		$result = [];
-		foreach ($products as $product) {
-			if (
-				stripos($product->name, $query) !== false or
-				stripos($product->model, $query) !== false or
-				stripos($product->vendor, $query) !== false or
-				stripos($product->group_id, $query) !== false
-			) array_push($result, $product);
-		}
-		return $result;
-		return [
-			'html' => view('/sections/nav-search-result')->with([
-				'products' => $result
-			]),
-			'matches' => count($result)
-		];*/
+		return $matches;
 	}
 }
