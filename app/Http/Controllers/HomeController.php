@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Crypt;
-
-class HomeController extends Controller
+class HomeController extends SiteController
 {
-	public function index() {
-		return view('home')->with([
-			'links' => ['/css/home.css'],
-			'scripts' => ['/js/slick.min.js'],
-			'title' => 'Sneakerdark',
-		]);
-	}
+    public function index() {
+    	$this->template = 'home';
+    	$this->title = 'Sneakerdark';
+
+    	return $this->output();
+    }
 }

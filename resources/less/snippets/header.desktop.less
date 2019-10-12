@@ -1,66 +1,191 @@
 .desktop {
-	width: 100%;
-	max-width: @max-screen-width;
 	padding: 20px 10px;
-	margin: auto;
-	padding-bottom: 7px;
-	display: flex;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	-webkit-user-select: none;
+	padding-bottom: 0;
+	width: 100%;
+	max-width: 1400px;
+	margin: 0 auto;
 
-	.brand {
+	.top {
 		display: flex;
-		align-items: center;
-		color: black;
+		justify-content: space-between;
+		margin-bottom: 10px;
 
-		.brand-logo svg {
-			height: 46px;
-		}
-		.text {
-			margin-left: 20px;
+		.brand {
+			display: flex;
+			align-items: center;
+			color: black;
 
-			.brand-name svg {
-				height: 20px;
+			.brand-logo {
+				svg {
+					height: 40px;
+				}
 			}
-			.description {
-				margin-top: 3px;
-				font-size: .95rem;
+			.text {
+				margin-left: 20px;
+
+				.brand-name {
+					svg {
+						height: 17px;
+					}
+				}
+				.description {
+					margin-top: 3px;
+					font-size: 0.95rem;
+					font-weight: 300;
+				}
+			}
+		}
+		.contacts {
+			display: flex;
+
+			.label {
+				font-size: 1.2rem;
 				font-weight: 300;
+			}
+			.call {
+				.phone-number {
+					font-size: 2rem;
+					line-height: 1.7rem;
+					color: #000;
+					font-weight: 300;
+				}
+			}
+			.manager-contacts {
+				margin-left: 55px;
+
+				.variants {
+					display: flex;
+					justify-content: flex-end;
+
+					a {
+						&:not(:last-child) {
+							margin-right: 7px;
+						}
+						svg {
+							width: 21px;
+						}
+					}
+				}
 			}
 		}
 	}
-	.contacts {
-		margin-left: auto;
+	.bottom {
 		display: flex;
 		justify-content: space-between;
 
-		.label {
-			font-size: 1.1rem;
-			letter-spacing: .02rem;
-			font-weight: 300;
-		}
+		.left {
+			display: flex;
 
-		.call {
-			.phone-number {
-				font-size: 2.2rem;
-				line-height: 1.7rem;
-				color: black;
-				font-weight: 300;
+			.link-list {
+				display: flex;
+				position: relative;
+				transform: translateX(-5px);
+
+				.brand-logo-wrapper {
+					margin-right: 15px;
+					position: absolute;
+					top: 0;
+					left: 0;
+					bottom: 0;
+					overflow: hidden;
+
+					.brand-logo {
+						height: 50px;
+						display: flex;
+						align-items: center;
+						padding: 0 5px;
+						transition: transform 0.25s ease;
+						transform: translateX(-50px);
+
+						svg {
+							height: 35px;
+						}
+					}
+				}
+				.movable {
+					display: flex;
+					transition: transform 0.25s ease;
+					transform: translateX(0);
+
+					.link-item {
+						&:not(:last-child) {
+							margin-right: 15px;
+						}
+						a {
+							height: 50px;
+							display: flex;
+							align-items: center;
+							font-size: 1.1rem;
+							font-weight: 300;
+							color: black;
+							padding: 0 5px;
+							border-top: 2px solid transparent;
+
+							&:hover {
+								border-top: 2px solid #7122e3;
+							}
+						}
+						.submenu {
+							position: absolute;
+							display: none;
+							background-color: white;
+							box-shadow: 0 10px 30px 0 fade(black, 10%);
+
+							.submenu-item {
+								border-bottom: 1px solid #f0f0f0;
+
+								a {
+									height: max-content;
+									padding: 8px 14px;
+
+									&:hover {
+										color: #7122e3;
+										border-top: 2px solid transparent;
+									}
+								}
+							}
+						}
+						&:hover .submenu {
+							display: block;
+						}
+					}
+				}
 			}
 		}
-		.manager-contacts {
-			margin-left: 35px;
+		.right {
+			display: flex;
+			align-items: center;
 
-			.variants {
-				display: flex;
-				justify-content: flex-end;
+			.search {
+				position: relative;
 
-				a {
-					svg { width: 27px; }
-					&:not(:last-child) { margin-right: 7px; }
+				.prefix {
+					position: absolute;
+					top: 0;
+					left: 0;
+					bottom: 0;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 36.8px;
+
+					svg {
+						width: 20px;
+						height: 20px;
+						fill: #565759;
+					}
 				}
+				input {
+					background-color: #eeeff4;
+					border-radius: 4px;
+					padding: 10px 20px;
+					padding-left: 37px;
+					font-size: 1rem;
+					font-weight: 300;
+				}
+			}
+			& > *:not(:last-child) {
+				margin-right: 14px;
 			}
 		}
 	}

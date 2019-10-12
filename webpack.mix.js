@@ -1,38 +1,10 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
 
-/*const LessPluginCleanCSS = require('less-plugin-clean-css');
-const LessPluginAutoPrefix = require('less-plugin-autoprefix');
-let autoprefixPlugin = new LessPluginAutoPrefix({
-	browsers: ['last 2 versions'],
-	cascade: false
-});
-let cleanCSSPlugin = new LessPluginCleanCSS({
-	advanced: true,
-	level: {
-		1: {
-			specialComments: 0
-		}
-	}
-});*/
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
-*/
+mix.setPublicPath('public_html/')
+mix.less('resources/less/app.less', 'css')
 
-mix
-.less('resources/less/home.less', 'public/css')
-/*.less('resources/less/account.less', 'public/css')
-.less('resources/less/account.auth.login.less', 'public/css')
-.less('resources/less/account.auth.register.less', 'public/css')*/
-
-.options({
+/*mix.options({
 	postCss: [
 		require('cssnano')({
 			preset: ['default', {
@@ -44,7 +16,16 @@ mix
 		require("css-mqpacker")(),
 		require('autoprefixer')
 	]
-});
+});*/
 
-mix.browserSync('sd.loc');
-mix.disableNotifications();
+mix.js('resources/js/app.js', 'js/v-app.js')
+mix.combine([
+	'resources/js/modules/jquery.min.js',
+	'resources/js/modules/bootstrap.min.js',
+	'resources/js/modules/materialize.min.js',
+	'resources/js/modules/slick.min.js',
+	'public_html/js/v-app.js'
+], 'public_html/js/app.js')
+
+// mix.browserSync('socialrate.ru');
+// mix.disableNotifications();

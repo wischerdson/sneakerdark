@@ -1,0 +1,45 @@
+.form-group {
+	input[type="checkbox"] {
+		display: none;
+
+		&:checked + .checkbox .checkbox-body {
+			background-color: #273444;
+
+			svg {
+				fill: #fff;
+			}
+		}
+		&:disabled + .checkbox .checkbox-body {
+			opacity: .4;
+		}
+	}
+	label {
+		display: flex;
+		width: max-content;
+		align-items: center;
+		cursor: pointer;
+
+		.checkbox-body {
+			width: 15px;
+			height: 15px;
+			border-radius: 3px;
+			background-color: transparent;
+			border: 1px solid #273444;
+			margin-right: 5px;
+			transition: all .1s ease-in-out;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			svg {
+				fill: transparent;
+				height: 12px;
+				transition: all .1s ease-in-out;
+			}
+		}
+		span {
+			font-size: .9rem;
+			font-weight: 500;
+		}
+	}
+}
