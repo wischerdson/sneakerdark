@@ -2,23 +2,38 @@
 	.form-control {
 		display: block;
 		width: 100%;
-		border: 1px solid #ced4da;
-		color: #495057;
-		transition: all 0.15s ease-in-out;
-		background: transparent;
-		border-radius: 5px;
-		padding: 10px;
+		color: black;
+		background: white;
+		border-radius: 4px;
+		padding: 10px 20px;
 		font-weight: 300;
 		-webkit-appearance: none;
 		font-size: 1rem;
-		margin-top: 5px;
 
-		&:focus {
-			border: 1px solid #273444;
-		}
 		&[invalid] {
 			border: 1px solid red;
-			// box-shadow: 0 0 6px -2px red;
+		}
+	}
+	.field {
+		position: relative;
+
+		.postfix, .prefix {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			svg {
+				width: 20px;
+				height: 20px;
+			}
+		}
+		.prefix {
+			left: 0;
+			right: initial;
 		}
 	}
 	textarea.form-control {

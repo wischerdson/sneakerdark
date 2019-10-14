@@ -1,16 +1,13 @@
 <script type="text/javascript">
 	
+	import Search from './Search'
+
 	export default {
 		template: '#template__section_header',
 		data () {
 			return {
 				isMoving: false,
-				sidebarIsOpen: false,
-				searchResultsIsOpened: false,
-				searchQuery: '',
-				searchResults: [],
-				ajaxStatus: { waiting: false },
-				forwhom: 'Мужской'
+				sidebarIsOpen: false
 			}
 		},
 		methods: {
@@ -24,7 +21,12 @@
 				$(this.$refs['wrapper']).css('height', this.$refs[list].offsetHeight);
 				$(this.$refs[list]).removeClass('hidden-left').removeClass('hidden-right');
 				$(this.$refs[outgoingList]).addClass(whereToGo);
-			},
+			}
+		},
+		watch: {
+			"this.$store.state.searchQuery" (value) {
+				console.log(value)
+			}
 		},
 		mounted () {
 			this.set_isMoving()

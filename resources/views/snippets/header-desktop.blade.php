@@ -66,7 +66,13 @@
 		<div class="right">
 			<div class="search">
 				<div class="prefix">@include('svg.magnifying-glass')</div>
-				<input type="text" name="search" placeholder="Поиск">
+				<input
+					type="text"
+					name="search"
+					placeholder="Поиск"
+					v-model="$store.state.searchQuery"
+					@focus="$store.commit('searchIsOpen', true)"
+				>
 			</div>
 			<a href="#" class="btn primary">
 				@include('svg.user')

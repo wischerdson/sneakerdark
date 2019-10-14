@@ -57,6 +57,7 @@
 		<template id="template__layout">
 			<div>
 				<section-header></section-header>
+				<section-search url="{{ route('search.ajax') }}"></section-search>
 				<main>
 					<{{ str_replace('.', '-', $template) }}-page></{{ str_replace('.', '-', $template) }}-page>
 				</main>
@@ -64,6 +65,7 @@
 			</div>
 		</template>
 		@include('sections.header')
+		@include('sections.search')
 		@include('templates.'.$template)
 		@include('sections.footer')
 	</div>

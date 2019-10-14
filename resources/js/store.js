@@ -7,10 +7,16 @@ Vue.use(VueResource)
 
 export default new Vuex.Store({
 	state: {
-		
+		searchIsOpen: true,
+		searchQuery: ''
 	},
 	mutations: {
-		
+		searchIsOpen (state, payload) {
+			state.searchIsOpen = payload
+		},
+		searchQuery (state, payload) {
+			state.searchQuery = payload
+		}
 	},
 	getters: {
 		

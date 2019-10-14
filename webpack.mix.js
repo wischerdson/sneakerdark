@@ -23,6 +23,9 @@ mix.combine([
 	'resources/js/modules/jquery.min.js',
 	'resources/js/modules/bootstrap.min.js',
 	'resources/js/modules/materialize.min.js',
+	'resources/js/modules/materialize.anime.min.js',
+	'resources/js/modules/materialize.cash.js',
+	'resources/js/modules/materialize.toasts.js',
 	'resources/js/modules/slick.min.js',
 	'public_html/js/v-app.js'
 ], 'public_html/js/app.js')

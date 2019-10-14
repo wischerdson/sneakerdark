@@ -2,11 +2,24 @@
 	background-color: white;
 	position: sticky;
 	top: -75.5px;
+	transition: transform .3s ease;
 
 	@import "../snippets/header.desktop.less";
 	@import "../snippets/header.mobile.less";
 
 	&.moving {
+		transform: translateY(0) !important;
+
+		.brand-logo {
+			transform: translateX(0) !important;
+		}
+		.movable {
+			transform: translateX(50px) !important;
+		}
+	}
+	&.searchIsOpen {
+		transform: translateY(-75.5px);
+
 		.brand-logo {
 			transform: translateX(0) !important;
 		}

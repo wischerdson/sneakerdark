@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 
 class SearchController extends Controller
 {
@@ -23,27 +24,28 @@ class SearchController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id)
+	public function show(Request $request)
 	{
-		$this->search_query = $request->input('query');
-		$this->forwhom = $request->input('forwhom');
+		$searchQuery = $request->input('query');
+		$gender = $request->input('gender');
 
-		$matches = Product::where('article', $this->search_query)->with('pictures')->with('sizes')->get()->toArray();
+		if (!$searchQuery) return;
 
-		$matches += Product::where(function ($query) {
+		$matches = Product::where('article', $searchQuery)->with('pictures')->with('sizes')->get()->toArray();
+
+		$matches += Product::where(function ($query) use ($searchQuery) {
 			$query
-				->where('title', 'like', '%'.$this->search_query.'%')
-				->orWhere('model', 'like', '%'.$this->search_query.'%')
-				->orWhere('vendor', 'like', '%'.$this->search_query.'%');
-		})->whereHas('parameters', function ($query) {
-				$query->where('value', '=', $this->forwhom);
+				->where('title', 'like', '%'.$searchQuery.'%')
+				->orWhere('model', 'like', '%'.$searchQuery.'%')
+				->orWhere('vendor', 'like', '%'.$searchQuery.'%');
+		})->whereHas('parameters', function ($query) use ($gender) {
+				$query->where('value', '=', $gender);
 		})
 			->with('pictures')
 			->with('sizes')
 			->get()
 			->toArray();
 		
-
 		return $matches;
 	}
 }
