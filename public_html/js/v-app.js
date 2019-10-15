@@ -197,17 +197,24 @@ var searchQueryTimeout;
   props: ['url'],
   data: function data() {
     return {
-      searchResults: [],
+      results: [],
+      query: '',
       ajaxStatus: {
         waiting: false
       },
-      gender: 'Мужской'
+      gender: 'Мужской',
+      resultsNumber: 0,
+      totalResults: ''
     };
   },
   methods: {
-    search: function search(query) {
+    search: function search() {
+      var _this = this;
+
+      if (!this.query) return;
+      this.ajaxStatus.waiting = true;
       var data = {
-        query: query,
+        query: this.query,
         gender: this.gender
       };
       this.$http.get(this.url, {
@@ -215,43 +222,22 @@ var searchQueryTimeout;
       }).then(function (response) {
         return response.body;
       }).then(function (data) {
+        _this.ajaxStatus.waiting = false;
+        _this.results = data.results;
+        _this.totalResults = data.results_number + ' ' + data.subject;
+        _this.resultsNumber = data.results_number;
         console.log(data);
       }, function (err) {
+        _this.ajaxStatus.waiting = false;
+        console.log(err);
         M.toast({
           html: 'Произошла ошибка',
           classes: 'error-toast'
         });
-        console.log(err);
       });
-      /*if (!this.searchQuery) return;
-      this.ajaxStatus.waiting = true;
-      $.ajax({
-      	url: '{{ route('search.process_ajax_query') }}',
-      	type: 'POST',
-      	data: {
-      		query: this.searchQuery,
-      		forwhom: this.forwhom
-      	},
-      	cache: false,
-      	success: (data) => {
-      		console.log(data[0]);
-      		this.searchResults = data;
-      		this.ajaxStatus.waiting = false;
-      	},
-      	error: (error) => {
-      		M.toast({html: 'An error occurred', classes: 'red lighten-3 black-text'});
-      		console.log(error);
-      		this.ajaxStatus.waiting = false;
-      	}
-      });*/
     },
-    set_isOpen: function set_isOpen(value) {
-      console.log(this);
-      this.isOpen = value;
-    },
-    getPicture: function getPicture(picture) {
-      /*if (picture.length == 0) return '{{ asset('/image/no-image.jpg') }}';
-      else return picture[0].src;*/
+    getPicture: function getPicture(picture, noImageUrl) {
+      return picture.length ? picture[0].src : noImageUrl;
     }
   },
   watch: {
@@ -261,12 +247,12 @@ var searchQueryTimeout;
   },
   computed: {
     searchQuery: function searchQuery() {
-      var _this = this;
+      var _this2 = this;
 
-      var query = this.$store.state.searchQuery;
+      this.query = this.$store.state.searchQuery;
       clearTimeout(searchQueryTimeout);
       searchQueryTimeout = setTimeout(function () {
-        _this.search(query);
+        _this2.search();
       }, 700);
     },
     isOpen: function isOpen() {
@@ -301,6 +287,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -825,37 +817,38 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("li", { staticClass: "product" }, [
-    _c("div", { staticClass: "image" }, [
-      _c("div", {
-        staticClass: "content",
-        style: "background-image: url(" + _vm.image + ")"
-      })
+    _c("div", { staticClass: "image square" }, [
+      _c("div", { style: "background-image: url(" + _vm.image + ")" })
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "text" }, [
-      _c("div", { staticClass: "name grey-text text-darken-2" }, [
-        _vm._v("@" + _vm._s(_vm.name))
-      ]),
+    _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v(_vm._s(_vm.name))]),
       _vm._v(" "),
-      _c("div", { staticClass: "article grey-text" }, [
-        _vm._v("Артикул: @" + _vm._s(_vm.article))
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "price" }, [
-        _vm._v("@" + _vm._s(_vm.price) + " руб")
+      _c("div", { staticClass: "other" }, [
+        _c("div", { staticClass: "text" }, [
+          _c("div", { staticClass: "article" }, [
+            _vm._v("Артикул: " + _vm._s(_vm.article))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "price" }, [
+            _vm._v(_vm._s(_vm.price) + " руб")
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "ul",
+          { staticClass: "sizes" },
+          _vm._l(_vm.sizes, function(value, index) {
+            return _c(
+              "li",
+              { staticClass: "size-item", attrs: { instock: value.instock } },
+              [_vm._v(_vm._s(value.size))]
+            )
+          }),
+          0
+        )
       ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "ul",
-      { staticClass: "sizes" },
-      _vm._l(_vm.sizes, function(value, index) {
-        return _c("li", { attrs: { instock: value.instock } }, [
-          _vm._v("@" + _vm._s(value.size))
-        ])
-      }),
-      0
-    )
+    ])
   ])
 }
 var staticRenderFns = []

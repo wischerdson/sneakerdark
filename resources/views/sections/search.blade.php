@@ -20,37 +20,41 @@
 			<div class="for-whom">
 				<div class="content">
 					<div class="item">
-						<input type="radio" v-model="gender" name="forwhom" id="her" value="Женский">
+						<input type="radio" v-model="gender" name="gender" id="her" value="Женский">
 						<label for="her">Для нее</label>
 					</div>
 					<div class="item">
-						<input type="radio" v-model="gender" name="forwhom" id="him" value="Мужской">
+						<input type="radio" v-model="gender" name="gender" id="him" value="Мужской">
 						<label for="him">Для него</label>
 					</div>
-					<div class="count-matches" v-show="!ajaxStatus.waiting && (searchQuery || searchResults.length)">Найдено @{{ searchResults.length }}</div>
+					<div class="count-matches" v-show="!ajaxStatus.waiting && (searchQuery || resultsNumber)">Найдено @{{ totalResults }}</div>
 				</div>
 			</div>
 			<div class="body">
-				<div class="field-is-empty-notice" v-if="!searchQuery && !searchResults.length">
+				<div class="field-is-empty-notice" v-if="!query && !resultsNumber">
 					<center>
 						@include('svg.magnifying-glass')
 						<p>Введите поисковый запрос</p>
 						<p>Например "Кроссовки Adidas Yeezy 350"</p>
 					</center>
 				</div>
+				<div class="no-results-notice" v-if="!resultsNumber && query && totalResults && !ajaxStatus.waiting">
+					<center>
+						<p>По Вашему запросу не было найдено ни одного товара</p>
+					</center>
+				</div>
 				<div v-if="ajaxStatus.waiting" class="preloader-wrapper"><div class="preloader"></div></div>
-				<ul class="results" v-if="searchResults && !ajaxStatus.waiting">
+				<ul class="results" v-if="results && !ajaxStatus.waiting">
 					<snippet-search-result
-						v-for="(value, index) in searchResults"
-						v-if="index < 11"
+						v-for="(value, index) in results"
 						:name="value.title"
 						:article="value.article"
 						:price="value.price"
-						:image="getPicture(value.pictures)"
+						:image="getPicture(value.pictures, '{{ asset('/image/no-image.jpg') }}')"
 						:sizes="value.sizes"
 						:key="index"
 					></snippet-search-result>
-					<a href="#" v-show="searchResults.length > 10" class="show-all-results"><span>Посмотреть все результаты &#8594;</span></a>
+					<a href="#" v-if="resultsNumber > 9" class="show-all-results btn primary">Посмотреть все результаты  &#8594;</a>
 				</ul>
 			</div>
 			<!-- <a href="#" class="show-all-results-line" v-show="searchResults.length > 0">

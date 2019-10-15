@@ -45,7 +45,12 @@ class SearchController extends Controller
 			->with('sizes')
 			->get()
 			->toArray();
-		
-		return $matches;
+
+		$resultsNumber = count($matches);
+		$subject = smart_ending(count($matches), ['', 'а', 'ов'], 'результат');
+
+		$matches = $matches > 10 ? array_slice($matches, 0, 10) : $matches;
+
+		return ['results' => $matches, 'results_number' => $resultsNumber, 'subject' => $subject];
 	}
 }

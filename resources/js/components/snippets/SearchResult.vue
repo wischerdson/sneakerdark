@@ -1,18 +1,24 @@
-<template id="search_result_template">
+<template>
 	<li class="product">
-		<div class="image">
-			<div class="content"
-			:style="`background-image: url(${ image })`"
-			></div>
+		<div class="image square">
+			<div :style="`background-image: url(${ image })`"></div>
 		</div>
-		<div class="text">
-			<div class="name grey-text text-darken-2">@{{ name }}</div>
-			<div class="article grey-text">Артикул: @{{ article }}</div>
-			<div class="price">@{{ price }} руб</div>
+		<div class="details">
+			<div class="name">{{ name }}</div>
+			<div class="other">
+				<div class="text">
+					<div class="article">Артикул: {{ article }}</div>
+					<div class="price">{{ price }} руб</div>
+				</div>
+				<ul class="sizes">
+					<li
+						class="size-item"
+						:instock="value.instock"
+						v-for="(value, index) in sizes"
+					>{{ value.size }}</li>
+				</ul>
+			</div>
 		</div>
-		<ul class="sizes">
-			<li :instock="value.instock" v-for="(value, index) in sizes">@{{ value.size }}</li>
-		</ul>
 	</li>
 </template>
 
