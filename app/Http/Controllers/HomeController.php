@@ -12,4 +12,8 @@ class HomeController extends SiteController
 
     	return $this->output();
     }
+
+    public function badbrowser() {
+    	return view('templates.badbrowser');
+    }
 }

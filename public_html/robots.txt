@@ -1,2 +1,6 @@
+# robots.txt for https://sneakerdark.ru/
+
+Host: https://sneakerdark.ru/
+
 User-agent: *
-Disallow:
+Disallow: /badbrowser

@@ -1,0 +1,68 @@
+#template_badbrowser {
+	background-color: black;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+
+	.brand-logo {
+		svg {
+			margin: auto;
+			width: 100px;
+			fill: #474747;
+		}
+	}
+	.text {
+		margin-top: 50px;
+		color: white;
+		text-align: center;
+		
+
+		h2 {
+			font-weight: 400;
+			margin-bottom: 25px;
+			font-size: 2rem;
+		}
+		p {
+			max-width: 480px;
+			font-size: 1.4rem;
+		}
+	}
+	.good-browsers {
+		display: flex;
+		margin-top: 40px;
+
+		a {
+			text-align: center;
+			color: white;
+
+			.image {
+				width: 70px;
+				height: 70px;
+				margin: 0 auto;
+				background-position: center;
+				background-size: contain;
+				background-repeat: no-repeat;
+			}
+			.tag {
+				margin-top: 10px;
+			}
+
+			&:not(:last-child) {
+				margin-right: 50px;
+			}
+
+			@media (max-width: 370px) {
+				.image {
+					width: 55px;
+					height: 55px;
+				}
+				&:not(:last-child) {
+					margin-right: 20px;
+				}
+			}
+		}
+	}
+}
