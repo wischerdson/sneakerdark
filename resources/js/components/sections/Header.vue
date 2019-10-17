@@ -21,6 +21,13 @@
 				$(this.$refs['wrapper']).css('height', this.$refs[list].offsetHeight);
 				$(this.$refs[list]).removeClass('hidden-left').removeClass('hidden-right');
 				$(this.$refs[outgoingList]).addClass(whereToGo);
+			},
+			openSearch () {
+				this.$store.commit('searchIsOpen', true)
+				this.sidebarIsOpen = false
+				setTimeout(() => {
+					document.getElementById('searchField').focus()
+				}, 5)
 			}
 		},
 		watch: {

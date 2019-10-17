@@ -1,4 +1,4 @@
-<template id="template__template_home">
+<template id="template__home">
 	<div id="template_home">
 		<section-welcome></section-welcome>
 		<section-collections></section-collections>

@@ -2,6 +2,8 @@
 
 return [
 
+    'import_link' => 'http://bizoutmax.ru/price/full_drop_7812ee680e5448beda137a34dc8d8b8a.yml',
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

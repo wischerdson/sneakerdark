@@ -31,7 +31,7 @@
 				</div>
 				<ul class="movable">
 					<li class="link-item">
-						<a href="#">Главная</a>
+						<a href="{{ route('home') }}">Главная</a>
 					</li>
 					<li class="link-item">
 						<a href="#">Бренды</a>

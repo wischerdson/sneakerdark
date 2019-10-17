@@ -51,6 +51,14 @@ class SearchController extends Controller
 
 		$matches = $matches > 10 ? array_slice($matches, 0, 10) : $matches;
 
-		return ['results' => $matches, 'results_number' => $resultsNumber, 'subject' => $subject];
+		foreach ($matches as $key => $value) {
+			$matches[$key]['url'] = route('shop.product', ['product_id' => $value['article']]);
+		}
+
+		return [
+			'results' => $matches,
+			'results_number' => $resultsNumber,
+			'subject' => $subject
+		];
 	}
 }

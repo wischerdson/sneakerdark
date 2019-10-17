@@ -1,0 +1,43 @@
+#template_shop_product {
+	margin-top: 50px;
+	margin-bottom: 200px;
+
+	.top {
+		display: grid;
+		grid-template-columns: 1fr .8fr;
+		grid-gap: 40px;
+
+		.images {
+			.main-image {
+				border: 1px solid #d7d7d7;
+
+				& > div {
+					background-position: center;
+					background-size: contain;
+					background-repeat: no-repeat;
+				}
+			}
+		}
+		.text {
+			.vendor {
+				text-transform: uppercase;
+				font-size: 1.1rem;
+				margin-bottom: 8px;
+			}
+			h2 {
+				font-weight: 500;
+				font-size: 1.4rem;
+				color: fade(black, 80%);
+			}
+			.price {
+				margin-top: 15px;
+				font-weight: 500;
+				color: #6114d4;
+				font-size: 1.4rem;
+			}
+			.parameter-list {
+				margin-top: 40px;
+			}
+		}
+	}
+}

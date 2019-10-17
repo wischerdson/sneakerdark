@@ -10,6 +10,7 @@
 								type="text"
 								class="search-field form-control"
 								placeholder="Поиск по названию, модели, бренду или артикулу"
+								id="searchField"
 							>
 							<div class="postfix">@include('svg.magnifying-glass')</div>
 						</div>
@@ -53,6 +54,7 @@
 						:image="getPicture(value.pictures, '{{ asset('/image/no-image.jpg') }}')"
 						:sizes="value.sizes"
 						:key="index"
+						:url="value.url"
 					></snippet-search-result>
 					<a href="#" v-if="resultsNumber > 9" class="show-all-results btn primary">Посмотреть все результаты  &#8594;</a>
 				</ul>

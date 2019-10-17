@@ -6,7 +6,7 @@
 				<div class="h-line"></div>
 			</div>
 		</div>
-		<div class="search square-button">
+		<div class="search square-button" @click="openSearch">
 			<div class="icon">
 				@include('svg.magnifying-glass')
 			</div>
@@ -50,7 +50,12 @@
 				</div>
 				<div class="search">
 					<div class="prefix">@include('svg.magnifying-glass')</div>
-					<input placeholder="Введите Ваш запрос" type="text">
+					<input
+						placeholder="Введите Ваш запрос"
+						type="text"
+						v-model="$store.state.searchQuery"
+						@focus="openSearch"
+					>
 				</div>
 			</div>
 			<div ref="wrapper" class="middle" id="sidebar_wrapper">

@@ -3,6 +3,7 @@
 	position: sticky;
 	top: -75.5px;
 	transition: transform .3s ease, top .3s ease;
+	z-index: 100;
 
 	@import "../snippets/header.desktop.less";
 	@import "../snippets/header.mobile.less";
@@ -24,6 +25,10 @@
 		}
 		.movable {
 			transform: translateX(50px) !important;
+		}
+
+		@media (max-width: 1140px) {
+			transform: translateY(0);
 		}
 	}
 	@media (max-width: 1140px) {

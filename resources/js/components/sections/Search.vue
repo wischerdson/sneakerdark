@@ -29,7 +29,6 @@
 					this.results = data.results
 					this.totalResults = data.results_number + ' ' + data.subject
 					this.resultsNumber = data.results_number
-					console.log(data)
 				}, err => {
 					this.ajaxStatus.waiting = false
 					console.log(err)
