@@ -28,7 +28,7 @@
 						<input type="radio" v-model="gender" name="gender" id="him" value="Мужской">
 						<label for="him">Для него</label>
 					</div>
-					<div class="count-matches" v-show="!ajaxStatus.waiting && (searchQuery || resultsNumber)">Найдено @{{ totalResults }}</div>
+					<div class="count-matches" v-if="!ajaxStatus.waiting && resultsNumber">Найдено @{{ totalResults }}</div>
 				</div>
 			</div>
 			<div class="body">
@@ -39,7 +39,7 @@
 						<p>Например "Кроссовки Adidas Yeezy 350"</p>
 					</center>
 				</div>
-				<div class="no-results-notice" v-if="!resultsNumber && query && totalResults && !ajaxStatus.waiting">
+				<div class="no-results-notice" v-if="notFound">
 					<center>
 						<p>По Вашему запросу не было найдено ни одного товара</p>
 					</center>
@@ -56,12 +56,9 @@
 						:key="index"
 						:url="value.url"
 					></snippet-search-result>
-					<a href="#" v-if="resultsNumber > 9" class="show-all-results btn primary">Посмотреть все результаты  &#8594;</a>
+					<a :href="`{{ route('search', ['query' => '']) }}/${query}`" v-if="resultsNumber > 9" class="show-all-results btn primary">Посмотреть все результаты  &#8594;</a>
 				</ul>
 			</div>
-			<!-- <a href="#" class="show-all-results-line" v-show="searchResults.length > 0">
-				<div class="content">Посмотреть все результаты &#8594;</div>
-			</a> -->
 		</div>
 	</transition>
 </template>

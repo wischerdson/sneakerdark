@@ -1,8 +1,7 @@
 {
     "private": true,
     "browserslist": [
-        "> 1%",
-        "ie > 9"
+        "defaults"
     ],
     "scripts": {
         "dev": "npm run development",

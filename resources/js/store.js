@@ -15,6 +15,7 @@ export default new Vuex.Store({
 			state.searchIsOpen = payload
 		},
 		searchQuery (state, payload) {
+			alert()
 			state.searchQuery = payload
 		}
 	},

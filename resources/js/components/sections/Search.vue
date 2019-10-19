@@ -12,13 +12,15 @@
 				ajaxStatus: { waiting: false },
 				gender: 'Мужской',
 				resultsNumber: 0,
-				totalResults: ''
+				totalResults: '',
+				notFound: false
 			}
 		},
 		methods: {
 			search () {
 				if (!this.query) return
 				this.ajaxStatus.waiting = true
+				this.notFound = false
 
 				const data = {
 					query: this.query,
@@ -29,6 +31,7 @@
 					this.results = data.results
 					this.totalResults = data.results_number + ' ' + data.subject
 					this.resultsNumber = data.results_number
+					this.notFound = !this.resultsNumber
 				}, err => {
 					this.ajaxStatus.waiting = false
 					console.log(err)
@@ -42,16 +45,16 @@
 		watch: {
 			gender () {
 				this.search(this.$store.state.searchQuery)
-			}
-		},
-		computed: {
-			searchQuery () {
-				this.query = this.$store.state.searchQuery
+			},
+			'$store.state.searchQuery' (value) {
+				this.query = value
 				clearTimeout(searchQueryTimeout)
 				searchQueryTimeout = setTimeout(() => {
 					this.search()
 				}, 700)
-			},
+			}
+		},
+		computed: {
 			isOpen () {
 				return this.$store.state.searchIsOpen
 			}

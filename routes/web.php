@@ -9,4 +9,5 @@ Route::get('search', ['uses' => 'SearchController@show', 'as' => 'search.ajax'])
 
 Route::group(['prefix' => 'shop'], function () {
 	Route::get('product/{product_id}', ['uses' => 'Shop\ProductController@show', 'as' => 'shop.product']);
+	Route::get('collection', ['uses' => 'Shop\CollectionController@show', 'as' => 'shop.collection']);
 });
