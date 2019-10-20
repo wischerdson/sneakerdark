@@ -1243,21 +1243,57 @@ svg {
   background-size: contain;
   background-repeat: no-repeat;
 }
-#template_shop_product .top .text .vendor {
+#template_shop_product .top .text > .vendor {
   text-transform: uppercase;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  font-weight: 500;
 }
 #template_shop_product .top .text h2 {
-  font-weight: 500;
-  font-size: 1.4rem;
+  font-weight: 400;
+  font-size: 1.6rem;
   color: rgba(0, 0, 0, 0.8);
 }
-#template_shop_product .top .text .price {
+#template_shop_product .top .text .info {
+  display: flex;
+  align-items: center;
+  color: #9d9d9d;
+  margin-top: 20px;
+}
+#template_shop_product .top .text .info .in-stock {
+  background-color: #41d651;
+  color: white;
+  padding: 3px 10px;
+  margin-left: 20px;
+  border-radius: 3px;
+}
+#template_shop_product .top .text .price-wrapper {
+  display: flex;
+  align-items: center;
   margin-top: 15px;
+  font-size: 2.5rem;
+}
+#template_shop_product .top .text .price-wrapper .price {
   font-weight: 500;
-  color: #6114d4;
-  font-size: 1.4rem;
+  color: black;
+}
+#template_shop_product .top .text .price-wrapper .compare-at-price {
+  font-weight: 500;
+  margin-left: 20px;
+  color: #949597;
+  position: relative;
+}
+#template_shop_product .top .text .price-wrapper .compare-at-price .strike {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #949597;
+  top: 22px;
+}
+#template_shop_product .top .text .price-wrapper .rub {
+  font-size: 2.4rem;
+  margin-left: 5px;
 }
 #template_shop_product .top .text .parameter-list {
   margin-top: 40px;
