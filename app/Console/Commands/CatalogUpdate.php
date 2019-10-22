@@ -84,7 +84,7 @@ class CatalogUpdate extends Command
 						'size' => (string) $value,
 						'instock' => $product->outlets->outlet[0]['instock'] < 0 ? 0 : $product->outlets->outlet[0]['instock'],
 						'available' => $product['available'] ? 1 : 0,
-						'bitoutmax_id' => $product['id'],
+						'bizoutmax_id' => $product['id'],
 						'delivery' => $product->delivery ? 1 : 0
 					]);
 					$this->bar->advance();

@@ -1,17 +1,36 @@
-<template id="template__shop_product">
+<template id="template__shop_product" >
 	<div class="container" id="template_shop_product">
 		<div class="top">
-
-			<div class="images">
-				<div class="main-image square">
-					<div style="background-image: url({{ $product->pictures[0]->src }})"></div>
+			<div class="left" ref="presentation">
+				<div class="frame">
+					<div class="arrow-nav">
+						<div class="arrow" ref="sliderPrevArrow">@include('svg.keyboard-arrow-left')</div>
+					</div>
+					<div ref="pictures">
+						@foreach ($product->pictures as $picture)
+						<div class="image" style="background-image: url({{ $picture->src }})"></div>
+						@endforeach
+					</div>
+					<div class="arrow-nav">
+						<div class="arrow" ref="sliderNextArrow">@include('svg.keyboard-arrow-right')</div>
+					</div>
 				</div>
-				<ul class="image-list">
-					<li class="image-item"></li>
-				</ul>
+				<div class="slider-navigation" ref="sliderNavigation">
+					@foreach ($product->pictures as $picture)
+					<div class="mini-image" style="background-image: url({{ $picture->src }})"></div>
+					@endforeach
+				</div>
 			</div>
-			<div class="text">
-				<div class="vendor">{{ $product->vendor }}</div>
+			<div class="right">
+				<div class="vendor">
+					<span>{{ $product->vendor }}</span>
+					<div class="price-wrapper">
+						<div class="price">{{ $product->price }}</div>
+						<div class="compare-at-price">
+							{{ $product->price  * 4 }}
+						</div>
+					</div>
+				</div>
 				<h2>{{ $product->title }}</h2>
 				<div class="info">
 					<div class="article">Артикул: <span>{{ $product->article }}</span></div>
@@ -19,14 +38,8 @@
 					<div class="vendor">{{ $product->vendor }}</div>
 					<div class="in-stock">В наличии</div>
 				</div>
-				<div class="price-wrapper">
-					<div class="price">{{ $product->price }}<span class="rub">₽</span></div>
-					<div class="compare-at-price">
-						{{ $product->price  * 4 }}
-						<span class="rub">₽</span>
-						<div class="strike"></div>
-					</div>
-				</div>
+				
+				{{--
 				<ul class="parameter-list">
 					@foreach ($product->parameters as $parameter)
 					<li class="parameter-item">
@@ -35,9 +48,41 @@
 					</li>
 					@endforeach
 				</ul>
+				--}}
+
+				<div class="sizes-wrapper">
+					<div class="title">Размер</div>
+					<ul class="size-list">
+						@foreach ($product->sizes as $size)
+							@if ($size->instock !== 0)
+								<li class="size-item" instock="{{ $size->instock }}">
+									<input
+										type="radio"
+										name="size"
+										id="size_{{ $size->bizoutmax_id }}"
+									>
+									<label for="size_{{ $size->bizoutmax_id }}">
+										{{ $size->size }}
+									</label>
+									@if ($size->instock === 1)
+									<div class="tip">Осталась 1 шт.</div>
+									@endif
+								</li>
+							@endif
+						
+						@endforeach
+					</ul>
+				</div>
+				
+
+				<div class="buttons">
+					<div class="btn primary buy">Оформить заказ</div>
+					<div class="btn primary add-to-cart">Добавить в корзину</div>
+				</div>
+			</div>
 		</div>
 		<div class="bottom">
-			<div class="description">Описание: <br>{!! $product->description !!}<script type="text/javascript">alert('Атака')</script></div>
+			<div class="description">Описание: <br>{!! $product->description !!}</div>
 		</div>
 	</div>
 </template>

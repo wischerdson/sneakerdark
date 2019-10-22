@@ -65,7 +65,10 @@ class SearchController extends SiteController
 			$query
 				->where('title', 'like', '%'.$searchQuery.'%')
 				->orWhere('model', 'like', '%'.$searchQuery.'%')
-				->orWhere('vendor', 'like', '%'.$searchQuery.'%');
+				->orWhere('vendor', 'like', '%'.$searchQuery.'%')
+				->orWhereHas('parameters', function ($pQuery) use ($searchQuery) {
+					$pQuery->where('value', 'like', '%'.$searchQuery.'%');
+				});
 		})->whereHas('parameters', function ($query) use ($gender) {
 				$query->where('value', '=', $gender);
 		})

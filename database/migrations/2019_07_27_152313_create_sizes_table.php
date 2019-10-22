@@ -18,7 +18,7 @@ class CreateSizesTable extends Migration
             $table->string('size', 20);
             $table->integer('instock')->unsigned();
             $table->boolean('available');
-            $table->string('bitoutmax_id', 50);
+            $table->string('bizoutmax_id', 50);
             $table->boolean('delivery');
             $table->bigInteger('product_id')->unsigned();
 
