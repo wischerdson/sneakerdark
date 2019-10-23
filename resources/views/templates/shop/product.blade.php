@@ -6,9 +6,20 @@
 					<div class="arrow-nav">
 						<div class="arrow" ref="sliderPrevArrow">@include('svg.keyboard-arrow-left')</div>
 					</div>
-					<div ref="pictures">
+					<div ref="pictures" @mousedown="enableZoom">
 						@foreach ($product->pictures as $picture)
-						<div class="image" style="background-image: url({{ $picture->src }})"></div>
+						<div class="image-wrapper">
+							<div
+								:class="['image', {'transition': zoomTransition}]"
+								:style="`
+									background-image: url({{ $picture->src }});
+									top: ${zoomTop}px;
+									left: ${zoomLeft}px;
+									right: ${zoomRight}px;
+									bottom: ${zoomBottom}px;
+								`"
+							></div>
+						</div>
 						@endforeach
 					</div>
 					<div class="arrow-nav">

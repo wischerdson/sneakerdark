@@ -4713,6 +4713,57 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   template: '#template__shop_product',
+  data: function data() {
+    return {
+      zoom: false,
+      zoomTop: '',
+      zoomLeft: '',
+      zoomRight: '',
+      zoomBottom: '',
+      zoomTransition: true
+    };
+  },
+  methods: {
+    zoomHandler: function zoomHandler(e) {
+      if (!this.zoom) return;
+      var zoomRatio = 2;
+      var frame = this.$refs.pictures;
+      var mouseX = e.pageX;
+      var mouseY = e.pageY;
+      var frameX = $(frame).offset().left;
+      var frameY = $(frame).offset().top;
+      var frameW = $(frame).outerWidth();
+      var frameH = $(frame).outerHeight();
+      var xPercentFromMouse, yPercentFromMouse;
+      if (mouseX < frameX) mouseX = frameX;
+      if (mouseX > frameX + frameW) mouseX = frameX + frameW;
+      if (mouseY < frameY) mouseY = frameY;
+      if (mouseY > frameY + frameH) mouseY = frameY + frameH;
+      xPercentFromMouse = (mouseX - frameX) / frameW;
+      yPercentFromMouse = (mouseY - frameY) / frameH;
+      this.zoomTop = -((frameH * zoomRatio - frameH) * yPercentFromMouse);
+      this.zoomLeft = -((frameW * zoomRatio - frameW) * xPercentFromMouse);
+      this.zoomBottom = -((frameH * zoomRatio - frameH) * (1 - yPercentFromMouse));
+      this.zoomRight = -((frameW * zoomRatio - frameW) * (1 - xPercentFromMouse));
+    },
+    enableZoom: function enableZoom(e) {
+      var _this = this;
+
+      this.zoom = true;
+      setTimeout(function () {
+        _this.zoomTransition = false;
+      }, 100);
+      this.zoomHandler(e);
+    },
+    disableZoom: function disableZoom(e) {
+      this.zoom = false;
+      this.zoomTop = 0;
+      this.zoomLeft = 0;
+      this.zoomRight = 0;
+      this.zoomBottom = 0;
+      this.zoomTransition = true;
+    }
+  },
   mounted: function mounted() {
     var sliderNavigation = this.$refs.sliderNavigation;
     this.$refs.sliderNavigation.remove();
@@ -4722,6 +4773,7 @@ __webpack_require__.r(__webpack_exports__);
       dots: true,
       fade: true,
       speed: 500,
+      draggable: false,
       waitForAnimate: false,
       customPaging: function customPaging(slider, i) {
         return sliderNavigation.children[i].outerHTML;
@@ -4729,6 +4781,8 @@ __webpack_require__.r(__webpack_exports__);
       appendDots: this.$refs.presentation,
       dotsClass: 'slider-navigation'
     });
+    document.addEventListener('mousemove', this.zoomHandler);
+    document.addEventListener('mouseup', this.disableZoom);
   }
 });
 

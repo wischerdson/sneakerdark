@@ -1262,11 +1262,23 @@ svg {
 #template_shop_product .top .left .frame .slick-slider {
   z-index: 0;
 }
-#template_shop_product .top .left .frame .image {
+#template_shop_product .top .left .frame .image-wrapper {
+  height: 475px;
+  position: relative;
+  cursor: crosshair;
+}
+#template_shop_product .top .left .frame .image-wrapper .image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 475px;
+}
+#template_shop_product .top .left .frame .image-wrapper .image.transition {
+  transition: all 0.1s ease-in-out;
 }
 #template_shop_product .top .left .slider-navigation {
   display: grid;

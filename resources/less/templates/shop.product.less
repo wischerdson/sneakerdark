@@ -50,12 +50,27 @@
 					z-index: 0;
 				}
 
-				.image {
-					background-position: center;
-					background-size: cover;
-					background-repeat: no-repeat;
+				.image-wrapper {
 					height: 475px;
+					position: relative;
+					cursor: crosshair;
+
+					.image {
+						.absolutely-covered;
+						background-position: center;
+						background-size: cover;
+						background-repeat: no-repeat;
+						
+						&.transition {
+							transition: all .1s ease-in-out;
+						}
+					}
 					//height: 100%;
+					//transition: transform .1s ease-in-out;
+
+					// &.zoom {
+					// 	transform: scale(2);
+					// }
 				}
 			}
 			.slider-navigation {
