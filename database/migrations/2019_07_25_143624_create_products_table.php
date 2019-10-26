@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
 			$table->text('description');
 			$table->string('vendor');
 
-			$table->foreign('category_id')->references('bizoutmax_id')->on('categories');
+			$table->foreign('category_id')->references('id')->on('categories');
 		});
 	}
 

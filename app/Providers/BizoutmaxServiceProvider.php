@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class SmartEndingServiceProvider extends ServiceProvider
+use App\Helpers\Bizoutmax;
+
+class BizoutmaxServiceProvider extends ServiceProvider
 {
 	/**
 	 * Register services.
@@ -13,7 +15,9 @@ class SmartEndingServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		require_once app_path('Helpers/SmartEndingHelper.php');
+		$this->app->singleton(Bizoutmax::class, function () {
+			return new Bizoutmax();
+		});
 	}
 
 	/**

@@ -12,7 +12,7 @@
 							<div
 								:class="['image', {'transition': zoomTransition}]"
 								:style="`
-									background-image: url({{ $picture->src }});
+									background-image: url({{ $picture->bizoutmax_src }});
 									top: ${zoomTop}px;
 									left: ${zoomLeft}px;
 									right: ${zoomRight}px;
@@ -28,7 +28,7 @@
 				</div>
 				<div class="slider-navigation" ref="sliderNavigation">
 					@foreach ($product->pictures as $picture)
-					<div class="mini-image" style="background-image: url({{ $picture->src }})"></div>
+					<div class="mini-image" style="background-image: url({{ $picture->bizoutmax_src }})"></div>
 					@endforeach
 				</div>
 			</div>

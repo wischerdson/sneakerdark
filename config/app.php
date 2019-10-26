@@ -177,7 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\SmartEndingServiceProvider::class,
-
+        App\Providers\BizoutmaxServiceProvider::class,
+        App\Providers\XmlParserServiceProvider::class
     ],
 
     /*

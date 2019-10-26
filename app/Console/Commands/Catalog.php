@@ -3,8 +3,11 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App;
 
-use App\Repository\Bizoutmax;
+//use App\Repository\Bizoutmax;
+
+use App\Helpers\Contracts\Bizoutmax;
 
 use App\Category;
 use App\Product;
@@ -12,7 +15,7 @@ use App\Parameter;
 use App\Picture;
 use App\Size;
 
-class CatalogUpdate extends Command
+class Catalog extends Command
 {
 	/**
 	 * The name and signature of the console command.
@@ -51,10 +54,17 @@ class CatalogUpdate extends Command
 
 	public function handle()
 	{
-		$this->bizoutmax = new Bizoutmax( config('app.import_link') );
+		$this->comment('Yml downloading...');
+		$bizoutmax = App::make(App\Helpers\Bizoutmax::class);
+		$this->comment('Importing...');
+		$bizoutmax->import([
+			'categories', 'products', 'parameters', 'pictures', 'sizes'
+		]);
+
+		/*$this->bizoutmax = new Bizoutmax( config('app.import_link') );
 		\DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 		$this->{ $this->argument('table') }();
-		\DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+		\DB::statement('SET FOREIGN_KEY_CHECKS=1;');*/
 	}
 	private function all() {
 		$this->categories();
