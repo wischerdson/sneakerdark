@@ -1,34 +1,46 @@
 <template id="template__shop_product" >
 	<div class="container" id="template_shop_product">
 		<div class="top">
-			<div class="left" ref="presentation">
-				<div class="frame">
-					<div class="arrow-nav">
-						<div class="arrow" ref="sliderPrevArrow">@include('svg.keyboard-arrow-left')</div>
-					</div>
-					<div ref="pictures" @mousedown="enableZoom">
-						@foreach ($product->pictures as $picture)
-						<div class="image-wrapper">
-							<div
-								:class="['image', {'transition': zoomTransition}]"
-								:style="`
-									background-image: url({{ $picture->bizoutmax_src }});
-									top: ${zoomTop}px;
-									left: ${zoomLeft}px;
-									right: ${zoomRight}px;
-									bottom: ${zoomBottom}px;
-								`"
-							></div>
+			<div class="left">
+				<div ref="presentation">
+					<div class="frame">
+						<div class="arrow-nav">
+							<div class="arrow" ref="sliderPrevArrow">@include('svg.keyboard-arrow-left')</div>
 						</div>
+						<div ref="pictures" @mousedown="enableZoom">
+							@foreach ($product->pictures as $picture)
+							<div class="image-wrapper">
+								<div
+									:class="['image', {'transition': zoomTransition}]"
+									:style="`
+										background-image: url({{ $picture->bizoutmax_src }});
+										top: ${zoomTop}px;
+										left: ${zoomLeft}px;
+										right: ${zoomRight}px;
+										bottom: ${zoomBottom}px;
+									`"
+								></div>
+							</div>
+							@endforeach
+						</div>
+						<div class="arrow-nav">
+							<div class="arrow" ref="sliderNextArrow">@include('svg.keyboard-arrow-right')</div>
+						</div>
+					</div>
+					<div class="slider-navigation" ref="sliderNavigation">
+						@foreach ($product->pictures as $picture)
+						<div class="mini-image" style="background-image: url({{ $picture->bizoutmax_src }})"></div>
 						@endforeach
 					</div>
-					<div class="arrow-nav">
-						<div class="arrow" ref="sliderNextArrow">@include('svg.keyboard-arrow-right')</div>
-					</div>
 				</div>
-				<div class="slider-navigation" ref="sliderNavigation">
-					@foreach ($product->pictures as $picture)
-					<div class="mini-image" style="background-image: url({{ $picture->bizoutmax_src }})"></div>
+				
+				<div>
+					@foreach ($categoriesChain as $category)
+						@if ($loop->last)
+						<span>{{ $category->name }}</span>
+						@else
+						<span>{{ $category->name }} / </span>
+						@endif
 					@endforeach
 				</div>
 			</div>

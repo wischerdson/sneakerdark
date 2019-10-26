@@ -20,9 +20,9 @@ class Bizoutmax {
 		$this->xmlFilePath = $this->downloadYml(config('app.import_link'));
 	}
 	private function downloadYml($url) {
-		$path = storage_path('app/bizoutmax/').'imporst.xml';
+		$path = storage_path('app/bizoutmax/').'import.xml';
 
-		/*file_put_contents($path, '');
+		file_put_contents($path, '');
 
 		$file = fopen($path, 'w');
 
@@ -31,22 +31,23 @@ class Bizoutmax {
 		$data = curl_exec($curl);
 		curl_close($curl);
 
-		fclose($file);*/
+		fclose($file);
 
 		return $path;
 	}
 	public function import($tables) {
 		$xmlParser = App::make(\App\Helpers\XmlParser::class);
 
-		$xmlParser->category(function ($data) {
-			//$this->importCategories($data);
+		$xmlParser->category(function ($data) use ($tables) {
+			foreach ($tables['category'] as $table) {
+				$this->{'import'.ucfirst($table)}($data);
+			}
 		});
 
-		$xmlParser->offer(function ($data) {
-			//$this->importProducts($data);
-			//$this->importSizes($data);
-			//$this->importPictures($data);
-			$this->importParameters($data);
+		$xmlParser->offer(function ($data) use ($tables) {
+			foreach ($tables['offer'] as $table) {
+				$this->{'import'.ucfirst($table)}($data);
+			}
 		});
 
 		$xmlParser->start($this->xmlFilePath);
