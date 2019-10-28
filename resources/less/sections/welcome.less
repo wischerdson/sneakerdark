@@ -1,0 +1,60 @@
+#section_welcome {
+	position: relative;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	-webkit-user-select: none;
+
+	height: calc(100vh - 82px - 50px - 50px);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	z-index: 0;
+
+	.welcome-link {
+		position: relative;
+		overflow: hidden;
+
+		.image {
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			height: 100%;
+			transition: all 0.8s ease;
+
+			&:before {
+				content: '';
+				position: absolute;
+				.absolutely-covered;
+				background-color: black;
+				opacity: .3;
+				transition: all 0.8s ease;
+			}
+
+
+		}
+		&:hover .image {
+			transform: scale(1.03);
+
+			&:before {
+				opacity: .6;
+			}
+		}
+		a {
+			position: absolute;
+			.absolutely-covered;
+			display: block;
+			color: white;
+			font-size: 1.9rem;
+			z-index: 2;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0 10px;
+			text-align: center;
+
+			@media (max-width: 620px) {
+				font-size: 1.5rem;
+			}
+		}
+	}
+}

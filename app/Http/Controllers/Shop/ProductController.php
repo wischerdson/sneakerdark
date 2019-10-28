@@ -34,6 +34,8 @@ class ProductController extends \App\Http\Controllers\SiteController
 		}
 		$categoriesChain = array_reverse($categoriesChain);
 
+		$product->colors = Product::where('model', $product->model)->with('pictures')->get();
+
 		$this->template = 'shop.product';
 		$this->title = $product->title.' - Sneakerdark';
 		$this->vars['product'] = $product;

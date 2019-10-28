@@ -12,6 +12,13 @@ import store from './store'
 import App from './components/App'
 
 
+import Breadcrumb from './components/theme/Breadcrumb'
+import BreadcrumbItem from './components/theme/BreadcrumbItem'
+
+Vue.component('breadcrumb', Breadcrumb)
+Vue.component('breadcrumb-item', BreadcrumbItem)
+
+
 import SectionHeader from './components/sections/Header'
 import SectionWelcome from './components/sections/Welcome'
 import SectionCollections from './components/sections/Collections'

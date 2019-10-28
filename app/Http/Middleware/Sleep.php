@@ -15,7 +15,7 @@ class Sleep
 	 */
 	public function handle($request, Closure $next)
 	{	
-		//sleep(8); // 15 -> 8 -> -> 15 -> 9 -> 0
+		sleep(0); // 15 -> 8 -> -> 15 -> 9 -> 0
 		return $next($request);
 	}
 }
