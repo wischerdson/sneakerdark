@@ -10,7 +10,7 @@
 				results: [],
 				query: '',
 				ajaxStatus: { waiting: false },
-				gender: 'Мужской',
+				gender: 'all',
 				resultsNumber: 0,
 				totalResults: '',
 				notFound: false

@@ -90,10 +90,13 @@ class Bizoutmax {
 		}
 	}
 	private function importSizes($data) {
+		$i = 0;
+
 		foreach ($data->PARAM as $key => $value) {
 			if (!preg_match('/Размер/', $value['name'])) continue;
+
 			Size::updateOrCreate(
-				['id' => $data->VENDORCODE.((string) $value)],
+				['id' => $data->VENDORCODE.$i],
 				[
 					'product_id' => $data->VENDORCODE,
 					'size' => (string) $value,
@@ -103,6 +106,7 @@ class Bizoutmax {
 					'delivery' => $data->DELIVERY ? 1 : 0
 				]
 			);
+			$i++;
 		}
 	}
 	private function importCategories($data) {

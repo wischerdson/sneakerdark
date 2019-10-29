@@ -21,6 +21,10 @@
 			<div class="for-whom">
 				<div class="content">
 					<div class="item">
+						<input type="radio" v-model="gender" name="gender" id="all" value="all">
+						<label for="all">Для всех</label>
+					</div>
+					<div class="item">
 						<input type="radio" v-model="gender" name="gender" id="her" value="Женский">
 						<label for="her">Для нее</label>
 					</div>
@@ -39,7 +43,7 @@
 						<p>Например "Кроссовки Adidas Yeezy 350"</p>
 					</center>
 				</div>
-				<div class="no-results-notice" v-if="notFound">
+				<div class="no-results-notice" v-if="query && notFound && !ajaxStatus.waiting">
 					<center>
 						<p>По Вашему запросу не было найдено ни одного товара</p>
 					</center>

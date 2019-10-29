@@ -4552,7 +4552,7 @@ var searchQueryTimeout;
       ajaxStatus: {
         waiting: false
       },
-      gender: 'Мужской',
+      gender: 'all',
       resultsNumber: 0,
       totalResults: '',
       notFound: false
@@ -4720,10 +4720,29 @@ __webpack_require__.r(__webpack_exports__);
       zoomLeft: '',
       zoomRight: '',
       zoomBottom: '',
-      zoomTransition: true
+      zoomTransition: true,
+      tabs: [{
+        name: 'Описание',
+        isActive: true
+      }, {
+        name: 'Размеры',
+        isActive: false
+      }, {
+        name: 'Доставка',
+        isActive: false
+      }, {
+        name: 'Оплата',
+        isActive: false
+      }]
     };
   },
   methods: {
+    setActiveTab: function setActiveTab(tab) {
+      tab.isActive = true;
+      this.tabs.forEach(function (el) {
+        el.isActive = el === tab;
+      });
+    },
     zoomHandler: function zoomHandler(e) {
       if (!this.zoom) return;
       var zoomRatio = 2;

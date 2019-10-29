@@ -61,17 +61,21 @@ class SearchController extends SiteController
 
 		$matches = Product::where('article', $searchQuery)->with('pictures')->with('sizes')->get()->toArray();
 
-		$matches += Product::where(function ($query) use ($searchQuery) {
+		$tmp = Product::where(function ($query) use ($searchQuery) {
 			$query
-				->where('title', 'like', '%'.$searchQuery.'%')
-				->orWhere('model', 'like', '%'.$searchQuery.'%')
-				->orWhere('vendor', 'like', '%'.$searchQuery.'%')
-				->orWhereHas('parameters', function ($pQuery) use ($searchQuery) {
-					$pQuery->where('value', 'like', '%'.$searchQuery.'%');
-				});
-		})->whereHas('parameters', function ($query) use ($gender) {
+			->where('title', 'like', '%'.$searchQuery.'%')
+			->orWhere('model', 'like', '%'.$searchQuery.'%')
+			->orWhere('vendor', 'like', '%'.$searchQuery.'%')
+			->orWhereHas('parameters', function ($pQuery) use ($searchQuery) {
+				$pQuery->where('value', 'like', '%'.$searchQuery.'%');
+			});
+		});
+		if ($gender != 'all')
+			$tmp = $tmp->whereHas('parameters', function ($query) use ($gender) {
 				$query->where('value', '=', $gender);
-		})
+			});
+
+		$matches += $tmp
 			->with('pictures')
 			->with('sizes')
 			->get()

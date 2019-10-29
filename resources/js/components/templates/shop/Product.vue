@@ -9,12 +9,24 @@
 				zoomLeft: '',
 				zoomRight: '',
 				zoomBottom: '',
-				zoomTransition: true
+				zoomTransition: true,
+				tabs: [
+					{name: 'Описание', isActive: true},
+					{name: 'Размеры', isActive: false},
+					{name: 'Доставка', isActive: false},
+					{name: 'Оплата', isActive: false}
+				]
 			}
 		},
 		methods: {
+			setActiveTab (tab) {
+				tab.isActive = true
+				this.tabs.forEach(el => {
+					el.isActive = el === tab;
+				})
+			},
 			zoomHandler (e) {
-				if (!this.zoom) return;
+				if (!this.zoom) return
 
 				const zoomRatio = 2
 
