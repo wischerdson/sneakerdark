@@ -15,12 +15,15 @@ class Bizoutmax {
 	private $articles_importProducts = [];
 	private $articles_importParameters = [];
 	private $articles_importPictures = [];
+	private $articles_importSizes = [];
+	private $sizesPerOffer = 0;
 
 	public function __construct() {
 		$this->xmlFilePath = $this->downloadYml(config('app.import_link'));
 	}
 	private function downloadYml($url) {
 		$path = storage_path('app/bizoutmax/').'import.xml';
+		return $path;
 
 		file_put_contents($path, '');
 
@@ -90,13 +93,18 @@ class Bizoutmax {
 		}
 	}
 	private function importSizes($data) {
-		$i = 0;
-
 		foreach ($data->PARAM as $key => $value) {
 			if (!preg_match('/Размер/', $value['name'])) continue;
 
+			if (in_array((string) $data->VENDORCODE[0], $this->articles_importSizes))
+				$this->sizesPerOffer++;
+			else {
+				$this->sizesPerOffer = 0;
+				array_push($this->articles_importSizes, (string) $data->VENDORCODE[0]);
+			}
+
 			Size::updateOrCreate(
-				['id' => $data->VENDORCODE.$i],
+				['id' => $data->VENDORCODE.$this->sizesPerOffer],
 				[
 					'product_id' => $data->VENDORCODE,
 					'size' => (string) $value,
@@ -106,7 +114,7 @@ class Bizoutmax {
 					'delivery' => $data->DELIVERY ? 1 : 0
 				]
 			);
-			$i++;
+			
 		}
 	}
 	private function importCategories($data) {
@@ -128,6 +136,7 @@ class Bizoutmax {
 		$description = preg_replace('/&gt;/', '>', $description);
 		$description = preg_replace('/&amp;/', '&', $description);
 		$description = preg_replace('/ style=".*?"/', '', $description);
+		$description = preg_replace('/<\/?span.*?>/', '', $description);
 
 
 		Product::updateOrCreate(
@@ -135,7 +144,6 @@ class Bizoutmax {
 			[
 				'title' => $data->NAME,
 				'price' => $data->PRICE,
-				'article' => $data->VENDORCODE,
 				'bizoutmax_url' => $data->URL,
 				'category_id' => $data->CATEGORYID,
 				'model' => $data->MODEL,
