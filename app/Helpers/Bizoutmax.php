@@ -12,19 +12,17 @@ use App\Parameter;
 
 class Bizoutmax {
 	private $xmlFilePath;
-	private $articles_importProducts = [];
-	private $articles_importParameters = [];
-	private $articles_importPictures = [];
-	private $articles_importSizes = [];
+	private $currentProduct;
+	private $productExists = false;
+	private $productsIds = [];
 	private $sizesPerOffer = 0;
+	public $hash = '';
 
 	public function __construct() {
 		$this->xmlFilePath = $this->downloadYml(config('app.import_link'));
 	}
 	private function downloadYml($url) {
 		$path = storage_path('app/bizoutmax/').'import.xml';
-		return $path;
-
 		file_put_contents($path, '');
 
 		$file = fopen($path, 'w');
@@ -33,6 +31,10 @@ class Bizoutmax {
 		curl_setopt($curl, CURLOPT_FILE, $file);
 		$data = curl_exec($curl);
 		curl_close($curl);
+
+		$this->hash = hash_file('md5', $path);
+
+		print $this->hash."\n";
 
 		fclose($file);
 
@@ -48,6 +50,12 @@ class Bizoutmax {
 		});
 
 		$xmlParser->offer(function ($data) use ($tables) {
+			if ($this->currentProduct != (string) $data->VENDORCODE) {
+				$this->currentProduct = (string) $data->VENDORCODE;
+				$this->productsIds[(string) $data->VENDORCODE] = [];
+				$this->productExists = Product::where('id', (string) $data->VENDORCODE)->exists();
+			}
+
 			foreach ($tables['offer'] as $table) {
 				$this->{'import'.ucfirst($table)}($data);
 			}
@@ -55,9 +63,40 @@ class Bizoutmax {
 
 		$xmlParser->start($this->xmlFilePath);
 	}
+	private function importProducts($data) {
+		$article = (string) $data->VENDORCODE;
+
+		if (in_array('1', $this->productsIds[$article])) return;
+		array_push($this->productsIds[$article], '1');
+
+		if ($this->productExists) {
+			Product::where('id', $article)->update(['price' => $data->PRICE]);
+			return;
+		}
+
+		$description = $data->DESCRIPTION;
+		$description = preg_replace('/&lt;/', '<', $description);
+		$description = preg_replace('/&gt;/', '>', $description);
+		$description = preg_replace('/&amp;/', '&', $description);
+		$description = preg_replace('/ style=".*?"/', '', $description);
+
+		Product::create([
+			'id' => $article,
+			'title' => $data->NAME,
+			'price' => $data->PRICE,
+			'bizoutmax_url' => $data->URL,
+			'category_id' => $data->CATEGORYID,
+			'model' => $data->MODEL,
+			'description' => $description,
+			'vendor' => $data->VENDOR
+		]);
+	}
 	private function importParameters($data) {
-		if (in_array($data->VENDORCODE, $this->articles_importParameters)) return;
-		array_push($this->articles_importParameters, $data->VENDORCODE);
+		$article = (string) $data->VENDORCODE;
+
+		if (in_array('2', $this->productsIds[$article])) return;
+		array_push($this->productsIds[$article], '2');
+		if ($this->productExists) return;
 
 		$i = 0;
 
@@ -65,9 +104,9 @@ class Bizoutmax {
 			if (preg_match('/Размер/', $value['name'], $matches)) continue;
 
 			Parameter::updateOrCreate(
-				['id' => $data->VENDORCODE.$i],
+				['id' => $article.$i],
 				[
-					'product_id' => $data->VENDORCODE,
+					'product_id' => $article,
 					'key' => $value['name'],
 					'value' => $value[0]
 				]
@@ -76,16 +115,20 @@ class Bizoutmax {
 		}
 	}
 	private function importPictures($data) {
-		if (in_array($data->VENDORCODE, $this->articles_importPictures)) return;
-		array_push($this->articles_importPictures, $data->VENDORCODE);
+		$article = (string) $data->VENDORCODE;
+
+		if (in_array('3', $this->productsIds[$article])) return;
+		array_push($this->productsIds[$article], '3');
+
+		if ($this->productExists) return;
 
 		$i = 0;
 
 		foreach ($data->PICTURE as $key => $picture) {
 			Picture::updateOrCreate(
-				['id' => $data->VENDORCODE.$i],
+				['id' => $article.$i],
 				[
-					'product_id' => $data->VENDORCODE,
+					'product_id' => $article,
 					'bizoutmax_src' => (string) $picture
 				]
 			);
@@ -93,20 +136,24 @@ class Bizoutmax {
 		}
 	}
 	private function importSizes($data) {
+		$article = (string) $data->VENDORCODE;
+
 		foreach ($data->PARAM as $key => $value) {
 			if (!preg_match('/Размер/', $value['name'])) continue;
 
-			if (in_array((string) $data->VENDORCODE[0], $this->articles_importSizes))
+			if (in_array('4', $this->productsIds[$article]))
 				$this->sizesPerOffer++;
 			else {
 				$this->sizesPerOffer = 0;
-				array_push($this->articles_importSizes, (string) $data->VENDORCODE[0]);
+				array_push($this->productsIds[$article], '4');
 			}
 
+			if (!$this->productExists and !in_array('1', $this->productsIds[$article])) return;
+
 			Size::updateOrCreate(
-				['id' => $data->VENDORCODE.$this->sizesPerOffer],
+				['id' => $article.$this->sizesPerOffer],
 				[
-					'product_id' => $data->VENDORCODE,
+					'product_id' => $article,
 					'size' => (string) $value,
 					'instock' => $data->OUTLETS->OUTLET[0]['instock'] < 0 ? 0 : $data->OUTLETS->OUTLET[0]['instock'],
 					'available' => $data['available'] ? 1 : 0,
@@ -114,7 +161,6 @@ class Bizoutmax {
 					'delivery' => $data->DELIVERY ? 1 : 0
 				]
 			);
-			
 		}
 	}
 	private function importCategories($data) {
@@ -126,30 +172,5 @@ class Bizoutmax {
 			]
 		);
 	}
-	private function importProducts($data) {
-		if (in_array($data->VENDORCODE, $this->articles_importProducts)) return;
-		array_push($this->articles_importProducts, $data->VENDORCODE);
-
-		$description = $data->DESCRIPTION;
-
-		$description = preg_replace('/&lt;/', '<', $data->DESCRIPTION);
-		$description = preg_replace('/&gt;/', '>', $description);
-		$description = preg_replace('/&amp;/', '&', $description);
-		$description = preg_replace('/ style=".*?"/', '', $description);
-		$description = preg_replace('/<\/?span.*?>/', '', $description);
-
-
-		Product::updateOrCreate(
-			['id' => $data->VENDORCODE],
-			[
-				'title' => $data->NAME,
-				'price' => $data->PRICE,
-				'bizoutmax_url' => $data->URL,
-				'category_id' => $data->CATEGORYID,
-				'model' => $data->MODEL,
-				'description' => $description,
-				'vendor' => $data->VENDOR
-			]
-		);
-	}
+	
 }

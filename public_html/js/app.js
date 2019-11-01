@@ -4721,27 +4721,31 @@ __webpack_require__.r(__webpack_exports__);
       zoomRight: '',
       zoomBottom: '',
       zoomTransition: true,
-      tabs: [{
-        name: 'Описание',
-        isActive: true
-      }, {
-        name: 'Размеры',
-        isActive: false
-      }, {
-        name: 'Доставка',
-        isActive: false
-      }, {
-        name: 'Оплата',
-        isActive: false
-      }]
+      tabs: {
+        description: {
+          name: 'Описание',
+          isActive: true
+        },
+        sizes: {
+          name: 'Размеры',
+          isActive: false
+        },
+        shipping: {
+          name: 'Доставка',
+          isActive: false
+        },
+        payment: {
+          name: 'Оплата',
+          isActive: false
+        }
+      }
     };
   },
   methods: {
     setActiveTab: function setActiveTab(tab) {
-      tab.isActive = true;
-      this.tabs.forEach(function (el) {
-        el.isActive = el === tab;
-      });
+      for (var key in this.tabs) {
+        this.tabs[key].isActive = this.tabs[key] === tab;
+      }
     },
     zoomHandler: function zoomHandler(e) {
       if (!this.zoom) return;
@@ -4802,6 +4806,12 @@ __webpack_require__.r(__webpack_exports__);
     });
     document.addEventListener('mousemove', this.zoomHandler);
     document.addEventListener('mouseup', this.disableZoom);
+    var hasDesc = eval(this.$refs.tabList.getAttribute('has-desc'));
+
+    if (!hasDesc) {
+      delete this.tabs.description;
+      this.tabs.sizes.isActive = true;
+    }
   }
 });
 

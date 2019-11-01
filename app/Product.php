@@ -21,6 +21,6 @@ class Product extends Model
 		return $this->hasMany('App\Picture');
 	}
 	public function sizes() {
-		return $this->hasMany('App\Size', 'product_id', 'article');
+		return $this->hasMany('App\Size', 'product_id', 'id');
 	}
 }

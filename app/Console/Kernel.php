@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Catalog::class
+        Commands\Catalog_Create::class,
+        Commands\Catalog_Update::class
     ];
 
     /**

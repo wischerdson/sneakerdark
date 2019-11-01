@@ -79,7 +79,7 @@
 				Войти
 			</a>
 			<a href="#" class="btn">
-				@include('svg.shopping-cart')
+				@include('svg.shopping-bag')
 				Корзина
 			</a>
 		</div>

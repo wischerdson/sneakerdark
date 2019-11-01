@@ -11,7 +11,7 @@ use App\Category;
 class ProductController extends \App\Http\Controllers\SiteController
 {
 	public function show($product_id) {
-		$product = Product::where('article', $product_id)
+		$product = Product::where('id', $product_id)
 			->with('pictures')
 			->with('sizes')
 			->with('parameters')
@@ -25,6 +25,9 @@ class ProductController extends \App\Http\Controllers\SiteController
 			return $this->output();
 		}
 
+
+		
+
 		$categoriesChain = [];
 		$categoryParentId = $product->category->id;
 		while ($categoryParentId) {
@@ -35,6 +38,8 @@ class ProductController extends \App\Http\Controllers\SiteController
 		$categoriesChain = array_reverse($categoriesChain);
 
 		$product->colors = Product::where('model', $product->model)->with('pictures')->get();
+
+		//dd($product);
 
 		$this->template = 'shop.product';
 		$this->title = $product->title.' - Sneakerdark';

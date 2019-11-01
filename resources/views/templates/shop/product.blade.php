@@ -50,9 +50,9 @@
 			<div class="vendor">{{ $product->vendor }}</div>
 			<h2>{{ $product->title }}</h2>
 			<div class="info">
-				<div>Артикул: <span>{{ $product->article }}</span></div>
+				<div>Артикул: <span>{{ $product->id }}</span></div>
 				&nbsp;&nbsp;/&nbsp;&nbsp;
-				<div>{{ $product->vendor }}</div>
+				<a href="#">{{ $product->vendor }}</a>
 				<div class="in-stock">В наличии</div>
 			</div>
 			<div class="price-wrapper">
@@ -70,7 +70,7 @@
 			</ul>
 
 			<div class="sizes-wrapper">
-				<div class="title">Размер</div>
+				<div class="title">Размер <button>Таблица размеров</button></div>
 				<ul class="size-list">
 					@foreach ($product->sizes as $size)
 					@if ($size->instock !== 0)
@@ -88,19 +88,19 @@
 						@endif
 					</li>
 					@endif
-					
 					@endforeach
 				</ul>
 			</div>
 
+			@if (isset($product->colors) && count($product->colors) > 1)
 			<div class="colors-wrapper">
 				<div class="title">Доступные цвета</div>
 				<ul class="color-list">
 					@foreach ($product->colors as $color)
-						<li
-							class="color-item @if ($color->id == $product->id) current @endif"
-							style="background-image: url({{ $color->pictures[0]->bizoutmax_src }})"
-						>
+					<li
+						class="color-item @if ($color->id == $product->id) current @endif"
+						style="background-image: url({{ $color->pictures[0]->bizoutmax_src ?? asset('image/no-image.jpg') }})"
+					>
 						<a href="{{ route('shop.product', ['product_id' => $color->id]) }}">
 							@if ($color->id == $product->id)
 							<div class="tick">@include('svg.tick')</div>
@@ -110,15 +110,27 @@
 					@endforeach
 				</ul>
 			</div>
+			@endif
+
 			<div class="buttons">
 				<!-- <div class="btn primary buy">Оформить заказ</div> -->
-				<div class="btn primary add-to-cart">Добавить в корзину @include('svg.shopping-bag')</div>
+				<div class="top">
+					<div class="btn primary add-to-cart">
+						<span>Добавить в корзину</span>
+						@include('svg.shopping-bag')
+					</div>
+					<div class="btn primary add-to-wishlist">
+						<div class="tip">Добавить в избранное</div>
+						@include('svg.wishlist')
+					</div>
+				</div>
+				
 			</div>
 		</div>
 
 
 		<div class="bottom">
-			<ul class="tab-list">
+			<ul class="tab-list" ref="tabList" has-desc="{{ $product->description ? 1 : 0 }}" :style="`grid-template-columns: repeat(${Object.keys(tabs).length}, 1fr)`">
 				<li
 					@click="setActiveTab(tab)"
 					v-for="tab in tabs"
@@ -128,23 +140,10 @@
 				</li>
 			</ul>
 			<div class="tab-content">
-				<div class="description" v-show="tabs[0].isActive">{!! $product->description !!}</div>
-				<div class="" v-show="tabs[1].isActive">Размеры</div>
-				<div class="" v-show="tabs[2].isActive">
-					Мы осуществляем доставку по РФ и СНГ<br>
-Доставка почтой России<br>
-Средние сроки доставки 5-15 дней<br>
-<br><br>
-Доставка СДЭК<br>
-Средние сроки доставки 3-5 дней<br>
-<p>Потребитель вправе обменять непродовольственный товар надлежащего качества на аналогичный товар у продавца, у которого этот товар был приобретен, если указанный товар не подошел по форме, габаритам, фасону, расцветке, размеру или комплектации</p>
-				</div>
-				<div class="" v-show="tabs[3].isActive">
-					Оплатить заказ можно разными способами:<br>
-- Банковской картой Visa или MasterCard<br>
-- Электронными деньгами<br>
-Гарантийные условия соответствуют закону РФ «О защите прав потребителей»
-				</div>
+				<div class="description" v-if="tabs.description" v-show="tabs.description.isActive">{!! $product->description !!}</div>
+				<div v-show="tabs.sizes.isActive">Размеры</div>
+				<div v-show="tabs.shipping.isActive">shipping</div>
+				<div v-show="tabs.payment.isActive">payment</div>
 			</div>
 		</div>
 	</div>

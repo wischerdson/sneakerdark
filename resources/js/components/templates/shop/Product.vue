@@ -10,23 +10,23 @@
 				zoomRight: '',
 				zoomBottom: '',
 				zoomTransition: true,
-				tabs: [
-					{name: 'Описание', isActive: true},
-					{name: 'Размеры', isActive: false},
-					{name: 'Доставка', isActive: false},
-					{name: 'Оплата', isActive: false}
-				]
+				tabs: {
+					description: {name: 'Описание', isActive: true},
+					sizes: {name: 'Размеры', isActive: false},
+					shipping: {name: 'Доставка', isActive: false},
+					payment: {name: 'Оплата', isActive: false}
+				}
 			}
 		},
 		methods: {
 			setActiveTab (tab) {
-				tab.isActive = true
-				this.tabs.forEach(el => {
-					el.isActive = el === tab;
-				})
+				for (let key in this.tabs) {
+					this.tabs[key].isActive = this.tabs[key] === tab
+				}
 			},
 			zoomHandler (e) {
-				if (!this.zoom) return
+				if (!this.zoom)
+					return
 
 				const zoomRatio = 2
 
@@ -92,6 +92,13 @@
 
 			document.addEventListener('mousemove', this.zoomHandler)
 			document.addEventListener('mouseup', this.disableZoom)
+
+			const hasDesc = eval(this.$refs.tabList.getAttribute('has-desc'))
+
+			if (!hasDesc) {
+				delete this.tabs.description
+				this.tabs.sizes.isActive = true
+			}
 		}
 	}
 

@@ -59,7 +59,7 @@ class SearchController extends SiteController
 
 		if (!$searchQuery) abort(404);
 
-		$matches = Product::where('article', $searchQuery)->with('pictures')->with('sizes')->get()->toArray();
+		$matches = Product::where('id', $searchQuery)->with('pictures')->with('sizes')->get()->toArray();
 
 		$tmp = Product::where(function ($query) use ($searchQuery) {
 			$query
@@ -87,7 +87,7 @@ class SearchController extends SiteController
 		$matches = $matches > 10 ? array_slice($matches, 0, 10) : $matches;
 
 		foreach ($matches as $key => $value) {
-			$matches[$key]['url'] = route('shop.product', ['product_id' => $value['article']]);
+			$matches[$key]['url'] = route('shop.product', ['product_id' => $value['id']]);
 		}
 
 		return [
