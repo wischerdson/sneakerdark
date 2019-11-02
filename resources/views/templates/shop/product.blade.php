@@ -4,6 +4,7 @@
 			<div class="sticky">
 				<div ref="presentation">
 					<div class="frame">
+						<button @click="galleryIsOpen = true" class="expand-btn">@include('svg.resize-expand')</button>
 						<div class="arrow-nav">
 							<div class="arrow" ref="sliderPrevArrow">@include('svg.keyboard-arrow-left')</div>
 						</div>
@@ -13,11 +14,11 @@
 								<div
 								:class="['image', {'transition': zoomTransition}]"
 								:style="`
-								background-image: url({{ $picture->bizoutmax_src }});
-								top: ${zoomTop}px;
-								left: ${zoomLeft}px;
-								right: ${zoomRight}px;
-								bottom: ${zoomBottom}px;
+									background-image: url({{ $picture->bizoutmax_src }});
+									top: ${zoomTop}px;
+									left: ${zoomLeft}px;
+									right: ${zoomRight}px;
+									bottom: ${zoomBottom}px;
 								`"
 								></div>
 							</div>
@@ -70,7 +71,7 @@
 			</ul>
 
 			<div class="sizes-wrapper">
-				<div class="title">Размер <button>Таблица размеров</button></div>
+				<div class="title">Размер <button class="how-to-choose-size-btn">@include('svg.ruler')Таблица размеров</button></div>
 				<ul class="size-list">
 					@foreach ($product->sizes as $size)
 					@if ($size->instock !== 0)
@@ -124,7 +125,10 @@
 						@include('svg.wishlist')
 					</div>
 				</div>
-				
+			</div>
+			<div class="note">
+				<p>Бесплатная доставка Почтой России</p>
+				<p>При 100% предоплате заказа от 7000 рублей</p>
 			</div>
 		</div>
 
@@ -146,6 +150,26 @@
 				<div v-show="tabs.payment.isActive">payment</div>
 			</div>
 		</div>
+
+		<transition name="fade">
+			<div class="gallery" v-show="galleryIsOpen">
+				<div class="arrow-wrapper">
+					<button ref="galleryPrevSlideArrow" class="arrow">@include('svg.keyboard-arrow-left')</button>
+				</div>
+				<button class="close" @click="galleryIsOpen = false">@include('svg.cross')</button>
+				<ul class="picture-list" ref="gallery">
+					@foreach ($product->pictures as $picture)
+					<li class="picture-item">
+						<img src="{{ $picture->bizoutmax_src }}">
+					</li>
+					@endforeach
+				</ul>
+				<div ref="galleryNavigation" class="gallery-navigation"></div>
+				<div class="arrow-wrapper">
+					<button ref="galleryNextSlideArrow" class="arrow">@include('svg.keyboard-arrow-right')</button>
+				</div>
+			</div>
+		</transition>
 	</div>
 </div>
 </template>

@@ -15,7 +15,19 @@
 					sizes: {name: 'Размеры', isActive: false},
 					shipping: {name: 'Доставка', isActive: false},
 					payment: {name: 'Оплата', isActive: false}
+				},
+				presentationSlide: 0,
+				gallerySlide: 0,
+				galleryIsOpen: false
+			}
+		},
+		watch: {
+			galleryIsOpen (value) {
+				if (!value) {
+					$(this.$refs.pictures).slick('slickGoTo', this.gallerySlide)
+					return
 				}
+				$(this.$refs.gallery).slick('slickGoTo', this.presentationSlide)
 			}
 		},
 		methods: {
@@ -89,6 +101,9 @@
 				appendDots: this.$refs.presentation,
 				dotsClass: 'slider-navigation'
 			})
+			$(this.$refs.pictures).on('afterChange', (event, slick, direction) => {
+				this.presentationSlide = slick.currentSlide
+			})
 
 			document.addEventListener('mousemove', this.zoomHandler)
 			document.addEventListener('mouseup', this.disableZoom)
@@ -99,6 +114,21 @@
 				delete this.tabs.description
 				this.tabs.sizes.isActive = true
 			}
+
+
+			$(this.$refs.gallery).slick({
+				dots: true,
+				speed: 450,
+				waitForAnimate: false,
+				prevArrow: this.$refs.galleryPrevSlideArrow,
+				nextArrow: this.$refs.galleryNextSlideArrow,
+				infinite: false,
+				appendDots: this.$refs.galleryNavigation
+			})
+			$(this.$refs.gallery).on('afterChange', (event, slick, direction) => {
+				this.gallerySlide = slick.currentSlide
+			})
+
 		}
 	}
 

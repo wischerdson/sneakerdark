@@ -4738,8 +4738,21 @@ __webpack_require__.r(__webpack_exports__);
           name: 'Оплата',
           isActive: false
         }
-      }
+      },
+      presentationSlide: 0,
+      gallerySlide: 0,
+      galleryIsOpen: false
     };
+  },
+  watch: {
+    galleryIsOpen: function galleryIsOpen(value) {
+      if (!value) {
+        $(this.$refs.pictures).slick('slickGoTo', this.gallerySlide);
+        return;
+      }
+
+      $(this.$refs.gallery).slick('slickGoTo', this.presentationSlide);
+    }
   },
   methods: {
     setActiveTab: function setActiveTab(tab) {
@@ -4788,6 +4801,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this2 = this;
+
     var sliderNavigation = this.$refs.sliderNavigation;
     this.$refs.sliderNavigation.remove();
     $(this.$refs.pictures).slick({
@@ -4804,6 +4819,9 @@ __webpack_require__.r(__webpack_exports__);
       appendDots: this.$refs.presentation,
       dotsClass: 'slider-navigation'
     });
+    $(this.$refs.pictures).on('afterChange', function (event, slick, direction) {
+      _this2.presentationSlide = slick.currentSlide;
+    });
     document.addEventListener('mousemove', this.zoomHandler);
     document.addEventListener('mouseup', this.disableZoom);
     var hasDesc = eval(this.$refs.tabList.getAttribute('has-desc'));
@@ -4812,6 +4830,19 @@ __webpack_require__.r(__webpack_exports__);
       delete this.tabs.description;
       this.tabs.sizes.isActive = true;
     }
+
+    $(this.$refs.gallery).slick({
+      dots: true,
+      speed: 450,
+      waitForAnimate: false,
+      prevArrow: this.$refs.galleryPrevSlideArrow,
+      nextArrow: this.$refs.galleryNextSlideArrow,
+      infinite: false,
+      appendDots: this.$refs.galleryNavigation
+    });
+    $(this.$refs.gallery).on('afterChange', function (event, slick, direction) {
+      _this2.gallerySlide = slick.currentSlide;
+    });
   }
 });
 
