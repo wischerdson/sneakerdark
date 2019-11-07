@@ -1,4 +1,4 @@
-<template id="template__shop_product" >
+<template id="template__shop_product">
 	<div class="container" id="template_shop_product">
 		<div class="top">
 			<div class="left">
@@ -58,14 +58,18 @@
 				<div class="price-wrapper">
 					<div class="price">{{ $product->price }}</div>
 					{{-- <div class="compare-at-price">{{ $product->price  * 4 }}</div> --}}
+					<a class="found-cheaper-link">Нашли дешевле?</a>
 				</div>
 				
 				<ul class="parameter-list">
 					@foreach ($product->parameters as $parameter)
-					<li class="parameter-item">
-						<span class="parameter-key">{{ $parameter->key }}</span>
-						<span class="parameter-value">{{ $parameter->value }}</span>
-					</li>
+						@if ($parameter->key == 'Пол')
+							@continue
+						@endif
+						<li class="parameter-item">
+							<span class="parameter-key">{{ $parameter->key }}</span>
+							<span class="parameter-value">{{ $parameter->value }}</span>
+						</li>
 					@endforeach
 				</ul>
 
@@ -113,16 +117,13 @@
 				@endif
 
 				<div class="buttons">
-					<!-- <div class="btn primary buy">Оформить заказ</div> -->
-					<div class="top">
-						<div class="btn primary add-to-cart">
-							<span>Добавить в корзину</span>
-							@include('svg.shopping-bag')
-						</div>
-						<div class="btn primary add-to-wishlist">
-							<div class="tip">Добавить в избранное</div>
-							@include('svg.wishlist')
-						</div>
+					<div class="btn primary add-to-cart">
+						<span>Добавить в корзину</span>
+						@include('svg.shopping-bag')
+					</div>
+					<div class="btn primary add-to-wishlist">
+						<div class="tip">Добавить в избранное</div>
+						@include('svg.wishlist')
 					</div>
 				</div>
 				<div class="note">
@@ -131,11 +132,6 @@
 				</div>
 			</div>
 		</div>
-		
-
-		
-
-
 		<div class="bottom">
 			<ul class="tab-list" ref="tabList" has-desc="{{ $product->description ? 1 : 0 }}" :style="`grid-template-columns: repeat(${Object.keys(tabs).length}, 1fr)`">
 				<li
@@ -147,34 +143,28 @@
 				</li>
 			</ul>
 			<div class="tab-content">
-				<div class="description" v-if="tabs.description" v-show="tabs.description.isActive">{!! $product->description !!}</div>
+				<div class="description" v-if="tabs.description" v-show="tabs.description.isActive">
+					<div class="text">{!! $product->description !!}</div>
+					@php
+
+						$a = count($product->pictures);
+						$a = rand(0, $a - 1);
+
+					@endphp
+					<div class="rand-picture"><img src="{{ $product->pictures[$a]->bizoutmax_src }}"></div>
+				</div>
 				<div v-show="tabs.sizes.isActive">Размеры</div>
 				<div v-show="tabs.shipping.isActive">shipping</div>
 				<div v-show="tabs.refund.isActive">refund</div>
 				<div v-show="tabs.comments.isActive">comments</div>
 				<div v-show="tabs.guarantees.isActive">guarantees</div>
 			</div>
-		</div>
-
-		<transition name="fade">
-			<div class="gallery" v-show="galleryIsOpen">
-				<div class="arrow-wrapper">
-					<button ref="galleryPrevSlideArrow" class="arrow">@include('svg.keyboard-arrow-left')</button>
-				</div>
-				<button class="close" @click="galleryIsOpen = false">@include('svg.cross')</button>
-				<ul class="picture-list" ref="gallery">
-					@foreach ($product->pictures as $picture)
-					<li class="picture-item">
-						<img src="{{ $picture->bizoutmax_src }}">
-					</li>
-					@endforeach
-				</ul>
-				<div ref="galleryNavigation" class="gallery-navigation"></div>
-				<div class="arrow-wrapper">
-					<button ref="galleryNextSlideArrow" class="arrow">@include('svg.keyboard-arrow-right')</button>
-				</div>
+			<div class="live-chat">
+				<button><span class="online-dot"></span> Online-чат с менеждером</button>
 			</div>
-		</transition>
+		</div>
+		@include('snippets.shop-product-gallery')
+		@include('snippets.shop-product-found_cheaper_modal')
 	</div>
 </div>
 </template>

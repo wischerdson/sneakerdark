@@ -1,0 +1,44 @@
+.colors-wrapper {
+	margin-top: 50px;
+
+	.color-list {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		grid-gap: 10px;
+		max-width: 430px;
+		margin-top: 5px;
+
+		.color-item {
+			height: 40px;
+			position: relative;
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			border-radius: 4px;
+			overflow: hidden;
+
+			a {
+				.absolutely-covered;
+			}
+			&.current a {
+				background-color: fade(#40006c, 35%);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				.tick {
+					width: 20px;
+					height: 20px;
+					padding: 3px;
+					border-radius: 9999px;
+
+					border: 2px solid white;
+
+					svg {
+						fill: white;
+					}
+				}
+			}
+		}
+	}
+}
