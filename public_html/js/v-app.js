@@ -396,12 +396,20 @@ __webpack_require__.r(__webpack_exports__);
           name: 'Размеры',
           isActive: false
         },
-        shipping: {
-          name: 'Доставка',
+        comments: {
+          name: 'Отзывы',
           isActive: false
         },
-        payment: {
-          name: 'Оплата',
+        shipping: {
+          name: 'Оплата и доставка',
+          isActive: false
+        },
+        refund: {
+          name: 'Обмен и возврат',
+          isActive: false
+        },
+        guarantees: {
+          name: 'Гарантии',
           isActive: false
         }
       },
@@ -493,7 +501,7 @@ __webpack_require__.r(__webpack_exports__);
     var hasDesc = eval(this.$refs.tabList.getAttribute('has-desc'));
 
     if (!hasDesc) {
-      delete this.tabs.description;
+      this.tabs.description = {};
       this.tabs.sizes.isActive = true;
     }
 

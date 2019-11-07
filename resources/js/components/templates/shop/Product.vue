@@ -13,8 +13,10 @@
 				tabs: {
 					description: {name: 'Описание', isActive: true},
 					sizes: {name: 'Размеры', isActive: false},
-					shipping: {name: 'Доставка', isActive: false},
-					payment: {name: 'Оплата', isActive: false}
+					comments: {name: 'Отзывы', isActive: false},
+					shipping: {name: 'Оплата и доставка', isActive: false},
+					refund: {name: 'Обмен и возврат', isActive: false},
+					guarantees: {name: 'Гарантии', isActive: false}
 				},
 				presentationSlide: 0,
 				gallerySlide: 0,
@@ -111,7 +113,7 @@
 			const hasDesc = eval(this.$refs.tabList.getAttribute('has-desc'))
 
 			if (!hasDesc) {
-				delete this.tabs.description
+				this.tabs.description = {}
 				this.tabs.sizes.isActive = true
 			}
 

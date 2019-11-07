@@ -24,7 +24,8 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
+        \URL::forceRootUrl(config('app.asset_url'));
+        \URL::forceScheme('https');
         parent::boot();
     }
 
