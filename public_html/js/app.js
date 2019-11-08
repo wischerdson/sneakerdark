@@ -4749,7 +4749,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       presentationSlide: 0,
       gallerySlide: 0,
-      galleryIsOpen: false
+      galleryIsOpen: false,
+      foundCheaperModalIsOpen: true
     };
   },
   watch: {

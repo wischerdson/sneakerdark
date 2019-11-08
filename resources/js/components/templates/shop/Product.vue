@@ -20,7 +20,8 @@
 				},
 				presentationSlide: 0,
 				gallerySlide: 0,
-				galleryIsOpen: false
+				galleryIsOpen: false,
+				foundCheaperModalIsOpen: true
 			}
 		},
 		watch: {

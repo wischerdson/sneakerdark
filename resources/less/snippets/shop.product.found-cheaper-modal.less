@@ -13,10 +13,36 @@
 	}
 	.box {
 		background-color: white;
-		padding: 20px;
+		padding: 20px 35px;
 		z-index: 2;
 		border-radius: 4px;
+		max-height: 95vh;
+		overflow-y: auto;
+		position: relative;
 
+		.close {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 10px;
+			transition: background-color .15s ease-in-out;
+			cursor: pointer;
+
+			svg {
+				width: 15px;
+				fill: fade(black, 50%);
+				transition: fill .15s ease-in-out;
+			}
+			&:hover {
+				background-color: fade(black, 5%);
+				border-top-right-radius: 4px;
+				border-bottom-left-radius: 4px;
+
+				svg {
+					fill: fade(black, 70%);
+				}
+			}
+		}
 		& > .content {
 			.top {
 				.title {
@@ -32,7 +58,52 @@
 				}
 			}
 			.bottom {
-				margin-top: 30px;
+				margin-top: 10px;
+
+				form {
+					max-width: 300px;
+					margin: 0 auto;
+
+					.form-group {
+						margin-top: 15px;
+					}
+
+					.btn {
+						margin: 0 auto;
+						margin-top: 20px;
+						font-size: 1rem;
+						font-weight: 400;
+						letter-spacing: .01rem;
+						width: 100%;
+						padding: 14px 20px;
+					}
+					.form-control {
+						
+						//background: #eeeeee;
+					}
+					.phone-field {
+						.prefix {
+							margin-left: 20px;
+						}
+						.form-control {
+							padding-left: 30px;
+						}
+					}
+				}
+				.ps {
+					text-align: center;
+					margin-top: 20px;
+
+					a {
+						color: fade(black, 50%);
+						text-decoration: underline;
+						font-size: .95rem;
+
+						&:hover {
+							color: black;
+						}
+					}
+				}
 			}
 		}
 	}

@@ -58,7 +58,7 @@
 				<div class="price-wrapper">
 					<div class="price">{{ $product->price }}</div>
 					{{-- <div class="compare-at-price">{{ $product->price  * 4 }}</div> --}}
-					<a class="found-cheaper-link">Нашли дешевле?</a>
+					<a @click="foundCheaperModalIsOpen = true" class="found-cheaper-link">Нашли дешевле?</a>
 				</div>
 				
 				<ul class="parameter-list">
