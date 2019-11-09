@@ -11,7 +11,7 @@
 				<form>
 					<div class="form-group">
 						<label for="foundCheaperForm_name" required>Имя</label>
-						<input invalid type="text" class="form-control" name="name" id="foundCheaperForm_name"  placeholder="Даниил">
+						<input type="text" class="form-control" name="name" id="foundCheaperForm_name" placeholder="Даниил">
 					</div>
 					<div class="form-group">
 						<label for="foundCheaperForm_email" required>E-mail</label>

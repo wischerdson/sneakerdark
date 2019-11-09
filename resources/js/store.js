@@ -8,7 +8,8 @@ Vue.use(VueResource)
 export default new Vuex.Store({
 	state: {
 		searchIsOpen: false,
-		searchQuery: ''
+		searchQuery: '',
+		cartIsOpen: true
 	},
 	mutations: {
 		searchIsOpen (state, payload) {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
 		searchQuery (state, payload) {
 			alert()
 			state.searchQuery = payload
+		},
+		cartIsOpen (state, payload) {
+			state.cartIsOpen = payload
 		}
 	},
 	getters: {

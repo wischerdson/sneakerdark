@@ -78,7 +78,7 @@
 				@include('svg.user')
 				Войти
 			</a>
-			<a href="#" class="btn">
+			<a class="btn" @click="$store.commit('cartIsOpen', true)">
 				@include('svg.shopping-bag')
 				Корзина
 			</a>

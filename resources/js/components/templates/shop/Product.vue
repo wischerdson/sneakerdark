@@ -21,7 +21,7 @@
 				presentationSlide: 0,
 				gallerySlide: 0,
 				galleryIsOpen: false,
-				foundCheaperModalIsOpen: true
+				foundCheaperModalIsOpen: false
 			}
 		},
 		watch: {

@@ -10,4 +10,3 @@
 		@include('snippets.header-mobile')
 	</header>
 </template>
-

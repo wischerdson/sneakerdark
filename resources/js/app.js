@@ -20,12 +20,14 @@ Vue.component('breadcrumb-item', BreadcrumbItem)
 
 
 import SectionHeader from './components/sections/Header'
+import SectionCart from './components/sections/cart'
 import SectionWelcome from './components/sections/Welcome'
 import SectionCollections from './components/sections/Collections'
 import SectionSearch from './components/sections/Search'
 import SectionFooter from './components/sections/Footer'
 
 Vue.component('section-header', SectionHeader)
+Vue.component('section-cart', SectionCart)
 Vue.component('section-welcome', SectionWelcome)
 Vue.component('section-collections', SectionCollections)
 Vue.component('section-search', SectionSearch)
