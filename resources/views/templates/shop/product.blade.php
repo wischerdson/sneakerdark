@@ -1,5 +1,10 @@
 <template id="template__shop_product">
 	<div class="container" id="template_shop_product">
+		<input type="hidden" name="product_id" value="{{ $product->id }}">
+		<input type="hidden" name="product_link" value="{{ route('shop.product', ['product_id' => $product->id]) }}">
+		<input type="hidden" name="product_title" value="{{ $product->title }}">
+		<input type="hidden" name="product_price" value="{{ $product->price }}">
+		<input type="hidden" name="product_picture" value="{{ $product->pictures[0]->bizoutmax_src }}">
 		<div class="top">
 			<div class="left">
 				<div class="sticky">
@@ -66,6 +71,9 @@
 						@if ($parameter->key == 'Пол')
 							@continue
 						@endif
+						@if ($parameter->key == 'Цвет')
+						<input type="hidden" name="product_color" value="{{ $parameter->value }}">
+						@endif
 						<li class="parameter-item">
 							<span class="parameter-key">{{ $parameter->key }}</span>
 							<span class="parameter-value">{{ $parameter->value }}</span>
@@ -73,6 +81,8 @@
 					@endforeach
 				</ul>
 
+
+				@if (isset($product->sizes[0]))
 				<div class="sizes-wrapper">
 					<div class="title">Размер <button class="how-to-choose-size-btn">@include('svg.ruler')Таблица размеров</button></div>
 					<ul class="size-list">
@@ -81,8 +91,10 @@
 						<li class="size-item" instock="{{ $size->instock }}">
 							<input
 							type="radio"
-							name="size"
+							name="product_size"
 							id="size_{{ $size->bizoutmax_id }}"
+							value="{{ $size->size }}"
+							v-model="product.size"
 							>
 							<label for="size_{{ $size->bizoutmax_id }}">
 								{{ $size->size }}
@@ -95,6 +107,7 @@
 						@endforeach
 					</ul>
 				</div>
+				@endif
 
 				@if (isset($product->colors) && count($product->colors) > 1)
 				<div class="colors-wrapper">
@@ -117,15 +130,16 @@
 				@endif
 
 				<div class="buttons">
-					<div class="btn primary add-to-cart">
+					<button @click="addToCart" class="btn primary add-to-cart">
 						<span>Добавить в корзину</span>
 						@include('svg.shopping-bag')
-					</div>
+					</button>
 					<div class="btn primary add-to-wishlist">
 						<div class="tip">Добавить в избранное</div>
 						@include('svg.wishlist')
 					</div>
 				</div>
+				<div v-if="sizeIsNotSelect" class="invalid-feedback">Пожалуйста, выберите размер</div>
 				<div class="note">
 					<p>Бесплатная доставка Почтой России</p>
 					<p>При 100% предоплате заказа от 7000 рублей</p>

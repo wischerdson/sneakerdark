@@ -10,6 +10,10 @@
 				zoomRight: '',
 				zoomBottom: '',
 				zoomTransition: true,
+				product: {
+					size: null
+				},
+				sizeIsNotSelect: false,
 				tabs: {
 					description: {name: 'Описание', isActive: true},
 					sizes: {name: 'Размеры', isActive: false},
@@ -84,6 +88,39 @@
 				this.zoomRight = 0
 				this.zoomBottom = 0
 				this.zoomTransition = true
+			},
+			addToCart () {
+				if (document.querySelector('input[name="product_size"]') && !this.product.size) {
+					this.sizeIsNotSelect = true
+					return
+				}
+				this.sizeIsNotSelect = false
+
+				this.product.id = document.querySelector('input[name="product_id"]').value
+				this.product.title = document.querySelector('input[name="product_title"]').value
+				this.product.picture = document.querySelector('input[name="product_picture"]').value
+				this.product.price = document.querySelector('input[name="product_price"]').value
+				this.product.link = document.querySelector('input[name="product_link"]').value
+				this.product.color = null
+				this.product.quantity = 1
+
+				const colorEl = document.querySelector('input[name="product_color"]')
+				if (colorEl)
+					this.product.color = colorEl.value
+
+				let cart = this.$store.state.cart
+				let productExists = false
+				cart.forEach((value, index) => {
+					if (value.id == this.product.id && value.size == this.product.size) {
+						cart[index].quantity++
+						productExists = true
+						return
+					}
+				})
+				if (!productExists)
+					cart.push(this.product)
+
+				this.$store.commit('cart', cart)
 			}
 		},
 		mounted () {

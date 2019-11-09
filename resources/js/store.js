@@ -9,7 +9,8 @@ export default new Vuex.Store({
 	state: {
 		searchIsOpen: false,
 		searchQuery: '',
-		cartIsOpen: true
+		cartIsOpen: false,
+		cart: null
 	},
 	mutations: {
 		searchIsOpen (state, payload) {
@@ -21,6 +22,10 @@ export default new Vuex.Store({
 		},
 		cartIsOpen (state, payload) {
 			state.cartIsOpen = payload
+		},
+		cart (state, payload) {
+			state.cart = []
+			state.cart = payload
 		}
 	},
 	getters: {

@@ -1556,6 +1556,11 @@ svg {
 #section_cart .box > .content .product-list-wrapper .product-list .product-item .right .product-name {
   font-size: 1.1rem;
   font-weight: 400;
+  color: white;
+  text-decoration: none;
+}
+#section_cart .box > .content .product-list-wrapper .product-list .product-item .right .product-name:hover {
+  color: #b3b3b3;
 }
 #section_cart .box > .content .product-list-wrapper .product-list .product-item .right .product-meta {
   margin-top: 10px;
@@ -1565,6 +1570,48 @@ svg {
   grid-template-columns: auto 1fr;
   align-items: center;
   margin-top: 10px;
+}
+#section_cart .box > .content .product-list-wrapper .product-list .product-item .right .qty-price-wrapper .quantity {
+  display: grid;
+  position: relative;
+  height: 21px;
+  max-width: 75px;
+}
+#section_cart .box > .content .product-list-wrapper .product-list .product-item .right .qty-price-wrapper .quantity button {
+  width: 18px;
+  height: 100%;
+  padding: 0 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  border: 1px solid #343535;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#section_cart .box > .content .product-list-wrapper .product-list .product-item .right .qty-price-wrapper .quantity button:first-of-type {
+  left: 0;
+}
+#section_cart .box > .content .product-list-wrapper .product-list .product-item .right .qty-price-wrapper .quantity button:last-of-type {
+  right: 0;
+}
+#section_cart .box > .content .product-list-wrapper .product-list .product-item .right .qty-price-wrapper .quantity button:hover {
+  background-color: #343535;
+}
+#section_cart .box > .content .product-list-wrapper .product-list .product-item .right .qty-price-wrapper .quantity input {
+  width: 100%;
+  color: white;
+  padding: 0 20px;
+  text-align: center;
+  background-color: transparent;
+  border-top: 1px solid #343535;
+  border-bottom: 1px solid #343535;
+  font-weight: 400;
 }
 #section_cart .box > .content .product-list-wrapper .product-list .product-item .right .qty-price-wrapper .price {
   font-size: 1.3rem;
@@ -1959,6 +2006,13 @@ svg {
 }
 #template_shop_product > .top .right .colors-wrapper .color-list .color-item.current a .tick svg {
   fill: white;
+}
+#template_shop_product > .top .right .invalid-feedback {
+  text-align: center;
+  margin-top: 15px;
+  color: red;
+  font-weight: 400;
+  font-size: 1.25rem;
 }
 #template_shop_product > .top .right .buttons {
   display: grid;

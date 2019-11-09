@@ -1,5 +1,7 @@
 <script type="text/javascript">
 	
+	import CartItem from '../snippets/CartItem'
+
 	export default {
 		template: '#template__section_cart',
 		data () {
@@ -11,6 +13,18 @@
 				showScroll: false,
 				hideScrollPermanently: false,
 				showScrollTimeout: null
+			}
+		},
+		computed: {
+			subtotal () {
+				const cart = this.$store.state.cart
+				if (!cart)
+					return
+				let result = 0
+				cart.forEach((value, index) => {
+					result += value.price * value.quantity
+				})
+				return result
 			}
 		},
 		methods: {
@@ -83,6 +97,9 @@
 			document.addEventListener('mousemove', (e) => {
 				this.manuallyScroll(e)
 			})
+		},
+		components: {
+			CartItem
 		}
 	}
 

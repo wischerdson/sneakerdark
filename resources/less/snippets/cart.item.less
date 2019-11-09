@@ -1,0 +1,95 @@
+.product-item {
+	display: grid;
+	grid-template-columns: 75px 1fr;
+	grid-gap: 15px;
+	padding: 20px 0;
+
+
+	.left {
+		.product-picture {
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+	.right {
+		.product-name {
+			font-size: 1.1rem;
+			font-weight: 400;
+			color: white;
+			text-decoration: none;
+
+			&:hover {
+				color: darken(white, 30%);
+			}
+		}
+		.product-meta {
+			margin-top: 10px;
+		}
+		.qty-price-wrapper {
+			display: grid;
+			grid-template-columns: auto 1fr;
+			align-items: center;
+			margin-top: 10px;
+
+			.quantity {
+				display: grid;
+				position: relative;
+				height: 21px;
+				max-width: 75px;
+
+				button {
+					width: 18px;
+					height: 100%;
+					padding: 0 5px;
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					display: block;
+					cursor: pointer;
+					background-color: transparent;
+					color: white;
+					border: 1px solid #343535;
+					font-weight: 400;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					&:first-of-type {
+						left: 0;
+					}
+					&:last-of-type {
+						right: 0;
+					}
+					&:hover {
+						background-color: #343535;
+					}
+				}
+				input {
+					width: 100%;
+					color: white;
+					padding: 0 20px;
+					text-align: center;
+					background-color: transparent;
+					border-top: 1px solid #343535;
+					border-bottom: 1px solid #343535;
+					font-weight: 400;
+				}
+			}
+			.price {
+				font-size: 1.3rem;
+				font-weight: 400;
+				letter-spacing: .05rem;
+				text-align: right;
+
+				&:after {
+					content: '\20BD';
+					color: fade(white, 60%);
+				}
+			}
+		}
+	}
+	&:not(:first-child) {
+		border-top: 1px solid #343535;
+	}
+}
