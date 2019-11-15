@@ -130,11 +130,11 @@
 				@endif
 
 				<div class="buttons">
-					<button @click="addToCart" class="btn primary add-to-cart">
+					<button @click="addToCart" class="btn primary add-to-cart waves-effect waves-light">
 						<span>Добавить в корзину</span>
 						@include('svg.shopping-bag')
 					</button>
-					<div class="btn primary add-to-wishlist">
+					<div class="btn primary add-to-wishlist without-active">
 						<div class="tip">Добавить в избранное</div>
 						@include('svg.wishlist')
 					</div>

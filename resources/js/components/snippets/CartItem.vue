@@ -14,6 +14,7 @@
 					<input type="text" name="quantity" v-model="quantity">
 					<button @click="quantity++"><span>+</span></button>
 				</div>
+				<div class="remove" @click="quantity = 0">Удалить</div>
 				<div class="price">{{ price * quantity }}</div>
 			</div>
 		</div>
@@ -26,17 +27,20 @@
 		props: ['title', 'color', 'size', 'picture', 'url', 'quantity', 'price', 'id'],
 		watch: {
 			quantity (newQuantity, oldQuantity) {
-				let cart = this.$store.state.cart
+				let cart = this.$store.getters.getCart()
 
-				cart.forEach((value, index) => {
-					if (value.id == this.id && value.size == this.size) {
-						cart[index].quantity = newQuantity
-						if (newQuantity === 0) {
-							cart.splice(index, 1)
-						}
-						return
-					}
-				})
+				const currentProduct = this.id + 'O' + this.size
+
+
+
+
+				if (!cart.hasOwnProperty(currentProduct))
+					return
+
+				cart[currentProduct].quantity = newQuantity
+				if (newQuantity === 0)
+					delete cart[currentProduct]
+
 				this.$store.commit('cart', cart)
 			}
 		}

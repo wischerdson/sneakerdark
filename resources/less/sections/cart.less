@@ -1,17 +1,9 @@
 #section_cart {
-	
 	.absolutely-covered;
 	position: fixed;
 	z-index: 101;
 	color: white;
 
-	&.scrolling {
-		-ms-user-select: none; 
-		-moz-user-select: none; 
-		-webkit-user-select: none; 
-		user-select: none;
-		cursor: pointer;
-	}
 	.overlay {
 		.absolutely-covered;
 		background-color: fade(black, 80%);
@@ -23,7 +15,7 @@
 		right: 0;
 		bottom: 0;
 		width: 100%;
-		max-width: 380px;
+		max-width: 450px;
 		background-color: #161616;
 		padding: 0 30px;
 		transition: transform .35s cubic-bezier(0.46, 0.01 , 0.32, 1);
@@ -58,9 +50,10 @@
 			bottom: 165.4px;
 			left: 30px;
 			right: 30px;
-			width: 320px;
+			width: calc(450px - 60px);
 			
 			.has-scroll {
+				pointer-events: none;
 				position: absolute;
 				bottom: 0;
 				left: 0;
@@ -70,7 +63,7 @@
 			}
 
 			.product-list-wrapper {
-				overflow-y: scroll;
+				overflow-y: auto;
 				max-height: 100%;
 				width: inherit;
 				padding-right: 25px;
@@ -79,31 +72,29 @@
 
 				.product-list {
 					width: inherit;
+					padding-bottom: 120px;
 
 					@import "../snippets/cart.item.less";
+
+					.list-complete-enter, .list-complete-leave-to {
+						opacity: 0;
+						transform: scale(0);
+						position: relative;
+					}
+					.list-complete-leave-active {
+						position: absolute;
+						left: 0;
+						right: 0;
+						z-index: 0;
+					}
 				}
 
-				.scrollbar {
-					position: absolute;
-					top: 10px;
-					bottom: 10px;
-					right: 0;
-					width: 7px;
-					transition: opacity .15s ease-in-out;
-					cursor: pointer;
-
-					.scrollbar-entity{
-						height: 30px;
-						width: 100%;
-						background-color: #666566;
-						border-radius: 9999px;
-					}
-					&.hideScroll {
-						opacity: 0;
-					}
-					&:hover {
-						opacity: 1;
-					}
+				.cart-is-empty {
+					.absolutely-covered;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-size: 1.4rem;
 				}
 			}
 		}
@@ -149,6 +140,12 @@
 				letter-spacing: .07rem;
 				background-color: #7122e3;
 			}
+		}
+		.fade-enter-active, .fade-leave-active {
+			transition: opacity .4s ease-in-out;
+		}
+		.fade-enter, .fade-leave-to {
+			opacity: 0;
 		}
 	}
 }

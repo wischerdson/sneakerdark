@@ -9,27 +9,26 @@ export default new Vuex.Store({
 	state: {
 		searchIsOpen: false,
 		searchQuery: '',
-		cartIsOpen: false,
-		cart: null
+		cartIsOpen: true,
+		cart: {}
 	},
 	mutations: {
 		searchIsOpen (state, payload) {
 			state.searchIsOpen = payload
 		},
 		searchQuery (state, payload) {
-			alert()
 			state.searchQuery = payload
 		},
 		cartIsOpen (state, payload) {
 			state.cartIsOpen = payload
 		},
 		cart (state, payload) {
-			state.cart = []
+			state.cart = {}
 			state.cart = payload
 		}
 	},
 	getters: {
-		
+		getCart: state => () => state.cart
 	},
 	actions: {
 		

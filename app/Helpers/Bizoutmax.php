@@ -129,7 +129,7 @@ class Bizoutmax {
 				['id' => $article.$i],
 				[
 					'product_id' => $article,
-					'bizoutmax_src' => (string) $picture
+					'bizoutmax_src' => str_ireplace('http:', 'https:', (string) $picture)
 				]
 			);
 			$i++;

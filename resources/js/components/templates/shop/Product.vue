@@ -11,7 +11,8 @@
 				zoomBottom: '',
 				zoomTransition: true,
 				product: {
-					size: null
+					size: null,
+					color: null
 				},
 				sizeIsNotSelect: false,
 				tabs: {
@@ -90,37 +91,40 @@
 				this.zoomTransition = true
 			},
 			addToCart () {
-				if (document.querySelector('input[name="product_size"]') && !this.product.size) {
-					this.sizeIsNotSelect = true
+				this.sizeIsNotSelect = document.querySelector('input[name="product_size"]') && !this.product.size
+				if (this.sizeIsNotSelect)
 					return
+
+				let productId = document.querySelector('input[name="product_id"]').value
+
+				const currentProduct = {
+					id: productId,
+					title: document.querySelector('input[name="product_title"]').value,
+					picture: document.querySelector('input[name="product_picture"]').value,
+					price: document.querySelector('input[name="product_price"]').value,
+					link: document.querySelector('input[name="product_link"]').value,
+					size: this.product.size,
+					quantity: 1
 				}
-				this.sizeIsNotSelect = false
-
-				this.product.id = document.querySelector('input[name="product_id"]').value
-				this.product.title = document.querySelector('input[name="product_title"]').value
-				this.product.picture = document.querySelector('input[name="product_picture"]').value
-				this.product.price = document.querySelector('input[name="product_price"]').value
-				this.product.link = document.querySelector('input[name="product_link"]').value
-				this.product.color = null
-				this.product.quantity = 1
-
+				
 				const colorEl = document.querySelector('input[name="product_color"]')
 				if (colorEl)
-					this.product.color = colorEl.value
+					currentProduct.color = colorEl.value
 
-				let cart = this.$store.state.cart
-				let productExists = false
-				cart.forEach((value, index) => {
-					if (value.id == this.product.id && value.size == this.product.size) {
-						cart[index].quantity++
-						productExists = true
-						return
-					}
-				})
-				if (!productExists)
-					cart.push(this.product)
+				let cart = this.$store.getters.getCart()
+				productId += 'O' + this.product.size
+				if (cart.hasOwnProperty(productId))
+					cart[productId].quantity++
+				else
+					cart[productId] = currentProduct
+
+				console.log(this.product.size)
+				console.log(this.product)
+				console.log(currentProduct)
+
 
 				this.$store.commit('cart', cart)
+				this.$store.commit('cartIsOpen', true)
 			}
 		},
 		mounted () {
