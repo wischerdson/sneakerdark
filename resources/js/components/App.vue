@@ -2,16 +2,18 @@
 	
 	import HomePage from './templates/Home'
 	import SearchPage from './templates/Search'
-	import ShopProductPage from './templates/shop/Product'
-	import ShopProductNotFoundPage from './templates/shop/ProductNotFound'
+	import CatalogProductPage from './templates/catalog/Product'
+	import CatalogProductNotFoundPage from './templates/catalog/ProductNotFound'
+	import CatalogPage from './templates/catalog/Collection'
 
 	export default {
 		template: '#template__layout',
 		components: {
 			HomePage,
 			SearchPage,
-			ShopProductPage,
-			ShopProductNotFoundPage
+			CatalogPage,
+			CatalogProductPage,
+			CatalogProductNotFoundPage
 		},
 		// computed: {
 		// 	cart () {

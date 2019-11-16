@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App;
+use Storage;
 
 use App\Category;
 use App\Product;
@@ -10,7 +11,7 @@ use App\Size;
 use App\Picture;
 use App\Parameter;
 
-class Bizoutmax {
+class SneakerdarkImport {
 	private $xmlFilePath;
 	private $currentProduct;
 	private $productExists = false;
@@ -22,8 +23,8 @@ class Bizoutmax {
 		$this->xmlFilePath = $this->downloadYml(config('app.import_link'));
 	}
 	private function downloadYml($url) {
-		$path = storage_path('app/bizoutmax/').'import.xml';
-		file_put_contents($path, '');
+		Storage::disk('sneakerdark')->put('import.xml', '');
+		$path = storage_path('app/sneakerdark/').'import.xml';
 
 		$file = fopen($path, 'w');
 
@@ -40,7 +41,7 @@ class Bizoutmax {
 
 		return $path;
 	}
-	public function import($tables) {
+	public function start($tables) {
 		$xmlParser = App::make(\App\Helpers\XmlParser::class);
 
 		$xmlParser->category(function ($data) use ($tables) {
@@ -84,7 +85,7 @@ class Bizoutmax {
 			'id' => $article,
 			'title' => $data->NAME,
 			'price' => $data->PRICE,
-			'bizoutmax_url' => $data->URL,
+			'supplier_url' => $data->URL,
 			'category_id' => $data->CATEGORYID,
 			'model' => $data->MODEL,
 			'description' => $description,
@@ -129,7 +130,7 @@ class Bizoutmax {
 				['id' => $article.$i],
 				[
 					'product_id' => $article,
-					'bizoutmax_src' => str_ireplace('http:', 'https:', (string) $picture)
+					'src' => str_ireplace('http:', 'https:', (string) $picture)
 				]
 			);
 			$i++;
@@ -157,7 +158,7 @@ class Bizoutmax {
 					'size' => (string) $value,
 					'instock' => $data->OUTLETS->OUTLET[0]['instock'] < 0 ? 0 : $data->OUTLETS->OUTLET[0]['instock'],
 					'available' => $data['available'] ? 1 : 0,
-					'bizoutmax_id' => $data['id'],
+					'supplier_id' => $data['id'],
 					'delivery' => $data->DELIVERY ? 1 : 0
 				]
 			);
@@ -172,5 +173,4 @@ class Bizoutmax {
 			]
 		);
 	}
-	
 }

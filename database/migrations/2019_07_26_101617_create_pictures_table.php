@@ -16,7 +16,7 @@ class CreatePicturesTable extends Migration
 		Schema::create('pictures', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->bigInteger('product_id')->unsigned();
-			$table->string('bizoutmax_src');
+			$table->string('src');
 
 			$table->foreign('product_id')->references('id')->on('products');
 		});

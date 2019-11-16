@@ -64,6 +64,11 @@ return [
 			'url' => env('AWS_URL'),
 		],
 
+		'sneakerdark' => [
+			'driver' => 'local',
+			'root' => storage_path('app/sneakerdark/'),
+		]
+
 	],
 
 ];

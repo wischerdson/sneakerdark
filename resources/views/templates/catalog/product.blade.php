@@ -1,10 +1,10 @@
-<template id="template__shop_product">
+<template id="template__catalog_product">
 	<div class="container" id="template_shop_product">
 		<input type="hidden" name="product_id" value="{{ $product->id }}">
-		<input type="hidden" name="product_link" value="{{ route('shop.product', ['product_id' => $product->id]) }}">
+		<input type="hidden" name="product_link" value="{{ route('catalog.product', ['product_id' => $product->id]) }}">
 		<input type="hidden" name="product_title" value="{{ $product->title }}">
 		<input type="hidden" name="product_price" value="{{ $product->price }}">
-		<input type="hidden" name="product_picture" value="{{ $product->pictures[0]->bizoutmax_src }}">
+		<input type="hidden" name="product_picture" value="{{ $product->pictures[0]->src }}">
 		<div class="top">
 			<div class="left">
 				<div class="sticky">
@@ -20,7 +20,7 @@
 									<div
 									:class="['image', {'transition': zoomTransition}]"
 									:style="`
-										background-image: url({{ $picture->bizoutmax_src }});
+										background-image: url({{ $picture->src }});
 										top: ${zoomTop}px;
 										left: ${zoomLeft}px;
 										right: ${zoomRight}px;
@@ -36,7 +36,7 @@
 						</div>
 						<div class="slider-navigation" ref="sliderNavigation">
 							@foreach ($product->pictures as $picture)
-							<div class="mini-image" style="background-image: url({{ $picture->bizoutmax_src }})"></div>
+							<div class="mini-image" style="background-image: url({{ $picture->src }})"></div>
 							@endforeach
 						</div>
 					</div>
@@ -116,9 +116,9 @@
 						@foreach ($product->colors as $color)
 						<li
 							class="color-item @if ($color->id == $product->id) current @endif"
-							style="background-image: url({{ $color->pictures[0]->bizoutmax_src ?? asset('image/no-image.jpg') }})"
+							style="background-image: url({{ $color->pictures[0]->src ?? asset('image/no-image.jpg') }})"
 						>
-							<a href="{{ route('shop.product', ['product_id' => $color->id]) }}">
+							<a href="{{ route('catalog.product', ['product_id' => $color->id]) }}">
 								@if ($color->id == $product->id)
 								<div class="tick">@include('svg.tick')</div>
 								@endif
@@ -165,7 +165,7 @@
 						$a = rand(0, $a - 1);
 
 					@endphp
-					<div class="rand-picture"><img src="{{ $product->pictures[$a]->bizoutmax_src }}"></div>
+					<div class="rand-picture"><img src="{{ $product->pictures[$a]->src }}"></div>
 				</div>
 				<div v-show="tabs.sizes.isActive">Размеры</div>
 				<div v-show="tabs.shipping.isActive">shipping</div>

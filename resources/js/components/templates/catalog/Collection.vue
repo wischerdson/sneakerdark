@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	
 	export default {
-		template: '#template__shop_productNotFound'
+		template: '#template__catalog_collection'
 	}
 
 </script>

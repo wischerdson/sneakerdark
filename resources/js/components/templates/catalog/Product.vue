@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	
 	export default {
-		template: '#template__shop_product',
+		template: '#template__catalog_product',
 		data () {
 			return {
 				zoom: false,

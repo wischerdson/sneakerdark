@@ -4,9 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-use App\Helpers\Bizoutmax;
+use App\Helpers\SneakerdarkImport;
 
-class BizoutmaxServiceProvider extends ServiceProvider
+class SneakerdarkImportServiceProvider extends ServiceProvider
 {
 	/**
 	 * Register services.
@@ -15,8 +15,8 @@ class BizoutmaxServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		$this->app->singleton(Bizoutmax::class, function () {
-			return new Bizoutmax();
+		$this->app->singleton(SneakerdarkImport::class, function () {
+			return new SneakerdarkImport();
 		});
 	}
 

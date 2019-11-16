@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Shop;
+namespace App\Http\Controllers\Catalog;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CollectionController extends Controller
+class CollectionController extends \App\Http\Controllers\SiteController
 {
     public function show(Request $request) {
-    	$this->template = 'shop.collection';
+    	$this->template = 'catalog.collection';
     	$this->title = 'Коллекция - Sneakerdark';
     	return $this->output();
     }

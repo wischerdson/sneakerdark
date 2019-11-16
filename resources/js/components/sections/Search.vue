@@ -39,7 +39,7 @@
 				})
 			},
 			getPicture (picture, noImageUrl) {
-				return picture.length ? picture[0].bizoutmax_src : noImageUrl
+				return picture.length ? picture[0].src : noImageUrl
 			}
 		},
 		watch: {

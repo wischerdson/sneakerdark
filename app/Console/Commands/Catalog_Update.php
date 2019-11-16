@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Storage;
 use App;
 
 use App\Helpers\Contracts\Bizoutmax;
@@ -42,18 +43,21 @@ class Catalog_Update extends Command
 	public function handle()
 	{
 		$this->comment('Yml downloading...');
-		$bizoutmax = App::make(App\Helpers\Bizoutmax::class);
+		$sneakerdarkImport = App::make(App\Helpers\SneakerdarkImport::class);
 
-		$oldHashFile = storage_path('app/bizoutmax/').'last_hash.txt';
+		$hashFileExists = Storage::disk('sneakerdark')->exists('last_hash.txt');
 
-		$oldHash = file_get_contents($oldHashFile);
-		$hash = $bizoutmax->hash;
+		if (!$hashFileExists)
+			Storage::disk('sneakerdark')->put('last_hash.txt', '');
 
-		if ($oldHash === $hash) {
+		$hashFileContent = Storage::disk('sneakerdark')->get('last_hash.txt');
+		$hash = $sneakerdarkImport->hash;
+
+		if ($hashFileContent === $hash) {
 			$this->comment('No updates is required.');
 			return;
 		}
-		file_put_contents($oldHashFile, $hash);
+		Storage::disk('sneakerdark')->put('last_hash.txt', $hash);
 
 		$tables = explode(',', $this->argument('tables'));
 		$a = [
@@ -61,8 +65,7 @@ class Catalog_Update extends Command
 			'offer' => array_intersect(['products','parameters','pictures','sizes'], $tables)
 		];
 
-
 		$this->comment('Importing...');
-		$bizoutmax->import($a);
+		$sneakerdarkImport->start($a);
 	}
 }

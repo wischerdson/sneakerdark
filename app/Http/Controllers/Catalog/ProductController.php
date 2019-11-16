@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Shop;
+namespace App\Http\Controllers\Catalog;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class ProductController extends \App\Http\Controllers\SiteController
 			->first();
 
 		if (!$product) {
-			$this->template = 'shop.product-not-found';
+			$this->template = 'catalog.product-not-found';
 			$this->title = 'Товар не найден - Sneakerdark';
 			$this->vars['product_article'] = $product_id;
 			return $this->output();
@@ -41,7 +41,7 @@ class ProductController extends \App\Http\Controllers\SiteController
 
 		//dd($product);
 
-		$this->template = 'shop.product';
+		$this->template = 'catalog.product';
 		$this->title = $product->title.' - Sneakerdark';
 		$this->vars['product'] = $product;
 		$this->vars['categoriesChain'] = $categoriesChain;
