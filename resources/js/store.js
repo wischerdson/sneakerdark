@@ -9,7 +9,7 @@ export default new Vuex.Store({
 	state: {
 		searchIsOpen: false,
 		searchQuery: '',
-		cartIsOpen: true,
+		cartIsOpen: false,
 		cart: {}
 	},
 	mutations: {

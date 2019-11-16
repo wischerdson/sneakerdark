@@ -118,11 +118,6 @@
 				else
 					cart[productId] = currentProduct
 
-				console.log(this.product.size)
-				console.log(this.product)
-				console.log(currentProduct)
-
-
 				this.$store.commit('cart', cart)
 				this.$store.commit('cartIsOpen', true)
 			}
