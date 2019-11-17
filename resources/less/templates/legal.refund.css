@@ -1,0 +1,29 @@
+#template_legal_refund {
+  margin-top: 50px;
+}
+#template_legal_refund > .container .sticky_nav {
+  position: fixed;
+  list-style: none;
+  counter-reset: loyalty;
+  width: 25%;
+  cursor: pointer;
+  padding: 15px 0 0;
+}
+#template_legal_refund > .container .sticky_nav li {
+  margin: 20px 0;
+}
+#template_legal_refund > .container .content {
+  position: absolute;
+  right: 10%;
+  width: 60%;
+  line-height: 1.5;
+}
+#template_legal_refund > .container .sticky_nav li a {
+  color: #56b7fc;
+}
+#template_legal_refund > .container h1 {
+  margin: 30px 0 0;
+}
+#template_legal_refund > .container h2 {
+  margin: 30px 15px 0;
+}
