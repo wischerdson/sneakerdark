@@ -19,5 +19,10 @@ Route::group(['prefix' => 'catalog'], function () {
 	Route::get('{collection_id}', ['uses' => 'Catalog\CollectionController@show', 'as' => 'catalog']);
 });
 
+Route::group(['prefix' => 'legal'], function () {
+	Route::get('refund', ['uses' => 'Legal\RefundController@show', 'as' => 'legal.refund']);
+});
+
+
 
 });

@@ -6,6 +6,8 @@
 	import CatalogProductNotFoundPage from './templates/catalog/ProductNotFound'
 	import CatalogPage from './templates/catalog/Collection'
 
+	import LegalRefundPage from './templates/legal/Refund'
+
 	export default {
 		template: '#template__layout',
 		components: {
@@ -13,7 +15,8 @@
 			SearchPage,
 			CatalogPage,
 			CatalogProductPage,
-			CatalogProductNotFoundPage
+			CatalogProductNotFoundPage,
+			LegalRefundPage
 		},
 		// computed: {
 		// 	cart () {

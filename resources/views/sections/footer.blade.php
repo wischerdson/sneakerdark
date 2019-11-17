@@ -8,11 +8,11 @@
 				<div class="column">
 					<div class="column-title">Навигация</div>
 					<ul class="link-list">
-						<li class="link-item">Главная</li>
+						<li class="link-item"><a href="{{ route('home') }}">Главная</a></li>
 						<li class="link-item">Отзывы</li>
 						<li class="link-item">Частые вопросы</li>
 						<li class="link-item">Таблица размеров</li>
-						<li class="link-item">Обмен и возврат</li>
+						<li class="link-item"><a href="{{ route('legal.refund') }}">Обмен и возврат</a></li>
 						<li class="link-item">Информация о доставке</li>
 					</ul>
 				</div>
