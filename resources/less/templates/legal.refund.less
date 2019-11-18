@@ -2,31 +2,34 @@
 	margin-top: 50px;
 
 	& > .container {
+		display: grid;
+		grid-template-columns: .4fr .6fr;
+
 		.sticky_nav {
-			position: fixed;
+			position: sticky;
 			list-style: none;
 			counter-reset: loyalty;
-			width: 25%;
 			cursor: pointer;
 			padding: 15px 0 0;
+
+			li {
+				margin: 20px 0;
+
+				a {
+					color: #56b7fc;
+				}
+			}
 		}
-		.sticky_nav li {
-			margin: 20px 0;
-		}
-		.content {
-			position: absolute;
-			right: 10%;
-			width: 60%;
+		& > .content {
+			
 			line-height: 1.5;
+
+			h1 {
+				margin: 30px 0 0;
+			}
+			h2 {
+				margin: 30px 15px 0;
+			}
 		}
-		.sticky_nav li a {
-			color: #56b7fc;
-		}
-		h1 {
-			margin: 30px 0 0;
-		}
-		 h2 {
-			margin: 30px 15px 0;
-		 }
 	}
 }

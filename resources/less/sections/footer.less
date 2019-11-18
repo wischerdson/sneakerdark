@@ -17,6 +17,12 @@
 					svg {
 						width: 80px;
 						fill: #535353;
+						transition: all .15s ease-in-out;
+					}
+
+					&:hover svg {
+						fill: white;
+						box-shadow: 0 0 10px 0px fade(white, 50%);
 					}
 				}
 				&:not(:last-child) {
@@ -102,6 +108,10 @@
 				}
 				a {
 					text-decoration: underline;
+
+					&:hover {
+						color: #969696;
+					}
 				}
 			}
 		}
