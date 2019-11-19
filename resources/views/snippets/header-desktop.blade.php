@@ -37,22 +37,24 @@
 						<a href="#">Бренды</a>
 					</li>
 					<li class="link-item">
-						<a href="#">Мужское</a>
-					</li>
-					<li class="link-item">
-						<a href="#">Женское</a>
+						<a href="{{ route('catalog', ['collection_id' => '1789']) }}">Кроссовки</a>
 						<ul class="submenu">
-							<li class="submenu-item"><a href="#">Обувь</a></li>
-							<li class="submenu-item"><a href="#">Куртки</a></li>
-							<li class="submenu-item"><a href="#">Футболки</a></li>
-							<li class="submenu-item"><a href="#">Свитшоты</a></li>
-							<li class="submenu-item"><a href="#">Худи</a></li>
-							<li class="submenu-item"><a href="#">Штаны</a></li>
-							<li class="submenu-item"><a href="#">Спортивные костюмы</a></li>
+							<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1']) }}">Мужские</a></li>
+							<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '97']) }}">Женские</a></li>
 						</ul>
 					</li>
 					<li class="link-item">
-						<a href="#">Аксессуары</a>
+						<a href="{{ route('catalog', ['collection_id' => '4']) }}">Одежда</a>
+						<ul class="submenu">
+							<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1597']) }}">Мужская</a></li>
+							<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1596']) }}">Женская</a></li>
+						</ul>
+					</li>
+					<li class="link-item">
+						<a href="{{ route('catalog', ['collection_id' => '3']) }}">Аксессуары</a>
+						<ul class="submenu">
+							<li class="submenu-item"><a href="#">{{ $accessory->name }}</a></li>
+						</ul>
 					</li>
 					<li class="link-item">
 						<a href="#">Отзывы</a>

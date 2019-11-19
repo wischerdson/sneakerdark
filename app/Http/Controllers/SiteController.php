@@ -8,7 +8,7 @@ use Auth;
 use Validator;
 use Response;
 
-use App\User;
+use App\Category;
 
 class SiteController extends Controller
 {
@@ -36,6 +36,10 @@ class SiteController extends Controller
 		$this->vars['title'] = $this->title;
 		$this->vars['description'] = $this->description;
 		$this->vars['template'] = $this->template;
+
+
+		$this->vars['accessories_category'] = Category::where('parent_id', 3)->orderBy('name')->get();
+
 
 		return view('layout')->with($this->vars);
 	}

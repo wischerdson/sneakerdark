@@ -3,7 +3,7 @@
 		<div class="desktop">
 			<div class="top">
 				<div class="column">
-					<a class="brand-logo">@include('svg.brand-logo')</a>
+					<a class="brand-logo" href="{{ route('home') }}">@include('svg.brand-logo')</a>
 				</div>
 				<div class="column">
 					<div class="column-title">Навигация</div>

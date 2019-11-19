@@ -1,6 +1,5 @@
 <template id="template__legal_refund">
 	<div id="template_legal_refund">
-		
 		<div class="container">
 			<div class="sticky_nav">
 				<ul>

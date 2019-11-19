@@ -7,7 +7,7 @@
 		<ul class="picture-list" ref="gallery">
 			@foreach ($product->pictures as $picture)
 			<li class="picture-item">
-				<img src="{{ $picture->bizoutmax_src }}">
+				<img src="{{ $picture->src }}">
 			</li>
 			@endforeach
 		</ul>
