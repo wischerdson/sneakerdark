@@ -53,7 +53,31 @@
 					<li class="link-item">
 						<a href="{{ route('catalog', ['collection_id' => '3']) }}">Аксессуары</a>
 						<ul class="submenu">
-							<li class="submenu-item"><a href="#">{{ $accessory->name }}</a></li>
+							<li class="submenu-item">
+								<a href="#">Зимние</a>
+								<ul class="submenu submenu-2">
+									<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1597']) }}">Шапки</a></li>
+									<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1596']) }}">Шарфы</a></li>
+									<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1596']) }}">Перчатки</a></li>
+									<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1596']) }}">Варежки</a></li>
+								</ul>
+							</li>
+							<li class="submenu-item"><a href="#">Рюкзаки и сумки</a></li>
+								<!-- 
+									Рюкзаки
+									Сумки
+									Сумки на пояс
+								 -->
+							<li class="submenu-item"><a href="#">Прочее</a></li>
+								<!-- 
+									Наручные часы
+									Гаджеты
+									Солнцезащитные очки
+									Кошельки
+									Ремни
+									Кепки
+								 -->
+							<li class="submenu-item"><a href="#">Панамы</a></li>
 						</ul>
 					</li>
 					<li class="link-item">

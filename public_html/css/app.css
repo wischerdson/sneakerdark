@@ -615,6 +615,7 @@ svg {
 #section_header .desktop .bottom .left .link-list .movable .link-item .submenu .submenu-item {
   border-bottom: 1px solid #f0f0f0;
   min-width: 170px;
+  position: relative;
 }
 #section_header .desktop .bottom .left .link-list .movable .link-item .submenu .submenu-item a {
   height: -webkit-max-content;
@@ -626,7 +627,14 @@ svg {
   color: #7122e3;
   border-top: 2px solid transparent;
 }
-#section_header .desktop .bottom .left .link-list .movable .link-item:hover .submenu {
+#section_header .desktop .bottom .left .link-list .movable .link-item .submenu .submenu-item:hover .submenu-2 {
+  display: block;
+}
+#section_header .desktop .bottom .left .link-list .movable .link-item .submenu .submenu-2 {
+  left: 100%;
+  top: 0;
+}
+#section_header .desktop .bottom .left .link-list .movable .link-item:hover .submenu:not(.submenu-2) {
   display: block;
 }
 #section_header .desktop .bottom .right {

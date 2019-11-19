@@ -134,6 +134,7 @@
 							.submenu-item {
 								border-bottom: 1px solid #f0f0f0;
 								min-width: 170px;
+								position: relative;
 
 								a {
 									height: max-content;
@@ -144,9 +145,16 @@
 										border-top: 2px solid transparent;
 									}
 								}
+								&:hover .submenu-2 {
+									display: block;
+								}
+							}
+							.submenu-2 {
+								left: 100%;
+								top: 0;
 							}
 						}
-						&:hover .submenu {
+						&:hover .submenu:not(.submenu-2) {
 							display: block;
 						}
 					}
