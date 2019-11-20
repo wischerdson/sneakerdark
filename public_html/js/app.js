@@ -4451,22 +4451,30 @@ __webpack_require__.r(__webpack_exports__);
     CatalogProductNotFoundPage: _templates_catalog_ProductNotFound__WEBPACK_IMPORTED_MODULE_3__["default"],
     LegalRefundPage: _templates_legal_Refund__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  // computed: {
-  // 	cart () {
-  // 		return this.$store.state.cart
-  // 	}
-  // },
-  // watch: {
-  // 	cart: function (value) {
-  // 		console.log(value)
-  // 		localStorage.setItem('cart', JSON.stringify(value))
-  // 	}
-  // },
   mounted: function mounted() {
     if (!localStorage.getItem('cart')) localStorage.setItem('cart', '{}');else this.$store.commit('cart', JSON.parse(localStorage.getItem('cart')));
     this.$store.watch(this.$store.getters.getCart, function (cart) {
       localStorage.setItem('cart', JSON.stringify(cart));
     });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mixins/JivoMixin.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/mixins/JivoMixin.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    jivo_openDialog: function jivo_openDialog() {
+      jivo_api.open();
+    }
   }
 });
 
@@ -21440,6 +21448,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_sections_Search__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/sections/Search */ "./resources/js/components/sections/Search.vue");
 /* harmony import */ var _components_sections_Footer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/sections/Footer */ "./resources/js/components/sections/Footer.vue");
 /* harmony import */ var _components_snippets_SearchResult__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/snippets/SearchResult */ "./resources/js/components/snippets/SearchResult.vue");
+/* harmony import */ var _components_mixins_JivoMixin__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/mixins/JivoMixin */ "./resources/js/components/mixins/JivoMixin.vue");
 
 
 
@@ -21466,6 +21475,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('section-search', _componen
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('section-footer', _components_sections_Footer__WEBPACK_IMPORTED_MODULE_12__["default"]);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('snippet-search-result', _components_snippets_SearchResult__WEBPACK_IMPORTED_MODULE_13__["default"]);
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin(_components_mixins_JivoMixin__WEBPACK_IMPORTED_MODULE_14__["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   render: function render(h) {
@@ -21523,6 +21534,56 @@ component.options.__file = "resources/js/components/App.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/mixins/JivoMixin.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/mixins/JivoMixin.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _JivoMixin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./JivoMixin.vue?vue&type=script&lang=js& */ "./resources/js/components/mixins/JivoMixin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _JivoMixin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/mixins/JivoMixin.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/mixins/JivoMixin.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/mixins/JivoMixin.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_JivoMixin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./JivoMixin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mixins/JivoMixin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_JivoMixin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

@@ -18,17 +18,6 @@
 			CatalogProductNotFoundPage,
 			LegalRefundPage
 		},
-		// computed: {
-		// 	cart () {
-		// 		return this.$store.state.cart
-		// 	}
-		// },
-		// watch: {
-		// 	cart: function (value) {
-		// 		console.log(value)
-		// 		localStorage.setItem('cart', JSON.stringify(value))
-		// 	}
-		// },
 		mounted () {
 			if (!localStorage.getItem('cart'))
 				localStorage.setItem('cart', '{}')

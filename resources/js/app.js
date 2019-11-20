@@ -38,6 +38,11 @@ import SearchResult from './components/snippets/SearchResult'
 
 Vue.component('snippet-search-result', SearchResult)
 
+
+
+import JivoMixin from './components/mixins/JivoMixin'
+Vue.mixin(JivoMixin)
+
 const app = new Vue({
 	el: '#app',
 	render: h => h(App),

@@ -24,7 +24,11 @@
 						<li class="link-item">Связаться через WhatsApp</li>
 						<li class="link-item">Связаться через Telegram</li>
 						<li class="link-item">Связаться через ВКонтакте</li>
-						<li class="link-item"><span class="online-dot"></span>Online-чат с менеджером</li>
+						<li class="link-item">
+							<a @click="jivo_openDialog">
+								<span class="online-dot"></span>Online-чат с менеджером
+							</a>
+						</li>
 					</ul>
 				</div>
 				<div class="column">

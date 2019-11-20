@@ -84,7 +84,7 @@
 						<a href="#">Отзывы</a>
 					</li>
 					<li class="link-item">
-						<a href="#"><span class="online-dot"></span>Online-чат с менеджером</a>
+						<a @click="jivo_openDialog"><span class="online-dot"></span>Online-чат с менеджером</a>
 					</li>
 				</ul>
 			</div>

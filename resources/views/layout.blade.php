@@ -75,6 +75,7 @@
 		const _token = '{{ csrf_token() }}'
 		const _domain = '{{ Request::root() }}'
 	</script>
+	<script src="//code.jivosite.com/widget.js" data-jv-id="x6eDSwL6Iw" async></script>
 	<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
