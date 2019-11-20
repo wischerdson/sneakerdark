@@ -2,22 +2,26 @@ const mix = require('laravel-mix')
 
 
 mix.setPublicPath('public_html/')
+
+
+if (mix.inProduction()) {
+    mix.version();
+    mix.options({
+		postCss: [
+			require('cssnano')({
+				preset: ['default', {
+					discardComments: {
+						removeAll: true,
+					},
+				}]
+			}),
+			require("css-mqpacker")(),
+			require('autoprefixer')
+		]
+	});
+}
+
 mix.less('resources/less/app.less', 'css')
-
-/*mix.options({
-	postCss: [
-		require('cssnano')({
-			preset: ['default', {
-				discardComments: {
-					removeAll: true,
-				},
-			}]
-		}),
-		require("css-mqpacker")(),
-		require('autoprefixer')
-	]
-});*/
-
 mix.js('resources/js/app.js', 'js/v-app.js')
 mix.combine([
 	'resources/js/modules/jquery.min.js',

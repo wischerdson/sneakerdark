@@ -2,6 +2,8 @@
 	
 	import HomePage from './templates/Home'
 	import SearchPage from './templates/Search'
+	import BrandsPage from './templates/Brands'
+
 	import CatalogProductPage from './templates/catalog/Product'
 	import CatalogProductNotFoundPage from './templates/catalog/ProductNotFound'
 	import CatalogPage from './templates/catalog/Collection'
@@ -13,6 +15,7 @@
 		components: {
 			HomePage,
 			SearchPage,
+			BrandsPage,
 			CatalogPage,
 			CatalogProductPage,
 			CatalogProductNotFoundPage,

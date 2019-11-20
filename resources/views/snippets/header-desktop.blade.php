@@ -34,7 +34,7 @@
 						<a href="{{ route('home') }}">Главная</a>
 					</li>
 					<li class="link-item">
-						<a href="#">Бренды</a>
+						<a href="{{ route('brands') }}">Бренды</a>
 					</li>
 					<li class="link-item">
 						<a href="{{ route('catalog', ['collection_id' => '1789']) }}">Кроссовки</a>
