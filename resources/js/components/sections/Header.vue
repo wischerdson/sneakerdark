@@ -25,9 +25,6 @@
 			openSearch () {
 				this.$store.commit('searchIsOpen', true)
 				this.sidebarIsOpen = false
-				setTimeout(() => {
-					document.getElementById('searchField').focus()
-				}, 5)
 			}
 		},
 		watch: {
