@@ -10,32 +10,41 @@ use App\Product;
 
 class CollectionController extends \App\Http\Controllers\SiteController
 {
-    public function show(Request $request, $collection_id) {
-    	$this->template = 'catalog.collection';
-    	$this->title = 'Коллекция - Sneakerdark';
+	private $categories = [];
+
+	public function show(Request $request, $parentCategoryId) {
+		$this->template = 'catalog.collection';
+		$this->title = 'Коллекция - Sneakerdark';
 
 
+		$this->fetchChildCategories($parentCategoryId);
+		$Product = Product::where('category_id', $parentCategoryId);
+		foreach (array_slice($this->categories, 1) as $categoryId) {
+			$Product = $Product->orWhere('category_id', $categoryId);
+		}
+		$products = $Product->orderBy('created_at', 'desc')->with('pictures')->paginate(30);
+		$this->vars['products'] = $products;
 
 
-
-  //   	$this->vars['products'] = Category::where('id', $collection_id)->with('products')->get();
-
-    	$categoriesChain = [];
-    	$categoriesIds = [$collection_id];
-		$categoryParentId = $collection_id;
-		while ($categoryParentId) {
-			$category = Category::where('parent_id', $categoryParentId);
+		$categoriesChain = [];
+		while ($parentCategoryId) {
+			$category = Category::find($parentCategoryId);
 			array_push($categoriesChain, $category);
-			array_push($categoriesIds, $category->id);
-			$categoryParentId = $category->parent_id;
+			$parentCategoryId = $category->parent_id;
 		}
 		$categoriesChain = array_reverse($categoriesChain);
+		$this->vars['categoriesChain'] = $categoriesChain;
 
-		dd($categoriesIds);
-		dd(Product::whereIn('id', [126, 139])->get());
 
-    	
-    	//dd($this->vars['products']);
-    	return $this->output();
-    }
+		return $this->output();
+	}
+
+	private function fetchChildCategories($categoryId) {
+		$childCategories = Category::where('parent_id', $categoryId)->get();
+		array_push($this->categories, $categoryId);
+		foreach ($childCategories as $childCategory) {
+			$this->fetchChildCategories($childCategory->id);
+		}
+		return;
+	}
 }

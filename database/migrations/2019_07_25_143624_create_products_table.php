@@ -17,12 +17,12 @@ class CreateProductsTable extends Migration
 			$table->bigIncrements('id');
 			$table->string('title');
 			$table->double('price', 7, 2);
-			//$table->bigInteger('article')->unsigned()->unique();
 			$table->string('supplier_url');
 			$table->bigInteger('category_id')->unsigned();
 			$table->string('model');
 			$table->text('description');
 			$table->string('vendor');
+			$table->integer('created_at')->unsigned();
 
 			$table->foreign('category_id')->references('id')->on('categories');
 		});

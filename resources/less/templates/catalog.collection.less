@@ -1,0 +1,40 @@
+#template_catalog_collection {
+	margin-top: 50px;
+
+	& > .header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.breadcrumb {
+			margin-top: 0;
+		}
+
+		.sort {
+			font-weight: 500;
+			font-size: 1.2rem;
+			display: flex;
+			align-items: center;
+
+			a {
+				font-weight: 300;
+				color: #8f8f8f;
+				text-transform: lowercase;
+				padding: 0 8px;
+				height: 30px;
+				line-height: 27px;
+				border-radius: 4px;
+				margin-left: 12px;
+
+				&.active {
+					background-color: black;
+					color: white;
+				}
+			}
+		}
+	}
+
+	& > .content {
+
+	}
+}

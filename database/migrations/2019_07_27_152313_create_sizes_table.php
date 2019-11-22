@@ -21,6 +21,7 @@ class CreateSizesTable extends Migration
             $table->string('supplier_id', 50);
             $table->boolean('delivery');
             $table->bigInteger('product_id')->unsigned();
+            $table->integer('updated_at')->unsigned();
 
             $table->foreign('product_id')->references('id')->on('products');
         });
