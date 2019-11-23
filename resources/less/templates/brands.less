@@ -1,5 +1,79 @@
 #template_brands {
 	.container {
 		margin-top: 50px;
+
+		h1 {
+			color: #000000;
+			font-size: 1.75rem;
+			text-align: center;
+			font-weight: bold;
+		}		
+
+		.brands-by-letter ul {
+			display: flex;
+			margin: 20px 0;
+			font-size: 1.4rem;
+
+			li {
+				margin: 3px;
+				border: black;
+				background: #DCDCDC;
+				padding: 5px 10px;
+
+				a {
+				color: #808080;
+				font-weight: bold;
+				}
+			}
+
+			li:hover {
+				background: #7122e3;
+			}
+		}
+
+		.brands	h1 {
+			
+			margin-top: -50px;
+			margin-bottom: 15px;
+			padding-top: 100px;
+			height: 100%;
+			border-bottom: 1px solid #A9A9A9;
+			color: #A9A9A9;
+			text-align: left;
+			font-weight: normal;
+			font-size: 1.5rem;
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+			color: #A9A9A9;
+
+			div {
+				display: flex;
+				align-items: center;
+				margin: 10px;
+				font-size: 1.5rem;
+	
+				img {
+					height: auto;
+					width: 150px;
+					background: #C0C0C0;
+					margin-right: 15px;
+					padding: 15px;
+				}
+
+			}
+
+			div:hover {
+				color: #000000;
+				text-decoration: underline;
+
+				img {
+					background: #7122e3;
+				}
+			} 
+			
+		}
 	}
 }
