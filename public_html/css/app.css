@@ -2462,12 +2462,14 @@ svg {
   color: black;
 }
 #template_catalog_collection {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 #template_catalog_collection > .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #d0d0d0;
+  padding: 11px 0;
 }
 #template_catalog_collection > .header .breadcrumb {
   margin-top: 0;
@@ -2491,6 +2493,48 @@ svg {
 #template_catalog_collection > .header .sort a.active {
   background-color: black;
   color: white;
+}
+#template_catalog_collection .main-content {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-gap: 15px;
+  margin-top: 20px;
+}
+#template_catalog_collection .main-content .left-side {
+  border: 1px solid red;
+  position: relative;
+}
+#template_catalog_collection .main-content .left-side .filters {
+  position: relative;
+}
+#template_catalog_collection .main-content .left-side .filters.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: calc(50px + 20px) !important;
+}
+#template_catalog_collection .main-content .products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 15px;
+  grid-row-gap: 25px;
+}
+#template_catalog_collection .main-content .products-grid .product-item > .square:before {
+  padding-top: 75%;
+}
+#template_catalog_collection .main-content .products-grid .product-item .picture {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+#template_catalog_collection .main-content .products-grid .product-item .vendor {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+#template_catalog_collection .main-content .products-grid .product-item .title {
+  text-align: center;
+  margin-top: 5px;
 }
 #template_legal_refund {
   margin-top: 50px;
@@ -2594,6 +2638,7 @@ svg {
 }
 #section_footer {
   width: 100%;
+  margin-top: 100px;
 }
 #section_footer .desktop {
   background-color: #0d0d0d;

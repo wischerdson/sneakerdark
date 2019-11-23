@@ -13,6 +13,8 @@ import SectionSearch from './components/sections/Search'
 import SectionFooter from './components/sections/Footer'
 
 import SearchResult from './components/snippets/SearchResult'
+import SnippetCatalogCollectionProduct from './components/snippets/CatalogCollectionProduct'
+import SnippetCatalogCollectionFilters from './components/snippets/CatalogCollectionFilters'
 
 import JivoMixin from './components/mixins/JivoMixin'
 
@@ -36,6 +38,8 @@ Vue.component('section-search', SectionSearch)
 Vue.component('section-footer', SectionFooter)
 
 Vue.component('snippet-search-result', SearchResult)
+Vue.component('snippet-catalog-collection-product', SnippetCatalogCollectionProduct)
+Vue.component('snippet-catalog-collection-filters', SnippetCatalogCollectionFilters)
 
 Vue.mixin(JivoMixin)
 

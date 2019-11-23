@@ -22,7 +22,7 @@ class CollectionController extends \App\Http\Controllers\SiteController
 		foreach (array_slice($this->categories, 1) as $categoryId) {
 			$Product = $Product->orWhere('category_id', $categoryId);
 		}
-		$products = $Product->orderBy('created_at', 'desc')->with('pictures')->paginate(30);
+		$products = $Product->orderBy('created_at', 'desc')->with('pictures')->paginate(8 * 4);
 		$this->vars['products'] = $products;
 
 
@@ -34,7 +34,6 @@ class CollectionController extends \App\Http\Controllers\SiteController
 		}
 		$categoriesChain = array_reverse($categoriesChain);
 		$this->vars['categoriesChain'] = $categoriesChain;
-
 
 		return $this->output();
 	}
