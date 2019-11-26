@@ -2,8 +2,17 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Vuelidate from 'vuelidate'
 
+Vue.use(VueResource)
+Vue.use(Vuelidate)
+
+Vue.http.headers.common['X-CSRF-TOKEN'] = _token
+
+
+
+
 import Breadcrumb from './components/theme/Breadcrumb'
 import BreadcrumbItem from './components/theme/BreadcrumbItem'
+import Checkbox from './components/theme/Checkbox'
 
 import SectionHeader from './components/sections/Header'
 import SectionCart from './components/sections/cart'
@@ -18,17 +27,10 @@ import SnippetCatalogCollectionFilters from './components/snippets/CatalogCollec
 
 import JivoMixin from './components/mixins/JivoMixin'
 
-import store from './store'
-
-import App from './components/App'
-
-Vue.use(VueResource)
-Vue.use(Vuelidate)
-
-Vue.http.headers.common['X-CSRF-TOKEN'] = _token
 
 Vue.component('breadcrumb', Breadcrumb)
 Vue.component('breadcrumb-item', BreadcrumbItem)
+Vue.component('checkbox', Checkbox)
 
 Vue.component('section-header', SectionHeader)
 Vue.component('section-cart', SectionCart)
@@ -42,6 +44,12 @@ Vue.component('snippet-catalog-collection-product', SnippetCatalogCollectionProd
 Vue.component('snippet-catalog-collection-filters', SnippetCatalogCollectionFilters)
 
 Vue.mixin(JivoMixin)
+
+
+
+
+import App from './components/App'
+import store from './store'
 
 const app = new Vue({
 	el: '#app',
