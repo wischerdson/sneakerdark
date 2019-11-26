@@ -36,7 +36,7 @@
 				<div>
 					<h1 id="A">A</h1>
 					<div class="grid">
-						<div><img src="../image/brands/Aape-logo.png" alt="AAPE">AAPE</div>
+						<div><img src="{{ asset('image/brands/Aape-logo.png') }}" alt="AAPE">AAPE</div>
 						<div><img src="../image/brands/adidas.png" alt="Adidas">Adidas</div>
 						<div><img src="../image/brands/aeronautica.png" alt="Aeronautica">Aeronautica</div>
 						<div><img src="../image/brands/alexander-mcqueen.png" alt="Alexander McQueen">Alexander McQueen</div>
