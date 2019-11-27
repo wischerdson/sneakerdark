@@ -18,7 +18,7 @@
 
 		<div class="main-content">
 			<div class="left-side">
-				<snippet-catalog-collection-filters></snippet-catalog-collection-filters>
+				<snippet-catalog-collection-filters categoryId="{{ $currentCategory }}"></snippet-catalog-collection-filters>
 			</div>
 			<ul class="products-grid">
 				@foreach ($products as $product)
@@ -26,6 +26,7 @@
 					title="{{ $product->title }}"
 					picture="{{ $product->pictures[0]->src }}"
 					vendor="{{ $product->vendor }}"
+					url="{{ route('catalog.product', ['product_id' => $product->id]) }}"
 				></snippet-catalog-collection-product>
 				@endforeach
 			</ul>

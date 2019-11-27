@@ -13,6 +13,8 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = _token
 import Breadcrumb from './components/theme/Breadcrumb'
 import BreadcrumbItem from './components/theme/BreadcrumbItem'
 import Checkbox from './components/theme/Checkbox'
+import HasScroll from './components/theme/HasScroll'
+import Sticky from './components/theme/Sticky'
 
 import SectionHeader from './components/sections/Header'
 import SectionCart from './components/sections/cart'
@@ -31,6 +33,8 @@ import JivoMixin from './components/mixins/JivoMixin'
 Vue.component('breadcrumb', Breadcrumb)
 Vue.component('breadcrumb-item', BreadcrumbItem)
 Vue.component('checkbox', Checkbox)
+Vue.component('has-scroll', HasScroll)
+Vue.component('sticky', Sticky)
 
 Vue.component('section-header', SectionHeader)
 Vue.component('section-cart', SectionCart)

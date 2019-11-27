@@ -23,12 +23,7 @@
 
 				if (this.modelValue instanceof Array) {
 					let newValue = [...this.modelValue]
-
-					if (value)
-						newValue.push(this.value)
-					else
-						newValue.splice(newValue.indexOf(this.value), 1)
-					
+					value ? newValue.push(this.value) : newValue.splice(newValue.indexOf(this.value), 1)
 					value = newValue
 				}
 				this.$emit('input', value)

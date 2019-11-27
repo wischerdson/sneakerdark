@@ -5,4 +5,26 @@
 		position: sticky;
 		top: calc(50px + 20px) !important;
 	}
+
+	.filters-section {
+		
+
+		&:not(:first-child) {
+			margin-top: 20px;
+			padding-top: 10px;
+			border-top: 1px solid #e0e0e0;
+		}
+
+		.section-title {
+			font-weight: 500;
+			font-size: 1.2rem;
+			margin-bottom: 12px;
+		}
+		.section-body {
+			overflow-y: auto;
+			overflow-x: hidden;
+			max-height: 280px;
+			position: relative;
+		}
+	}
 }

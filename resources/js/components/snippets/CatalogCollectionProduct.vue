@@ -2,7 +2,7 @@
 	
 	export default {
 		template: '#template__snippet_catalog_collection_product',
-		props: ['title', 'picture', 'vendor']
+		props: ['title', 'picture', 'vendor', 'url']
 	}
 
 </script>

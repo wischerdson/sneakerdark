@@ -16,6 +16,7 @@ class CollectionController extends \App\Http\Controllers\SiteController
 		$this->template = 'catalog.collection';
 		$this->title = 'Коллекция - Sneakerdark';
 
+		$this->vars['currentCategory'] = $parentCategoryId;
 
 		$this->fetchChildCategories($parentCategoryId);
 		$Product = Product::where('category_id', $parentCategoryId);
@@ -34,6 +35,7 @@ class CollectionController extends \App\Http\Controllers\SiteController
 		}
 		$categoriesChain = array_reverse($categoriesChain);
 		$this->vars['categoriesChain'] = $categoriesChain;
+
 
 		return $this->output();
 	}

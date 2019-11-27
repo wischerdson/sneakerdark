@@ -4,6 +4,6 @@
 			<div class="picture" :style="`background-image: url(${picture})`"></div>
 		</div>
 		<div class="vendor">@{{ vendor }}</div>
-		<div class="title">@{{ title }}</div>
+		<center><a class="title" :href="url">@{{ title }}</a></center>
 	</li>
 </template>

@@ -1,5 +1,5 @@
 <template id="template__checkbox">
-	<div class="form-group">
+	<div class="form-check">
 		<input
 			type="checkbox"
 			:name="name"
@@ -8,8 +8,9 @@
 			:checked="checked"
 			@input="handleInput"
 			:value="value"
+			class="form-check-input"
 		>
-		<label class="checkbox" :for="'checkbox_' + name + uuid">
+		<label class="form-check-label" :for="'checkbox_' + name + uuid">
 			<div class="checkbox-body">@include('svg.tick')</div>
 			<span><slot></slot></span>
 		</label>
