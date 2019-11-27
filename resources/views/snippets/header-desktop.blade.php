@@ -82,7 +82,7 @@
 			</div>
 			<div class="right">
 				<button class="search btn" @click="openSearch">
-					@include('svg.magnifying-glass')
+					@include('svg.magnifying-glass')Поиск
 				</button>
 				<a href="#" class="btn wishlist">@include('svg.wishlist_filled')</a>
 				<a class="btn primary shopping-cart" @click="$store.commit('cartIsOpen', true)">

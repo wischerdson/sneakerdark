@@ -89,7 +89,8 @@ class SneakerdarkImport {
 			'category_id' => $data->CATEGORYID,
 			'model' => $data->MODEL,
 			'description' => $description,
-			'vendor' => $data->VENDOR
+			'vendor' => $data->VENDOR,
+			'created_at' => time()
 		]);
 	}
 	private function importParameters($data) {
@@ -159,7 +160,8 @@ class SneakerdarkImport {
 					'instock' => $data->OUTLETS->OUTLET[0]['instock'] < 0 ? 0 : $data->OUTLETS->OUTLET[0]['instock'],
 					'available' => $data['available'] ? 1 : 0,
 					'supplier_id' => $data['id'],
-					'delivery' => $data->DELIVERY ? 1 : 0
+					'delivery' => $data->DELIVERY ? 1 : 0,
+					'updated_at' => time()
 				]
 			);
 		}
