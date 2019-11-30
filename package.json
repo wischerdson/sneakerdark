@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "nouislider": "^14.0.3",
         "vue": "^2.6.10",
         "vue-resource": "^1.5.1",
         "vuelidate": "^0.7.4",

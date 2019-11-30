@@ -4,10 +4,11 @@
 			<div
 			v-show="showPrepend"
 			class="has-scroll-prepend"
+
 			:style="`background: linear-gradient(to top, transparent, ${color} 100%)`
 			"></div>
 		</transition>
-		<div class="has-scroll-outer" @scroll="scroll" ref="scrollOuter">
+		<div :class="['has-scroll-inner', class_]" @scroll="scroll" ref="scrollOuter">
 			<slot></slot>
 		</div>
 		<transition name="has-scroll">
@@ -17,14 +18,14 @@
 			:style="`background: linear-gradient(to bottom, transparent, ${color} 100%)`
 			"></div>
 		</transition>
-
 	</div>
 </template>
 
 <script type="text/javascript">
+	//:style="`background-image: linear-gradient(180deg,hsla(0,0%,100%,0), ${color} 25px);`"
 	
 	export default {
-		props: ['color'],
+		props: ['color', 'class_'],
 		data () {
 			return {
 				showAppend: false,
