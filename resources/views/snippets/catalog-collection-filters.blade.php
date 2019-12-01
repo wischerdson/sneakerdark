@@ -70,6 +70,11 @@
 				<div class="section-title">Цена</div>
 				<div class="section-body price">
 					<div ref="range"></div>
+					<div class="row">
+						<input type="number" name="price_min" class="form-control" v-model.lazy="price.min">
+						<div class="separator"></div>
+						<input type="number" name="price_max" class="form-control" v-model.lazy="price.max">
+					</div>
 				</div>
 			</div>
 		</div>
