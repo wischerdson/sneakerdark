@@ -47,7 +47,6 @@
 	<meta name="msapplication-TileColor" content="#101011">
 	<meta name="msapplication-TileImage" content="{{ asset('/favicon/ms-tile-144.png') }}">
 	<link rel="manifest" href="{{ asset('/favicon/site.webmanifest') }}">
-
 	<link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 
 	<noscript><meta http-equiv="refresh" content="0; URL=/badbrowser"></noscript>

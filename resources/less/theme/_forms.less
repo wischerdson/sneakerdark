@@ -17,6 +17,15 @@
 		border: 1px solid #7122e3;
 		box-shadow: 0 0 0 3px fade(#7122e3, 30%);
 	}
+	/* Для Chrome */
+	&[type=number]::-webkit-inner-spin-button,
+	&[type=number]::-webkit-outer-spin-button {
+		appearance: none;
+	}
+	/* Для Firefox */
+	&[type=number] {
+		appearance: textfield;
+	}
 }
 
 .form-group {
