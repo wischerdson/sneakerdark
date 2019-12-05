@@ -60,7 +60,7 @@
 						:key="index"
 						:url="value.url"
 					></snippet-search-result>
-					<a :href="`{{ route('search', ['query' => '']) }}/${query}`" v-if="resultsNumber > 9" class="show-all-results btn primary">Посмотреть все результаты  &#8594;</a>
+					<a :href="`{{ route('search', ['query' => '123']) }}/${query}`" v-if="resultsNumber > 9" class="show-all-results btn primary">Посмотреть все результаты  &#8594;</a>
 				</ul>
 			</div>
 		</div>
