@@ -47,8 +47,7 @@
 	<meta name="msapplication-TileColor" content="#101011">
 	<meta name="msapplication-TileImage" content="{{ asset('/favicon/ms-tile-144.png') }}">
 	<link rel="manifest" href="{{ asset('/favicon/site.webmanifest') }}">
-
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
 
 	<noscript><meta http-equiv="refresh" content="0; URL=/badbrowser"></noscript>
 </head>
@@ -70,12 +69,14 @@
 		@include('sections.search')
 		@include('templates.'.$template)
 		@include('sections.footer')
+
+		@include('vendor.checkbox')
 	</div>
 	<script type="text/javascript">
 		const _token = '{{ csrf_token() }}'
 		const _domain = '{{ Request::root() }}'
 	</script>
 	<script src="//code.jivosite.com/widget.js" data-jv-id="x6eDSwL6Iw" async></script>
-	<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+	<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

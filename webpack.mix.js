@@ -5,8 +5,8 @@ mix.setPublicPath('public_html/')
 
 
 if (mix.inProduction()) {
-    mix.version();
-    mix.options({
+	mix.version();
+	mix.options({
 		postCss: [
 			require('cssnano')({
 				preset: ['default', {

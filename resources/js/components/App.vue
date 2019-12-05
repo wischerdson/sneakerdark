@@ -6,7 +6,7 @@
 
 	import CatalogProductPage from './templates/catalog/Product'
 	import CatalogProductNotFoundPage from './templates/catalog/ProductNotFound'
-	import CatalogPage from './templates/catalog/Collection'
+	import CatalogCollectionPage from './templates/catalog/Collection'
 
 	import LegalRefundPage from './templates/legal/Refund'
 
@@ -16,7 +16,7 @@
 			HomePage,
 			SearchPage,
 			BrandsPage,
-			CatalogPage,
+			CatalogCollectionPage,
 			CatalogProductPage,
 			CatalogProductNotFoundPage,
 			LegalRefundPage

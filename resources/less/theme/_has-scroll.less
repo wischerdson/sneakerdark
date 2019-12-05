@@ -1,0 +1,32 @@
+.has-scroll-component {
+	max-height: inherit;
+	position: relative;
+
+	.has-scroll-inner {
+		max-height: inherit;
+		overflow-y: auto;
+	}
+
+
+	.has-scroll-append, .has-scroll-prepend {
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 30px;
+		pointer-events: none;
+	}
+	.has-scroll-append {
+		bottom: 0;
+	}
+	.has-scroll-prepend {
+		top: 0;
+	}
+	.has-scroll-enter-active, .has-scroll-leave-active {
+		transition: opacity .15s ease-in-out;
+	}
+	.has-scroll-enter, .has-scroll-leave-to {
+		opacity: 0;
+	}
+}
