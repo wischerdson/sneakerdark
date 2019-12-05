@@ -26,207 +26,207 @@
 					<li><a href="#U">U</a></li>
 					<li><a href="#V">V</a></li>
 					<li><a href="#y">Y</a></li>
-					<li>
+					<!-- <li>
 						<a href="#other_brands">Другие бренды</a>
 					</li>
-					<li><a href="#">Все</a></li>
+					<li><a href="#">Все</a></li> -->
 				</ul>
 			</div>
 			<div class="brands">
 				<div>
-					<h1 id="A">A</h1>
+					<h2 id="A">A</h2>
 					<div class="grid">
-						<div><img src="{{ asset('image/brands/Aape-logo.png') }}" alt="AAPE">AAPE</div>
-						<div><img src="../image/brands/adidas.png" alt="Adidas">Adidas</div>
-						<div><img src="../image/brands/aeronautica.png" alt="Aeronautica">Aeronautica</div>
-						<div><img src="../image/brands/alexander-mcqueen.png" alt="Alexander McQueen">Alexander McQueen</div>
-						<div><img src="../image/brands/anti_social_3.png" alt="Anti Social Social Club">Anti Social Social Club</div>
-						<div><img src="../image/brands/Arcteryx.png" alt="Arcteryx">Arcteryx</div>
-						<div><img src="../image/brands/armani_2.png" alt="Armani">Armani</div>
-						<div><img src="../image/brands/asics1.png" alt="Asics">Asics</div>
-						<div><img src="../image/brands/asrv.png" alt="ASRV">ASRV</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Aape-logo.png')}}" alt="AAPE"></div>AAPE</div>
+						<div><div class="image"><img src="{{ asset('image/brands/adidas.png')}}" alt="Adidas"></div>Adidas</div>
+						<div><div class="image"><img src="{{ asset('image/brands/aeronautica.png')}}" alt="Aeronautica"></div>Aeronautica</div>
+						<div><div class="image"><img src="{{ asset('image/brands//alexander-mcqueen.png')}}" alt="Alexander McQueen"></div>Alexander McQueen</div>
+						<div><div class="image"><img src="{{ asset('image/brands//anti_social_3.png')}}" alt="Anti Social Social Club"></div>Anti Social Social Club</div>
+						<div><div class="image"><img src="{{ asset('image/brands//Arcteryx.png')}}" alt="Arcteryx"></div>Arcteryx</div>
+						<div><div class="image"><img src="{{ asset('image/brands/armani_2.png')}}" alt="Armani"></div>Armani</div>
+						<div><div class="image"><img src="{{ asset('image/brands/asics1.png')}}" alt="Asics"></div>Asics</div>
+						<div><div class="image"><img src="{{ asset('image/brands/asrv.png')}}" alt="ASRV"></div>ASRV</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="B">B</h1>
+					<h2 id="B">B</h2>
 					<div class="grid">
-						<div><img src="../image/brands/balenciaga_3.png" alt="Balenciaga">Balenciaga</div>
-						<div><img src="../image/brands/Beats.png" alt="Beats">Beats</div>
-						<div><img src="../image/brands/Bogner-Logo.png" alt="Bogner">Bogner</div>
-						<div><img src="../image/brands/Bottega_Veneta.png" alt="Bottega Veneta">Bottega Veneta</div>
-						<div><img src="../image/brands/Burberry.png" alt="Burberry">Burberry</div>
+						<div><div class="image"><img src="{{ asset('image/brands/balenciaga_3.png')}}" alt="Balenciaga"></div>Balenciaga</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Beats.png')}}" alt="Beats"></div>Beats</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Bogner-Logo.png')}}" alt="Bogner"></div>Bogner</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Bottega_Veneta.png')}}" alt="Bottega Veneta"></div>Bottega Veneta</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Burberry.png')}}" alt="Burberry"></div>Burberry</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="C">C</h1>
+					<h2 id="C">C</h2>
 					<div class="grid">
-						<div><img src="../image/brands/cafele.png" alt="Cafele">Cafele</div>
-						<div><img src="../image/brands/Canada_Goose.png" alt="Canada Goose">Canada Goose</div>
-						<div><img src="../image/brands/casio-logo.png" alt="Casio">Casio</div>
-						<div><img src="../image/brands/Caterpillar.png" alt="Caterpillar">Caterpillar</div>
-						<div><img src="../image/brands/champion.png" alt="Champion">Champion</div>
-						<div><img src="../image/brands/Chanel.png" alt="Chanel">Chanel</div>
-						<div><img src="../image/brands/columbia.png" alt="Columbia">Columbia</div>
-						<div><img src="../image/brands/Converse.png" alt="Converse">Converse</div>	
+						<div><div class="image"><img src="{{ asset('image/brands/cafele.png')}}" alt="Cafele"></div>Cafele</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Canada_Goose.png')}}" alt="Canada Goose"></div>Canada Goose</div>
+						<div><div class="image"><img src="{{ asset('image/brands/casio-logo.png')}}" alt="Casio"></div>Casio</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Caterpillar.png')}}" alt="Caterpillar"></div>Caterpillar</div>
+						<div><div class="image"><img src="{{ asset('image/brands/champion.png')}}" alt="Champion"></div>Champion</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Chanel.png')}}" alt="Chanel"></div>Chanel</div>
+						<div><div class="image"><img src="{{ asset('image/brands/columbia.png')}}" alt="Columbia"></div>Columbia</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Converse.png')}}" alt="Converse"></div>Converse</div>	
 					</div>
 				</div>
 				<div>
-					<h1 id="D">D</h1>
+					<h2 id="D">D</h2>
 					<div class="grid">
-						<div><img src="../image/brands/DGK.png" alt="DGK">DGK</div>
-						<div><img src="../image/brands/Dickies.png" alt="Dickies">Dickies</div>
-						<div><img src="../image/brands/Diesel.png" alt="Diesel">Diesel</div>
-						<div><img src="../image/brands/Dior.png" alt="Dior">Dior</div>
-						<div><img src="../image/brands/Dolce_&_Gabbana.png" alt="Dolce & Gabbana">Dolce & Gabbana</div>
+						<div><div class="image"><img src="{{ asset('image/brands/DGK.png')}}" alt="DGK"></div>DGK</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Dickies.png')}}" alt="Dickies"></div>Dickies</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Diesel.png')}}" alt="Diesel"></div>Diesel</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Dior.png')}}" alt="Dior"></div>Dior</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Dolce_&_Gabbana.png')}}" alt="Dolce & Gabbana"></div>Dolce & Gabbana</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="E">E</h1>
+					<h2 id="E">E</h2>
 					<div class="grid">
-						<div><img src="../image/brands/ECCO_Logo.svg.png" alt="Ecco">Ecco</div>
-						<div><img src="../image/brands/emporio-armani-logo-vector.png" alt="Emporio Armani">Emporio Armani</div>
+						<div><div class="image"><img src="{{ asset('image/brands/ECCO_Logo.svg.png')}}" alt="Ecco"></div>Ecco</div>
+						<div><div class="image"><img src="{{ asset('image/brands/emporio-armani-logo-vector.png')}}" alt="Emporio Armani"></div>Emporio Armani</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="F">F</h1>
+					<h2 id="F">F</h2>
 					<div class="grid">
-						<div><img src="../image/brands/FILA.png" alt="FILA">FILA</div>
-						<div><img src="../image/brands/Fjallraven_Kanken.png" alt="Fjallraven Kanken">Fjallraven Kanken</div>
-						<div><img src="../image/brands/Forward.png" alt="Forward">Forward</div>
+						<div><div class="image"><img src="{{ asset('image/brands/FILA.png')}}" alt="FILA"></div>FILA</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Fjallraven_Kanken.png')}}" alt="Fjallraven Kanken"></div>Fjallraven Kanken</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Forward.png')}}" alt="Forward"></div>Forward</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="G">G</h1>
+					<h2 id="G">G</h2>
 					<div class="grid">
-						<div><img src="../image/brands/Gucci.png" alt="Gucci">Gucci</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Gucci.png')}}" alt="Gucci"></div>Gucci</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="H">H</h1>
+					<h2 id="H">H</h2>
 					<div class="grid">
-						<div><img src="../image/brands/Hoco.png" alt="Hoco">Hoco</div>
-						<div><img src="../image/brands/HUF_logo_image_picture.png" alt="HUF">HUF</div>
-						<div><img src="../image/brands/Hugo_Boss.png" alt="Hugo Boss">Hugo Boss</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Hoco.png')}}" alt="Hoco"></div>Hoco</div>
+						<div><div class="image"><img src="{{ asset('image/brands/HUF_logo_image_picture.png')}}" alt="HUF"></div>HUF</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Hugo_Boss.png')}}" alt="Hugo Boss"></div>Hugo Boss</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="J">J</h1>
+					<h2 id="J">J</h2>
 					<div class="grid">
-						<div><img src="../image/brands/JBL.png" alt="JBL">JBL</div>
-						<div><img src="../image/brands/Jimmy_Choo.png" alt="Jimmy Choo">Jimmy Choo</div>
+						<div><div class="image"><img src="{{ asset('image/brands/JBL.png')}}" alt="JBL"></div>JBL</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Jimmy_Choo.png')}}" alt="Jimmy Choo"></div>Jimmy Choo</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="L">L</h1>
+					<h2 id="L">L</h2>
 					<div class="grid">
-						<div><img src="../image/brands/Lacoste_logo.svg.png" alt="Lacoste">Lacoste</div>
-						<div><img src="../image/brands/Louis_Vuitton.png" alt="Louis Vuitton">Louis Vuitton</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Lacoste_logo.svg.png')}}" alt="Lacoste"></div>Lacoste</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Louis_Vuitton.png')}}" alt="Louis Vuitton"></div>Louis Vuitton</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="M">M</h1>
+					<h2 id="M">M</h2>
 					<div class="grid">
-						<div><img src="../image/brands/MDNS.png" alt="MDNS">MDNS</div>
-						<div><img src="../image/brands/Mechanix.png" alt="Mechanix">Mechanix</div>
-						<div><img src="../image/brands/Monster.png" alt="Monster">Monster</div>
-						<div><img src="../image/brands/Montblanc.png" alt="Montblanc">Montblanc</div>
+						<div><div class="image"><img src="{{ asset('image/brands/MDNS.png')}}" alt="MDNS"></div>MDNS</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Mechanix.png')}}" alt="Mechanix"></div>Mechanix</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Monster.png')}}" alt="Monster"></div>Monster</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Montblanc.png')}}" alt="Montblanc"></div>Montblanc</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="N">N</h1>
+					<h2 id="N">N</h2>
 					<div class="grid">
-						<div><img src="../image/brands/Napapijri.png" alt="Napapijri">Napapijri</div>
-						<div><img src="../image/brands/Native.png" alt="Native">Native</div>
-						<div><img src="../image/brands/New_Balance_logo.svg.png" alt="New Balance">New Balance</div>
-						<div><img src="../image/brands/nike_2.png" alt="Nike">Nike</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Napapijri.png')}}" alt="Napapijri"></div>Napapijri</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Native.png')}}" alt="Native"></div>Native</div>
+						<div><div class="image"><img src="{{ asset('image/brands/New_Balance_logo.svg.png')}}" alt="New Balance"></div>New Balance</div>
+						<div><div class="image"><img src="{{ asset('image/brands/nike_2.png')}}" alt="Nike"></div>Nike</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="O">O</h1>
+					<h2 id="O">O</h2>
 					<div class="grid">
-						<div><img src="../image/brands/OFF-WHITE.png" alt="OFF-WHITE">OFF-WHITE</div>
+						<div><div class="image"><img src="{{ asset('image/brands/OFF-WHITE.png')}}" alt="OFF-WHITE"></div>OFF-WHITE</div>
 					</div>
 					
 				</div>
 				<div>
-					<h1 id="P">P</h1>
+					<h2 id="P">P</h2>
 					<div class="grid">
-						<div><img src="../image/brands/palace_1.png" alt="PALACE">PALACE</div>
-						<div><img src="../image/brands/PALLADIUM.png" alt="PALLADIUM">PALLADIUM</div>
-						<div><img src="../image/brands/Parajumpers.png" alt="Parajumpers">Parajumpers</div>
-						<div><img src="../image/brands/philipp_plein_3.png" alt="Philipp Plein">Philipp Plein</div>
-						<div><img src="../image/brands/PornHUB.png" alt="PornHUB">PornHUB</div>
-						<div><img src="../image/brands/porshe_3.png" alt="Porsche design">Porsche design</div>
-						<div><img src="../image/brands/Prada_logo.png" alt="Prada">Prada</div>
-						<div><img src="../image/brands/Premiat.png" alt="Premiata">Premiata</div>
-						<div><img src="../image/brands/Puma.png" alt="Puma">Puma</div>
+						<div><div class="image"><img src="{{ asset('image/brands/palace_1.png')}}" alt="PALACE"></div>PALACE</div>
+						<div><div class="image"><img src="{{ asset('image/brands/PALLADIUM.png')}}" alt="PALLADIUM"></div>PALLADIUM</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Parajumpers.png')}}" alt="Parajumpers"></div>Parajumpers</div>
+						<div><div class="image"><img src="{{ asset('image/brands/philipp_plein_3.png')}}" alt="Philipp Plein"></div>Philipp Plein</div>
+						<div><div class="image"><img src="{{ asset('image/brands/PornHUB.png')}}" alt="PornHUB"></div>PornHUB</div>
+						<div><div class="image"><img src="{{ asset('image/brands/porshe_3.png')}}" alt="Porsche design"></div>Porsche design</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Prada_logo.png')}}" alt="Prada"></div>Prada</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Premiat.png')}}" alt="Premiata"></div>Premiata</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Puma.png')}}" alt="Puma"></div>Puma</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="Q">Q</h1>
+					<h2 id="Q">Q</h2>
 					<div class="grid">
-						<div><img src="../image/brands/QuickSilver.png" alt="QuickSilver">QuickSilver</div>
+						<div><div class="image"><img src="{{ asset('image/brands/QuickSilver.png')}}" alt="QuickSilver"></div>QuickSilver</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="R">R</h1>
+					<h2 id="R">R</h2>
 					<div class="grid">
-						<div><img src="../image/brands/Ray_Ban.png" alt="Ray Ban">Ray Ban</div>
-						<div><img src="../image/brands/reebok.png" alt="Reebok">Reebok</div>
-						<div><img src="../image/brands/R.png" alt="Remain">Remain</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Ray_Ban.png')}}" alt="Ray Ban"></div>Ray Ban</div>
+						<div><div class="image"><img src="{{ asset('image/brands/reebok.png')}}" alt="Reebok"></div>Reebok</div>
+						<div><div class="image"><img src="{{ asset('image/brands/R.png')}}" alt="Remain"></div>Remain</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="S">S</h1>
+					<h2 id="S">S</h2>
 					<div class="grid">
-						<div><img src="../image/brands/Salomon.png" alt="Salomon">Salomon</div>
-						<div><img src="../image/brands/Salvatore_Ferragamo.png" alt="Salvatore Ferragamo">Salvatore Ferragamo</div>
-						<div><img src="../image/brands/SPALDING.png" alt="SPALDING">SPALDING</div>
-						<div><img src="../image/brands/Star_Wars.png" alt="Star Wars">Star Wars</div>
-						<div><img src="../image/brands/stussy.png" alt="Stussy">Stussy</div>
-						<div><img src="../image/brands/supreme.png" alt="Supreme">Supreme</div>
-						<div><img src="../image/brands/Swarovski.png" alt="Swarovski">Swarovski</div>
-						<div><img src="../image/brands/Swissgear.png" alt="Swissgear">Swissgear</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Salomon.png')}}" alt="Salomon"></div>Salomon</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Salvatore_Ferragamo.png')}}" alt="Salvatore Ferragamo"></div>Salvatore Ferragamo</div>
+						<div><div class="image"><img src="{{ asset('image/brands/SPALDING.png')}}" alt="SPALDING"></div>SPALDING</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Star_Wars.png')}}" alt="Star Wars"></div>Star Wars</div>
+						<div><div class="image"><img src="{{ asset('image/brands/stussy.png')}}" alt="Stussy"></div>Stussy</div>
+						<div><div class="image"><img src="{{ asset('image/brands/supreme.png')}}" alt="Supreme"></div>Supreme</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Swarovski.png')}}" alt="Swarovski"></div>Swarovski</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Swissgear.png')}}" alt="Swissgear"></div>Swissgear</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="T">T</h1>
+					<h2 id="T">T</h2>
 					<div class="grid">
-						<div><img src="../image/brands/North-Face.png" alt="The North Face">The North Face</div>
-						<div><img src="../image/brands/thrasher.png" alt="THRASHER">THRASHER</div>
-						<div><img src="../image/brands/Timberland.png" alt="Timberland">Timberland</div>
-						<div><img src="../image/brands/Tom_Ford.png" alt="Tom Ford">Tom Ford</div>
-						<div><img src="../image/brands/Tommy_Helfager.png" alt="Tommy Hilfiger">Tommy Hilfiger</div>
-						<div><img src="../image/brands/Tommy_Jeans.png" alt="Tommy Jeans">Tommy Jeans</div>
+						<div><div class="image"><img src="{{ asset('image/brands/North-Face.png')}}" alt="The North Face"></div>The North Face</div>
+						<div><div class="image"><img src="{{ asset('image/brands/thrasher.png')}}" alt="THRASHER"></div>THRASHER</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Timberland.png')}}" alt="Timberland"></div>Timberland</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Tom_Ford.png')}}" alt="Tom Ford"></div>Tom Ford</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Tommy_Helfager.png')}}" alt="Tommy Hilfiger"></div>Tommy Hilfiger</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Tommy_Jeans.png')}}" alt="Tommy Jeans"></div>Tommy Jeans</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="U">U</h1>
+					<h2 id="U">U</h2>
 					<div class="grid">
-						<div><img src="../image/brands/UGG.png" alt="UGG">UGG</div>
-						<div><img src="../image/brands/under_armour.png" alt="Under Armour">Under Armour</div>
+						<div><div class="image"><img src="{{ asset('image/brands/UGG.png')}}" alt="UGG"></div>UGG</div>
+						<div><div class="image"><img src="{{ asset('image/brands/under_armour.png')}}" alt="Under Armour"></div>Under Armour</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="V">V</h1>
+					<h2 id="V">V</h2>
 					<div class="grid">
-						<div><img src="../image/brands/vans.png" alt="Vans">Vans</div>
-						<div><img src="../image/brands/Venum.png" alt="Venum">Venum</div>
-						<div><img src="../image/brands/Versace.png" alt="Versace">Versace</div>
-						<div><img src="../image/brands/VLONE.png" alt="VLONE">VLONE</div>
+						<div><div class="image"><img src="{{ asset('image/brands/vans.png')}}" alt="Vans"></div>Vans</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Venum.png')}}" alt="Venum"></div>Venum</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Versace.png')}}" alt="Versace"></div>Versace</div>
+						<div><div class="image"><img src="{{ asset('image/brands/VLONE.png')}}" alt="VLONE"></div>VLONE</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="Y">Y</h1>
+					<h2 id="Y">Y</h2>
 					<div class="grid">
-						<div><img src="../image/brands/Yeezy.png" alt="Yeezy">Yeezy</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Yeezy.png')}}" alt="Yeezy"></div>Yeezy</div>
 					</div>
 				</div>
 				<div>
-					<h1 id="other_brands">ДРУГИЕ БРЕНДЫ</h1>
+					<h2 id="other_brands">ДРУГИЕ БРЕНДЫ</h2>
 					<div class="grid">
-						<div><img src="../image/brands/Gosha_Rubchinsky.png" alt="Гоша Рубчинский">Гоша Рубчинский</div>
-						<div><img src="../image/brands/Russia.png" alt="Россия">Россия</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Gosha_Rubchinsky.png')}}" alt="Гоша Рубчинский"></div>Гоша Рубчинский</div>
+						<div><div class="image"><img src="{{ asset('image/brands/Russia.png')}}" alt="Россия"></div>Россия</div>
 					</div>
 				</div>
 			</div>

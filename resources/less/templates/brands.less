@@ -9,29 +9,7 @@
 			font-weight: bold;
 		}		
 
-		.brands-by-letter ul {
-			display: flex;
-			margin: 20px 0;
-			font-size: 1.4rem;
-
-			li {
-				margin: 3px;
-				border: black;
-				background: #DCDCDC;
-				padding: 5px 10px;
-
-				a {
-				color: #808080;
-				font-weight: bold;
-				}
-			}
-
-			li:hover {
-				background: #7122e3;
-			}
-		}
-
-		.brands	h1 {
+		.brands h2 {
 			
 			margin-top: -50px;
 			margin-bottom: 15px;
@@ -44,6 +22,42 @@
 			font-size: 1.5rem;
 		}
 
+		.brands-by-letter ul {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			display: flex;
+			flex-wrap: wrap;
+
+			li {
+				
+				margin: 3px;
+				background: #DCDCDC;	
+				
+				
+								
+				a {
+					display: block;
+					color: #808080;
+					font-weight: bold;
+					width: 35px;
+					height: 30px;
+					padding: 7px 13px;
+				   }
+			   }
+
+			li:hover {
+				background: #7122e3;
+
+				a{
+					color: #FFFFFF;
+					
+				}
+			} 
+		}
+
+		
+
 		.grid {
 			display: grid;
 			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -52,25 +66,42 @@
 			div {
 				display: flex;
 				align-items: center;
-				margin: 10px;
+				margin: 10px 3px;;
 				font-size: 1.5rem;
-	
-				img {
-					height: auto;
-					width: 150px;
+				
+				.image {
+					border: none;
+					text-align: center;
+					width: 200px;
+					height: 100px;
+					overflow: none;
 					background: #C0C0C0;
-					margin-right: 15px;
-					padding: 15px;
+
+					img {
+						
+						margin-right: 15px;
+						max-width: 100%;
+						max-height: 100%;
+						display:block;
+						margin:auto;
+					}
 				}
+	
+				
 
 			}
 
 			div:hover {
 				color: #000000;
 				text-decoration: underline;
+				transition: all .15s ease-in-out;
 
-				img {
+				.image {
 					background: #7122e3;
+
+					img {
+						filter: invert(100%);
+					}
 				}
 			} 
 			
