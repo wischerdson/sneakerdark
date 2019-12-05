@@ -16,5 +16,9 @@ Route::group(['middleware' => ['web', 'sleep']], function () {
 		Route::get('refund', ['uses' => 'Legal\RefundController@show', 'as' => 'legal.refund']);
 	});
 
-	Route::get('brands', ['uses' => 'BrandsController@index', 'as' => 'brands']);
+
+	Route::group(['prefix' => 'brands'], function () {
+		Route::get('/', ['uses' => 'BrandsController@index', 'as' => 'brands']);
+		Route::get('{brand}', ['uses' => 'BrandsController@show', 'as' => 'brands.brand']);
+	});
 });
