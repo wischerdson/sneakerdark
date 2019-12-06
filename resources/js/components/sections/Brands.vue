@@ -7,12 +7,19 @@
 			return {
 				brands: {},
 				brandList: {},
-				letters: []
+				letters: [],
+				currentLetter: 'Все'
 			}
 		},
 		methods: {
 			filterByLetter (letter) {
-				console.log(letter)
+				this.currentLetter = letter
+				if (letter == 'Все') {
+					this.brandList = this.brands
+					return
+				}
+				this.brandList = {}
+				this.brandList[letter] = this.brands[letter]
 			}
 		},
 		mounted () {
@@ -25,7 +32,7 @@
 
 				if (this.letters.indexOf(letter) < 0)
 					this.letters.push(letter)
-			}, brands);
+			}, brands)
 
 			this.letters.push('Все')
 			this.brandList = this.brands
