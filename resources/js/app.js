@@ -22,6 +22,7 @@ import SectionWelcome from './components/sections/Welcome'
 import SectionCollections from './components/sections/Collections'
 import SectionBrands from './components/sections/Brands'
 import SectionSearch from './components/sections/Search'
+import SectionLegalRefund from './components/sections/LegalRefund'
 import SectionFooter from './components/sections/Footer'
 
 import SearchResult from './components/snippets/SearchResult'
@@ -43,6 +44,7 @@ Vue.component('section-welcome', SectionWelcome)
 Vue.component('section-collections', SectionCollections)
 Vue.component('section-brands', SectionBrands)
 Vue.component('section-search', SectionSearch)
+Vue.component('section-legal-refund', SectionLegalRefund)
 Vue.component('section-footer', SectionFooter)
 
 Vue.component('snippet-search-result', SearchResult)
