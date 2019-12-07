@@ -10,6 +10,7 @@ class HomeController extends SiteController
     public function index() {
     	$this->template = 'home';
     	$this->title = 'Sneakerdark';
+    	$this->transparentHeader = true;
 
     	return $this->output();
     }

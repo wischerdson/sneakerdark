@@ -18,6 +18,7 @@
 			.brand-logo {
 				svg {
 					height: 40px;
+					transition: fill .15s ease-in-out;
 				}
 			}
 			.text {
@@ -26,12 +27,14 @@
 				.brand-name {
 					svg {
 						height: 17px;
+						transition: fill .15s ease-in-out;
 					}
 				}
 				.description {
 					margin-top: 3px;
 					font-size: 0.95rem;
 					font-weight: 300;
+					transition: color .15s ease-in-out;
 				}
 			}
 		}
@@ -43,11 +46,12 @@
 				a {
 					color: #363636;
 					font-size: 1.5rem;
+					transition: color .15s ease-in-out;
 				}
 			}
 			.btn {
 				margin-left: 15px;
-				background-color: transparent;
+				background-color: white;
 				border: 1px solid #3a3a3a;
 				padding: 10px 15px;
 
@@ -110,6 +114,7 @@
 						padding: 0 5px;
 						border-top: 2px solid transparent;
 						cursor: pointer;
+						transition: color .15s ease-in-out;
 
 						&:hover {
 							border-top: 2px solid #7122e3;
@@ -154,7 +159,7 @@
 			display: flex;
 			align-items: center;
 
-			.search {
+			.search-btn {
 				background-color: #f1f1f1;
 
 				svg {
@@ -162,10 +167,11 @@
 					height: 17px;
 					fill: #565759;
 					margin-right: 5px;
+					transition: fill .15s ease-in-out;
 				}
 			}
 			.btn {
-				&.shopping-cart {
+				&.shopping-cart-btn {
 					svg {
 						margin-right: 5px;
 					}

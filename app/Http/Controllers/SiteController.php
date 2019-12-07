@@ -16,6 +16,7 @@ class SiteController extends Controller
 	protected $vars = [];
 	protected $title = 'Sneakerdark';
 	protected $description = '';
+	protected $transparentHeader = false;
 
 	protected $links = [];
 	protected $link;
@@ -39,6 +40,7 @@ class SiteController extends Controller
 
 
 		$this->vars['accessories_category'] = Category::where('parent_id', 3)->orderBy('name')->get();
+		$this->vars['transparentHeader'] = $this->transparentHeader;
 
 
 		return view('layout')->with($this->vars);

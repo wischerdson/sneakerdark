@@ -11,9 +11,11 @@
 			<div class="call">
 				<a class="phone-number" href="tel:89101127174">+7 (800) 700 32-23 | Звонок бесплатный</a>
 			</div>
-			<button class="btn">@include('svg.user')Войти</button>
+			<a class="btn auth-btn">@include('svg.user')Войти</a>
 		</div>
 	</div>
+
+
 	<div class="bottom">
 		<div class="left">
 			<div class="link-list">
@@ -54,41 +56,28 @@
 								</ul>
 							</li>
 							<li class="submenu-item"><a href="#">Рюкзаки и сумки</a></li>
-								<!-- 
-									Рюкзаки
-									Сумки
-									Сумки на пояс
-								-->
-								<li class="submenu-item"><a href="#">Прочее</a></li>
-								<!-- 
-									Наручные часы
-									Гаджеты
-									Солнцезащитные очки
-									Кошельки
-									Ремни
-									Кепки
-								-->
-								<li class="submenu-item"><a href="#">Панамы</a></li>
-							</ul>
-						</li>
-						<li class="link-item">
-							<a href="#">Отзывы</a>
-						</li>
-						<li class="link-item">
-							<a @click="jivo_openDialog"><span class="online-dot"></span>Online-чат с менеджером</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="right">
-				<button class="search btn" @click="openSearch">
-					@include('svg.magnifying-glass')Поиск
-				</button>
-				<a href="#" class="btn wishlist">@include('svg.wishlist_filled')</a>
-				<a class="btn primary shopping-cart" @click="$store.commit('cartIsOpen', true)">
-					@include('svg.shopping-bag')
-					Корзина
-				</a>
+							<li class="submenu-item"><a href="#">Прочее</a></li>
+							<li class="submenu-item"><a href="#">Панамы</a></li>
+						</ul>
+					</li>
+					<li class="link-item">
+						<a href="#">Отзывы</a>
+					</li>
+					<li class="link-item">
+						<a @click="jivo_openDialog"><span class="online-dot"></span>Online-чат с менеджером</a>
+					</li>
+				</ul>
 			</div>
 		</div>
+		<div class="right">
+			<button class="search-btn btn" @click="openSearch">
+				@include('svg.magnifying-glass')Поиск
+			</button>
+			<a href="#" class="btn wishlist">@include('svg.wishlist_filled')</a>
+			<a class="btn primary shopping-cart-btn" @click="$store.commit('cartIsOpen', true)">
+				@include('svg.shopping-bag')
+				Корзина
+			</a>
+		</div>
 	</div>
+</div>

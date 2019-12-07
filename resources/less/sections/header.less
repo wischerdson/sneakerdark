@@ -1,18 +1,87 @@
 @header_height: 120.8px;
 
+.header-wrapper {
+	.absolutely-covered;
+	pointer-events: none;
+}
+
 #section_header {
 	background-color: white;
 	position: sticky;
-	//top: -75.5px;
 	top: calc(50px - @header_height);
-	transition: transform .3s ease, top .3s ease;
+	transition:
+		transform .3s ease,
+		top .3s ease,
+		background-color .15s ease-in-out,
+		border-bottom .15s ease-in-out;
 	z-index: 100;
+	pointer-events: auto;
 	border-bottom: 1px solid #f2f2f2;
 
 	@import "../snippets/header.desktop.less";
 	@import "../snippets/header.mobile.less";
 
+	&.transparent {
+		background-color: transparent;
+		border-bottom: 1px solid transparent;
+
+		.desktop {
+			.top {
+				.brand {
+					.brand-logo svg {
+						fill: white !important;
+					}
+					.text {
+						color: white !important;
+						fill: white !important;
+					}
+				}
+				.right {
+					.call .phone-number {
+						color: fade(white, 75%) !important;
+
+						&:hover {
+							color: white !important;
+						}
+					}
+					.auth-btn {
+						border: 1px solid transparent !important;
+					}
+				}
+			}
+			.bottom {
+				.left {
+					.link-list * {
+						color: fade(white, 75%) !important;
+
+						&:hover {
+							color: white !important;
+						}
+					}
+					.link-list .link-item a {
+						border: none;
+					}
+				}
+				.right {
+					.search-btn {
+						color: white;
+						background-color: fade(white, 20%);
+
+						svg {
+							fill: white;
+						}
+					}
+					.shopping-cart-btn {
+						background-color: fade(black, 40%);
+					}
+				}
+			}
+		}
+	}
+
 	&.moving {
+		background-color: white;
+
 		.brand-logo {
 			transform: translateX(0) !important;
 		}
@@ -37,6 +106,7 @@
 	}
 	@media (max-width: 1140px) {
 		top: 0;
+
 		.desktop {
 			display: none;
 		}
