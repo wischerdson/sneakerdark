@@ -34,13 +34,22 @@
 						color: white;
 						background-color: #7122e3;
 					}
+					&.active {
+						color: white;
+						background-color: #7122e3;
+					}
 				}
 			}
 		}
 	}
 	.brands {
+		position: relative;
+
 		.brands-section {
 			margin-top: 50px;
+			//transition: all .4s ease-in-out;
+			display: block;
+			width: 100%;
 
 			.section-title {
 				margin-bottom: 5px;
@@ -64,6 +73,8 @@
 						padding: 16px 33px;
 						background-color: #f1f1f1;
 						transition: all .15s ease-in-out;
+						overflow: hidden;
+						border-radius: 4px;
 
 						.image {
 							width: 100%;
@@ -90,6 +101,14 @@
 					}
 				}
 			}
+		}
+
+		.brand-list-enter, .brand-list-leave-to {
+			//opacity: 0;
+			//transform: scale(.7);
+		}
+		.brand-list-leave-active {
+			//position: absolute;
 		}
 	}
 }
