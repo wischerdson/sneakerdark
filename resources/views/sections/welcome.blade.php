@@ -36,9 +36,9 @@
 						<div class="links">
 							<ul class="link-list">
 								<li
-								v-for="(link, key) in womanLinks"
-								class="link-item"
-								:style="`transition-delay: ${key * 0.4 / womanLinks.length}s`"
+									v-for="(link, key) in womanLinks"
+									class="link-item"
+									:style="`transition-delay: ${key * 0.4 / womanLinks.length}s`"
 								>
 								<a href="#">@{{ link }}</a>
 							</li>
