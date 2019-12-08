@@ -31,12 +31,12 @@
 				localStorage.setItem('cart', JSON.stringify(cart))
 			})
 
-			window.jivo_onLoadCallback = () => {
+			/*window.jivo_onLoadCallback = () => {
 				$('.copy_2W').remove()
 			}
 			window.jivo_onOpen = () => {
 				$('.chatCopyright_3s').remove()
-			}
+			}*/
 		}
 	}
 
