@@ -2,17 +2,15 @@
 	
 	export default {
 		template: '#template__section_welcome',
-		data () {
-			return {
-				womanLinks: [
-					'Новинки',
-					'Одежда',
-					'Сумки',
-					'Обувь',
-					'Аксессуары',
-					'Sale'
-				]
-			}
+		mounted () {
+			$(this.$refs.welcomeSlider).slick({
+				autoplay: true,
+				autoplaySpeed: 8000,
+				arrows: false,
+				pauseOnDotsHover: true,
+				appendDots: this.$refs.sliderDots,
+				dots: true
+			});
 		}
 	}
 

@@ -6,7 +6,8 @@
 }
 
 #section_header {
-	background-color: white;
+	background-color: fade(white, 95%);
+	backdrop-filter: blur(20px);
 	position: sticky;
 	top: calc(50px - @header_height);
 	transition:
@@ -80,8 +81,6 @@
 	}
 
 	&.moving {
-		background-color: white;
-
 		.brand-logo {
 			transform: translateX(0) !important;
 		}
