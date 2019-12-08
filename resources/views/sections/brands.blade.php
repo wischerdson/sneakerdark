@@ -11,22 +11,17 @@
 		</div>
 
 		<div class="brands">
-			<!-- <transition-group
-				name="brand-list"
-				tag="ul"
-			> -->
-				<li :key="`key_${letter}`" class="brands-section" v-for="(brandsInSection, letter) in brandList">
-					<h2 class="section-title">@{{ letter }}</h2>
-					<div class="brands-grid">
-						<a class="brand-item" :href="brand.url" v-for="(brand, brandName) in brandsInSection">
-							<div class="image-wrapper">
-								<div class="image" :style="`background-image: url(${brand.image})`"></div>
-							</div>
-							<div class="name">@{{ brandName }}</div>
-						</a>
-					</div>
-				</li>
-			<!-- </transition-group> -->
+			<li :key="`key_${letter}`" class="brands-section" v-for="(brandsInSection, letter) in brandList">
+				<h2 class="section-title">@{{ letter }}</h2>
+				<div class="brands-grid">
+					<a class="brand-item" :href="brand.url" v-for="(brand, brandName) in brandsInSection">
+						<div class="image-wrapper">
+							<div class="image" :style="`background-image: url(${brand.image})`"></div>
+						</div>
+						<div class="name">@{{ brandName }}</div>
+					</a>
+				</div>
+			</li>
 		</div>
 	</div>
 

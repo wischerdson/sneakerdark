@@ -36,6 +36,10 @@
 		</div>
 		<div class="slider-navigation-wrapper container">
 			<div class="slider-dots" ref="sliderDots"></div>
+			<div class="slider-arrows">
+				<button ref="sliderArrowToLeft">@include('svg.keyboard-arrow-left')</button>
+				<button ref="sliderArrowToRight">@include('svg.keyboard-arrow-right')</button>
+			</div>
 		</div>
 	</div>
 </template>

@@ -6,10 +6,12 @@
 			$(this.$refs.welcomeSlider).slick({
 				autoplay: true,
 				autoplaySpeed: 8000,
-				arrows: false,
+				arrows: true,
 				pauseOnDotsHover: true,
 				appendDots: this.$refs.sliderDots,
-				dots: true
+				dots: true,
+				prevArrow: this.$refs.sliderArrowToLeft,
+				nextArrow: this.$refs.sliderArrowToRight
 			});
 		}
 	}
