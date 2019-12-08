@@ -30,6 +30,13 @@
 			this.$store.watch(this.$store.getters.getCart, cart => {
 				localStorage.setItem('cart', JSON.stringify(cart))
 			})
+
+			window.jivo_onLoadCallback = () => {
+				$('.copy_2W').remove()
+			}
+			window.jivo_onOpen = () => {
+				$('.chatCopyright_3s').remove()
+			}
 		}
 	}
 

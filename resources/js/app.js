@@ -54,8 +54,6 @@ Vue.component('snippet-catalog-collection-filters', SnippetCatalogCollectionFilt
 Vue.mixin(JivoMixin)
 
 
-
-
 import App from './components/App'
 import store from './store'
 

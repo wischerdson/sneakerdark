@@ -5,6 +5,9 @@
 			jivo_openDialog() {
 				jivo_api.open()
 			}
+		},
+		mounted () {
+			
 		}
 	}
 
