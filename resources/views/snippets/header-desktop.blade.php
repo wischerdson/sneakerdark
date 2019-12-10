@@ -27,38 +27,19 @@
 						<a href="{{ route('home') }}">Главная</a>
 					</li>
 					<li class="link-item">
+						<a class="notification" href="{{ route('brands') }}">Новинки</a>
+					</li>
+					<li class="link-item">
 						<a href="{{ route('brands') }}">Бренды</a>
 					</li>
 					<li class="link-item">
-						<a href="{{ route('catalog', ['collection_id' => '1789']) }}">Кроссовки</a>
-						<ul class="submenu">
-							<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1']) }}">Мужские</a></li>
-							<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '97']) }}">Женские</a></li>
-						</ul>
+						<a href="{{ route('catalog', ['collection_id' => '1789']) }}">Мужское</a>
 					</li>
 					<li class="link-item">
-						<a href="{{ route('catalog', ['collection_id' => '4']) }}">Одежда</a>
-						<ul class="submenu">
-							<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1597']) }}">Мужская</a></li>
-							<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1596']) }}">Женская</a></li>
-						</ul>
+						<a href="{{ route('catalog', ['collection_id' => '4']) }}">Женское</a>
 					</li>
 					<li class="link-item">
 						<a href="{{ route('catalog', ['collection_id' => '3']) }}">Аксессуары</a>
-						<ul class="submenu">
-							<li class="submenu-item">
-								<a href="#">Зимние</a>
-								<ul class="submenu submenu-2">
-									<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1597']) }}">Шапки</a></li>
-									<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1596']) }}">Шарфы</a></li>
-									<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1596']) }}">Перчатки</a></li>
-									<li class="submenu-item"><a href="{{ route('catalog', ['collection_id' => '1596']) }}">Варежки</a></li>
-								</ul>
-							</li>
-							<li class="submenu-item"><a href="#">Рюкзаки и сумки</a></li>
-							<li class="submenu-item"><a href="#">Прочее</a></li>
-							<li class="submenu-item"><a href="#">Панамы</a></li>
-						</ul>
 					</li>
 					<li class="link-item">
 						<a href="#">Отзывы</a>
@@ -78,6 +59,54 @@
 				@include('svg.shopping-bag')
 				Корзина
 			</a>
+		</div>
+	</div>
+
+	<div class="submenu">
+		<div class="inner">
+			<div class="column">
+				<div class="column-heading">Heading #1</div>
+				<div class="column-content">
+					<ul class="link-list">
+						<li class="link-item"><a href="#" class="link">Link #1</a></li>
+						<li class="link-item"><a href="#" class="link">Link #2</a></li>
+						<li class="link-item"><a href="#" class="link">Link #3</a></li>
+						<li class="link-item"><a href="#" class="link">Link #4</a></li>
+						<li class="link-item"><a href="#" class="link">Link #5</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column-heading">Heading #2</div>
+				<div class="column-content">
+					<ul class="link-list">
+						<li class="link-item"><a href="#" class="link">Link #1</a></li>
+						<li class="link-item"><a href="#" class="link">Link #2</a></li>
+						<li class="link-item"><a href="#" class="link">Link #3</a></li>
+						<li class="link-item"><a href="#" class="link">Link #4</a></li>
+						<li class="link-item"><a href="#" class="link">Link #5</a></li>
+						<li class="link-item"><a href="#" class="link">Link #6</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column-heading"> </div>
+				<div class="column-content">
+					<ul class="link-list">
+						<li class="link-item"><a href="#" class="link">Link #7</a></li>
+						<li class="link-item"><a href="#" class="link">Link #8</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column-content">
+					<a href="#" class="link-as-image">
+						<div class="overlay"></div>
+						<div class="image" style="background-image: url(https://mtdata.ru/u12/photoBB31/20762780747-0/original.jpg)"></div>
+						<span class="text">Пиво. Новые<br>поступления</span>
+					</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

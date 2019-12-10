@@ -32,10 +32,10 @@
 			})
 
 			/*window.jivo_onLoadCallback = () => {
-				$('.copy_2W').remove()
+
 			}
 			window.jivo_onOpen = () => {
-				$('.chatCopyright_3s').remove()
+
 			}*/
 		}
 	}

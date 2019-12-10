@@ -34,5 +34,5 @@ mix.combine([
 	'public_html/js/v-app.js'
 ], 'public_html/js/app.js')
 
-// mix.browserSync('socialrate.ru');
-// mix.disableNotifications();
+// mix.browserSync('sneakerdark.loc');
+mix.disableNotifications();
