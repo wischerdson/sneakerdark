@@ -7,15 +7,15 @@ use App;
 
 class HomeController extends SiteController
 {
-    public function index() {
-    	$this->template = 'home';
-    	$this->title = 'Sneakerdark';
-    	$this->transparentHeader = true;
+	public function index() {
+		$this->template = 'home';
+		$this->title = 'Sneakerdark';
+		$this->transparentHeader = true;
 
-    	return $this->output();
-    }
+		return $this->output();
+	}
 
-    public function badbrowser() {
-    	return view('templates.badbrowser');
-    }
+	public function badbrowser() {
+		return view('templates.badbrowser');
+	}
 }

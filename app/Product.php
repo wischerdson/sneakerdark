@@ -12,7 +12,7 @@ class Product extends Model
 	public $timestamps = false;
 
 	public function category() {
-		return $this->belongsTo('App\Category', 'category_id', 'id');
+		return $this->belongsTo('App\Collection', 'collection_id', 'id');
 	}
 	public function parameters() {
 		return $this->hasMany('App\Parameter');

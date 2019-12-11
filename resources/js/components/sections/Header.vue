@@ -6,8 +6,18 @@
 		template: '#template__section_header',
 		data () {
 			return {
-				isMoving: false,
-				sidebarIsOpen: false
+				isMoving: true,
+				sidebarIsOpen: false,
+				submenu: {
+					_1: false,
+					_2: false,
+					_3: false
+				}
+			}
+		},
+		computed: {
+			submenuIsOpen () {
+				return this.submenu._1 || this.submenu._2 || this.submenu._3
 			}
 		},
 		methods: {

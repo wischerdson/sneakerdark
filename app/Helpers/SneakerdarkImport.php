@@ -5,7 +5,7 @@ namespace App\Helpers;
 use App;
 use Storage;
 
-use App\Category;
+use App\Collection;
 use App\Product;
 use App\Size;
 use App\Picture;
@@ -86,7 +86,7 @@ class SneakerdarkImport {
 			'title' => $data->NAME,
 			'price' => $data->PRICE,
 			'supplier_url' => $data->URL,
-			'category_id' => $data->CATEGORYID,
+			'collection_id' => $data->CATEGORYID,
 			'model' => $data->MODEL,
 			'description' => $description,
 			'vendor' => $data->VENDOR,
@@ -166,12 +166,12 @@ class SneakerdarkImport {
 			);
 		}
 	}
-	private function importCategories($data) {
-		Category::updateOrCreate(
+	private function importCollections($data) {
+		Collection::updateOrCreate(
 			['id' => $data['id']],
 			[
 				'parent_id' => $data['parentid'],
-				'name' => $data
+				'title' => $data
 			]
 		);
 	}

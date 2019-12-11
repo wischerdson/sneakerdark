@@ -4,7 +4,7 @@
 			<header
 				id="section_header"
 				:class="{
-					'transparent': !isMoving && !$store.state.searchIsOpen,
+					'transparent': !isMoving && !$store.state.searchIsOpen && !submenuIsOpen,
 					'moving': isMoving,
 					'searchIsOpen': $store.state.searchIsOpen
 				}"

@@ -18,13 +18,13 @@ class CreateProductsTable extends Migration
 			$table->string('title');
 			$table->double('price', 7, 2);
 			$table->string('supplier_url');
-			$table->bigInteger('category_id')->unsigned();
+			$table->bigInteger('collection_id')->unsigned();
 			$table->string('model');
 			$table->text('description');
 			$table->string('vendor');
 			$table->integer('created_at')->unsigned();
 
-			$table->foreign('category_id')->references('id')->on('categories');
+			$table->foreign('collection_id')->references('id')->on('collections');
 		});
 	}
 

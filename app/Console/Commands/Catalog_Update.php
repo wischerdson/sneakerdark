@@ -15,7 +15,7 @@ class Catalog_Update extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'catalog:update {tables=categories,products,parameters,pictures,sizes}';
+	protected $signature = 'catalog:update {tables=collections,products,parameters,pictures,sizes}';
 
 	/**
 	 * The console command description.
@@ -61,7 +61,7 @@ class Catalog_Update extends Command
 
 		$tables = explode(',', $this->argument('tables'));
 		$a = [
-			'category' => array_intersect(['categories'], $tables),
+			'category' => array_intersect(['collections'], $tables),
 			'offer' => array_intersect(['products','parameters','pictures','sizes'], $tables)
 		];
 

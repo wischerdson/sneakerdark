@@ -8,7 +8,7 @@ use Auth;
 use Validator;
 use Response;
 
-use App\Category;
+use App\Collection;
 
 class SiteController extends Controller
 {
@@ -18,20 +18,6 @@ class SiteController extends Controller
 	protected $description = '';
 	protected $transparentHeader = false;
 
-	protected $links = [];
-	protected $link;
-
-	protected $scripts = [];
-	protected $script;
-
-	protected $styles = [];
-	protected $style;
-
-
-
-	public function __construct() {
-		
-	}
 
 	protected function output() {
 		$this->vars['title'] = $this->title;
@@ -39,7 +25,7 @@ class SiteController extends Controller
 		$this->vars['template'] = $this->template;
 
 
-		$this->vars['accessories_category'] = Category::where('parent_id', 3)->orderBy('name')->get();
+		$this->vars['accessories_category'] = Collection::where('parent_id', 3)->orderBy('name')->get();
 		$this->vars['transparentHeader'] = $this->transparentHeader;
 
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Product;
-use App\Category;
+use App\Collection;
 
 class ProductController extends \App\Http\Controllers\SiteController
 {
@@ -15,7 +15,7 @@ class ProductController extends \App\Http\Controllers\SiteController
 			->with('pictures')
 			->with('sizes')
 			->with('parameters')
-			->with('category')
+			->with('collection')
 			->first();
 
 		if (!$product) {
@@ -28,14 +28,14 @@ class ProductController extends \App\Http\Controllers\SiteController
 
 		
 
-		$categoriesChain = [];
-		$categoryParentId = $product->category->id;
-		while ($categoryParentId) {
-			$category = Category::find($categoryParentId);
-			array_push($categoriesChain, $category);
-			$categoryParentId = $category->parent_id;
+		$collectionsChain = [];
+		$collectionParentId = $product->collection->id;
+		while ($collectionParentId) {
+			$collection = Collection::find($collectionParentId);
+			array_push($collectionsChain, $collection);
+			$collectionParentId = $collection->parent_id;
 		}
-		$categoriesChain = array_reverse($categoriesChain);
+		$collectionsChain = array_reverse($collectionsChain);
 
 		$product->colors = Product::where('model', $product->model)->with('pictures')->get();
 
@@ -44,7 +44,7 @@ class ProductController extends \App\Http\Controllers\SiteController
 		$this->template = 'catalog.product';
 		$this->title = $product->title.' - Sneakerdark';
 		$this->vars['product'] = $product;
-		$this->vars['categoriesChain'] = $categoriesChain;
+		$this->vars['categoriesChain'] = $collectionsChain;
 		return $this->output();
 	}
 }
