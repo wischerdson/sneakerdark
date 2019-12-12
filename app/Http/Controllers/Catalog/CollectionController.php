@@ -13,8 +13,7 @@ class CollectionController extends \App\Http\Controllers\SiteController
 	private $collections = [];
 
 	public function show(Request $request, $parentCollectionId) {
-		/*$this->template = 'catalog.collection';
-		$this->title = 'Коллекция - Sneakerdark';
+		/*
 
 		$this->vars['currentCollection'] = $parentCollectionId;
 
@@ -24,14 +23,17 @@ class CollectionController extends \App\Http\Controllers\SiteController
 			$Product = $Product->orWhere('collection_id', $collectionId);
 		}
 		$products = $Product->orderBy('created_at', 'desc')->with('pictures')->paginate(8 * 4);
-		$this->vars['products'] = $products;*/
+		*/
 
+		$this->template = 'catalog.collection';
+		$this->title = 'Коллекция - Sneakerdark';
 
 		$collection = Collection::find($parentCollectionId);
+		$this->vars['currentCollection'] = $collection;
+		$collections = $collection->children;
+		$products = Product::fetchFromNestedCollections($collections)->with('pictures')->paginate(8 * 4);
 
-		dd($collection->children);
-		
-		return;
+		$this->vars['products'] = $products;
 
 		/*$collectionsChain = [];
 		while ($parentCollectionId) {

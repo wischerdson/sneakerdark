@@ -36,6 +36,4 @@ class Collection extends Model
 
 		return $tree;
 	}
-
-
 }
