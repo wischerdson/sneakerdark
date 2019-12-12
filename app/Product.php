@@ -9,7 +9,6 @@ class Product extends Model
 {
 	protected $table = 'products';
 	protected $guarded = [];
-	protected $primaryKey = 'id';
 	public $timestamps = false;
 
 
@@ -37,10 +36,6 @@ class Product extends Model
 
 
 	public function scopeFetchFromNestedCollections($query, $collectionsIds) {
-		$query = $query->orWhere('collection_id', $collectionsIds[0]);
-		foreach (array_slice($collectionsIds, 1) as $collectionId) {
-			$query = $query->orWhere('collection_id', $collectionId);
-		}
-		return $query;
+		return $query->whereIn('collection_id', $collectionsIds);
 	}
 }

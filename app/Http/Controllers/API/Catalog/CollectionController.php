@@ -49,9 +49,7 @@ class CollectionController extends Controller
 	 */
 	public function show(Collection $collection, $id): CollectionResource
 	{
-		return new CollectionResource($collection->find($id)->load(['products' => function ($query) {
-			$query->paginate(8 * 4);
-		}]));
+		return new CollectionResource($collection->find($id));
 	}
 
 	/**

@@ -4,6 +4,10 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Collection;
+use App\Product;
+use App\Parameter;
+use App\Size;
 use App\Http\Resources\ProductResource;
 
 class CollectionResource extends JsonResource
@@ -16,16 +20,64 @@ class CollectionResource extends JsonResource
 	 */
 	public function toArray($request)
 	{
+		$collectionsIds = Collection::find($this->id)->children;
+		$productsIds = Product::
+			fetchFromNestedCollections($collectionsIds)
+			->withoutGlobalScopes()
+			->select('id')
+			->distinct()
+			->pluck('id');
+
+		$categories = Parameter::
+			whereIn('key', ['Вид аксессуаров', 'Футбольная обувь', 'Предмет одежды', 'Категория'])
+			->whereIn('product_id', $productsIds)
+			->select('value')
+			->distinct()
+			->pluck('value');
+
+		$gender = Parameter::
+			where('key', 'Пол')
+			->whereIn('product_id', $productsIds)
+			->select('value')
+			->distinct()
+			->pluck('value');
+
+		$sizes = Size::
+			where('instock', '>', 0)
+			->whereIn('product_id', $productsIds)
+			->select('size')
+			->distinct()
+			->pluck('size');
+
+		$brands = Product::
+			whereIn('id', $productsIds)
+			->withoutGlobalScopes()
+			->select('vendor')
+			->orderBy('vendor', 'asc')
+			->distinct()
+			->pluck('vendor');
+
+		$colors = Parameter::
+			where('key', 'Цвет')
+			->whereIn('product_id', $productsIds)
+			->select('value')
+			->distinct()
+			->pluck('value');
+
+		dd($colors);
+
 		return [
 			'id' => $this->id,
 			'parent_id' => $this->parent_id,
 			'title' => $this->title,
-			'products' => ProductResource::collection($this->products),
+			'products' => ProductResource::collection(
+				Product::fetchFromNestedCollections($collectionsIds)->with('pictures')->paginate(8 * 4)
+			),
 			'filters' => [
-				'category' => 1,
-				'gender' => 1,
-				'size' => 1,
-				'model' => 1,
+				'category' => $categories,
+				'gender' => $gender,
+				'size' => $sizes,
+				'brand' => $brands,
 				'color' => 1,
 				'price_min' => 1,
 				'price_max' => 1
