@@ -25,7 +25,7 @@ class SiteController extends Controller
 		$this->vars['template'] = $this->template;
 
 
-		$this->vars['accessories_category'] = Collection::where('parent_id', 3)->orderBy('name')->get();
+		//$this->vars['accessories_category'] = Collection::where('parent_id', 3)->orderBy('name')->get();
 		$this->vars['transparentHeader'] = $this->transparentHeader;
 
 

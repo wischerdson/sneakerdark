@@ -5,46 +5,55 @@ namespace App\Http\Controllers\Catalog;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Category;
+use App\Collection;
 use App\Product;
 
 class CollectionController extends \App\Http\Controllers\SiteController
 {
-	private $categories = [];
+	private $collections = [];
 
-	public function show(Request $request, $parentCategoryId) {
-		$this->template = 'catalog.collection';
+	public function show(Request $request, $parentCollectionId) {
+		/*$this->template = 'catalog.collection';
 		$this->title = 'Коллекция - Sneakerdark';
 
-		$this->vars['currentCategory'] = $parentCategoryId;
+		$this->vars['currentCollection'] = $parentCollectionId;
 
-		$this->fetchChildCategories($parentCategoryId);
-		$Product = Product::where('category_id', $parentCategoryId);
-		foreach (array_slice($this->categories, 1) as $categoryId) {
-			$Product = $Product->orWhere('category_id', $categoryId);
+		$this->fetchChildCategories($parentCollectionId);
+		$Product = Product::where('collection_id', $parentCollectionId);
+		foreach (array_slice($this->collections, 1) as $collectionId) {
+			$Product = $Product->orWhere('collection_id', $collectionId);
 		}
 		$products = $Product->orderBy('created_at', 'desc')->with('pictures')->paginate(8 * 4);
-		$this->vars['products'] = $products;
+		$this->vars['products'] = $products;*/
 
 
-		$categoriesChain = [];
-		while ($parentCategoryId) {
-			$category = Category::find($parentCategoryId);
-			array_push($categoriesChain, $category);
-			$parentCategoryId = $category->parent_id;
+		$collection = Collection::find($parentCollectionId);
+
+		dd($collection->children);
+		
+		return;
+
+		/*$collectionsChain = [];
+		while ($parentCollectionId) {
+			$collection = Collection::find($parentCollectionId);
+			array_push($collectionsChain, $collection);
+			$parentCollectionId = $collection->parent_id;
 		}
-		$categoriesChain = array_reverse($categoriesChain);
-		$this->vars['categoriesChain'] = $categoriesChain;
+
+		$collectionsChain = array_reverse($collectionsChain);*/
+		//dd(Collection::find($parentCollectionId)->chain);
+		$this->vars['collectionsChain'] = Collection::find($parentCollectionId)->chain;
+
 
 
 		return $this->output();
 	}
 
-	private function fetchChildCategories($categoryId) {
-		$childCategories = Category::where('parent_id', $categoryId)->get();
-		array_push($this->categories, $categoryId);
-		foreach ($childCategories as $childCategory) {
-			$this->fetchChildCategories($childCategory->id);
+	private function fetchChildCategories($collectionId) {
+		$childCategories = Collection::where('parent_id', $collectionId)->get();
+		array_push($this->collections, $collectionId);
+		foreach ($childCategories as $childCollection) {
+			$this->fetchChildCategories($childCollection->id);
 		}
 		return;
 	}

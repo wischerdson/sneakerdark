@@ -3,8 +3,8 @@
 		<div class="header">
 			<breadcrumb>
 				<breadcrumb-item url="{{ route('home') }}">Главная</breadcrumb-item>
-				@foreach ($categoriesChain as $category)
-				<breadcrumb-item url="{{ route('catalog', ['collection_id' => $category->id]) }}">{{ $category->name }}</breadcrumb-item>
+				@foreach ($collectionsChain as $category)
+				<breadcrumb-item url="{{ route('catalog', ['collection_id' => $category->id]) }}">{{ $category->title }}</breadcrumb-item>
 				@endforeach
 			</breadcrumb>
 
@@ -18,7 +18,7 @@
 
 		<div class="main-content">
 			<div class="left-side">
-				<snippet-catalog-collection-filters categoryId="{{ $currentCategory }}"></snippet-catalog-collection-filters>
+				<snippet-catalog-collection-filters categoryId="{{ $currentCollection }}"></snippet-catalog-collection-filters>
 			</div>
 			<ul class="products-grid">
 				@foreach ($products as $product)
