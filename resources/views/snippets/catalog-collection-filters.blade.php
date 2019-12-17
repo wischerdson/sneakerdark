@@ -1,5 +1,5 @@
 <template id="template__snippet_catalog_collection_filters" >
-	<sticky :margin-top="20 + 50">
+	<!-- <sticky :margin-top="20 + 50"> -->
 		<div class="filters" ref="filters">
 			<div class="filters-section">
 				<div class="section-title">Категория</div>
@@ -62,5 +62,5 @@
 				</div>
 			</div>
 		</div>
-	</sticky>
+	<!-- </sticky> -->
 </template>

@@ -59,7 +59,6 @@
 			},
 			getHeight () {
 				const boundingClientRectEl = this.$el.getBoundingClientRect()
-				console.log(boundingClientRectEl.height)
 				return Math.round(boundingClientRectEl.height * 1e2)/1e2
 			}
 		},

@@ -16,7 +16,7 @@
 			</div>
 		</div>
 	
-		<div ref="catalogUrl" style="display: none;">{{ route('api.catalog.show', ['catalog' => $currentCollection->id]) }}</div>
+		<div ref="catalogUrl">{{ route('api.catalog.show', ['catalog' => $currentCollection->id]) }}</div>
 
 		<div class="main-content" v-show="showCatalog">
 			<div class="left-side">
@@ -30,7 +30,7 @@
 					:picture="product.pictures[0].src"
 					:vendor="product.vendor"
 					:price="product.price"
-					:url="'{{ route('catalog.product') }}' + product.id"
+					:url="product.url"
 				></snippet-catalog-collection-product>
 				<snippet-catalog-collection-product style="display: none"></snippet-catalog-collection-product>
 			</ul>

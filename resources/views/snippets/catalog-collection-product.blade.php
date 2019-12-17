@@ -4,7 +4,7 @@
 			<div class="picture" :style="`background-image: url(${picture})`"></div>
 		</div>
 		<div class="vendor">@{{ vendor }}</div>
-		<center><a class="title" :href="url0">@{{ title }}</a></center>
-		<div class="price">@{{ price }}</div>
+		<center><a class="title" :href="url">@{{ title }}</a></center>
+		<div class="price">@{{ price }} руб.</div>
 	</li>
 </template>

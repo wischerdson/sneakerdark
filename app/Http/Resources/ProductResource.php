@@ -20,7 +20,8 @@ class ProductResource extends JsonResource
 			'price' => $this->price,
 			'collection_id' => $this->collection_id,
 			'pictures' => $this->pictures,
-			'vendor' => $this->vendor
+			'vendor' => $this->vendor,
+			'url' => route('catalog.product', ['product_id' => $this->id])
 		];
 		return parent::toArray($request);
 	}
