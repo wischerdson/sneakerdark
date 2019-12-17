@@ -70,6 +70,8 @@ class CollectionResource extends JsonResource
 			'id' => $this->id,
 			'parent_id' => $this->parent_id,
 			'title' => $this->title,
+			'total_products' => count($productsIds),
+			'total_subject' => smart_ending(count($collectionsIds), ['', 'а', 'ов'], 'товар'),
 			'products' => ProductResource::collection(
 				Product::fetchFromNestedCollections($collectionsIds)->with('pictures')->paginate(8 * 4)
 			),

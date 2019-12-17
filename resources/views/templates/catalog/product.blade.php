@@ -61,8 +61,8 @@
 					<div class="in-stock">В наличии</div>
 				</div>
 				<div class="price-wrapper">
+					<div class="compare-at-price">{{ $product->price * 1.2 }}</div>
 					<div class="price">{{ $product->price }}</div>
-					{{-- <div class="compare-at-price">{{ $product->price  * 4 }}</div> --}}
 					<a @click="foundCheaperModalIsOpen = true" class="found-cheaper-link">Нашли дешевле?</a>
 				</div>
 				

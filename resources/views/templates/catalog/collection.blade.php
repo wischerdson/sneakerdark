@@ -1,19 +1,30 @@
 <template id="template__catalog_collection">
 	<div id="template_catalog_collection" class="container large">
 		<div class="header">
-			<breadcrumb>
-				<breadcrumb-item url="{{ route('home') }}">Главная</breadcrumb-item>
-				@foreach ($collectionsChain as $category)
-				<breadcrumb-item url="{{ route('catalog', ['collection_id' => $category->id]) }}">{{ $category->title }}</breadcrumb-item>
-				@endforeach
-			</breadcrumb>
-
-			<div class="sort">
-				Сортировать
-				<a href="#" class="active">по умолчанию</a>
-				<a href="#">по возрастанию цены</a>
-				<a href="#">по убыванию цены</a>
+			<div class="top">
+				<h1>{{ $currentCollection->title }}</h1>
+				<div class="total-products">@{{ $store.getters.getCatalog.total_products }} @{{ $store.getters.getCatalog.total_subject }}</div>
 			</div>
+			<div class="bottom">
+				<breadcrumb>
+					<breadcrumb-item url="{{ route('home') }}">Главная</breadcrumb-item>
+					@foreach ($collectionsChain as $category)
+						@if ($loop->last)
+						<breadcrumb-item>{{ $category->title }}</breadcrumb-item>
+						@else
+						<breadcrumb-item url="{{ route('catalog', ['collection_id' => $category->id]) }}">{{ $category->title }}</breadcrumb-item>
+						@endif
+					@endforeach
+				</breadcrumb>
+
+				<div class="sort">
+					Сортировать
+					<a href="#">по умолчанию</a>
+					<a href="#" class="active">по возрастанию цены</a>
+					<a href="#">по убыванию цены</a>
+				</div>
+			</div>
+			
 		</div>
 	
 		<div ref="catalogUrl">{{ route('api.catalog.show', ['catalog' => $currentCollection->id]) }}</div>

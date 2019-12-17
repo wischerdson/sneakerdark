@@ -2,38 +2,53 @@
 	margin-top: 20px;
 
 	& > .header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-bottom: 1px solid #f2f2f2;
-		padding: 11px 0;
+		
+		.top {
+			margin-bottom: 20px;
 
-		.breadcrumb {
-			margin-top: 0;
+			.total-products {
+				margin-top: 10px;
+				font-size: 1.2rem;
+				opacity: .6;
+				text-align: center;
+			}
 		}
 
-		.sort {
-			font-weight: 500;
-			font-size: 1.2rem;
+		.bottom {
 			display: flex;
+			justify-content: space-between;
 			align-items: center;
+			border-bottom: 1px solid #f2f2f2;
+			padding: 11px 0;
 
-			a {
-				font-weight: 300;
-				color: #8f8f8f;
-				text-transform: lowercase;
-				padding: 0 8px;
-				height: 30px;
-				line-height: 27px;
-				border-radius: 4px;
-				margin-left: 12px;
+			.breadcrumb {
+				margin-top: 0;
+			}
 
-				&.active {
-					background-color: #5e6364;
-					color: white;
+			.sort {
+				font-weight: 400;
+				font-size: 1.2rem;
+				display: flex;
+				align-items: center;
+
+				a {
+					font-weight: 300;
+					color: #8f8f8f;
+					text-transform: lowercase;
+					padding: 0 8px;
+					height: 30px;
+					line-height: 27px;
+					border-radius: 4px;
+					margin-left: 12px;
+
+					&.active {
+						background-color: #a7a7a7;
+						color: white;
+					}
 				}
 			}
 		}
+		
 	}
 
 	.main-content {
@@ -54,6 +69,75 @@
 			grid-row-gap: 25px;
 
 			@import "../snippets/catalog.collection.product.less";
+		}
+	}
+
+	nav {
+		margin-top: 50px;
+
+		.pagination {
+			display: flex;
+			justify-content: flex-end;
+
+			.page-item {
+				height: max-content;
+
+				.page-link {
+					color: black;
+					font-size: 1.3rem;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					min-width: 40px;
+					height: 40px;
+					border-radius: 9999px;
+					transition: all .15s ease-in-out;
+					font-weight: 400;
+					color: gray;
+				}
+				&:hover .page-link {
+					background-color: #f1f1f1;
+					color: black;
+				}
+				&.active {
+					.page-link {
+						color: white;
+						background-color: @main-color;
+					}
+				}
+				&.disabled .page-link {
+					background-color: transparent !important;
+				}
+				&:first-child, &:last-child {
+					.page-link {
+						font-size: 0;
+						background-color: #f2f2f2;
+						border-radius: 4px;
+						padding: 0 25px;
+
+						&:after {
+							font-size: 1.0667rem;
+							content: 'Далее';
+						}
+					}
+					&.disabled {
+						display: none;
+					}
+				}
+				&:first-child {
+					.page-link:after {
+						content: 'Назад';
+					}
+				}
+				&:last-child {
+					.page-link:after {
+						content: 'Далее';
+					}
+				}
+				&:not(:last-child) {
+					margin-right: 10px;
+				}
+			}
 		}
 	}
 }
