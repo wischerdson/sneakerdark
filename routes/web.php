@@ -8,7 +8,7 @@ Route::group(['middleware' => ['web', 'sleep']], function () {
 	Route::get('search', ['uses' => 'SearchController@show', 'as' => 'search.ajax']);
 
 	Route::group(['prefix' => 'catalog'], function () {
-		Route::get('product/{product_id}', ['uses' => 'Catalog\ProductController@show', 'as' => 'catalog.product']);
+		Route::get('product/{product_id?}', ['uses' => 'Catalog\ProductController@show', 'as' => 'catalog.product']);
 		Route::get('{collection_id}', ['uses' => 'Catalog\CollectionController@show', 'as' => 'catalog']);
 	});
 

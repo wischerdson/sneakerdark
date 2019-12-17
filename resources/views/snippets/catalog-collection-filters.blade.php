@@ -5,65 +5,49 @@
 				<div class="section-title">Категория</div>
 				<div class="section-body">
 					<has-scroll color="rgba(255,255,255,.75)">
-						<checkbox name="category">Баскетбол</checkbox>
-						<checkbox name="category">Бег</checkbox>
-						<checkbox name="category">Ботинки</checkbox>
-						<checkbox name="category">Кроссовки с мехом</checkbox>
-						<checkbox name="category">Сандалии и сланцы</checkbox>
-						<checkbox name="category">Сапоги</checkbox>
-						<checkbox name="category">Скейтборд</checkbox>
-						<checkbox name="category">Спортивный стиль</checkbox>
-						<checkbox name="category">Футбол</checkbox>
-						<checkbox name="category">Сандалии и сланцы</checkbox>
-						<checkbox name="category">Сапоги</checkbox>
-						<checkbox name="category">Скейтборд</checkbox>
-						<checkbox name="category">Спортивный стиль</checkbox>
-						<checkbox name="category">Футбол</checkbox>
+						<checkbox
+							name="filters_category"
+							v-for="(category, index) in filters.category"
+							:key="'filter_category_' + index"
+						>@{{ category }}</checkbox>
 					</has-scroll>
 				</div>
 			</div>
 			<div class="filters-section">
 				<div class="section-title">Пол</div>
 				<div class="section-body">
-					<checkbox name="gender">Мужский</checkbox>
-					<checkbox name="gender">Женский</checkbox>
+					<checkbox
+						name="filters_gender"
+						v-for="(gender, index) in filters.gender"
+						:key="'filter_gender_' + index"
+					>@{{ gender }}</checkbox>
 				</div>
 			</div>
 			<div class="filters-section">
 				<div class="section-title">Размер</div>
 				<div class="section-body">
 					<has-scroll color="rgba(255,255,255,.75)" class_="sizes">
-						<checkbox name="size">35</checkbox>
-						<checkbox name="size">36</checkbox>
-						<checkbox name="size">36.5</checkbox>
-						<checkbox name="size">37</checkbox>
-						<checkbox name="size">38</checkbox>
-						<checkbox name="size">39</checkbox>
+						<checkbox
+							name="filters_size"
+							v-for="(size, index) in filters.size"
+							:key="'filter_size_' + index"
+						>@{{ size }}</checkbox>
 					</has-scroll>
 				</div>
 			</div>
+
 			<div class="filters-section">
-				<div class="section-title">Модель</div>
+				<div class="section-title">Бренд</div>
 				<div class="section-body">
-					<has-scroll color="white">
-						<checkbox name="model">бежевый</checkbox>
-						<checkbox name="model">коричневый</checkbox>
-						<checkbox name="model">песочный</checkbox>
-						<checkbox name="model">серый</checkbox>
-						<checkbox name="model">синий</checkbox>
-						<checkbox name="model">чёрный</checkbox>
+					<has-scroll color="rgba(255,255,255,.75)">
+						<checkbox
+							name="filters_brand"
+							v-for="(brand, index) in filters.brand"
+							:key="'filter_brand_' + index"
+							v-if="brand"
+						>@{{ brand }}</checkbox>
+						<checkbox name="blank" style="display: none;"></checkbox>
 					</has-scroll>
-				</div>
-			</div>
-			<div class="filters-section">
-				<div class="section-title">Цвет</div>
-				<div class="section-body">
-					<checkbox name="gender">бежевый</checkbox>
-					<checkbox name="gender">коричневый</checkbox>
-					<checkbox name="gender">песочный</checkbox>
-					<checkbox name="gender">серый</checkbox>
-					<checkbox name="gender">синий</checkbox>
-					<checkbox name="gender">чёрный</checkbox>
 				</div>
 			</div>
 			<div class="filters-section">

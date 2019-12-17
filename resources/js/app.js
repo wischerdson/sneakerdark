@@ -1,13 +1,18 @@
 import Vue from 'vue'
-import VueResource from 'vue-resource'
+import Vuex from 'vuex'
+import axios from 'axios'
 import Vuelidate from 'vuelidate'
 
-Vue.use(VueResource)
+
+axios.defaults.baseURL = document.querySelector('meta[name="base-url"]').getAttribute('content')
+axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+axios.defaults.headers.common['Accept'] = 'application/json'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+
+
+Vue.prototype.$http = axios
 Vue.use(Vuelidate)
-
-Vue.http.headers.common['X-CSRF-TOKEN'] = _token
-
-
+Vue.use(Vuex)
 
 
 import Breadcrumb from './components/theme/Breadcrumb'

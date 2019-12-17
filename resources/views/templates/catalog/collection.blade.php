@@ -15,20 +15,24 @@
 				<a href="#">по убыванию цены</a>
 			</div>
 		</div>
+	
+		<div ref="catalogUrl" style="display: none;">{{ route('api.catalog.show', ['catalog' => $currentCollection->id]) }}</div>
 
-		<div class="main-content">
+		<div class="main-content" v-show="showCatalog">
 			<div class="left-side">
-				<snippet-catalog-collection-filters categoryId="{{ $currentCollection }}"></snippet-catalog-collection-filters>
+				<snippet-catalog-collection-filters></snippet-catalog-collection-filters>
 			</div>
 			<ul class="products-grid">
-				@foreach ($products as $product)
 				<snippet-catalog-collection-product
-					title="{{ $product->title }}"
-					picture="{{ $product->pictures[0]->src }}"
-					vendor="{{ $product->vendor }}"
-					url="{{ route('catalog.product', ['product_id' => $product->id]) }}"
+					v-for="(product, index) in products"
+					:key="'products_block_' + index"
+					:title="product.title"
+					:picture="product.pictures[0].src"
+					:vendor="product.vendor"
+					:price="product.price"
+					:url="'{{ route('catalog.product') }}' + product.id"
 				></snippet-catalog-collection-product>
-				@endforeach
+				<snippet-catalog-collection-product style="display: none"></snippet-catalog-collection-product>
 			</ul>
 		</div>
 

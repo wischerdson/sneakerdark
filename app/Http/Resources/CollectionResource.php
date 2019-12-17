@@ -57,14 +57,14 @@ class CollectionResource extends JsonResource
 			->distinct()
 			->pluck('vendor');
 
-		$colors = Parameter::
-			where('key', 'Цвет')
-			->whereIn('product_id', $productsIds)
-			->select('value')
+		$prices = Product::
+			whereIn('id', $productsIds)
+			->withoutGlobalScopes()
+			->select('price')
+			->orderBy('price', 'asc')
 			->distinct()
-			->pluck('value');
-
-		dd($colors);
+			->pluck('price')
+			->toArray();
 
 		return [
 			'id' => $this->id,
@@ -78,9 +78,8 @@ class CollectionResource extends JsonResource
 				'gender' => $gender,
 				'size' => $sizes,
 				'brand' => $brands,
-				'color' => 1,
-				'price_min' => 1,
-				'price_max' => 1
+				'price_min' => $prices[0],
+				'price_max' => end($prices)
 			],
 			'pagination' => [
 				'123' => 'asd'

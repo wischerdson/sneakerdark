@@ -31,12 +31,9 @@
 				localStorage.setItem('cart', JSON.stringify(cart))
 			})
 
-			/*window.jivo_onLoadCallback = () => {
-
-			}
-			window.jivo_onOpen = () => {
-
-			}*/
+			/* window.jivo_onLoadCallback = () => {
+				$('.text_eD').prepend(this.$refs.dataSvgEnvelope.innerHTML)
+			} */
 		}
 	}
 

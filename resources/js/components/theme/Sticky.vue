@@ -33,11 +33,11 @@
 				if (this.scrolledUp)
 					return
 
-				if (this.positionRelativeWindow + this.height >= 0) 
+				if (this.positionRelativeWindow + this.getHeight() >= 0) 
 					this.setPosition(this.position - this.startPosition)
 				else if (this.positionRelativeWindow <= 0) {
 					const parentHeight = this.$el.parentNode.getBoundingClientRect().height
-					this.setPosition(Math.min(this.currentPagePosition - this.startPosition - this.height, parentHeight - this.height))
+					this.setPosition(Math.min(this.currentPagePosition - this.startPosition - this.getHeight(), parentHeight - this.getHeight()))
 				}
 				this.scrolledUp = true
 			},
@@ -50,13 +50,17 @@
 			},
 			updateStickyProps () {
 				const boundingClientRectEl = this.$el.getBoundingClientRect()
-				this.height = Math.round(boundingClientRectEl.height * 1e2)/1e2
 				this.positionRelativeWindow = Math.round((boundingClientRectEl.y - this.marginTop) * 1e2)/1e2
 				this.position = Math.round((window.pageYOffset + boundingClientRectEl.y) * 1e2)/1e2
 			},
 			setPosition (y) {
 				this.css.top = y + 'px'
 				this.css.position = 'relative'
+			},
+			getHeight () {
+				const boundingClientRectEl = this.$el.getBoundingClientRect()
+				console.log(boundingClientRectEl.height)
+				return Math.round(boundingClientRectEl.height * 1e2)/1e2
 			}
 		},
 		mounted () {

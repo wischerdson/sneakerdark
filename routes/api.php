@@ -2,4 +2,4 @@
 
 use Illuminate\Http\Request;
 
-Route::apiResource('/catalog', 'API\Catalog\CollectionController');
+Route::apiResource('/catalog', 'API\Catalog\CollectionController', ['as' => 'api']);

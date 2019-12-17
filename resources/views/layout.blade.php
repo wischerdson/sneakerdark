@@ -15,6 +15,9 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="format-detection" content="address=no">
 
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<meta name="base-url" content="{{ Request::root() }}">
+
 	<title>{{ $title }}</title>
 	<meta name="description" content="{{ $description }}">
 	<meta name="copyright" content="Sneakerdark (c)">
