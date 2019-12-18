@@ -2,21 +2,18 @@
 	<div class="has-scroll-component">
 		<transition name="has-scroll">
 			<div
-			v-show="showPrepend"
-			class="has-scroll-prepend"
-
-			:style="`background: linear-gradient(to top, transparent, ${color} 100%)`
-			"></div>
+				v-show="showPrepend"
+				class="has-scroll-prepend"
+			></div>
 		</transition>
 		<div :class="['has-scroll-inner', class_]" @scroll="scroll" ref="scrollOuter">
 			<slot></slot>
 		</div>
 		<transition name="has-scroll">
 			<div
-			v-show="showAppend"
-			class="has-scroll-append"
-			:style="`background: linear-gradient(to bottom, transparent, ${color} 100%)`
-			"></div>
+				v-show="showAppend"
+				class="has-scroll-append"
+			></div>
 		</transition>
 	</div>
 </template>

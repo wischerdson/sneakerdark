@@ -4,7 +4,7 @@
 			<div class="filters-section">
 				<div class="section-title">Категория</div>
 				<div class="section-body">
-					<has-scroll color="rgba(255,255,255,.75)">
+					<has-scroll>
 						<checkbox
 							name="filters_category"
 							v-for="(category, index) in filters.category"
@@ -26,7 +26,7 @@
 			<div class="filters-section">
 				<div class="section-title">Размер</div>
 				<div class="section-body">
-					<has-scroll color="rgba(255,255,255,.75)" class_="sizes">
+					<has-scroll class_="sizes">
 						<checkbox
 							name="filters_size"
 							v-for="(size, index) in filters.size"
