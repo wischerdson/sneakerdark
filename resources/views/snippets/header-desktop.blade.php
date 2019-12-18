@@ -11,7 +11,7 @@
 			<div class="call">
 				<a class="phone-number" href="tel:89101127174">+7 (800) 700 32-23 | Звонок бесплатный</a>
 			</div>
-			<a class="btn auth-btn">@include('svg.user')Войти</a>
+			<a class="btn auth-btn">@include('svg.user')<span>Войти</span></a>
 		</div>
 	</div>
 
@@ -66,12 +66,13 @@
 		</div>
 		<div class="right">
 			<button class="search-btn btn" @click="openSearch">
-				@include('svg.magnifying-glass')Поиск
+				@include('svg.magnifying-glass')
+				<span>Поиск</span>
 			</button>
 			<a href="#" class="btn wishlist">@include('svg.wishlist_filled')</a>
 			<a class="btn primary shopping-cart-btn" @click="$store.commit('cartIsOpen', true)">
 				@include('svg.shopping-bag')
-				Корзина
+				<span>Корзина</span>
 			</a>
 		</div>
 	</div>
