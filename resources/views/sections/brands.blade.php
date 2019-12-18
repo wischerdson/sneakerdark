@@ -2,7 +2,6 @@
 
 	<div>
 		<div class="alphabetical-index">
-			<div class="section-title">Алфавитный указатель</div>
 			<ul class="letter-list">
 				<li class="letter-item" v-for="letter in letters">
 					<button :class="['letter', 'btn', {active: letter == currentLetter}]" @click="filterByLetter(letter)">@{{ letter }}</button>
