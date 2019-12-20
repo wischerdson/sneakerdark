@@ -6,7 +6,7 @@
 
 	.top {
 		display: flex;
-		justify-content: space-between;
+		//justify-content: space-between;
 		max-width: 1400px;
 		margin: 0 auto;
 		margin-bottom: 10px;
@@ -41,9 +41,35 @@
 				}
 			}
 		}
+		.delivery {
+			margin-left: 30px;
+			display: flex;
+			align-items: center;
+
+			.heading {
+				color: #565759;
+				//font-weight: 400;
+				display: flex;
+				align-items: center;
+				cursor: pointer;
+
+				svg {
+					display: inline-block;
+					width: 15px;
+					fill: @main-color;
+					margin-right: 2px;
+				}
+				span {
+					border-bottom: 1px dashed @main-color;
+					color: @main-color;
+					font-weight: 400;
+				}
+			}
+		}
 		.right {
 			display: flex;
 			align-items: center;
+			margin-left: auto;
 
 			.call {
 				a {
@@ -172,7 +198,7 @@
 					}
 				}
 				&.wishlist {
-					background-color: #7122e3;
+					background-color: @main-color;
 
 					svg {
 						height: 19px;

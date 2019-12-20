@@ -12,41 +12,13 @@ class CollectionController extends \App\Http\Controllers\SiteController
 {
 	private $collections = [];
 
-	public function show(Request $request, $parentCollectionId) {
-		/*
-
-		$this->vars['currentCollection'] = $parentCollectionId;
-
-		$this->fetchChildCategories($parentCollectionId);
-		$Product = Product::where('collection_id', $parentCollectionId);
-		foreach (array_slice($this->collections, 1) as $collectionId) {
-			$Product = $Product->orWhere('collection_id', $collectionId);
-		}
-		$products = $Product->orderBy('created_at', 'desc')->with('pictures')->paginate(8 * 4);
-		*/
-
+	public function show(Request $request, $collectionId) {
 		$this->template = 'catalog.collection';
 		$this->title = 'Коллекция - Sneakerdark';
-
-		$collection = Collection::find($parentCollectionId);
-		$this->vars['currentCollection'] = $collection;
+		$collection = Collection::find($collectionId);
+		$this->vars['collection'] = $collection;
 		$collections = $collection->children;
-		$products = Product::fetchFromNestedCollections($collections)->with('pictures')->paginate(8 * 4);
-
-		$this->vars['products'] = $products;
-
-		/*$collectionsChain = [];
-		while ($parentCollectionId) {
-			$collection = Collection::find($parentCollectionId);
-			array_push($collectionsChain, $collection);
-			$parentCollectionId = $collection->parent_id;
-		}
-
-		$collectionsChain = array_reverse($collectionsChain);*/
-		//dd(Collection::find($parentCollectionId)->chain);
-		$this->vars['collectionsChain'] = Collection::find($parentCollectionId)->chain;
-
-
+		$this->vars['collectionsChain'] = Collection::find($collectionId)->chain;
 
 		return $this->output();
 	}

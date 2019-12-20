@@ -3,6 +3,9 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import Vuelidate from 'vuelidate'
 
+import url from './plugins/url'
+import toasts from './plugins/toasts'
+
 
 axios.defaults.baseURL = document.querySelector('meta[name="base-url"]').getAttribute('content')
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -14,12 +17,16 @@ Vue.prototype.$http = axios
 Vue.use(Vuelidate)
 Vue.use(Vuex)
 
+Vue.use(url)
+Vue.use(toasts)
+
 
 import Breadcrumb from './components/theme/Breadcrumb'
 import BreadcrumbItem from './components/theme/BreadcrumbItem'
 import Checkbox from './components/theme/Checkbox'
 import HasScroll from './components/theme/HasScroll'
 import Sticky from './components/theme/Sticky'
+import Laradata from './components/theme/Laradata'
 
 import SectionHeader from './components/sections/Header'
 import SectionCart from './components/sections/cart'
@@ -42,6 +49,7 @@ Vue.component('breadcrumb-item', BreadcrumbItem)
 Vue.component('checkbox', Checkbox)
 Vue.component('has-scroll', HasScroll)
 Vue.component('sticky', Sticky)
+Vue.component('laradata', Laradata)
 
 Vue.component('section-header', SectionHeader)
 Vue.component('section-cart', SectionCart)

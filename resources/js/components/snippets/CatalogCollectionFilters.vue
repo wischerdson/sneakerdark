@@ -2,6 +2,8 @@
 	
 	import noUiSlider from 'nouislider'
 
+	let updateTimeout;
+
 	export default {
 		template: '#template__snippet_catalog_collection_filters',
 		data () {
@@ -11,6 +13,14 @@
 					maxLimit: null,
 					min: 0,
 					max: 12000
+				},
+				filters: {
+					category: [],
+					gender: [],
+					size: [],
+					brand: [],
+					price_min: null,
+					price_max: null
 				},
 				rangeIsActive: false,
 				rangeInitialized: false
@@ -41,10 +51,14 @@
 				this.$refs.range.noUiSlider.on('end', () => {
 					this.rangeIsActive = false
 				})
+			},
+			updateCatalog () {
+				if (this.$url.params().page > 1)
+					window.location.href = this.$url.setParams({page: 1})
 			}
 		},
 		computed: {
-			filters () {
+			getFilters () {
 				const filters = this.$store.getters.getFilters
 				if (!Object.keys(filters).length)
 					return {}
@@ -64,6 +78,15 @@
 				if (this.rangeIsActive)
 					return
 				this.$refs.range.noUiSlider.set([null, value])
+			},
+			filters: {
+				deep: true,
+				handler (value) {
+					clearTimeout(updateTimeout)
+					updateTimeout = setTimeout(() => {
+						this.updateCatalog()
+					}, 700)
+				}
 			}
 		}
 	}

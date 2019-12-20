@@ -7,6 +7,9 @@
 				<div class="description">Магазин одежды, обуви и аксессуаров</div>
 			</div>
 		</a>
+		<div class="delivery">
+			<div class="heading">@include('svg.location')<span>Смоленск</span></div>
+		</div>
 		<div class="right">
 			<div class="call">
 				<a class="phone-number" href="tel:89101127174">+7 (800) 700 32-23 | Звонок бесплатный</a>

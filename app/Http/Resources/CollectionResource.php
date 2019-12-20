@@ -66,15 +66,22 @@ class CollectionResource extends JsonResource
 			->pluck('price')
 			->toArray();
 
+		$products = Product::fetchFromNestedCollections($collectionsIds)->with('pictures')->paginate(8 * 4, ['*'], 'page', $request->input('page'));
+
+		$pLinks = [];
+
+		for ($i = $products->currentPage()-3; $i <= $products->currentPage()+3; $i++) { 
+			if ($i > 1 and $i < $products->lastPage())
+				$pLinks[] = $i;
+		}
+
 		return [
 			'id' => $this->id,
 			'parent_id' => $this->parent_id,
 			'title' => $this->title,
 			'total_products' => count($productsIds),
-			'total_subject' => smart_ending(count($collectionsIds), ['', 'а', 'ов'], 'товар'),
-			'products' => ProductResource::collection(
-				Product::fetchFromNestedCollections($collectionsIds)->with('pictures')->paginate(8 * 4)
-			),
+			'total_subject' => smart_ending(count($productsIds), ['', 'а', 'ов'], 'товар'),
+			'products' => ProductResource::collection($products),
 			'filters' => [
 				'category' => $categories,
 				'gender' => $gender,
@@ -84,7 +91,12 @@ class CollectionResource extends JsonResource
 				'price_max' => end($prices)
 			],
 			'pagination' => [
-				'123' => 'asd'
+				'current_page' => $products->currentPage(),
+				'has_more_pages' => $products->hasMorePages(),
+				'per_page' => $products->perPage(),
+				'last_page' => $products->lastPage(),
+				'on_first_page' => $products->onFirstPage(),
+				'pages' => $pLinks
 			]
 		];
 	}

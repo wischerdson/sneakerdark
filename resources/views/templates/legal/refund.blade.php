@@ -6,7 +6,11 @@
 				<breadcrumb-item>Обмен и возврат</breadcrumb-item>
 			</breadcrumb>
 
+			<laradata name="currentTime">{{ time() }}</laradata>
+
 			<h1>Обмен и возврат</h1>
+
+			@{{ time }}
 
 			<section-legal-refund></section-legal-refund>
 		</div>

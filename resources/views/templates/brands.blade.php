@@ -1,6 +1,9 @@
 <template id="template__brands">
 
 	<div id="template_brands">
+
+		
+
 		<div class="container">
 			<breadcrumb>
 				<breadcrumb-item url="{{ route('home') }}">Главная</breadcrumb-item>

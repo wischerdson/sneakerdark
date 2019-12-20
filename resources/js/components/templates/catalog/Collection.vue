@@ -8,13 +8,19 @@
 			},
 			products () {
 				return this.$store.getters.getProducts
+			},
+			pagination () {
+				return this.$store.getters.getPagination
 			}
 		},
 		mounted () {
-			const apiUrl = this.$refs.catalogUrl.textContent;
+			const apiUrl = this.$refs.catalogUrl.textContent
 			this.$refs.catalogUrl.remove()
 			
-			this.$store.dispatch('fetchCatalog', apiUrl)
+			this.$store.dispatch('fetchCatalog', {
+				'api': apiUrl,
+				'page': this.$url.params().page
+			})
 		}
 	}
 

@@ -7,8 +7,10 @@
 					<has-scroll>
 						<checkbox
 							name="filters_category"
-							v-for="(category, index) in filters.category"
+							v-for="(category, index) in getFilters.category"
 							:key="'filter_category_' + index"
+							v-model="filters.category"
+							:value="category"
 						>@{{ category }}</checkbox>
 					</has-scroll>
 				</div>
@@ -18,7 +20,7 @@
 				<div class="section-body">
 					<checkbox
 						name="filters_gender"
-						v-for="(gender, index) in filters.gender"
+						v-for="(gender, index) in getFilters.gender"
 						:key="'filter_gender_' + index"
 					>@{{ gender }}</checkbox>
 				</div>
@@ -29,7 +31,7 @@
 					<has-scroll class_="sizes">
 						<checkbox
 							name="filters_size"
-							v-for="(size, index) in filters.size"
+							v-for="(size, index) in getFilters.size"
 							:key="'filter_size_' + index"
 						>@{{ size }}</checkbox>
 					</has-scroll>
@@ -42,7 +44,7 @@
 					<has-scroll color="rgba(255,255,255,.75)">
 						<checkbox
 							name="filters_brand"
-							v-for="(brand, index) in filters.brand"
+							v-for="(brand, index) in getFilters.brand"
 							:key="'filter_brand_' + index"
 							v-if="brand"
 						>@{{ brand }}</checkbox>

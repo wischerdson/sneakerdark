@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
-Vue.use(Vuex, axios)
-
+Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
@@ -13,7 +12,9 @@ export default new Vuex.Store({
 		cart: {},
 		filters: {},
 		catalog: {},
-		products: {}
+		products: {},
+		pagination: {},
+		laradata: {}
 	},
 	mutations: {
 		searchIsOpen (state, payload) {
@@ -37,6 +38,12 @@ export default new Vuex.Store({
 		},
 		updateProducts (state, payload) {
 			state.products = payload
+		},
+		updatePagination (state, payload) {
+			state.pagination = payload
+		},
+		addLaradata (state, {key, value}) {
+			state.laradata[key] = value
 		}
 	},
 	getters: {
@@ -49,14 +56,26 @@ export default new Vuex.Store({
 		},
 		getFilters: state => {
 			return state.filters
+		},
+		getPagination: state => {
+			return state.pagination
+		},
+		laradata: state => {
+			return state.laradata
 		}
 	},
 	actions: {
-		async fetchCatalog (context, url) {
-			await axios.get(url).then(response => response.data).then(data => {
+		async fetchCatalog (context, data) {
+			await axios.get(data.api, {
+				params: {
+					page: data.page,
+					filters: data.filters
+				}
+			}).then(response => response.data).then(data => {
 				context.commit('updateCatalog', data.data)
 				context.commit('updateFilters', data.data.filters)
 				context.commit('updateProducts', data.data.products)
+				context.commit('updatePagination', data.data.pagination)
 			}, err => {
 				console.log(err)
 				M.toast({html: 'Произошла ошибка', classes: 'error-toast'})
