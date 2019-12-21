@@ -1,15 +1,16 @@
 <template id="template__snippet_catalog_collection_product">
-	<li class="product-item">
+	<div class="product-item">
 		<a :href="url">
-			<div class="picture-wrapper">
-				<ul class="sizes-panel" @click.prevent="">
-					<div class="size-item"><button class="size btn">38</button></div>
-					<div class="size-item"><button class="size btn">39</button></div>
-					<div class="size-item"><button class="size btn">40</button></div>
-					<div class="size-item"><button class="size btn">41</button></div>
-					<div class="size-item"><button class="size btn">42</button></div>
-					<div class="size-item"><button class="size btn">43</button></div>
-					<div class="size-item"><button class="size btn">44</button></div>
+			<div class="picture-wrapper" :class="{'no-sizes': sizes.length === 0}">
+				<ul class="sizes-panel missing" @click.prevent="" v-show="sizes.length">
+					<li
+						class="size-item"
+						v-for="(size, index) in sizes"
+						:key="`size_item_${index}`"
+						v-if="size.instock"
+					>
+						<button class="size btn">@{{ size.size }}</button>
+					</li>
 				</ul>
 				<div class="square">
 					<div class="picture" :style="`background-image: url(${picture})`"></div>

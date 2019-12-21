@@ -32,6 +32,7 @@ class CollectionResource extends JsonResource
 			whereIn('key', ['Вид аксессуаров', 'Футбольная обувь', 'Предмет одежды', 'Категория'])
 			->whereIn('product_id', $productsIds)
 			->select('value')
+			->orderBy('value', 'asc')
 			->distinct()
 			->pluck('value');
 
@@ -66,7 +67,7 @@ class CollectionResource extends JsonResource
 			->pluck('price')
 			->toArray();
 
-		$products = Product::fetchFromNestedCollections($collectionsIds)->with('pictures')->paginate(8 * 4, ['*'], 'page', $request->input('page'));
+		$products = Product::fetchFromNestedCollections($collectionsIds)->with(['pictures', 'sizes'])->paginate(8 * 4, ['*'], 'page', $request->input('page'));
 
 		$pLinks = [];
 

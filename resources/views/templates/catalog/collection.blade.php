@@ -45,6 +45,7 @@
 						:price="product.price"
 						:url="product.url"
 						:style="`transition-delay: ${index*0.1}s`"
+						:sizes="product.sizes"
 					></snippet-catalog-collection-product>
 				</transition-group>
 				<snippet-catalog-collection-product style="display: none"></snippet-catalog-collection-product>

@@ -68,11 +68,12 @@ export default new Vuex.Store({
 					page: data.page,
 					filters: data.filters
 				}
-			}).then(response => response.data).then(data => {
-				context.commit('updateCatalog', data.data)
-				context.commit('updateFilters', data.data.filters)
-				context.commit('updateProducts', data.data.products)
-				context.commit('updatePagination', data.data.pagination)
+			}).then(response => response.data).then((data) => {
+				data = data.data
+				context.commit('updateCatalog', data)
+				context.commit('updateFilters', data.filters)
+				context.commit('updateProducts', data.products)
+				context.commit('updatePagination', data.pagination)
 			}, err => {
 				console.log(err)
 				M.toast({html: 'Произошла ошибка', classes: 'error-toast'})

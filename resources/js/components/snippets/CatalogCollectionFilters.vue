@@ -66,6 +66,15 @@
 				this.price.maxLimit = filters.price_max
 				this.initPriceRange()
 				return filters
+			},
+			genderSection () {
+				return !Object.keys(this.getFilters).length ? false : (this.getFilters.gender.length > 1 ? true : false)
+			},
+			sizeSection () {
+				return !Object.keys(this.getFilters).length ? false : (this.getFilters.size.length > 1 ? true : false)
+			},
+			brandSection () {
+				return !Object.keys(this.getFilters).length ? false : (this.getFilters.brand.length > 1 ? true : false)
 			}
 		},
 		watch: {

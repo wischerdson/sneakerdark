@@ -29,11 +29,13 @@
 			z-index: 2;
 			transform: translateX(-100%);
 			transition: all .3s ease-in-out;
+			cursor: default;
 
 			.size-item {
 				width: 65%;
 
 				button {
+					cursor: pointer;
 					display: block;
 					width: 100%;
 					padding: 4px 0;
@@ -51,11 +53,18 @@
 	}
 
 	&:hover .picture-wrapper {
-		.picture {
-			transform: scale(1.05) translateX(10px);
+		&:not(.no-sizes) {
+			.picture {
+				transform: scale(1.05) translateX(10px);
+			}
+			.sizes-panel {
+				transform: translateX(0);
+			}
 		}
-		.sizes-panel {
-			transform: translateX(0);
+		&.no-sizes {
+			.picture {
+				transform: scale(1.05);
+			}
 		}
 	}
 
@@ -106,9 +115,5 @@
 				}
 			}
 		}
-	}
-
-	&:hover {
-		
 	}
 }

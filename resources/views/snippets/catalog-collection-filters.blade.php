@@ -15,7 +15,7 @@
 					</has-scroll>
 				</div>
 			</div>
-			<div class="filters-section">
+			<div class="filters-section" v-show="genderSection">
 				<div class="section-title">Пол</div>
 				<div class="section-body">
 					<checkbox
@@ -25,7 +25,7 @@
 					>@{{ gender }}</checkbox>
 				</div>
 			</div>
-			<div class="filters-section">
+			<div class="filters-section" v-show="sizeSection">
 				<div class="section-title">Размер</div>
 				<div class="section-body">
 					<has-scroll class_="sizes">
@@ -38,7 +38,7 @@
 				</div>
 			</div>
 
-			<div class="filters-section">
+			<div class="filters-section" v-show="brandSection">
 				<div class="section-title">Бренд</div>
 				<div class="section-body">
 					<has-scroll color="rgba(255,255,255,.75)">
