@@ -59,9 +59,6 @@ export default new Vuex.Store({
 		},
 		getPagination: state => {
 			return state.pagination
-		},
-		laradata: state => {
-			return state.laradata
 		}
 	},
 	actions: {

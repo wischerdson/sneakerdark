@@ -161,7 +161,7 @@
 				waitForAnimate: false,
 				prevArrow: this.$refs.galleryPrevSlideArrow,
 				nextArrow: this.$refs.galleryNextSlideArrow,
-				infinite: false,
+				infinite: true,
 				appendDots: this.$refs.galleryNavigation
 			})
 			$(this.$refs.gallery).on('afterChange', (event, slick, direction) => {

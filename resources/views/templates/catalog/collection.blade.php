@@ -35,7 +35,7 @@
 				<snippet-catalog-collection-filters></snippet-catalog-collection-filters>
 			</div>
 			<div>
-				<ul class="products-grid">
+				<transition-group name="product-list" tag="ul" class="products-grid">
 					<snippet-catalog-collection-product
 						v-for="(product, index) in products"
 						:key="'products_block_' + index"
@@ -44,9 +44,10 @@
 						:vendor="product.vendor"
 						:price="product.price"
 						:url="product.url"
+						:style="`transition-delay: ${index*0.1}s`"
 					></snippet-catalog-collection-product>
-					<snippet-catalog-collection-product style="display: none"></snippet-catalog-collection-product>
-				</ul>
+				</transition-group>
+				<snippet-catalog-collection-product style="display: none"></snippet-catalog-collection-product>
 			</div>
 		</div>
 

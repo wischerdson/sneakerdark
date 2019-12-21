@@ -1,20 +1,114 @@
 .product-item {
-	& > .square:before {
-		padding-top: 75%;
+	transition: all .6s ease-in-out;
+
+	.picture-wrapper {
+		position: relative;
+		overflow: hidden;
+
+		& > .square:before {
+			padding-top: 75%;
+		}
+		.picture {
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			z-index: 1;
+			transition: all .5s ease-in-out;
+		}
+		.sizes-panel {
+			top: 0;
+			left: 0;
+			bottom: 0;
+			width: 45px;
+			background-color: fade(black, 20%);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			z-index: 2;
+			transform: translateX(-100%);
+			transition: all .3s ease-in-out;
+
+			.size-item {
+				width: 65%;
+
+				button {
+					display: block;
+					width: 100%;
+					padding: 4px 0;
+					font-size: 0.85rem;
+					color: white;
+					border-radius: 2px;
+					background-color: fade(black, 50%);
+				}
+
+				&:not(:last-child) {
+					margin-bottom: 7px;
+				}
+			}
+		}
 	}
-	.picture {
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: contain;
+
+	&:hover .picture-wrapper {
+		.picture {
+			transform: scale(1.05) translateX(10px);
+		}
+		.sizes-panel {
+			transform: translateX(0);
+		}
 	}
-	.vendor {
+
+	.text {
 		text-align: center;
-		margin-top: 10px;
-		font-weight: 500;
-		font-size: 1.1rem;
+		color: black;
+
+		.vendor {
+			margin-top: 5px;
+			font-weight: 500;
+			font-size: 1.2rem;
+			letter-spacing: 0.1rem;
+			text-transform: uppercase;
+		}
+		.title {
+			margin-top: 5px;
+			font-size: 1.17rem;
+			color: #929292;
+		}
+		.price-wrapper {
+			display: flex;
+			margin-top: 5px;
+			font-size: 1.3rem;
+			justify-content: center;
+			align-items: center;
+
+			.price {
+				font-weight: 400;
+				color: #4d4d4d;
+
+				&:after {
+					content: 'руб.';
+				}
+			}
+			.compare-at-price {
+				text-decoration: line-through;
+				color: #6d6d6d;
+
+				&:after {
+					content: 'руб.';
+				}
+				& ~ .price {
+					margin-left: 15px;
+					background-color: saturate(@main-color, 80%);
+					border-radius: 4px;
+					padding: 3px 5px;
+					color: white;
+				}
+			}
+		}
 	}
-	.title {
-		text-align: center;
-		margin-top: 5px;
+
+	&:hover {
+		
 	}
 }

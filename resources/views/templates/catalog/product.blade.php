@@ -58,7 +58,6 @@
 					<div>Артикул: <span>{{ $product->id }}</span></div>
 					&nbsp;&nbsp;/&nbsp;&nbsp;
 					<a href="#">{{ $product->vendor }}</a>
-					<div class="in-stock">В наличии</div>
 				</div>
 				<div class="price-wrapper">
 					<div class="compare-at-price">{{ $product->price * 1.2 }}</div>
