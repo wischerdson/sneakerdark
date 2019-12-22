@@ -12,6 +12,7 @@
 						<button class="size btn">@{{ size.size }}</button>
 					</li>
 				</ul>
+				<button class="add-to-wishlist-btn btn" @click.prevent="">@include('svg.wishlist')</button>
 				<div class="square">
 					<div class="picture" :style="`background-image: url(${picture})`"></div>
 				</div>

@@ -13,7 +13,7 @@
 			background-repeat: no-repeat;
 			background-size: cover;
 			z-index: 1;
-			transition: all .5s ease-in-out;
+			transition: transform .8s ease-in-out;
 		}
 		.sizes-panel {
 			top: 0;
@@ -28,7 +28,11 @@
 			position: absolute;
 			z-index: 2;
 			transform: translateX(-100%);
-			transition: all .3s ease-in-out;
+			opacity: 0;
+			//transition: all .3s ease-in-out;
+			transition:
+				transform 0.28s cubic-bezier(0.46, 0.01, 0.32, 1),
+				opacity 0.28s cubic-bezier(0.46, 0.01, 0.32, 1);
 			cursor: default;
 
 			.size-item {
@@ -50,20 +54,43 @@
 				}
 			}
 		}
+		.add-to-wishlist-btn {
+			position: absolute;
+			border-radius: 999px;
+			top: 10px;
+			right: 10px;
+			z-index: 2;
+			background-color: white;
+			transition:
+				transform 0.35s cubic-bezier(0.46, 0.01, 0.32, 1),
+				opacity 0.35s cubic-bezier(0.46, 0.01, 0.32, 1);
+			opacity: 0;
+			transform: translateX(5px);
+			box-shadow: 0 2px 5px -1px fade(black, 15%);
+
+			svg {
+				fill: @main-color;
+			}
+		}
 	}
 
 	&:hover .picture-wrapper {
 		&:not(.no-sizes) {
 			.picture {
-				transform: scale(1.05) translateX(10px);
+				transform: scale(1.06);// translateX(10px);
 			}
 			.sizes-panel {
+				opacity: 1;
 				transform: translateX(0);
 			}
 		}
+		.add-to-wishlist-btn {
+			opacity: 1;
+			transform: translateX(0);
+		}
 		&.no-sizes {
 			.picture {
-				transform: scale(1.05);
+				transform: scale(1.06);
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 <div class="desktop">
-	<div class="top">
+	<div class="top container large">
 		<a class="brand" href="{{ route('home') }}">
 			<div class="brand-logo">@include('svg.brand-logo')</div>
 			<div class="text">
@@ -18,7 +18,7 @@
 		</div>
 	</div>
 
-	<div class="bottom">
+	<div class="bottom container large">
 		<div class="left">
 			<div class="link-list">
 				<div class="brand-logo-wrapper">
@@ -240,8 +240,8 @@
 					<div class="column-content">
 						<a href="#" class="link-as-image">
 							<div class="overlay"></div>
-							<div class="image" style="background-image: url(https://mtdata.ru/u12/photoBB31/20762780747-0/original.jpg)"></div>
-							<span class="text">Пиво. Новые<br>поступления</span>
+							<div class="image" style="background-image: url({{ asset('image/-AKpsE-p884.jpg') }})"></div>
+							<span class="text">Lorem ipsum<br>dolor sit</span>
 						</a>
 					</div>
 				</div>
