@@ -14,7 +14,8 @@ export default new Vuex.Store({
 		catalog: {},
 		products: {},
 		pagination: {},
-		laradata: {}
+		laradata: {},
+		catalogWait: false
 	},
 	mutations: {
 		searchIsOpen (state, payload) {
@@ -44,6 +45,9 @@ export default new Vuex.Store({
 		},
 		addLaradata (state, {key, value}) {
 			state.laradata[key] = value
+		},
+		catalogWait (state) {
+			state.catalogWait = false
 		}
 	},
 	getters: {
@@ -70,14 +74,17 @@ export default new Vuex.Store({
 				}
 			}).then(response => response.data).then((data) => {
 				data = data.data
+				//console.log(data)
 				context.commit('updateCatalog', data)
 				context.commit('updateFilters', data.filters)
 				context.commit('updateProducts', data.products)
 				context.commit('updatePagination', data.pagination)
-			}, err => {
-				console.log(err)
+			}).catch((error) => {
+				console.log(error.response)
 				M.toast({html: 'Произошла ошибка', classes: 'error-toast'})
-			})
+  			}).finally(function () {
+				context.commit('catalogWait')
+			}); 
 		}
 	}
 });

@@ -74,6 +74,7 @@
 			grid-template-columns: repeat(3, 1fr);
 			grid-column-gap: 25px;
 			grid-row-gap: 50px;
+			position: relative;
 
 			@import "../snippets/catalog.collection.product.less";
 		}
@@ -83,6 +84,9 @@
 	.product-list-enter, .product-list-leave-to {
 		opacity: 0;
 		transform: translateY(15px);
+	}
+	.product-list-leave-to {
+		transition-delay: none !important;
 	}
 
 	nav {

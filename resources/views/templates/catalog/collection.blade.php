@@ -28,13 +28,13 @@
 	
 		<div v-show="!showCatalog" class="preloader-wrapper"><div class="preloader"></div></div>
 
-		<div ref="catalogUrl">{{ route('api.catalog.show', ['catalog' => $collection->id]) }}</div>
+		<laradata name="api.catalog">{{ route('api.catalog.show', ['catalog' => $collection->id]) }}</laradata>
 
 		<div class="main-content" v-show="showCatalog">
 			<div class="left-side">
 				<snippet-catalog-collection-filters></snippet-catalog-collection-filters>
 			</div>
-			<div>
+			<div v-if="!$store.state.catalogWait">
 				<transition-group name="product-list" tag="ul" class="products-grid">
 					<snippet-catalog-collection-product
 						v-for="(product, index) in products"

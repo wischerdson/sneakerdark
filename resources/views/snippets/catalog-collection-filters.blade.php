@@ -1,5 +1,6 @@
 <template id="template__snippet_catalog_collection_filters" >
 	<!-- <sticky :margin-top="20 + 50"> -->
+	<div>
 		<div class="filters" ref="filters">
 			<div class="filters-section">
 				<div class="section-title">Категория</div>
@@ -22,6 +23,8 @@
 						name="filters_gender"
 						v-for="(gender, index) in getFilters.gender"
 						:key="'filter_gender_' + index"
+						v-model="filters.gender"
+						:value="gender"
 					>@{{ gender }}</checkbox>
 				</div>
 			</div>
@@ -33,6 +36,8 @@
 							name="filters_size"
 							v-for="(size, index) in getFilters.size"
 							:key="'filter_size_' + index"
+							v-model="filters.size"
+							:value="size"
 						>@{{ size }}</checkbox>
 					</has-scroll>
 				</div>
@@ -47,6 +52,8 @@
 							v-for="(brand, index) in getFilters.brand"
 							:key="'filter_brand_' + index"
 							v-if="brand"
+							v-model="filters.brand"
+							:value="brand"
 						>@{{ brand }}</checkbox>
 						<checkbox name="blank" style="display: none;"></checkbox>
 					</has-scroll>
@@ -55,14 +62,14 @@
 			<div class="filters-section">
 				<div class="section-title">Цена</div>
 				<div class="section-body price">
-					<div ref="range"></div>
-					<div class="row">
-						<input type="number" name="price_min" class="form-control" v-model.lazy="price.min">
-						<div class="separator"></div>
-						<input type="number" name="price_max" class="form-control" v-model.lazy="price.max">
-					</div>
+					<price-range-slider
+						v-model="filters.price"
+						:min="priceMinLimit"
+						:max="priceMaxLimit"
+					></price-range-slider>
 				</div>
 			</div>
 		</div>
 	<!-- </sticky> -->
+	</div>
 </template>

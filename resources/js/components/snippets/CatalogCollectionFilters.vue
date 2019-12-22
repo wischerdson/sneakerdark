@@ -1,60 +1,44 @@
 <script type="text/javascript">
 	
-	import noUiSlider from 'nouislider'
+	
+	import PriceRangeSlider from '../snippets/PriceRangeSlider'
 
 	let updateTimeout;
 
 	export default {
 		template: '#template__snippet_catalog_collection_filters',
+		components: {
+			PriceRangeSlider
+		},
 		data () {
 			return {
-				price: {
-					minLimit: null,
-					maxLimit: null,
-					min: 0,
-					max: 12000
-				},
 				filters: {
 					category: [],
 					gender: [],
 					size: [],
 					brand: [],
-					price_min: null,
-					price_max: null
+					price: [0, 99999999]
 				},
-				rangeIsActive: false,
-				rangeInitialized: false
+				filtersLoaded: false,
+				priceMinLimit: 0,
+				priceMaxLimit: 0
 			}
 		},
 		methods: {
-			initPriceRange () {
-				if (this.rangeInitialized)
-					return
-				this.rangeInitialized = true
-				
-				noUiSlider.create(this.$refs.range, {
-					start: [this.price.minLimit, this.price.maxLimit],
-					connect: true,
-					range: {
-						min: this.price.minLimit,
-						max: this.price.maxLimit
-					}
-				})
+			saveFilters () {
 
-				this.$refs.range.noUiSlider.on('update', values => {
-					this.price.min = values[0]
-					this.price.max = values[1]
-				})
-				this.$refs.range.noUiSlider.on('start', () => {
-					this.rangeIsActive = true
-				})
-				this.$refs.range.noUiSlider.on('end', () => {
-					this.rangeIsActive = false
-				})
 			},
 			updateCatalog () {
 				if (this.$url.params().page > 1)
 					window.location.href = this.$url.setParams({page: 1})
+
+				this.$store.state.catalogWait = true
+
+				this.$store.dispatch('fetchCatalog', {
+					'api': this.$store.state.laradata['api.catalog'],
+					'page': this.$url.params().page,
+					'filters': this.filters
+				})
 			}
 		},
 		computed: {
@@ -62,9 +46,7 @@
 				const filters = this.$store.getters.getFilters
 				if (!Object.keys(filters).length)
 					return {}
-				this.price.minLimit = filters.price_min
-				this.price.maxLimit = filters.price_max
-				this.initPriceRange()
+
 				return filters
 			},
 			genderSection () {
@@ -78,21 +60,21 @@
 			}
 		},
 		watch: {
-			'price.min' (value) {
-				if (this.rangeIsActive)
+			'$store.getters.getFilters' ({price_max, price_min}) {
+				if (this.filtersLoaded)
 					return
-				this.$refs.range.noUiSlider.set([value, null])
-			},
-			'price.max' (value) {
-				if (this.rangeIsActive)
-					return
-				this.$refs.range.noUiSlider.set([null, value])
+				
+				this.filtersLoaded = true
+
+				this.priceMinLimit = price_min
+				this.priceMaxLimit = price_max
 			},
 			filters: {
 				deep: true,
 				handler (value) {
 					clearTimeout(updateTimeout)
 					updateTimeout = setTimeout(() => {
+						this.saveFilters()
 						this.updateCatalog()
 					}, 700)
 				}

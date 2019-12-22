@@ -33,9 +33,4 @@ class Product extends Model
 	public function sizes() {
 		return $this->hasMany('App\Size', 'product_id', 'id');
 	}
-
-
-	public function scopeFetchFromNestedCollections($query, $collectionsIds) {
-		return $query->whereIn('collection_id', $collectionsIds);
-	}
 }

@@ -14,11 +14,8 @@
 			}
 		},
 		mounted () {
-			const apiUrl = this.$refs.catalogUrl.textContent
-			this.$refs.catalogUrl.remove()
-			
 			this.$store.dispatch('fetchCatalog', {
-				'api': apiUrl,
+				'api': this.$store.state.laradata['api.catalog'],
 				'page': this.$url.params().page
 			})
 		}

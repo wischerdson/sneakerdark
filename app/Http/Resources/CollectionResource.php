@@ -20,13 +20,69 @@ class CollectionResource extends JsonResource
 	 */
 	public function toArray($request)
 	{
+		$filters = json_decode($request->input('filters'));
+
 		$collectionsIds = Collection::find($this->id)->children;
 		$productsIds = Product::
-			fetchFromNestedCollections($collectionsIds)
+			whereIn('collection_id', $collectionsIds)
 			->withoutGlobalScopes()
 			->select('id')
 			->distinct()
-			->pluck('id');
+			->pluck('id')
+			->toArray();
+
+		$filteredProductsIds = $productsIds;
+
+		if (!empty($filters->category)) {
+			$filteredProductsIds = Parameter::
+				whereIn('value', $filters->category)
+				->select('product_id')
+				->pluck('product_id')
+				->toArray();
+		}
+		if (!empty($filters->gender)) {
+			$filteredProductsIds = array_intersect(
+				Parameter::
+					whereIn('value', $filters->gender)
+					->select('product_id')
+					->pluck('product_id')
+					->toArray(),
+				$filteredProductsIds
+			);
+		}
+		if (!empty($filters->size)) {
+			$filteredProductsIds = array_intersect(
+				Size::
+					whereIn('size', $filters->size)
+					->where('instock', '!=', 0)
+					->select('product_id')
+					->pluck('product_id')
+					->toArray(),
+				$filteredProductsIds
+			);
+		}
+		if (!empty($filters->brand)) {
+			$filteredProductsIds = array_intersect(
+				Product::
+					whereIn('vendor', $filters->brand)
+					->withoutGlobalScopes()
+					->select('id')
+					->pluck('id')
+					->toArray(),
+				$filteredProductsIds
+			);
+		}
+
+		$filteredProductsIds = array_intersect(
+			Product::
+				where('price', '>=', $filters->price[0] ?? 0)
+				->where('price', '<=', $filters->price[1] ?? 1000000000)
+				->withoutGlobalScopes()
+				->select('id')
+				->pluck('id')
+				->toArray(),
+			$filteredProductsIds
+		);
 
 		$categories = Parameter::
 			whereIn('key', ['Вид аксессуаров', 'Футбольная обувь', 'Предмет одежды', 'Категория'])
@@ -46,6 +102,7 @@ class CollectionResource extends JsonResource
 		$sizes = Size::
 			where('instock', '>', 0)
 			->whereIn('product_id', $productsIds)
+			->where('instock', '!=', 0)
 			->select('size')
 			->distinct()
 			->pluck('size');
@@ -67,7 +124,12 @@ class CollectionResource extends JsonResource
 			->pluck('price')
 			->toArray();
 
-		$products = Product::fetchFromNestedCollections($collectionsIds)->with(['pictures', 'sizes'])->paginate(8 * 4, ['*'], 'page', $request->input('page'));
+		$productsIds = array_intersect($productsIds, $filteredProductsIds);
+
+		$products = Product::
+			whereIn('id', $productsIds)
+			->with(['pictures', 'sizes'])
+			->paginate(8 * 4, ['*'], 'page', $request->input('page'));
 
 		$pLinks = [];
 
