@@ -17,28 +17,39 @@
 					gender: [],
 					size: [],
 					brand: [],
-					price: [0, 99999999]
+					price: [0, 999999999]
 				},
 				filtersLoaded: false,
-				priceMinLimit: 0,
-				priceMaxLimit: 0
+				firstUpdate: true,
+				priceLimits: {
+					min: 0,
+					max: 0
+				}
 			}
 		},
 		methods: {
 			saveFilters () {
-
+				localStorage.setItem(`filters_conf_${this.$url.path()}`, JSON.stringify(this.filters))
 			},
-			updateCatalog () {
-				if (this.$url.params().page > 1)
+			updateCatalog () {				
+				if (this.$url.params().page > 1 & !this.firstUpdate) {
 					window.location.href = this.$url.setParams({page: 1})
+					return
+				}
 
 				this.$store.state.catalogWait = true
+				this.$store.commit('updateProducts', {})
 
 				this.$store.dispatch('fetchCatalog', {
 					'api': this.$store.state.laradata['api.catalog'],
-					'page': this.$url.params().page,
-					'filters': this.filters
+					'params': {
+						'page': this.$url.params().page,
+						'filters': this.filters,
+						'attach_filter_list': this.firstUpdate
+					}
 				})
+
+				this.firstUpdate = false
 			}
 		},
 		computed: {
@@ -60,14 +71,13 @@
 			}
 		},
 		watch: {
-			'$store.getters.getFilters' ({price_max, price_min}) {
+			'$store.getters.getFilters' (value) {
 				if (this.filtersLoaded)
 					return
 				
 				this.filtersLoaded = true
-
-				this.priceMinLimit = price_min
-				this.priceMaxLimit = price_max
+				this.priceLimits.min = value.price[0]
+				this.priceLimits.max = value.price[1]
 			},
 			filters: {
 				deep: true,
@@ -79,6 +89,22 @@
 					}, 700)
 				}
 			}
+		},
+		mounted () {
+			const filtersJson = localStorage.getItem(`filters_conf_${this.$url.path()}`)
+
+			if (!filtersJson) {
+				this.updateCatalog()
+				return
+			}
+
+			const filters = JSON.parse(filtersJson)
+
+			this.filters.category = filters.category
+			this.filters.gender = filters.gender
+			this.filters.size = filters.size
+			this.filters.brand = filters.brand
+			this.filters.price = filters.price
 		}
 	}
 

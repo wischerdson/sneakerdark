@@ -84,46 +84,9 @@ class CollectionResource extends JsonResource
 			$filteredProductsIds
 		);
 
-		$categories = Parameter::
-			whereIn('key', ['Вид аксессуаров', 'Футбольная обувь', 'Предмет одежды', 'Категория'])
-			->whereIn('product_id', $productsIds)
-			->select('value')
-			->orderBy('value', 'asc')
-			->distinct()
-			->pluck('value');
+		$filterList = $request->input('attach_filter_list') ? $this->composeFilterList($productsIds) : [];
 
-		$gender = Parameter::
-			where('key', 'Пол')
-			->whereIn('product_id', $productsIds)
-			->select('value')
-			->distinct()
-			->pluck('value');
-
-		$sizes = Size::
-			where('instock', '>', 0)
-			->whereIn('product_id', $productsIds)
-			->where('instock', '!=', 0)
-			->select('size')
-			->distinct()
-			->pluck('size');
-
-		$brands = Product::
-			whereIn('id', $productsIds)
-			->withoutGlobalScopes()
-			->select('vendor')
-			->orderBy('vendor', 'asc')
-			->distinct()
-			->pluck('vendor');
-
-		$prices = Product::
-			whereIn('id', $productsIds)
-			->withoutGlobalScopes()
-			->select('price')
-			->orderBy('price', 'asc')
-			->distinct()
-			->pluck('price')
-			->toArray();
-
+		
 		$productsIds = array_intersect($productsIds, $filteredProductsIds);
 
 		$products = Product::
@@ -145,14 +108,8 @@ class CollectionResource extends JsonResource
 			'total_products' => count($productsIds),
 			'total_subject' => smart_ending(count($productsIds), ['', 'а', 'ов'], 'товар'),
 			'products' => ProductResource::collection($products),
-			'filters' => [
-				'category' => $categories,
-				'gender' => $gender,
-				'size' => $sizes,
-				'brand' => $brands,
-				'price_min' => $prices[0],
-				'price_max' => end($prices)
-			],
+			'filter_list' => $filterList,
+			're' => $request->input('attach_filter_list'),
 			'pagination' => [
 				'current_page' => $products->currentPage(),
 				'has_more_pages' => $products->hasMorePages(),
@@ -162,5 +119,54 @@ class CollectionResource extends JsonResource
 				'pages' => $pLinks
 			]
 		];
+	}
+
+	private function composeFilterList($productsIds) {
+		$result = [];
+		$result['category'] = Parameter::
+			whereIn('key', ['Вид аксессуаров', 'Футбольная обувь', 'Предмет одежды', 'Категория'])
+			->whereIn('product_id', $productsIds)
+			->select('value')
+			->orderBy('value', 'asc')
+			->distinct()
+			->pluck('value');
+
+		$result['gender'] = Parameter::
+			where('key', 'Пол')
+			->whereIn('product_id', $productsIds)
+			->select('value')
+			->distinct()
+			->pluck('value');
+
+		$result['size'] = Size::
+			where('instock', '>', 0)
+			->whereIn('product_id', $productsIds)
+			->where('instock', '!=', 0)
+			->select('size')
+			->distinct()
+			->pluck('size');
+
+		$result['brand'] = Product::
+			whereIn('id', $productsIds)
+			->withoutGlobalScopes()
+			->select('vendor')
+			->orderBy('vendor', 'asc')
+			->distinct()
+			->pluck('vendor');
+
+		$prices = Product::
+			whereIn('id', $productsIds)
+			->withoutGlobalScopes()
+			->select('price')
+			->orderBy('price', 'asc')
+			->distinct()
+			->pluck('price')
+			->toArray();
+
+		$result['price'] = [];
+		$result['price'][0] = $prices[0];
+		$result['price'][1] = end($prices);
+
+		return $result;
 	}
 }

@@ -27,7 +27,7 @@
 	<meta property="og:site_name" content="Sneakerdark">
 	<meta property="og:url" content="{{ url()->current() }}">
 	<meta property="og:description" content="{{ $description }}">
-	<meta property="og:image" content="{{ asset('/image/social-media-banner.png') }}">
+	<meta property="og:image" content="{{ $ogImage }}">
 	
 	<link rel="icon" href="{{ asset('/favicon/icon.svg') }}" sizes="any" type="image/svg+xml"> 
 	<link rel="icon" sizes="48x48" href="{{ asset('/favicon/icon-48.png') }}">

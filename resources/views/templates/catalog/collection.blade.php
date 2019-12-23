@@ -34,8 +34,12 @@
 			<div class="left-side">
 				<snippet-catalog-collection-filters></snippet-catalog-collection-filters>
 			</div>
-			<div v-if="!$store.state.catalogWait">
-				<transition-group name="product-list" tag="ul" class="products-grid">
+			<div>
+				<transition-group
+					name="product-list"
+					tag="ul"
+					class="products-grid"
+				>
 					<snippet-catalog-collection-product
 						v-for="(product, index) in products"
 						:key="'products_block_' + index"
@@ -44,15 +48,17 @@
 						:vendor="product.vendor"
 						:price="product.price"
 						:url="product.url"
-						:style="`transition-delay: ${index*0.1}s`"
+						:style="`transition-delay: ${index*0}s`"
 						:sizes="product.sizes"
 					></snippet-catalog-collection-product>
 				</transition-group>
 				<snippet-catalog-collection-product style="display: none"></snippet-catalog-collection-product>
+				<div v-show="!products.length & !$store.state.catalogWait" class="no-products-found">По таким фильтрам товаров не нашлось :(</div>
 			</div>
+
 		</div>
 
-		<nav v-show="showCatalog">
+		<nav v-show="showCatalog & pagination.last_page !== 1">
 			<ul class="pagination">
 				<li 
 					class="page-item"

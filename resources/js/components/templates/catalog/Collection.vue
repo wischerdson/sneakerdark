@@ -2,6 +2,11 @@
 	
 	export default {
 		template: '#template__catalog_collection',
+		data () {
+			return {
+				delayRatio: null
+			}
+		},
 		computed: {
 			showCatalog () {
 				return Object.keys(this.$store.getters.getCatalog).length
@@ -11,13 +16,13 @@
 			},
 			pagination () {
 				return this.$store.getters.getPagination
-			}
-		},
-		mounted () {
-			this.$store.dispatch('fetchCatalog', {
-				'api': this.$store.state.laradata['api.catalog'],
-				'page': this.$url.params().page
-			})
+			}/*,
+			transitionDelay () {
+				if (this.delayRatio)
+					return
+
+				return `transition-delay: ${index*delayRatio}s`
+			}*/
 		}
 	}
 

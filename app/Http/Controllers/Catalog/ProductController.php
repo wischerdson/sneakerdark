@@ -43,6 +43,7 @@ class ProductController extends \App\Http\Controllers\SiteController
 
 		$this->template = 'catalog.product';
 		$this->title = $product->title.' - Sneakerdark';
+		$this->ogImage = $product->pictures[0]->src;
 		$this->vars['product'] = $product;
 		$this->vars['categoriesChain'] = $collectionsChain;
 		return $this->output();

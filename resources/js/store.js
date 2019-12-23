@@ -68,15 +68,11 @@ export default new Vuex.Store({
 	actions: {
 		async fetchCatalog (context, data) {
 			await axios.get(data.api, {
-				params: {
-					page: data.page,
-					filters: data.filters
-				}
+				params: data.params
 			}).then(response => response.data).then((data) => {
 				data = data.data
-				//console.log(data)
 				context.commit('updateCatalog', data)
-				context.commit('updateFilters', data.filters)
+				context.commit('updateFilters', data.filter_list)
 				context.commit('updateProducts', data.products)
 				context.commit('updatePagination', data.pagination)
 			}).catch((error) => {

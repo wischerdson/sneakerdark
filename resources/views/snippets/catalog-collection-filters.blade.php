@@ -64,8 +64,9 @@
 				<div class="section-body price">
 					<price-range-slider
 						v-model="filters.price"
-						:min="priceMinLimit"
-						:max="priceMaxLimit"
+						:min="priceLimits.min"
+						:max="priceLimits.max"
+						:start="filters.price"
 					></price-range-slider>
 				</div>
 			</div>

@@ -5,6 +5,9 @@ export default {
 			current () {
 				return window.location.origin + window.location.pathname
 			},
+			path () {
+				return window.location.pathname
+			},
 			params () {
 				const raw = window.location.search
 
