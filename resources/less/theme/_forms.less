@@ -52,7 +52,7 @@
 	}
 }
 
-
+@form-check-size: 19px;
 
 .form-check {
 	user-select: none;
@@ -71,8 +71,8 @@
 				cursor: pointer;
 
 				.checkbox-body {
-					width: 19px;
-					height: 19px;
+					width: @form-check-size;
+					height: @form-check-size;
 					display: flex;
 					align-items: center;
 					justify-content: center;
@@ -103,6 +103,40 @@
 						opacity: 1;
 						transform: scale(1);
 					}
+				}
+			}
+		}
+		&[type="radio"] {
+			display: none;
+
+			& + .form-check-label {
+				display: flex;
+				align-items: center;
+				width: max-content;
+				cursor: pointer;
+
+				.form-check-body {
+					width: @form-check-size;
+					height: @form-check-size;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 9999px;
+					margin-right: 7px;
+					transition: all .1s ease-in-out;
+					background-color: #ececec;
+					border: 0 solid transparent;
+				}
+				&:hover {
+					.form-check-body {
+						background-color: #dbdbdb;
+					}
+				}
+			}
+			&:checked + .form-check-label {
+				.form-check-body {
+					background-color: white;
+					border: @form-check-size*.3 solid @main-color;
 				}
 			}
 		}

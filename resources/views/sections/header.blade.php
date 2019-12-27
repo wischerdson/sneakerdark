@@ -4,9 +4,9 @@
 			<header
 				id="section_header"
 				:class="{
-					'transparent': !isMoving && !$store.state.searchIsOpen && !submenuIsOpen,
+					'transparent': !isMoving && !$store.getters.search_isOpen && !submenuIsOpen,
 					'moving': isMoving,
-					'searchIsOpen': $store.state.searchIsOpen
+					'searchIsOpen': $store.getters.search_isOpen
 				}"
 			>
 				@include('snippets.header-desktop')
@@ -18,7 +18,7 @@
 			id="section_header"
 			:class="{
 				'moving': isMoving,
-				'searchIsOpen': $store.state.searchIsOpen
+				'searchIsOpen': $store.getters.search_isOpen
 			}"
 		>
 			@include('snippets.header-desktop')

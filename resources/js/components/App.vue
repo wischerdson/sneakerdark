@@ -1,31 +1,22 @@
 <script type="text/javascript">
 	
-	import HomePage from './templates/Home'
-	import SearchPage from './templates/Search'
-	import BrandsPage from './templates/Brands'
-
-	import CatalogProductPage from './templates/catalog/Product'
-	import CatalogProductNotFoundPage from './templates/catalog/ProductNotFound'
-	import CatalogCollectionPage from './templates/catalog/Collection'
-
-	import LegalRefundPage from './templates/legal/Refund'
-
 	export default {
 		template: '#template__layout',
-		components: {
-			HomePage,
-			SearchPage,
-			BrandsPage,
-			CatalogCollectionPage,
-			CatalogProductPage,
-			CatalogProductNotFoundPage,
-			LegalRefundPage
+		watch: {
+			'$store.getters.wishlist' (value) {
+				localStorage.setItem('wishlist', JSON.stringify(value))
+			}
 		},
 		mounted () {
 			if (!localStorage.getItem('cart'))
 				localStorage.setItem('cart', '{}')
 			else
 				this.$store.commit('cart', JSON.parse(localStorage.getItem('cart')))
+
+			if (!localStorage.getItem('wishlist'))
+				localStorage.setItem('wishlist', '[]')
+			else
+				this.$store.commit('wishlistSet', JSON.parse(localStorage.getItem('wishlist')))
 
 			this.$store.watch(this.$store.getters.getCart, cart => {
 				localStorage.setItem('cart', JSON.stringify(cart))

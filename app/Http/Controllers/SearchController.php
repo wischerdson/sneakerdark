@@ -92,8 +92,8 @@ class SearchController extends SiteController
 
 		return [
 			'results' => $matches,
-			'results_number' => $resultsNumber,
-			'subject' => $subject
+			'total' => $resultsNumber,
+			'total_subject' => $subject
 		];
 	}
 }

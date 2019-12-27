@@ -109,7 +109,6 @@ class CollectionResource extends JsonResource
 			'total_subject' => smart_ending(count($productsIds), ['', 'а', 'ов'], 'товар'),
 			'products' => ProductResource::collection($products),
 			'filter_list' => $filterList,
-			're' => $request->input('attach_filter_list'),
 			'pagination' => [
 				'current_page' => $products->currentPage(),
 				'has_more_pages' => $products->hasMorePages(),

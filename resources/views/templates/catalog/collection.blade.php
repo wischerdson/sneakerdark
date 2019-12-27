@@ -19,9 +19,9 @@
 
 				<div class="sort">
 					Сортировать
-					<a href="#">по умолчанию</a>
-					<a href="#" class="active">по возрастанию цены</a>
-					<a href="#">по убыванию цены</a>
+					<radio v-model="$store.state.sort" name="sort" value="1">по умолчанию</radio>
+					<radio v-model="$store.state.sort" name="sort" value="2">по возрастанию цены</radio>
+					<radio v-model="$store.state.sort" name="sort" value="3">по убыванию цены</radio>
 				</div>
 			</div>
 		</div>
@@ -43,6 +43,7 @@
 					<snippet-catalog-collection-product
 						v-for="(product, index) in products"
 						:key="'products_block_' + index"
+						:id="product.id"
 						:title="product.title"
 						:picture="product.pictures[0].src"
 						:vendor="product.vendor"

@@ -59,7 +59,7 @@
 		<template id="template__layout">
 			<div>
 				<section-header></section-header>
-				<section-search url="{{ route('search.ajax') }}"></section-search>
+				<section-search></section-search>
 				<section-cart></section-cart>
 				<main>
 					<{{ str_replace('.', '-', $template) }}-page></{{ str_replace('.', '-', $template) }}-page>
@@ -74,6 +74,7 @@
 		@include('sections.footer')
 
 		@include('vendor.checkbox')
+		@include('vendor.radio')
 	</div>
 	<script type="text/javascript">
 		const _token = '{{ csrf_token() }}'

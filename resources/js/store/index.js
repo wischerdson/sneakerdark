@@ -3,12 +3,14 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 import wishlist from './wishlist'
+import search from './search'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
 	modules: {
-		collection
+		wishlist,
+		search
 	},
 	state: {
 		searchIsOpen: false,
@@ -89,4 +91,4 @@ export default new Vuex.Store({
 			})
 		}
 	}
-});
+})

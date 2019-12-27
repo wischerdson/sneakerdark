@@ -21,4 +21,6 @@ Route::group(['middleware' => ['web', 'sleep']], function () {
 		Route::get('/', ['uses' => 'BrandsController@index', 'as' => 'brands']);
 		Route::get('{brand}', ['uses' => 'BrandsController@show', 'as' => 'brands.brand']);
 	});
+
+	Route::get('/wishlist', ['uses' => 'WishlistController@index', 'as' => 'wishlist']);
 });

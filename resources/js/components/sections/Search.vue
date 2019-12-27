@@ -1,41 +1,33 @@
 <script type="text/javascript">
-	
-	let searchQueryTimeout
+		
+	import SearchResult from '../snippets/SearchResult'
+
+	let timeout
 
 	export default {
 		template: '#template__section_search',
-		props: ['url'],
+		components: {
+			'snippet-search-result': SearchResult
+		},
 		data () {
 			return {
-				results: [],
-				query: '',
-				ajaxStatus: { waiting: false },
-				gender: 'all',
-				resultsNumber: 0,
-				totalResults: '',
-				notFound: false
+				search: {
+					query: '',
+					gender: 'all'
+				},
+				w: false
 			}
 		},
 		methods: {
-			search () {
-				if (!this.query) return
-				this.ajaxStatus.waiting = true
-				this.notFound = false
+			update () {
+				if (!this.search.query)
+					return
 
-				const data = {
-					query: this.query,
-					gender: this.gender
-				}
-				this.$http.get(this.url, {params: data}).then(response => response.body).then(data => {
-					this.ajaxStatus.waiting = false
-					this.results = data.results
-					this.totalResults = data.results_number + ' ' + data.subject
-					this.resultsNumber = data.results_number
-					this.notFound = !this.resultsNumber
-				}, err => {
-					this.ajaxStatus.waiting = false
-					console.log(err)
-					M.toast({html: 'Произошла ошибка', classes: 'error-toast'})
+				this.w = false
+
+				this.$store.dispatch('search', {
+					url: this.$store.state.laradata['api.search'],
+					params: this.search
 				})
 			},
 			getPicture (picture, noImageUrl) {
@@ -43,20 +35,39 @@
 			}
 		},
 		watch: {
-			gender () {
-				this.search(this.$store.state.searchQuery)
+			search: {
+				deep: true,
+				handler (value) {
+					this.$store.commit('search', value)
+				}
 			},
-			'$store.state.searchQuery' (value) {
-				this.query = value
-				clearTimeout(searchQueryTimeout)
-				searchQueryTimeout = setTimeout(() => {
-					this.search()
-				}, 700)
+			'$store.getters.search': {
+				deep: true,
+				handler (value) {
+					this.w = true
+					this.search = value
+					clearTimeout(timeout)
+					timeout = setTimeout(() => {
+						this.update()
+					}, 700)
+				}
 			}
 		},
 		computed: {
-			isOpen () {
-				return this.$store.state.searchIsOpen
+			open () {
+				return this.$store.getters.search_isOpen
+			},
+			wait () {
+				return this.$store.getters.search_isWait
+			},
+			results () {
+				return this.$store.getters.search_results
+			},
+			total () {
+				return this.$store.getters.search_total
+			},
+			totalSubject () {
+				return this.$store.getters.search_totalSubject
 			}
 		}
 	}

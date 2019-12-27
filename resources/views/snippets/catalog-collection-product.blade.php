@@ -12,7 +12,13 @@
 						<button class="size btn">@{{ size.size }}</button>
 					</li>
 				</ul>
-				<button class="add-to-wishlist-btn btn" @click.prevent="">@include('svg.wishlist')</button>
+				<button v-show="!inWishlist" class="add-to-wishlist-btn btn" @click.prevent="addToWishlist">
+					<div class="tooltip">Добавить в избранное</div>
+					@include('svg.wishlist')
+				</button>
+				<button v-show="inWishlist" class="remove-from-wishlist-btn btn" @click.prevent="removeFromWishlist">
+					@include('svg.wishlist_filled')
+				</button>
 				<div class="square">
 					<div class="picture" :style="`background-image: url(${picture})`"></div>
 				</div>

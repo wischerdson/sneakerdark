@@ -19,6 +19,7 @@
 					brand: [],
 					price: [0, 999999999]
 				},
+				sort: {},
 				filtersLoaded: false,
 				firstUpdate: true,
 				priceLimits: {
@@ -29,9 +30,13 @@
 		},
 		methods: {
 			saveFilters () {
-				localStorage.setItem(`filters_conf_${this.$url.path()}`, JSON.stringify(this.filters))
+				let save = this.filters
+				save.sort = parseInt(this.$store.state.sort)
+				localStorage.setItem(`filters_conf_${this.$url.path()}`, JSON.stringify(save))
 			},
-			updateCatalog () {				
+			updateCatalog () {
+				this.saveFilters()
+
 				if (this.$url.params().page > 1 & !this.firstUpdate) {
 					window.location.href = this.$url.setParams({page: 1})
 					return
@@ -45,6 +50,7 @@
 					'params': {
 						'page': this.$url.params().page,
 						'filters': this.filters,
+						'sort': this.sort,
 						'attach_filter_list': this.firstUpdate
 					}
 				})
@@ -79,12 +85,29 @@
 				this.priceLimits.min = value.price[0]
 				this.priceLimits.max = value.price[1]
 			},
+			'$store.state.sort' (value) {
+				let sort = {}
+				value = parseInt(value)
+				switch (value) {
+					case 1:
+						sort = {column: 'created_at', mode: 'desc'};
+					break;
+					case 2:
+						sort = {column: 'price', mode: 'asc'};
+					break;
+					case 3:
+						sort = {column: 'price', mode: 'desc'};
+					break;
+				}
+
+				this.sort = sort
+				//this.updateCatalog()
+			},
 			filters: {
 				deep: true,
-				handler (value) {
+				handler (value, oldValue) {
 					clearTimeout(updateTimeout)
 					updateTimeout = setTimeout(() => {
-						this.saveFilters()
 						this.updateCatalog()
 					}, 700)
 				}
@@ -94,6 +117,7 @@
 			const filtersJson = localStorage.getItem(`filters_conf_${this.$url.path()}`)
 
 			if (!filtersJson) {
+				this.$store.state.sort = 1
 				this.updateCatalog()
 				return
 			}
@@ -105,6 +129,7 @@
 			this.filters.size = filters.size
 			this.filters.brand = filters.brand
 			this.filters.price = filters.price
+			this.$store.state.sort = parseInt(filters.sort)
 		}
 	}
 

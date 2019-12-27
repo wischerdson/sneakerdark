@@ -89,11 +89,11 @@
 						@if ($size->instock !== 0)
 						<li class="size-item" instock="{{ $size->instock }}">
 							<input
-							type="radio"
-							name="product_size"
-							id="size_{{ $size->bizoutmax_id }}"
-							value="{{ $size->size }}"
-							v-model="product.size"
+								type="radio"
+								name="product_size"
+								id="size_{{ $size->bizoutmax_id }}"
+								value="{{ $size->size }}"
+								v-model="product.size"
 							>
 							<label for="size_{{ $size->bizoutmax_id }}">
 								{{ $size->size }}

@@ -68,7 +68,7 @@
 			</div>
 		</div>
 		<div class="right">
-			<button class="search-btn btn" @click="openSearch">
+			<button class="search-btn btn" @click="$store.commit('search_open')">
 				@include('svg.magnifying-glass')
 				<span>Поиск</span>
 			</button>
