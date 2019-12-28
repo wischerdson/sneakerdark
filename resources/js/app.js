@@ -4,48 +4,6 @@ import store from './store/index'
 import initPlugins from './plugins/index'
 import initComponents from './components/index'
 
-import Breadcrumb from './components/theme/Breadcrumb'
-import BreadcrumbItem from './components/theme/BreadcrumbItem'
-import Checkbox from './components/theme/Checkbox'
-import Radio from './components/theme/Radio'
-import HasScroll from './components/theme/HasScroll'
-import Sticky from './components/theme/Sticky'
-import Laradata from './components/theme/Laradata'
-
-import SectionHeader from './components/sections/Header'
-import SectionCart from './components/sections/cart'
-import SectionWelcome from './components/sections/Welcome'
-import SectionCollections from './components/sections/Collections'
-import SectionSearch from './components/sections/Search'
-import SectionLegalRefund from './components/sections/LegalRefund'
-import SectionFooter from './components/sections/Footer'
-
-import SnippetCatalogCollectionProduct from './components/snippets/CatalogCollectionProduct'
-import SnippetCatalogCollectionFilters from './components/snippets/CatalogCollectionFilters'
-
-import JivoMixin from './components/mixins/JivoMixin'
-
-
-Vue.component('breadcrumb', Breadcrumb)
-Vue.component('breadcrumb-item', BreadcrumbItem)
-Vue.component('checkbox', Checkbox)
-Vue.component('radio', Radio)
-Vue.component('has-scroll', HasScroll)
-Vue.component('sticky', Sticky)
-Vue.component('laradata', Laradata)
-
-Vue.component('section-header', SectionHeader)
-Vue.component('section-cart', SectionCart)
-Vue.component('section-welcome', SectionWelcome)
-Vue.component('section-collections', SectionCollections)
-Vue.component('section-search', SectionSearch)
-Vue.component('section-legal-refund', SectionLegalRefund)
-Vue.component('section-footer', SectionFooter)
-
-Vue.component('snippet-catalog-collection-product', SnippetCatalogCollectionProduct)
-Vue.component('snippet-catalog-collection-filters', SnippetCatalogCollectionFilters)
-
-Vue.mixin(JivoMixin)
 
 const app = {
 	render: h => h(App),

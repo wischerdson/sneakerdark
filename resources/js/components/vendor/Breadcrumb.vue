@@ -7,13 +7,9 @@
 </template>
 
 <script type="text/javascript">
-	
-	import BreadcrumbItem from './BreadcrumbItem'
 
 	export default {
-		components: {
-			BreadcrumbItem
-		}
+		
 	}
 
 </script>

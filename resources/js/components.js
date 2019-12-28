@@ -18,17 +18,16 @@ export default {
 	sections: [
 		'Header',
 		'Cart',
-		{
-			'Home': [
-				'Welcome',
-				'Collections'
-			]
-		},
+		'Search',
+		'Footer'
 	],
-	vendor: {
-
-	},
-	mixins: {
-
-	}
+	vendor: [
+		'Breadcrumb',
+		'BreadcrumbItem',
+		'Checkbox',
+		'Radio',
+		'HasScroll',
+		'Sticky',
+		'Laradata'
+	]
 }

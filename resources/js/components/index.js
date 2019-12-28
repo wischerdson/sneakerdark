@@ -2,25 +2,39 @@ import Vue from 'vue'
 import components from '../components.js'
 
 export default (app) => {
-	const registerTemplates = (templates, dir) => {
+	const register = (components, dir) => {
 		dir = (dir || '').toLowerCase()
-		let prefix = ''
-		if (dir.length) {
-			prefix = dir.slice(1)
-			prefix = prefix.split('')[0].toUpperCase() + prefix.slice(1)
-		}
 		
-		templates.forEach((value, index) => {
-			if (typeof value === 'string') {
-				Vue.component(`${prefix}${value}Page`, require(`./templates${dir}/${value}`).default)
+		if (typeof components === 'string') {
+			let prefixArray = dir.split('/').slice(2)
+			let prefix = ''
+
+			for (const key in prefixArray) {
+				let value = prefixArray[key]
+				let valueS = value.split('')
+				value = valueS[0].toUpperCase() + value.slice(1)
+				prefix += value
 			}
+
+			let element = prefix + components
+			if ((/templates/gmi).test(dir))
+				element += 'Page'
+			if ((/sections/gmi).test(dir))
+				element = `Section${element}`
+
+			Vue.component(element, require(`.${dir}/${components}.vue`).default)
+		}
+
+		for (const key in components) {
+			const value = components[key]
+
 			if (typeof value === 'object') {
-				for (const key in value) {
-					registerTemplates(value[key], `/${key}`)
+				for (const key_ in value) {
+					register(value[key_], `${dir}/${key}`)
 				}
 			}
-		})
+		}
 	}
 
-	registerTemplates(components.templates)
+	register(components)
 }

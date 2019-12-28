@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	
 	
-	import PriceRangeSlider from '../snippets/PriceRangeSlider'
+	import PriceRangeSlider from '../../snippets/catalog/PriceRangeSlider'
 
 	let updateTimeout;
 
