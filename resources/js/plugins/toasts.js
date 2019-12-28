@@ -1,9 +1,9 @@
-
-export default {
-	install (Vue, options) {
-		Vue.prototype.$error = (error) => {
+export default (app, inject) => {
+	const plugin = {
+		error () {
 			M.toast({html: 'Произошла ошибка', classes: 'error-toast'})
-			console.log(error)
 		}
 	}
+
+	inject('toast', plugin)
 }

@@ -61,9 +61,8 @@ export default {
 				context.commit('search_results', data.results)
 				context.commit('search_total', data.total)
 				context.commit('search_totalSubject', data.total_subject)
-			}).catch((error) => {
-				console.log(error.response)
-				M.toast({html: 'Произошла ошибка', classes: 'error-toast'})
+			}).catch(({response}) => {
+				this.$error(response)
   			}).finally(function () {
 				context.commit('search_wait', false)
 			})

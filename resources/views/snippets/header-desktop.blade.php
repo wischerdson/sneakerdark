@@ -62,7 +62,7 @@
 						<a href="#">Отзывы</a>
 					</li>
 					<li class="link-item">
-						<a @click="jivo_openDialog"><span class="online-dot"></span>Online-чат с менеджером</a>
+						<a @click="$jivo.open"><span class="online-dot"></span>Online-чат с менеджером</a>
 					</li>
 				</ul>
 			</div>
@@ -72,7 +72,7 @@
 				@include('svg.magnifying-glass')
 				<span>Поиск</span>
 			</button>
-			<a href="#" class="btn wishlist">@include('svg.wishlist_filled')</a>
+			<a href="#" class="btn wishlist" @click="">@include('svg.wishlist_filled')</a>
 			<a class="btn primary shopping-cart-btn" @click="$store.commit('cartIsOpen', true)">
 				@include('svg.shopping-bag')
 				<span>Корзина</span>

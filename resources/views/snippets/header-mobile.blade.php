@@ -116,10 +116,10 @@
 				<div class="manager-contacts">
 					<div class="label">Связь с менеджером</div>
 					<div class="variants">
-						<a href="#">@include('svg.contact-method-1')</a>
-						<a href="#">@include('svg.contact-method-2')</a>
-						<a href="#">@include('svg.contact-method-3')</a>
-						<a href="#">@include('svg.contact-method-4')</a>
+						<a href="#">{{-- @include('svg.contact-method-1') --}}</a>
+						<a href="#">{{-- @include('svg.contact-method-2') --}}</a>
+						<a href="#">{{-- @include('svg.contact-method-3') --}}</a>
+						<a href="#">{{-- @include('svg.contact-method-4') --}}</a>
 					</div>
 				</div>
 			</div>

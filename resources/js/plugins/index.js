@@ -20,4 +20,8 @@ export default (app) => {
 	}
 
 	require('./axios').default(app, inject)
+	require('./url').default(app, inject)
+	require('./jivo').default(app, inject)
+	require('./toasts').default(app, inject)
+	require('./error').default(app, inject)
 }

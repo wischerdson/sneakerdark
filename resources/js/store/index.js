@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
 
 import wishlist from './wishlist'
 import search from './search'
@@ -75,7 +74,7 @@ export default new Vuex.Store({
 	},
 	actions: {
 		async fetchCatalog (context, data) {
-			await axios.get(data.api, {
+			await this.$axios.get(data.api, {
 				params: data.params
 			}).then(response => response.data).then((data) => {
 				data = data.data
@@ -83,9 +82,8 @@ export default new Vuex.Store({
 				context.commit('updateFilters', data.filter_list)
 				context.commit('updateProducts', data.products)
 				context.commit('updatePagination', data.pagination)
-			}).catch((error) => {
-				console.log(error.response)
-				M.toast({html: 'Произошла ошибка', classes: 'error-toast'})
+			}).catch(({response}) => {
+				this.$error(response)
   			}).finally(function () {
 				context.commit('catalogWait')
 			})
