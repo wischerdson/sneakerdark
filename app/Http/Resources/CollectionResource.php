@@ -22,7 +22,8 @@ class CollectionResource extends JsonResource
 	{
 		$filters = json_decode($request->input('filters'));
 
-		$collectionsIds = Collection::find($this->id)->children;
+		$collectionsIds = Collection::where('id', $this->id)->with('children')->first()->children;
+
 		$productsIds = Product::
 			whereIn('collection_id', $collectionsIds)
 			->withoutGlobalScopes()
@@ -103,12 +104,11 @@ class CollectionResource extends JsonResource
 
 		return [
 			'id' => $this->id,
-			'parent_id' => $this->parent_id,
 			'title' => $this->title,
 			'total' => count($productsIds),
 			'total_subject' => smart_ending(count($productsIds), ['', 'а', 'ов'], 'товар'),
 			'products' => ProductResource::collection($products),
-			'filter_list' => $filterList,
+			'filters' => $filterList,
 			'pagination' => [
 				'current_page' => $products->currentPage(),
 				'has_more_pages' => $products->hasMorePages(),
@@ -122,36 +122,49 @@ class CollectionResource extends JsonResource
 
 	private function composeFilterList($productsIds) {
 		$result = [];
-		$result['category'] = Parameter::
-			whereIn('key', ['Вид аксессуаров', 'Футбольная обувь', 'Предмет одежды', 'Категория'])
-			->whereIn('product_id', $productsIds)
-			->select('value')
-			->orderBy('value', 'asc')
-			->distinct()
-			->pluck('value');
 
-		$result['gender'] = Parameter::
-			where('key', 'Пол')
-			->whereIn('product_id', $productsIds)
-			->select('value')
-			->distinct()
-			->pluck('value');
+		$result['category'] = [
+			'title' => 'Категория',
+			'list' => Parameter::
+				whereIn('key', ['Вид аксессуаров', 'Футбольная обувь', 'Предмет одежды', 'Категория'])
+				->whereIn('product_id', $productsIds)
+				->select('value')
+				->orderBy('value', 'asc')
+				->distinct()
+				->pluck('value')
+		];
 
-		$result['size'] = Size::
-			where('instock', '>', 0)
-			->whereIn('product_id', $productsIds)
-			->where('instock', '!=', 0)
-			->select('size')
-			->distinct()
-			->pluck('size');
+		$result['gender'] = [
+			'title' => 'Пол',
+			'list' => Parameter::
+				where('key', 'Пол')
+				->whereIn('product_id', $productsIds)
+				->select('value')
+				->distinct()
+				->pluck('value')
+		];
 
-		$result['brand'] = Product::
-			whereIn('id', $productsIds)
-			->withoutGlobalScopes()
-			->select('vendor')
-			->orderBy('vendor', 'asc')
-			->distinct()
-			->pluck('vendor');
+		$result['size'] = [
+			'title' => 'Размер',
+			'list' => Size::
+				where('instock', '>', 0)
+				->whereIn('product_id', $productsIds)
+				->where('instock', '!=', 0)
+				->select('size')
+				->distinct()
+				->pluck('size')
+		];
+
+		$result['brand'] = [
+			'title' => 'Бренд',
+			'list' => Product::
+				whereIn('id', $productsIds)
+				->withoutGlobalScopes()
+				->select('vendor')
+				->orderBy('vendor', 'asc')
+				->distinct()
+				->pluck('vendor')
+		];
 
 		$prices = Product::
 			whereIn('id', $productsIds)
@@ -161,10 +174,12 @@ class CollectionResource extends JsonResource
 			->distinct()
 			->pluck('price')
 			->toArray();
-
-		$result['price'] = [];
-		$result['price'][0] = $prices[0];
-		$result['price'][1] = end($prices);
+		
+		$result['price'] = [
+			'title' => 'Цена',
+			'min' => $prices[0],
+			'max' => end($prices)
+		];
 
 		return $result;
 	}

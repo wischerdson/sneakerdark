@@ -10,6 +10,10 @@ class Collection extends Model
 	protected $guarded = [];
 	public $timestamps = false;
 
+	public function children() {
+		return $this->hasMany('App\Collection', 'parent_id', 'id');
+	}
+
 	public function products() {
 		return $this->hasMany('App\Product');
 	}
@@ -24,16 +28,5 @@ class Collection extends Model
 		}
 
 		return array_reverse($result);
-	}
-
-	public function getChildrenAttribute($id = null, $tree = []) {
-		if (!$id)
-			$id = $this->id;
-		array_push($tree, $id);
-		foreach (self::where('parent_id', $id)->cursor() as $collection) {
-			$tree = $this->getChildrenAttribute($collection->id, $tree);
-		}
-
-		return $tree;
 	}
 }
