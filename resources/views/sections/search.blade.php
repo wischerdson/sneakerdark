@@ -3,7 +3,7 @@
 		<div id="section_search" v-show="open">
 			<laradata name="api.search">{{ route('search.ajax') }}</laradata>
 			<div class="top-bar">
-				<div class="content">
+				<div class="content container large">
 					<div class="form-group">
 						<div class="field">
 							<input
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="for-whom">
-				<div class="content">
+				<div class="container large">
 					<div class="item">
 						<input type="radio" v-model="search.gender" name="gender" id="all" value="all">
 						<label for="all">Для всех</label>
@@ -37,7 +37,6 @@
 				</div>
 			</div>
 			<div class="body">
-				<!-- <div class="field-is-empty-notice" v-if="!query && !resultsNumber"> -->
 				<div class="field-is-empty-notice" v-if="!search.query">
 					<center>
 						@include('svg.magnifying-glass')
@@ -51,7 +50,7 @@
 					</center>
 				</div>
 				<div v-if="wait" class="preloader-wrapper"><div class="preloader"></div></div>
-				<ul class="results" v-if="results && !wait">
+				<ul class="results container large" v-if="results && !wait">
 					<snippet-search-result
 						v-for="(value, index) in results"
 						:name="value.title"

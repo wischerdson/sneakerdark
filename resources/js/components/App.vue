@@ -5,6 +5,9 @@
 		watch: {
 			'$store.getters.wishlist' (value) {
 				localStorage.setItem('wishlist', JSON.stringify(value))
+			},
+			'$store.getters.cart' (value) {
+				localStorage.setItem('cart', JSON.stringify(value))
 			}
 		},
 		mounted () {
@@ -17,10 +20,6 @@
 				localStorage.setItem('wishlist', '[]')
 			else
 				this.$store.commit('wishlistSet', JSON.parse(localStorage.getItem('wishlist')))
-
-			this.$store.watch(this.$store.getters.getCart, cart => {
-				localStorage.setItem('cart', JSON.stringify(cart))
-			})
 		}
 	}
 

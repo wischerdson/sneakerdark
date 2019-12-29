@@ -15,13 +15,28 @@
 		},
 		computed: {
 			showCatalog () {
-				return Object.keys(this.$store.getters.getCatalog).length
+				return true
 			},
 			products () {
-				return this.$store.getters.getProducts
+				return this.$store.getters.collection_products
+			},
+			productsNotFound () {
+				return Object.keys(this.products).length < 1 && !this.wait
 			},
 			pagination () {
-				return this.$store.getters.getPagination
+				return this.$store.getters.collection_pagination
+			},
+			wait () {
+				return this.$store.getters.collection_wait
+			},
+			firstLoad () {
+				return this.$store.getters.collection_firstLoad
+			},
+			total () {
+				return this.$store.getters.collection_total
+			},
+			totalSubject () {
+				return this.$store.getters.collection_totalSubject
 			}
 		}
 	}

@@ -36,7 +36,7 @@
 					</li>
 					<li class="link-item">
 						<a
-							href="{{ route('catalog', ['collection_id' => '1789']) }}"
+							href="{{ route('catalog', ['collection_id' => '1597']) }}"
 							@mouseover="submenu._1 = true"
 							@mouseout="submenu._1 = false"
 							:class="{active: submenu._1}"
@@ -44,7 +44,7 @@
 					</li>
 					<li class="link-item">
 						<a
-							href="{{ route('catalog', ['collection_id' => '4']) }}"
+							href="{{ route('catalog', ['collection_id' => '1596']) }}"
 							@mouseover="submenu._2 = true"
 							@mouseout="submenu._2 = false"
 							:class="{active: submenu._2}"

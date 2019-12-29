@@ -1,6 +1,5 @@
 <script type="text/javascript">
-	
-	
+
 	import PriceRangeSlider from '../../snippets/catalog/PriceRangeSlider'
 
 	let updateTimeout;
@@ -42,10 +41,9 @@
 					return
 				}
 
-				this.$store.state.catalogWait = true
-				this.$store.commit('updateProducts', {})
+				this.$store.commit('collection_products', {})
 
-				this.$store.dispatch('fetchCatalog', {
+				this.$store.dispatch('collection_fetch', {
 					'api': this.$store.state.laradata['api.catalog'],
 					'params': {
 						'page': this.$url.params().page,
@@ -60,7 +58,7 @@
 		},
 		computed: {
 			getFilters () {
-				const filters = this.$store.getters.getFilters
+				const filters = this.$store.getters.collection_filters
 				if (!Object.keys(filters).length)
 					return {}
 
@@ -77,7 +75,7 @@
 			}
 		},
 		watch: {
-			'$store.getters.getFilters' (value) {
+			'$store.getters.collection_filters' (value) {
 				if (this.filtersLoaded)
 					return
 				

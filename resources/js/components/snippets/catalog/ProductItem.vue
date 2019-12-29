@@ -3,7 +3,6 @@
 	export default {
 		template: '#template__snippet_catalog_collection_product',
 		props: {
-			'id': Number,
 			'title': String,
 			'picture': String,
 			'vendor': String,
@@ -14,7 +13,8 @@
 				default () {
 					return []
 				}
-			}
+			},
+			'product-id': Number
 		},
 		methods: {
 			addToWishlist () {

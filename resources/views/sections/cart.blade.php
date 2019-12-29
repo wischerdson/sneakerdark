@@ -12,7 +12,7 @@
 						<div class="product-list" ref="productList">
 							<transition-group name="list-complete" tag="ul">
 							<cart-item
-								v-for="product in $store.getters.getCart()"
+								v-for="product in $store.getters.cart"
 								:key="product.id + 'O' + product.size"
 								:id="product.id"
 								:title="product.title"
@@ -26,13 +26,13 @@
 							</transition-group>
 						</div>
 						<transition name="fade">
-							<div v-show="!Object.keys($store.getters.getCart()).length" class="cart-is-empty">Ваша корзина пуста</div>
+							<div v-show="!Object.keys($store.getters.cart).length" class="cart-is-empty">Ваша корзина пуста</div>
 						</transition>
 					</div>
 					<div class="has-scroll"></div>
 				</div>
 				<transition name="fade">
-					<div class="bottom" v-show="Object.keys($store.getters.getCart()).length">
+					<div class="bottom" v-show="Object.keys($store.getters.cart).length">
 						<div class="subtotal">
 							<div>Subtotal</div>
 							<div class="sum">@{{ subtotal }}</div>

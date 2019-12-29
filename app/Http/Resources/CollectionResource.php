@@ -105,7 +105,7 @@ class CollectionResource extends JsonResource
 			'id' => $this->id,
 			'parent_id' => $this->parent_id,
 			'title' => $this->title,
-			'total_products' => count($productsIds),
+			'total' => count($productsIds),
 			'total_subject' => smart_ending(count($productsIds), ['', 'а', 'ов'], 'товар'),
 			'products' => ProductResource::collection($products),
 			'filter_list' => $filterList,

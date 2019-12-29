@@ -3,7 +3,7 @@
 		<div class="header">
 			<div class="top">
 				<h1>{{ $collection->title }}</h1>
-				<div class="total-products">@{{ $store.getters.getCatalog.total_products }} @{{ $store.getters.getCatalog.total_subject }}</div>
+				<div class="total-products">@{{ total }} @{{ totalSubject }}</div>
 			</div>
 			<div class="bottom">
 				<breadcrumb>
@@ -26,11 +26,11 @@
 			</div>
 		</div>
 	
-		<div v-show="!showCatalog" class="preloader-wrapper"><div class="preloader"></div></div>
+		<div v-show="firstLoad" class="preloader-wrapper"><div class="preloader"></div></div>
 
 		<laradata name="api.catalog">{{ route('api.catalog.show', ['catalog' => $collection->id]) }}</laradata>
 
-		<div class="main-content" v-show="showCatalog">
+		<div class="main-content" v-show="!firstLoad">
 			<div class="left-side">
 				<snippet-catalog-collection-filters></snippet-catalog-collection-filters>
 			</div>
@@ -40,26 +40,26 @@
 					tag="ul"
 					class="products-grid"
 				>
-					<snippet-catalog-collection-product
+					<li
+						is="snippet-catalog-collection-product"
 						v-for="(product, index) in products"
 						:key="'products_block_' + index"
-						:id="product.id"
+						:product-id="product.id"
 						:title="product.title"
 						:picture="product.pictures[0].src"
 						:vendor="product.vendor"
 						:price="product.price"
 						:url="product.url"
-						:style="`transition-delay: ${index*0}s`"
 						:sizes="product.sizes"
-					></snippet-catalog-collection-product>
+					></li>
 				</transition-group>
 				<snippet-catalog-collection-product style="display: none"></snippet-catalog-collection-product>
-				<div v-show="!products.length & !$store.state.catalogWait" class="no-products-found">По таким фильтрам товаров не нашлось :(</div>
+				
+				<div v-show="productsNotFound" class="no-products-found">По таким фильтрам товаров не нашлось :(</div>
 			</div>
-
 		</div>
 
-		<nav v-show="showCatalog & pagination.last_page !== 1">
+		<nav v-show="pagination && pagination.last_page !== 1 && !wait && !firstLoad">
 			<ul class="pagination">
 				<li 
 					class="page-item"
