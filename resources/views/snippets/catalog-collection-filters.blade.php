@@ -1,22 +1,27 @@
 <template id="template__snippet_catalog_collection_filters" >
-	<!-- <sticky :margin-top="20 + 50"> -->
 	<div>
 		<div class="filters" ref="filters">
-			<div class="filters-section">
-				<div class="section-title">Категория</div>
+			<div
+				class="filters-section"
+				v-for="(filter, key) in filters"
+				v-if="key != 'price'"
+				:key="`filter_block_${key}`"
+			>
+				<div class="section-title">@{{ filter.title }}</div>
 				<div class="section-body">
 					<has-scroll>
 						<checkbox
 							name="filters_category"
-							v-for="(category, index) in getFilters.category"
-							:key="'filter_category_' + index"
-							v-model="filters.category"
-							:value="category"
-						>@{{ category }}</checkbox>
+							v-for="(item, index) in filter.list"
+							:key="`filter_entity_${index}`"
+							v-model="appliedFilters[key]"
+							:value="item"
+						>@{{ item }}</checkbox>
 					</has-scroll>
 				</div>
 			</div>
-			<div class="filters-section" v-show="genderSection">
+			<checkbox style="display: none;"></checkbox>
+			<!-- <div class="filters-section" v-show="genderSection">
 				<div class="section-title">Пол</div>
 				<div class="section-body">
 					<checkbox
@@ -69,8 +74,7 @@
 						:start="filters.price"
 					></price-range-slider>
 				</div>
-			</div>
+			</div> -->
 		</div>
-	<!-- </sticky> -->
 	</div>
 </template>

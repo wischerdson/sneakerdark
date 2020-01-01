@@ -1,10 +1,8 @@
 export default {
 	state: {
 		collection_filters: {},
-		catalog: {},
 		
 		collection_pagination: {},
-		catalogWait: false,
 		sort: 1,
 
 		collection_products: {},
@@ -67,7 +65,7 @@ export default {
 				params: data.params
 			}).then(response => response.data).then((data) => {
 				data = data.data
-				context.commit('collection_filters', data.filter_list)
+				context.commit('collection_filters', data.filters)
 				context.commit('collection_products', data.products)
 				context.commit('collection_pagination', data.pagination)
 				context.commit('collection_total', data.total)

@@ -22,7 +22,7 @@ class CollectionResource extends JsonResource
 	{
 		$filters = json_decode($request->input('filters'));
 
-		$collectionsIds = Collection::where('id', $this->id)->with('children')->first()->children;
+		$collectionsIds = Collection::find($this->id)->children;
 
 		$productsIds = Product::
 			whereIn('collection_id', $collectionsIds)

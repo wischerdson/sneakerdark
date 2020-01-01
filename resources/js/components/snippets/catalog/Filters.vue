@@ -11,7 +11,14 @@
 		},
 		data () {
 			return {
-				filters: {
+				appliedFilters: {
+					category: [],
+					gender: [],
+					size: [],
+					brand: []
+				},
+				firstRequest: true
+				/*filters: {
 					category: [],
 					gender: [],
 					size: [],
@@ -24,11 +31,25 @@
 				priceLimits: {
 					min: 0,
 					max: 0
-				}
+				}*/
 			}
 		},
 		methods: {
-			saveFilters () {
+			update () {
+				this.$store.commit('collection_products', {})
+				this.$store.dispatch('collection_fetch', {
+					'api': this.$store.state.laradata['api.catalog'],
+					'params': {
+						'page': this.$url.params().page,
+						'filters': this.appliedFilters,
+						'sort': this.sort,
+						'attach_filter_list': this.firstRequest
+					}
+				})
+
+				this.firstRequest = false
+			}
+			/*saveFilters () {
 				let save = this.filters
 				save.sort = parseInt(this.$store.state.sort)
 				localStorage.setItem(`filters_conf_${this.$url.path()}`, JSON.stringify(save))
@@ -54,10 +75,15 @@
 				})
 
 				this.firstUpdate = false
-			}
+			}*/
 		},
 		computed: {
-			getFilters () {
+
+			filters () {
+				return this.$store.getters.collection_filters
+			}
+
+			/*getFilters () {
 				const filters = this.$store.getters.collection_filters
 				if (!Object.keys(filters).length)
 					return {}
@@ -72,10 +98,10 @@
 			},
 			brandSection () {
 				return !Object.keys(this.getFilters).length ? false : (this.getFilters.brand.length > 1 ? true : false)
-			}
+			}*/
 		},
 		watch: {
-			'$store.getters.collection_filters' (value) {
+			/*'$store.getters.collection_filters' (value) {
 				if (this.filtersLoaded)
 					return
 				
@@ -101,18 +127,20 @@
 				this.sort = sort
 				//this.updateCatalog()
 			},
-			filters: {
+			*/
+			appliedFilters: {
 				deep: true,
 				handler (value, oldValue) {
 					clearTimeout(updateTimeout)
 					updateTimeout = setTimeout(() => {
-						this.updateCatalog()
+						this.update()
 					}, 700)
 				}
 			}
 		},
 		mounted () {
-			const filtersJson = localStorage.getItem(`filters_conf_${this.$url.path()}`)
+			this.update()
+			/*const filtersJson = localStorage.getItem(`filters_conf_${this.$url.path()}`)
 
 			if (!filtersJson) {
 				this.$store.state.sort = 1
@@ -127,7 +155,7 @@
 			this.filters.size = filters.size
 			this.filters.brand = filters.brand
 			this.filters.price = filters.price
-			this.$store.state.sort = parseInt(filters.sort)
+			this.$store.state.sort = parseInt(filters.sort)*/
 		}
 	}
 

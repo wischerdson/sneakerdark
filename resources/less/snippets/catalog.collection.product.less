@@ -34,7 +34,6 @@
 			z-index: 2;
 			transform: translateX(-100%);
 			opacity: 0;
-			//transition: all .3s ease-in-out;
 			transition:
 				transform 0.28s cubic-bezier(0.46, 0.01, 0.32, 1),
 				opacity 0.28s cubic-bezier(0.46, 0.01, 0.32, 1);
@@ -93,6 +92,7 @@
 				border-radius: 4px;
 				opacity: 0;
 				transition: opacity .15s ease-in-out;
+				pointer-events: none;
 
 				&:after {
 					content: '';
@@ -113,7 +113,7 @@
 	&:hover .picture-wrapper {
 		&:not(.no-sizes) {
 			.picture {
-				transform: scale(1.06);// translateX(10px);
+				transform: scale(1.06);
 			}
 			.sizes-panel {
 				opacity: 1;
