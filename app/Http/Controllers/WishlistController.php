@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class WishlistController extends Controller
+class WishlistController extends SiteController
 {
     public function index() {
     	$this->template = 'wishlist';
-		$this->title = 'Избранные товары - Sneakerdark';
+		$this->title = 'Избранное - Sneakerdark';
 
 		return $this->output();
     }

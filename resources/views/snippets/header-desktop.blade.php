@@ -72,7 +72,7 @@
 				@include('svg.magnifying-glass')
 				<span>Поиск</span>
 			</button>
-			<a href="#" class="btn wishlist" @click="">@include('svg.wishlist_filled')</a>
+			<a href="{{ route('wishlist') }}" class="btn wishlist">@include('svg.wishlist_filled')</a>
 			<a class="btn primary shopping-cart-btn" @click="$store.commit('cartIsOpen', true)">
 				@include('svg.shopping-bag')
 				<span>Корзина</span>

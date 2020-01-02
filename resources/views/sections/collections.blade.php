@@ -1,11 +1,21 @@
 <template id="template__section_collections">
 	<div id="section_collections">
-		<div class="container">
+		<div class="container large">
 			<div class="title">
 				<h2>Коллекции</h2>
 				<hr>
 			</div>
 			<ul class="collection-list">
+				<li class="collection-item square">
+					<a class="inner" href="#">
+						<div class="image" style="background-image: url({{ asset('/image/collection-image-0.jpg') }})"></div>
+						<div class="overlay"></div>
+						<div class="bottom">
+							<div class="text">Зима @include('svg.arrow-right')</div>
+							<div class="gradient"></div>
+						</div>
+					</a>
+				</li>
 				<li class="collection-item square">
 					<a class="inner" href="#">
 						<div class="image" style="background-image: url({{ asset('/image/collection-image-1.png') }})"></div>
