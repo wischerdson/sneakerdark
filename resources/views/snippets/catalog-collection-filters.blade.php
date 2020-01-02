@@ -21,6 +21,7 @@
 				</div>
 			</div>
 			<checkbox style="display: none;"></checkbox>
+			@{{ asd }}
 			<!-- <div class="filters-section" v-show="genderSection">
 				<div class="section-title">Пол</div>
 				<div class="section-body">

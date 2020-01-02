@@ -1,17 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import wishlist from './wishlist'
-import search from './search'
-import collection from './collection'
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
 	modules: {
-		wishlist,
-		search,
-		collection
+		wishlist: require('./wishlist').default,
+		search: require('./search').default,
+		collection: require('./collection').default,
+		localstorage: require('./_localstorage').default,
 	},
 	state: {
 		laradata: {},

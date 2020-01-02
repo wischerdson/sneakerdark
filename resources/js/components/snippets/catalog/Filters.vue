@@ -81,7 +81,7 @@
 
 			filters () {
 				return this.$store.getters.collection_filters
-			}
+			},
 
 			/*getFilters () {
 				const filters = this.$store.getters.collection_filters
@@ -99,6 +99,10 @@
 			brandSection () {
 				return !Object.keys(this.getFilters).length ? false : (this.getFilters.brand.length > 1 ? true : false)
 			}*/
+			asd () {
+				console.log(this.$store.getters.localstorage)
+				return this.$store.getters.localstorage
+			}
 		},
 		watch: {
 			/*'$store.getters.collection_filters' (value) {
@@ -128,18 +132,41 @@
 				//this.updateCatalog()
 			},
 			*/
-			appliedFilters: {
+			'$store.state.localstorage.appliedFilters': {
+				deep: true,
+				handler (value, oldValue) {
+					console.log(value)
+					//this.appliedFilters = value
+				}
+			},
+			'appliedFilters': {
 				deep: true,
 				handler (value, oldValue) {
 					clearTimeout(updateTimeout)
 					updateTimeout = setTimeout(() => {
 						this.update()
+						this.$store.commit('localstorage_set', {
+							localStorage,
+							name: `filters_conf_${this.$url.path()}`,
+							alias: 'appliedFilters',
+							value: this.appliedFilters
+						})
 					}, 700)
 				}
 			}
 		},
 		mounted () {
 			this.update()
+
+			this.$store.commit('localstorage_extract', {
+				localStorage,
+				name: `filters_conf_${this.$url.path()}`,
+				alias: 'appliedFilters',
+				default: this.appliedFilters
+			})
+
+			this.appliedFilters = this.$store.getters.localstorage.appliedFilters
+
 			/*const filtersJson = localStorage.getItem(`filters_conf_${this.$url.path()}`)
 
 			if (!filtersJson) {
