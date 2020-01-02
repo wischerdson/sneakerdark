@@ -9,12 +9,9 @@
 			<li class="product-item">
 				<a href="#">
 					<div class="picture-wrapper">
-						<button v-show="!inWishlist" class="add-to-wishlist-btn btn" @click.prevent="">
+						<button class="add-to-wishlist-btn btn" @click.prevent="">
 							<div class="tooltip">Удалить</div>
 							@include('svg.cross')
-						</button>
-						<button v-show="inWishlist" class="remove-from-wishlist-btn btn" @click.prevent="">
-							@include('svg.wishlist_filled')
 						</button>
 						<div class="square">
 							<div class="picture" :style="`background-image: url(https://bizoutmax.ru/image/data/products/18048/naushniki-jbl-1.jpg)`"></div>
