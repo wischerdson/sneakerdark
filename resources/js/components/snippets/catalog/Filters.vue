@@ -99,10 +99,7 @@
 			brandSection () {
 				return !Object.keys(this.getFilters).length ? false : (this.getFilters.brand.length > 1 ? true : false)
 			}*/
-			asd () {
-				console.log(this.$store.getters.localstorage)
-				return this.$store.getters.localstorage
-			}
+
 		},
 		watch: {
 			/*'$store.getters.collection_filters' (value) {
@@ -156,8 +153,6 @@
 			}
 		},
 		mounted () {
-			this.update()
-
 			this.$store.commit('localstorage_extract', {
 				localStorage,
 				name: `filters_conf_${this.$url.path()}`,

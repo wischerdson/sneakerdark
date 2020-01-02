@@ -1,17 +1,105 @@
 #section_footer {
 	width: 100%;
 	margin-top: 100px;
+	border-top: 1px solid #f6f5f8;
 
 	.desktop {
-		background-color: #0d0d0d;
-		color: white;
+		.top {
+			display: flex;
+			padding: 65px 10px;
+	
+			.column {
+				.column-title {
+					font-weight: 500;
+					margin-bottom: 10px;
+					text-transform: uppercase;
+				}
+				.link-list {
+					.link-item {
+						margin-top: 8px;
+
+						.link {
+							color: #717171;
+
+							&:hover {
+								color: black;
+							}
+						}
+					}
+				}
+				&:not(:first-child) {
+					margin-left: 67px;
+				}
+				&:last-child {
+					margin-left: auto;
+
+					.social-media {
+						display: flex;
+						justify-content: flex-end;
+						margin-top: 30px;
+						margin-right: 6px;
+
+						.social-media-link {
+							&:not(:last-child) {
+								margin-right: 20px;
+							}
+							svg {
+								height: 20px;
+								fill: gray;
+							}
+						}
+					}
+				}
+				.subscribe-mailing-list {
+					position: relative;
+
+					.form-control {
+						width: 345px;
+						border-radius: 99999px;
+						background-color: #efefef;
+						padding: 16px 20px;
+						border: none;
+					}
+					.btn {
+						position: absolute;
+						right: 7px;
+						top: 7px;
+						bottom: 7px;
+						background-color: @main-color;
+						border-radius: 99999px;
+						font-weight: 400;
+						padding: 10px 16px;
+					}
+				}
+			}
+
+			
+		}
+		.bottom {
+			padding: 10px;
+
+			.copyright {
+				text-align: center;
+				color: #979797;
+				font-weight: 400;
+			}
+		}
+	}
+}
+
+
+
+/* #section_footer {
+	width: 100%;
+	margin-top: 100px;
+	border-top: 1px solid #f6f5f8;
+
+	.desktop {
+		background-color: white;
 
 		.top {
 			display: flex;
-			padding: 65px 0;
-			max-width: 1400px;
-			width: 100%;
-			margin: 0 auto;
+			padding: 65px 10px;
 
 			.column {
 				.brand-logo {
@@ -97,25 +185,11 @@
 		}
 		.bottom {
 			padding: 10px;
-			background-color: #1d1d1d;
 
-			.inner {
-				display: flex;
-				max-width: 1400px;
-				margin: 0 auto;
-
-				& > * {
-					margin-right: 30px;
-					color: #535353;
-				}
-				a {
-					text-decoration: underline;
-
-					&:hover {
-						color: #969696;
-					}
-				}
+			.copyright {
+				text-align: center;
+				color: #979797;
 			}
 		}
 	}
-}
+} */
