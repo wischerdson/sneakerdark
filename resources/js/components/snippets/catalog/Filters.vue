@@ -15,9 +15,15 @@
 					category: [],
 					gender: [],
 					size: [],
-					brand: []
+					brand: [],
+					price: [0, 999999999],
+					sort: 1
 				},
-				firstRequest: true
+				firstRequest: true,
+				priceLimits: {
+					min: 0,
+					max: 0
+				}
 				/*filters: {
 					category: [],
 					gender: [],
@@ -28,26 +34,51 @@
 				sort: {},
 				filtersLoaded: false,
 				firstUpdate: true,
-				priceLimits: {
-					min: 0,
-					max: 0
-				}*/
+				*/
 			}
 		},
 		methods: {
 			update () {
+				this.$storage.set(sessionStorage, {
+					name: `filters_conf_${this.$url.path()}`,
+					value: this.appliedFilters
+				})
+
+				if (this.$url.params().page > 1 && !this.firstRequest) {
+					window.location.href = this.$url.setParams({page: 1})
+					return
+				}
+
 				this.$store.commit('collection_products', {})
 				this.$store.dispatch('collection_fetch', {
 					'api': this.$store.state.laradata['api.catalog'],
 					'params': {
 						'page': this.$url.params().page,
 						'filters': this.appliedFilters,
-						'sort': this.sort,
+						'sort': this.sort(this.appliedFilters.sort),
 						'attach_filter_list': this.firstRequest
 					}
 				})
 
 				this.firstRequest = false
+			},
+			sort (sort) {
+				sort = parseInt(sort)
+				let result = {}
+
+				switch (sort) {
+					case 1:
+						result = {column: 'created_at', mode: 'desc'};
+					break;
+					case 2:
+						result = {column: 'price', mode: 'asc'};
+					break;
+					case 3:
+						result = {column: 'price', mode: 'desc'};
+					break;
+				}
+
+				return result
 			}
 			/*saveFilters () {
 				let save = this.filters
@@ -57,10 +88,7 @@
 			updateCatalog () {
 				this.saveFilters()
 
-				if (this.$url.params().page > 1 & !this.firstUpdate) {
-					window.location.href = this.$url.setParams({page: 1})
-					return
-				}
+				
 
 				this.$store.commit('collection_products', {})
 
@@ -78,28 +106,9 @@
 			}*/
 		},
 		computed: {
-
 			filters () {
 				return this.$store.getters.collection_filters
-			},
-
-			/*getFilters () {
-				const filters = this.$store.getters.collection_filters
-				if (!Object.keys(filters).length)
-					return {}
-
-				return filters
-			},
-			genderSection () {
-				return !Object.keys(this.getFilters).length ? false : (this.getFilters.gender.length > 1 ? true : false)
-			},
-			sizeSection () {
-				return !Object.keys(this.getFilters).length ? false : (this.getFilters.size.length > 1 ? true : false)
-			},
-			brandSection () {
-				return !Object.keys(this.getFilters).length ? false : (this.getFilters.brand.length > 1 ? true : false)
-			}*/
-
+			}
 		},
 		watch: {
 			/*'$store.getters.collection_filters' (value) {
@@ -129,55 +138,31 @@
 				//this.updateCatalog()
 			},
 			*/
-			'$store.state.localstorage.appliedFilters': {
-				deep: true,
-				handler (value, oldValue) {
-					console.log(value)
-					//this.appliedFilters = value
-				}
+			'$store.getters.collection_sort' (value) {
+				this.appliedFilters.sort = value
 			},
-			'appliedFilters': {
+			'$store.getters.collection_priceRange' (value) {
+				this.priceLimits.min = value.min
+				this.priceLimits.max = value.max
+			},
+			appliedFilters: {
 				deep: true,
 				handler (value, oldValue) {
 					clearTimeout(updateTimeout)
 					updateTimeout = setTimeout(() => {
 						this.update()
-						this.$store.commit('localstorage_set', {
-							localStorage,
-							name: `filters_conf_${this.$url.path()}`,
-							alias: 'appliedFilters',
-							value: this.appliedFilters
-						})
 					}, 700)
 				}
 			}
 		},
 		mounted () {
-			this.$store.commit('localstorage_extract', {
-				localStorage,
+			const tmp = this.appliedFilters
+			this.appliedFilters = {}
+			this.appliedFilters = this.$storage.extract(sessionStorage, {
 				name: `filters_conf_${this.$url.path()}`,
-				alias: 'appliedFilters',
-				default: this.appliedFilters
+				default: tmp
 			})
-
-			this.appliedFilters = this.$store.getters.localstorage.appliedFilters
-
-			/*const filtersJson = localStorage.getItem(`filters_conf_${this.$url.path()}`)
-
-			if (!filtersJson) {
-				this.$store.state.sort = 1
-				this.updateCatalog()
-				return
-			}
-
-			const filters = JSON.parse(filtersJson)
-
-			this.filters.category = filters.category
-			this.filters.gender = filters.gender
-			this.filters.size = filters.size
-			this.filters.brand = filters.brand
-			this.filters.price = filters.price
-			this.$store.state.sort = parseInt(filters.sort)*/
+			this.$store.commit('collection_sort', this.appliedFilters.sort)
 		}
 	}
 

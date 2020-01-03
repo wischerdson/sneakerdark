@@ -8,7 +8,7 @@ export default new Vuex.Store({
 		wishlist: require('./wishlist').default,
 		search: require('./search').default,
 		collection: require('./collection').default,
-		localstorage: require('./_localstorage').default,
+		storage: require('./_storage').default,
 	},
 	state: {
 		laradata: {},

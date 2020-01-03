@@ -5,15 +5,16 @@
 				<div class="column">
 					<div class="column-title">Навигация</div>
 					<ul class="link-list">
-						<li class="link-item"><a href="#" class="link">Главная</a></li>
+						<li class="link-item"><a href="{{ route('home') }}" class="link">Главная</a></li>
+						<li class="link-item"><a href="{{ route('brands') }}" class="link">Бренды</a></li>
 						<li class="link-item"><a href="#" class="link">Отзывы</a></li>
 						<li class="link-item"><a href="#" class="link">Частые вопросы</a></li>
 						<li class="link-item"><a href="#" class="link">Таблицы размеров</a></li>
-						<li class="link-item"><a href="#" class="link">Обмен и возврат</a></li>
+						<li class="link-item"><a href="{{ route('legal.refund') }}" class="link">Обмен и возврат</a></li>
 					</ul>
 				</div>
 				<div class="column">
-					<div class="column-title">Сникердарк</div>
+					<div class="column-title">Sneakerdark</div>
 					<ul class="link-list">
 						
 						<li class="link-item"><a href="#" class="link">О нас</a></li>
@@ -39,7 +40,7 @@
 						<li class="link-item"><a href="#" class="link">Пользовательское соглашение</a></li>
 						<li class="link-item"><a href="#" class="link">Правила и условия использования</a></li>
 						<li class="link-item"><a href="#" class="link">Политика конфиденциальности</a></li>
-						<li class="link-item"><a href="#" class="link"><span class="online-dot"></span>Онлайн-чат с менеджером</a></li>
+						<li class="link-item"><a @click="$jivo.open" class="link"><span class="online-dot"></span>Онлайн-чат с менеджером</a></li>
 					</ul>
 				</div>
 				<div class="column">

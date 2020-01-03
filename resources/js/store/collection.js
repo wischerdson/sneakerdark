@@ -9,7 +9,8 @@ export default {
 		collection_firstLoad: true,
 		collection_wait: false,
 		collection_total: 0,
-		collection_totalSubject: 'товаров'
+		collection_totalSubject: 'товаров',
+		collection_sort: 1
 	},
 	mutations: {
 		collection_filters (state, payload) {
@@ -32,6 +33,9 @@ export default {
 		},
 		collection_totalSubject (state, payload) {
 			state.collection_totalSubject = payload
+		},
+		collection_sort (state, payload) {
+			state.collection_sort = payload
 		}
 	},
 	getters: {
@@ -55,6 +59,12 @@ export default {
 		},
 		collection_totalSubject (state) {
 			return state.collection_totalSubject
+		},
+		collection_priceRange (state) {
+			return state.collection_filters.price
+		},
+		collection_sort (state) {
+			return state.collection_sort
 		}
 	},
 	actions: {

@@ -10,18 +10,18 @@
 					<breadcrumb-item url="{{ route('home') }}">Главная</breadcrumb-item>
 					@foreach ($collectionsChain as $category)
 						@if ($loop->last)
-						<breadcrumb-item>{{ $category->title }}</breadcrumb-item>
+					<breadcrumb-item>{{ $category->title }}</breadcrumb-item>
 						@else
-						<breadcrumb-item url="{{ route('catalog', ['collection_id' => $category->id]) }}">{{ $category->title }}</breadcrumb-item>
+					<breadcrumb-item url="{{ route('catalog', ['collection_id' => $category->id]) }}">{{ $category->title }}</breadcrumb-item>
 						@endif
 					@endforeach
 				</breadcrumb>
 
 				<div class="sort">
 					Сортировать
-					<radio v-model="$store.state.sort" name="sort" value="1">по умолчанию</radio>
-					<radio v-model="$store.state.sort" name="sort" value="2">по возрастанию цены</radio>
-					<radio v-model="$store.state.sort" name="sort" value="3">по убыванию цены</radio>
+					<radio v-model="sort" name="sort" :value="1">по умолчанию</radio>
+					<radio v-model="sort" name="sort" :value="2">по возрастанию цены</radio>
+					<radio v-model="sort" name="sort" :value="3">по убыванию цены</radio>
 				</div>
 			</div>
 		</div>

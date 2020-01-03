@@ -21,6 +21,7 @@ class CollectionResource extends JsonResource
 	public function toArray($request)
 	{
 		$filters = json_decode($request->input('filters'));
+		$sort = json_decode($request->input('sort'));
 
 		$collectionsIds = Collection::find($this->id)->children;
 
@@ -93,7 +94,8 @@ class CollectionResource extends JsonResource
 		$products = Product::
 			whereIn('id', $productsIds)
 			->with(['pictures', 'sizes'])
-			->paginate(8 * 4, ['*'], 'page', $request->input('page'));
+			->orderBy($sort->column, $sort->mode)
+			->paginate(10 * 3, ['*'], 'page', $request->input('page'));
 
 		$pLinks = [];
 
@@ -109,6 +111,7 @@ class CollectionResource extends JsonResource
 			'total_subject' => smart_ending(count($productsIds), ['', 'а', 'ов'], 'товар'),
 			'products' => ProductResource::collection($products),
 			'filters' => $filterList,
+			'r' => $sort,
 			'pagination' => [
 				'current_page' => $products->currentPage(),
 				'has_more_pages' => $products->hasMorePages(),

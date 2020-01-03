@@ -3,13 +3,13 @@ export default {
 		wishlist: []
 	},
 	mutations: {
-		wishlistSet (state, payload) {
+		wishlist_set (state, payload) {
 			state.wishlist = payload
 		},
-		wishlistAdd (state, payload) {
+		wishlist_add (state, payload) {
 			state.wishlist.push(payload)
 		},
-		wishlistRemove (state, payload) {
+		wishlist_remove (state, payload) {
 			const index = state.wishlist.indexOf(payload)
 			if (index < 0)
 				return false

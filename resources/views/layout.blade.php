@@ -29,7 +29,7 @@
 	<meta property="og:description" content="{{ $description }}">
 	<meta property="og:image" content="{{ $ogImage }}">
 	
-	<link rel="icon" href="{{ asset('/favicon/icon.svg') }}" sizes="any" type="image/svg+xml"> 
+	<link rel="icon" href="{{ asset('/favicon/icon.svg') }}" sizes="any" type="image/svg+xml">
 	<link rel="icon" sizes="48x48" href="{{ asset('/favicon/icon-48.png') }}">
 	<link rel="icon" sizes="96x96" href="{{ asset('/favicon/icon-96.png') }}">
 	<link rel="icon" sizes="144x144" href="{{ asset('/favicon/icon-144.png') }}">

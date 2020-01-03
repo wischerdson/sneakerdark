@@ -4,7 +4,7 @@
 			<div class="overlay" @click="$store.commit('cartIsOpen', false)"></div>
 			<div class="box">
 				<div class="top">
-					<div class="title">Ваша корзина</div>
+					<div class="title">Корзина (@{{ Object.keys($store.getters.cart).length }})</div>
 					<div class="close" @click="$store.commit('cartIsOpen', false)">@include('svg.cross')</div>
 				</div>
 				<div class="content">

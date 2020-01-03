@@ -24,4 +24,5 @@ export default (app) => {
 	require('./jivo').default(app, inject)
 	require('./toasts').default(app, inject)
 	require('./error').default(app, inject)
+	require('./storage').default(app, inject)
 }

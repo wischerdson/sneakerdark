@@ -14,19 +14,19 @@
 					return []
 				}
 			},
-			'product-id': Number
+			'productId': Number
 		},
 		methods: {
 			addToWishlist () {
-				this.$store.commit('wishlistAdd', this.id)
+				this.$store.commit('wishlist_add', this.productId)
 			},
 			removeFromWishlist () {
-				this.$store.commit('wishlistRemove', this.id)
+				this.$store.commit('wishlist_remove', this.productId)
 			}
 		},
 		computed: {
 			inWishlist () {
-				return this.$store.getters.wishlist.indexOf(this.id) >= 0
+				return this.$store.getters.wishlist.indexOf(this.productId) >= 0
 			}
 		}
 	}

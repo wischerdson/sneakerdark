@@ -10,7 +10,16 @@
 		},
 		data () {
 			return {
-				delayRatio: null
+				delayRatio: null,
+				sort: 1
+			}
+		},
+		watch: {
+			sort (value) {
+				this.$store.commit('collection_sort', value)
+			},
+			'$store.getters.collection_sort' (value) {
+				this.sort = value
 			}
 		},
 		computed: {

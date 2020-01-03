@@ -4,22 +4,27 @@
 		template: '#template__layout',
 		watch: {
 			'$store.getters.wishlist' (value) {
-				localStorage.setItem('wishlist', JSON.stringify(value))
-			},
+				this.$storage.set(localStorage, {
+					name: 'wishlist',
+					value
+				})
+			}
+			/*
 			'$store.getters.cart' (value) {
 				localStorage.setItem('cart', JSON.stringify(value))
-			}
+			}*/
 		},
 		mounted () {
-			if (!localStorage.getItem('cart'))
+			this.$store.commit('wishlist_set', this.$storage.extract(localStorage, {
+				name: 'wishlist',
+				default: []
+			}))
+			
+			/*if (!localStorage.getItem('cart'))
 				localStorage.setItem('cart', '{}')
 			else
 				this.$store.commit('cart', JSON.parse(localStorage.getItem('cart')))
-
-			if (!localStorage.getItem('wishlist'))
-				localStorage.setItem('wishlist', '[]')
-			else
-				this.$store.commit('wishlistSet', JSON.parse(localStorage.getItem('wishlist')))
+*/
 		}
 	}
 

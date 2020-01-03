@@ -27,7 +27,7 @@
 	import noUiSlider from 'nouislider'
 
 	export default {
-		props: ['value', 'max', 'min', 'start'],
+		props: ['value', 'max', 'min', 'start', 'range'],
 		data () {
 			return {
 				price: {
@@ -38,10 +38,10 @@
 					min: 0,
 					max: 0
 				},
-				range: {
+				/*range: {
 					min: 0,
 					max: 0
-				},
+				},*/
 				noEmit: true
 			}
 		},
@@ -53,9 +53,10 @@
 			}
 		},
 		watch: {
-			range: {
+			/*range: {
 				deep: true,
 				handler ({min, max}) {
+					console.log(min)
 					if (max < min)
 						return
 					this.$refs.range.noUiSlider.updateOptions({
@@ -63,30 +64,27 @@
 					})
 					this.$refs.range.noUiSlider.set(this.start)
 				}
-			},
+			},*/
 			price: {
 				deep: true,
 				handler ({min, max}) {
-					if (this.noEmit) {
-						this.noEmit = false
-						return
-					}
 					this.$emit('input', [min, max])
 				}
 			},
-			min (value) {
+			/*min (value) {
+				console.log(value)
 				this.range.min = value
 			},
 			max (value) {
 				this.range.max = value
-			},
+			}*/
 		},
 		mounted () {
 			noUiSlider.create(this.$refs.range, {
-				start: [0, 1],
+				start: this.start,
 				range: {
-					min: 0,
-					max: 1
+					min: this.range.min,
+					max: this.range.max
 				},
 				step: 10,
 				connect: true
