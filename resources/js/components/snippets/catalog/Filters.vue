@@ -24,17 +24,6 @@
 					min: 0,
 					max: 0
 				}
-				/*filters: {
-					category: [],
-					gender: [],
-					size: [],
-					brand: [],
-					price: [0, 999999999]
-				},
-				sort: {},
-				filtersLoaded: false,
-				firstUpdate: true,
-				*/
 			}
 		},
 		methods: {
@@ -80,30 +69,6 @@
 
 				return result
 			}
-			/*saveFilters () {
-				let save = this.filters
-				save.sort = parseInt(this.$store.state.sort)
-				localStorage.setItem(`filters_conf_${this.$url.path()}`, JSON.stringify(save))
-			},
-			updateCatalog () {
-				this.saveFilters()
-
-				
-
-				this.$store.commit('collection_products', {})
-
-				this.$store.dispatch('collection_fetch', {
-					'api': this.$store.state.laradata['api.catalog'],
-					'params': {
-						'page': this.$url.params().page,
-						'filters': this.filters,
-						'sort': this.sort,
-						'attach_filter_list': this.firstUpdate
-					}
-				})
-
-				this.firstUpdate = false
-			}*/
 		},
 		computed: {
 			filters () {
@@ -111,33 +76,6 @@
 			}
 		},
 		watch: {
-			/*'$store.getters.collection_filters' (value) {
-				if (this.filtersLoaded)
-					return
-				
-				this.filtersLoaded = true
-				this.priceLimits.min = value.price[0]
-				this.priceLimits.max = value.price[1]
-			},
-			'$store.state.sort' (value) {
-				let sort = {}
-				value = parseInt(value)
-				switch (value) {
-					case 1:
-						sort = {column: 'created_at', mode: 'desc'};
-					break;
-					case 2:
-						sort = {column: 'price', mode: 'asc'};
-					break;
-					case 3:
-						sort = {column: 'price', mode: 'desc'};
-					break;
-				}
-
-				this.sort = sort
-				//this.updateCatalog()
-			},
-			*/
 			'$store.getters.collection_sort' (value) {
 				this.appliedFilters.sort = value
 			},

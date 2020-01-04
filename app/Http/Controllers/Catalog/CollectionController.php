@@ -17,8 +17,7 @@ class CollectionController extends \App\Http\Controllers\SiteController
 		$this->title = 'Коллекция - Sneakerdark';
 		$collection = Collection::find($collectionId);
 		$this->vars['collection'] = $collection;
-		$collections = $collection->children;
-		$this->vars['collectionsChain'] = Collection::find($collectionId)->chain;
+		$this->vars['collectionsChain'] = $collection->chain;
 
 		return $this->output();
 	}

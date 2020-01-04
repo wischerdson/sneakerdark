@@ -168,6 +168,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Wsn\XmlParser\XmlParserServiceProvider::class,
 
         /*
          * Application Service Providers...

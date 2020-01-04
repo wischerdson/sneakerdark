@@ -16,7 +16,6 @@
 				<div class="column">
 					<div class="column-title">Sneakerdark</div>
 					<ul class="link-list">
-						
 						<li class="link-item"><a href="#" class="link">О нас</a></li>
 						<li class="link-item"><a href="#" class="link">Новости</a></li>
 						<li class="link-item"><a href="#" class="link">Адреса магазинов</a></li>

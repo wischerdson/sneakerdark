@@ -1,0 +1,12 @@
+{
+    "name": "wsn/xml-parser",
+    "description": "A package to parse huge xml files",
+    "license": "MIT",
+    "require": {},
+    "version": "1.0.0",
+    "autoload": {
+    	"psr-4": {
+    		"Wsn\\XmlParser\\": ""
+    	}
+    }
+}

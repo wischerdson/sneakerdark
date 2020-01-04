@@ -73,7 +73,7 @@
 				<span>Поиск</span>
 			</button>
 			<a href="{{ route('wishlist') }}" class="btn wishlist">@include('svg.wishlist_filled')</a>
-			<a class="btn primary shopping-cart-btn" @click="$store.commit('cartIsOpen', true)">
+			<a class="btn primary shopping-cart-btn" @click="$store.commit('cart_open')">
 				@include('svg.shopping-bag')
 				<span>Корзина</span>
 			</a>

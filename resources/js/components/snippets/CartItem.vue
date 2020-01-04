@@ -26,8 +26,8 @@
 	export default {
 		props: ['title', 'color', 'size', 'picture', 'url', 'quantity', 'price', 'id'],
 		watch: {
-			quantity (newQuantity, oldQuantity) {
-				let cart = this.$store.getters.getCart()
+			/*quantity (newQuantity, oldQuantity) {
+				let cart = this.$store.getters.cart
 
 				const currentProduct = this.id + 'O' + this.size
 
@@ -42,7 +42,7 @@
 					delete cart[currentProduct]
 
 				this.$store.commit('cart', cart)
-			}
+			}*/
 		}
 	}
 

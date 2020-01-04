@@ -1,10 +1,6 @@
 <template id="template__catalog_product">
-	<div class="container" id="template_shop_product">
-		<input type="hidden" name="product_id" value="{{ $product->id }}">
-		<input type="hidden" name="product_link" value="{{ route('catalog.product', ['product_id' => $product->id]) }}">
-		<input type="hidden" name="product_title" value="{{ $product->title }}">
-		<input type="hidden" name="product_price" value="{{ $product->price }}">
-		<input type="hidden" name="product_picture" value="{{ $product->pictures[0]->src }}">
+	<div class="container" id="template_catalog_product">
+		<laradata name="productId">{{ $product->id }}</laradata>
 		<div class="top">
 			<div class="left">
 				<div class="sticky">
@@ -43,8 +39,8 @@
 					<div>
 						<breadcrumb>
 							<breadcrumb-item url="{{ route('home') }}">Главная</breadcrumb-item>
-							@foreach ($categoriesChain as $category)
-							<breadcrumb-item url="#">{{ $category->name }}</breadcrumb-item>
+							@foreach ($collectionsChain as $collection)
+							<breadcrumb-item url="#">{{ $collection->title }}</breadcrumb-item>
 							@endforeach
 							<breadcrumb-item>{{ $product->title }}</breadcrumb-item>
 						</breadcrumb>
@@ -91,11 +87,11 @@
 							<input
 								type="radio"
 								name="product_size"
-								id="size_{{ $size->bizoutmax_id }}"
-								value="{{ $size->size }}"
+								id="size_{{ $size->supplier_id }}"
+								value="{{ $size->id }}"
 								v-model="product.size"
 							>
-							<label for="size_{{ $size->bizoutmax_id }}">
+							<label for="size_{{ $size->supplier_id }}">
 								{{ $size->size }}
 							</label>
 							@if ($size->instock === 1)

@@ -95,31 +95,13 @@
 				if (this.sizeIsNotSelect)
 					return
 
-				let productId = document.querySelector('input[name="product_id"]').value
+				console.log(this.product.size)
 
-				const currentProduct = {
-					id: productId,
-					title: document.querySelector('input[name="product_title"]').value,
-					picture: document.querySelector('input[name="product_picture"]').value,
-					price: document.querySelector('input[name="product_price"]').value,
-					link: document.querySelector('input[name="product_link"]').value,
-					size: this.product.size,
-					quantity: 1
-				}
-				
-				const colorEl = document.querySelector('input[name="product_color"]')
-				if (colorEl)
-					currentProduct.color = colorEl.value
-
-				let cart = this.$store.getters.getCart()
-				productId += 'O' + this.product.size
-				if (cart.hasOwnProperty(productId))
-					cart[productId].quantity++
-				else
-					cart[productId] = currentProduct
-
-				this.$store.commit('cart', cart)
-				this.$store.commit('cartIsOpen', true)
+				this.$store.commit('cart_add', {
+					id: this.$store.state.laradata.productId,
+					size: this.product.size
+				})
+				this.$store.commit('cart_open')
 			}
 		},
 		mounted () {

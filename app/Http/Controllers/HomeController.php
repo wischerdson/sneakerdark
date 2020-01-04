@@ -17,4 +17,8 @@ class HomeController extends SiteController
 	public function badbrowser() {
 		return view('templates.badbrowser');
 	}
+
+	public function test() {
+		return 'Hello world';
+	}
 }
