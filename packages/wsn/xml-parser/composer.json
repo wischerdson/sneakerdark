@@ -7,6 +7,19 @@
     "autoload": {
     	"psr-4": {
     		"Wsn\\XmlParser\\": ""
-    	}
+    	},
+        "classmap": [
+            "src"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Wsn\\XmlParser\\XmlParserServiceProvider"
+            ],
+            "aliases": {
+                "XmlParser": "Wsn\\XmlParser\\Facade"
+            }
+        }
     }
 }

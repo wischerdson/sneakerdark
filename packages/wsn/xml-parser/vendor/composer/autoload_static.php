@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit99e0dcb1700c4018dc4e0b79cc7e33f8
+class ComposerStaticInitcac79ed2926dafd90d03ecc920f2058c
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -20,11 +20,19 @@ class ComposerStaticInit99e0dcb1700c4018dc4e0b79cc7e33f8
         ),
     );
 
+    public static $classMap = array (
+        'Wsn\\XmlParser\\Document' => __DIR__ . '/../..' . '/src/Document.php',
+        'Wsn\\XmlParser\\Facade' => __DIR__ . '/../..' . '/src/Facade.php',
+        'Wsn\\XmlParser\\Reader' => __DIR__ . '/../..' . '/src/Reader.php',
+        'Wsn\\XmlParser\\XmlParserServiceProvider' => __DIR__ . '/../..' . '/src/XmlParserServiceProvider.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit99e0dcb1700c4018dc4e0b79cc7e33f8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit99e0dcb1700c4018dc4e0b79cc7e33f8::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcac79ed2926dafd90d03ecc920f2058c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcac79ed2926dafd90d03ecc920f2058c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcac79ed2926dafd90d03ecc920f2058c::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -6,4 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Wsn\\XmlParser\\Document' => $baseDir . '/src/Document.php',
+    'Wsn\\XmlParser\\Facade' => $baseDir . '/src/Facade.php',
+    'Wsn\\XmlParser\\Reader' => $baseDir . '/src/Reader.php',
+    'Wsn\\XmlParser\\XmlParserServiceProvider' => $baseDir . '/src/XmlParserServiceProvider.php',
 );

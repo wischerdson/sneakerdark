@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Storage;
 use App;
 
-use App\Helpers\Contracts\Bizoutmax;
+use XmlParser;
 
 class Catalog_Update extends Command
 {
@@ -42,7 +42,70 @@ class Catalog_Update extends Command
 
 	public function handle()
 	{
-		$this->comment('Yml downloading...');
+
+		/*$xml = XmlParser::download(
+			config('app.import_link'),
+			storage_path('app/sneakerdark/').'vk.txt'
+		);*/
+
+		$xml = XmlParser::load(storage_path('app/sneakerdark/').'import.xml');
+		$xml->parse([
+			[
+				'trigger' => 'category',
+				'pattern' => [
+					'id' => ':id',
+					'parentId' => ':parentId',
+					'title' => 'category',
+				],
+				'callback' => function ($data) {
+
+				}
+			],
+			[
+				'trigger' => 'offer',
+				'pattern' => [
+					'article' => 'vendorcode',
+					'price' => 'price',
+					'categoryId' => 'categoryid',
+					'pictures' => 'picture',
+					'title' => 'name',
+					'vendor' => 'vendor',
+					'model' => 'model',
+					'description' => 'description',
+					'instock' => 'outlets.outlet:instock',
+					'attributes' => [
+						[
+							'name' => 'param:name',
+							'unit' => 'param:unit',
+							'value' => 'param'
+						]
+					]
+				],
+				'callback' => function ($data) {
+
+				}
+			],
+			[
+				'trigger' => 'offer',
+				'pattern' => [
+					'attributes' => [
+						[
+							'name' => 'param:name',
+							'unit' => 'param:unit',
+							'value' => 'param'
+						]
+					]
+				],
+				'callback' => function ($data) {
+
+				}
+			]
+		]);
+
+		//dd($xml);
+
+
+		/*$this->comment('Yml downloading...');
 		$sneakerdarkImport = App::make(App\Helpers\SneakerdarkImport::class);
 
 		$hashFileExists = Storage::disk('sneakerdark')->exists('last_hash.txt');
@@ -66,6 +129,6 @@ class Catalog_Update extends Command
 		];
 
 		$this->comment('Importing...');
-		$sneakerdarkImport->start($a);
+		$sneakerdarkImport->start($a);*/
 	}
 }

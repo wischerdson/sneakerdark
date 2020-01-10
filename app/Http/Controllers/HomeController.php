@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App;
+
+use XmlParser;
 
 class HomeController extends SiteController
 {
@@ -18,7 +19,61 @@ class HomeController extends SiteController
 		return view('templates.badbrowser');
 	}
 
+	
 	public function test() {
-		return 'Hello world';
+		$xml = XmlParser::load(storage_path('app/sneakerdark/').'import.xml');
+		$xml->parse([
+			[
+				'trigger' => 'category',
+				'pattern' => [
+					'id' => ':id',
+					'parentId' => ':parentId',
+					'title' => 'category',
+				],
+				'callback' => function ($data) {
+
+				}
+			],
+			[
+				'trigger' => 'offer',
+				'pattern' => [
+					'article' => 'vendorcode',
+					'price' => 'price',
+					'categoryId' => 'categoryid',
+					'pictures' => 'picture',
+					'title' => 'name',
+					'vendor' => 'vendor',
+					'model' => 'model',
+					'description' => 'description',
+					'instock' => 'outlets.outlet:instock',
+					'attributes' => [
+						[
+							'name' => 'param:name',
+							'unit' => 'param:unit',
+							'value' => 'param'
+						]
+					]
+				],
+				'callback' => function ($data) {
+
+				}
+			],
+			[
+				'trigger' => 'offer',
+				'pattern' => [
+					'attributes' => [
+						[
+							'name' => 'param:name',
+							'unit' => 'param:unit',
+							'value' => 'param'
+						]
+					]
+				],
+				'callback' => function ($data) {
+
+				}
+			]
+		]);
+		return;
 	}
 }
