@@ -4,95 +4,80 @@ namespace Wsn\XmlParser;
 
 class Document
 {
-	protected $document = '';
-	private $oldDepth = 1;
-	private $depth = 0;
-	private $parentsIds = [];
-	private $triggers = [];
-	private $currentElementId = 0;
-	private $elementsIds = [0];
-	private $elements = [];
+	private $reader;
+	private $callbackStack = [];
+	private $originals = [];
+	private $stack = [];
+
+	public function __call($name, $args)
+	{
+		$trigger = preg_replace('/parse/i', '', $name);
+		$trigger = strtolower($trigger);
+
+	}
 
 	public function load($file)
 	{
-		$this->document = $file;
+		$this->reader = new \XMLReader();
+		$this->reader->open($this->file);
 		return $this;
 	}
 
-	public function download($from, $to, $progressCallback = null)
+	public function start()
 	{
-		$file = fopen($to, 'w');
-		fwrite($file, '');
+		while ($this->reader->read()) {
+			if ($this->reader->nodeType != \XMLReader::ELEMENT)
+				continue;
 
-		$curl = curl_init($from);
-		curl_setopt($curl, CURLOPT_FILE, $file);
-		if (!is_null($progressCallback)) {
-			curl_setopt($curl, CURLOPT_NOPROGRESS, false);
-			curl_setopt($curl, CURLOPT_PROGRESSFUNCTION, $progressCallback);
+			$tagName = strtolower($this->reader->localName);
+
+			if (array_key_exists($tagName, $this->callbackStack)) {
+				foreach ($this->callbackStack[$tagName] as $value) {
+					$parsed = $this->converter($value[0]);
+					call_user_func($value[1], $parsed);
+				}
+			}
 		}
-		curl_exec($curl);
-		curl_close($curl);
-		fclose($file);
-
-		$this->load($to);
-
-		return hash_file('md5', $to);
 	}
 
-	public function parse($patterns)
+	private function converter($pattern)
 	{
-		foreach ($patterns as $pattern) {
-			$pattern = (object) $pattern;
-			$this->triggers[$pattern->trigger][] = $pattern->callback;
+		$result = [];
+		$nextRead = [];
+		$parentElement = '';
+
+		foreach ($pattern as $key => $value) {
+			if (strtolower($value) == strtolower($parentElement.$this->reader->localName)) {
+				$nextRead[] = $key;
+			}
+			preg_match('/^'.$parentElement.':(.*)/m', $value, $matches);
+			if (!empty($matches)) {
+				$result[$key] = $this->reader->getAttribute($matches[1]);
+			}
 		}
 
-		$xmlReader = new Reader($this->document);
-		$xmlReader->start(
-			__CLASS__,
-			'startElement',
-			'endElement',
-			'dataHandler'
-		);
-	}
-
-	public function startElement($parser, $tagName, $attrs)
-	{
-		$id = end($this->elementsIds) + 1;
-		$this->elementsIds[] = $id;
-		$this->depth++;
-		if (!array_key_exists($this->depth, $this->parentsIds)) {
-			$this->parentsIds[$this->depth] = $id - 1;
-		}
-		if ($this->depth < $this->oldDepth) {
-			$this->parentsIds[$this->depth] = $id - 1;
+		$this->reader->read();
+		if ($reader->nodeType == \XMLReader::TEXT) {
+			foreach ($nextRead as $value) {
+				$result[$value] = $this->reader->value;
+			}
 		}
 
-		print $id .' -- '. $this->parentsIds[$this->depth] .' -- '. $tagName .' -- '. $this->depth."\n";
-		/*$currentElementId = end($this->elementsIds) + 1;
-		$this->elementsIds[] = $this->currentElement;
-		$this->elements[$currentElementId] = [
-			'tagName' => $tagName,
-			'attrs' => $attrs
-		];
-
-
-		[
-			['id' => 1, 'tagName' => 'yml_catalog', 'attrs' => ['date' => '2020-01-06 19:02'], 'parentId' => null, 'data' => null],
-			['id' => 2, 'tagName' => 'shop', 'attrs' => [], 'parentId' => 1, 'data' => null],
-			['id' => 3, 'tagName' => 'company', 'attrs' => [], 'parentId' => 1, 'data' => null],
-			['id' => 4, 'tagName' => 'url', 'attrs' => [], 'parentId' => 1, 'data' => 'http://bizoutmax.ru/'],
-		]*/
-
-		$this->oldDepth = $this->depth;
+		return $result;
 	}
 
-	public function endElement($parser, $tagName)
+	private function event()
 	{
-		$this->depth--;
+
 	}
 
-	public function dataHandler($parser, $data)
+	private function getAttrubute()
 	{
-		
+
+	}
+
+	private function getText()
+	{
+
 	}
 }

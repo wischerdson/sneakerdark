@@ -33,9 +33,10 @@
     29 => 'App\\Providers\\AuthServiceProvider',
     30 => 'App\\Providers\\EventServiceProvider',
     31 => 'App\\Providers\\RouteServiceProvider',
-    32 => 'App\\Providers\\SmartEndingServiceProvider',
-    33 => 'App\\Providers\\SneakerdarkImportServiceProvider',
-    34 => 'App\\Providers\\XmlParserServiceProvider',
+    32 => 'App\\Providers\\SneakerdarkImportServiceProvider',
+    33 => 'App\\Providers\\XmlParserServiceProvider',
+    34 => 'App\\Providers\\SmartEndingServiceProvider',
+    35 => 'App\\Providers\\DownloadServiceProvider',
   ),
   'eager' => 
   array (
@@ -59,9 +60,10 @@
     17 => 'App\\Providers\\AuthServiceProvider',
     18 => 'App\\Providers\\EventServiceProvider',
     19 => 'App\\Providers\\RouteServiceProvider',
-    20 => 'App\\Providers\\SmartEndingServiceProvider',
-    21 => 'App\\Providers\\SneakerdarkImportServiceProvider',
-    22 => 'App\\Providers\\XmlParserServiceProvider',
+    20 => 'App\\Providers\\SneakerdarkImportServiceProvider',
+    21 => 'App\\Providers\\XmlParserServiceProvider',
+    22 => 'App\\Providers\\SmartEndingServiceProvider',
+    23 => 'App\\Providers\\DownloadServiceProvider',
   ),
   'deferred' => 
   array (

@@ -42,26 +42,37 @@ class Catalog_Update extends Command
 
 	public function handle()
 	{
-
-		/*$xml = XmlParser::download(
-			config('app.import_link'),
-			storage_path('app/sneakerdark/').'vk.txt'
-		);*/
+		// downloadFile(config('app.import_link'), storage_path('app/sneakerdark/').'bizoutmax.xml');
 
 		$xml = XmlParser::load(storage_path('app/sneakerdark/').'import.xml');
-		$xml->parse([
-			[
-				'trigger' => 'category',
-				'pattern' => [
-					'id' => ':id',
-					'parentId' => ':parentId',
-					'title' => 'category',
-				],
-				'callback' => function ($data) {
 
-				}
-			],
-			[
+		$xml->parseCategory([
+			'id' => ':id',
+			'parentId' => ':parentId',
+			'title' => 'category'
+		], function ($data) {
+			dump($data);
+		});
+
+		$xml->start();
+
+
+		/*
+
+		
+
+		$xml->parseCategory([
+			'alternative_id' => ':id',
+			'alternative_parentId' => ':parentId',
+			'alternative_title' => 'category'
+		], function ($data) {
+			dump($data);
+		});*/
+
+
+
+		
+/*			[
 				'trigger' => 'offer',
 				'pattern' => [
 					'article' => 'vendorcode',
@@ -99,8 +110,8 @@ class Catalog_Update extends Command
 				'callback' => function ($data) {
 
 				}
-			]
-		]);
+			]*/
+		//]);
 
 		//dd($xml);
 

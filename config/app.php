@@ -178,9 +178,14 @@ return [
 		// App\Providers\BroadcastServiceProvider::class,
 		App\Providers\EventServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
-		App\Providers\SmartEndingServiceProvider::class,
 		App\Providers\SneakerdarkImportServiceProvider::class,
-		App\Providers\XmlParserServiceProvider::class
+		App\Providers\XmlParserServiceProvider::class,
+
+		/*
+		 * Application helpers
+		 */
+		App\Providers\SmartEndingServiceProvider::class,
+		App\Providers\DownloadServiceProvider::class,
 	],
 
 	/*
