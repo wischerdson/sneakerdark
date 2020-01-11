@@ -45,16 +45,29 @@ class Catalog_Update extends Command
 		// downloadFile(config('app.import_link'), storage_path('app/sneakerdark/').'bizoutmax.xml');
 
 		$xml = XmlParser::load(storage_path('app/sneakerdark/').'import.xml');
+		//$xml = XmlParser::load(config('app.import_link'));
 
-		$xml->parseCategory([
-			'id' => ':id',
-			'parentId' => ':parentId',
-			'title' => 'category'
-		], function ($data) {
-			dump($data);
+		$increment = 1;
+
+		$xml->parseOffer(function ($data) use (&$increment) {
+			print $increment."\n";
+			$increment++;
+		});
+		$xml->parseOffer(function ($data) {
+			
 		});
 
 		$xml->start();
+
+		/*$xml->parseCategory([
+			'id' => ':id',
+			'parentId' => ':parentId',
+			'title' => ':id'
+		], function ($data) {
+			dump($data);
+		});*/
+
+		//$xml->start();
 
 
 		/*
