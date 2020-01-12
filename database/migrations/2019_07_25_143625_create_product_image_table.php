@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePicturesTable extends Migration
+class CreateImageTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,12 +13,15 @@ class CreatePicturesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('pictures', function (Blueprint $table) {
-			$table->bigIncrements('id');
-			$table->bigInteger('product_id')->unsigned();
+		Schema::create('image', function (Blueprint $table) {
+			$table->increments('id');
+			$table->integer('product_id')->unsigned();
 			$table->string('src');
+			$table->string('supplier_src');
+			$table->integer('created_at')->unsigned();
+			$table->integer('updated_at')->unsigned();
 
-			$table->foreign('product_id')->references('id')->on('products');
+			$table->foreign('product_id')->references('id')->on('product');
 		});
 	}
 

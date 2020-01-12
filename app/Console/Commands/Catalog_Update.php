@@ -50,8 +50,7 @@ class Catalog_Update extends Command
 		$increment = 1;
 
 		$xml->parseOffer(function ($data) use (&$increment) {
-			print $increment."\n";
-			$increment++;
+			dump($data);
 		});
 		$xml->parseOffer(function ($data) {
 			
