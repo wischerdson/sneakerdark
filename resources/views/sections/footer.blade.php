@@ -1,6 +1,52 @@
 <template id="template__section_footer">
 	<footer id="section_footer">
 		<div class="desktop">
+			<div class="pictured-items-container container large">
+				<a class="pictured-item square" href="#">
+					<div>
+						<div class="image" style="background-image: url({{ asset('image/footer/footer-card-1.jpg') }})"></div>
+						<div class="overlay"></div>
+						<div class="icon">@include('svg.footer-card-1')</div>
+						<div class="bottom-text">
+							Онлайн-поддержка
+							@include('svg.arrow-right')
+						</div>
+					</div>
+				</a>
+				<a class="pictured-item square" href="#">
+					<div>
+						<div class="image" style="background-image: url({{ asset('image/footer/footer-card-2.jpg') }})"></div>
+						<div class="overlay"></div>
+						<div class="icon" style="transform: scale(1.1);">@include('svg.footer-card-2')</div>
+						<div class="bottom-text">
+							Отзывы
+							@include('svg.arrow-right')
+						</div>
+					</div>
+				</a>
+				<a class="pictured-item square" href="#">
+					<div>
+						<div class="image" style="background-image: url({{ asset('image/footer/footer-card-3.jpg') }})"></div>
+						<div class="overlay"></div>
+						<div class="icon">@include('svg.footer-card-3')</div>
+						<div class="bottom-text">
+							Каталог
+							@include('svg.arrow-right')
+						</div>
+					</div>
+				</a>
+				<a class="pictured-item square" href="#">
+					<div>
+						<div class="image" style="background-image: url({{ asset('image/footer/footer-card-4.jpg') }})"></div>
+						<div class="overlay"></div>
+						<div class="icon">@include('svg.footer-card-4')</div>
+						<div class="bottom-text">
+							Новости
+							@include('svg.arrow-right')
+						</div>
+					</div>
+				</a>
+			</div>
 			<div class="top container large">
 				<div class="column">
 					<div class="column-title">Навигация</div>

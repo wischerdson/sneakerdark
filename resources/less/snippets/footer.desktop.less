@@ -1,0 +1,142 @@
+.desktop {
+	.pictured-items-container {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-gap: 30px;
+		padding-top: 60px;
+
+		.pictured-item {
+			border-radius: 12px;
+			position: relative;
+			overflow: hidden;
+
+			.image, .overlay, .icon, .bottom-text {
+				.absolutely-covered;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.image {
+				z-index: 1;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				transition: transform ease-in-out 1s;
+			}
+			.overlay {
+				z-index: 2;
+				background-color: fade(#290086, 30%);
+				transition: background-color ease-in-out .5s;
+			}
+			.icon {
+				z-index: 3;
+
+				svg {
+					fill: white;
+					height: 50px;
+				}
+			}
+			.bottom-text {
+				top: initial;
+				z-index: 4;
+				color: white;
+				justify-content: space-between;
+				font-size: 1.3rem;
+				font-weight: 400;
+				padding: 22px;
+
+				svg {
+					fill: white;
+					height: 15px;
+				}
+			}
+			&:hover {
+				.image {
+					transform: scale(1.1);
+				}
+				.overlay {
+					background-color: fade(#290086, 40%);
+				}
+			}
+		}
+	}
+	.top {
+		display: flex;
+		padding: 65px 10px;
+
+		.column {
+			.column-title {
+				font-weight: 500;
+				margin-bottom: 10px;
+				text-transform: uppercase;
+			}
+			.link-list {
+				.link-item {
+					margin-top: 8px;
+
+					.link {
+						color: #717171;
+						cursor: pointer;
+
+						&:hover {
+							color: black;
+						}
+					}
+				}
+			}
+			&:not(:first-child) {
+				margin-left: 67px;
+			}
+			&:last-child {
+				margin-left: auto;
+
+				.social-media {
+					display: flex;
+					justify-content: flex-end;
+					margin-top: 30px;
+					margin-right: 6px;
+
+					.social-media-link {
+						&:not(:last-child) {
+							margin-right: 20px;
+						}
+						svg {
+							height: 20px;
+							fill: gray;
+						}
+					}
+				}
+			}
+			.subscribe-mailing-list {
+				position: relative;
+
+				.form-control {
+					width: 345px;
+					border-radius: 99999px;
+					background-color: #efefef;
+					padding: 16px 20px;
+					border: none;
+				}
+				.btn {
+					position: absolute;
+					right: 7px;
+					top: 7px;
+					bottom: 7px;
+					background-color: @main-color;
+					border-radius: 99999px;
+					font-weight: 400;
+					padding: 10px 16px;
+				}
+			}
+		}
+	}
+	.bottom {
+		padding: 10px;
+
+		.copyright {
+			text-align: center;
+			color: #979797;
+			font-weight: 400;
+		}
+	}
+}
