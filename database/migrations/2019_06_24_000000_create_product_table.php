@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductsTable extends Migration
+class CreateProductTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -28,7 +28,7 @@ class CreateProductsTable extends Migration
 			$table->integer('minimum')->unsigned()->default(1);
 			$table->integer('created_at')->unsigned();
 			$table->integer('updated_at')->unsigned();
-			$table->boolean('visible');
+			$table->boolean('visible')->default(1);
 
 			$table->foreign('collection_id')->references('id')->on('collection');
 		});

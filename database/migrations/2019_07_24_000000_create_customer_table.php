@@ -20,8 +20,8 @@ class CreateCustomerTable extends Migration
 			$table->string('email', 96);
 			$table->text('password');
 			$table->string('phone', 15);
-			$table->integer('created_at');
-			$table->integer('updated_at');
+			$table->integer('created_at')->unsigned();
+			$table->integer('updated_at')->unsigned();
 		});
 	}
 

@@ -4,12 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Parameter extends Model
+class ProductAttribute extends Model
 {
-    protected $table = 'parameters';
+    protected $table = 'product_attribute';
 	protected $guarded = [];
-	protected $primaryKey = 'id';
-	public $timestamps = false;
+	protected $timestamps = false;
 
 	public function product() {
 		return $this->belongsTo('App\Product');

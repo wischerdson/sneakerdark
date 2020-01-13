@@ -21,6 +21,8 @@ class CreateFeedbackTable extends Migration
 			$table->text('message');
 			$table->string('ip');
 			$table->integer('created_at')->unsigned();
+
+			$table->foreign('customer_id')->references('id')->on('customer');
 		});
 	}
 

@@ -3,34 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
-	protected $table = 'products';
+	protected $table = 'product';
 	protected $guarded = [];
-	public $timestamps = false;
+	protected $timestamps = false;
 
-
-	protected static function boot() {
-		parent::boot();
-
-		static::addGlobalScope('order', function (Builder $builder) {
-			$builder->orderBy('created_at', 'desc');
-		});
+	public function attributes() {
+		return $this->hasMany('App\ProductAttribute');
 	}
-
-
-	public function collection() {
-		return $this->belongsTo('App\Collection', 'collection_id', 'id');
+	public function descriptions() {
+		return $this->hasMany('App\ProductDescription');
 	}
-	public function parameters() {
-		return $this->hasMany('App\Parameter');
+	public function images() {
+		return $this->hasMany('App\ProductImage');
 	}
-	public function pictures() {
-		return $this->hasMany('App\Picture');
-	}
-	public function sizes() {
-		return $this->hasMany('App\Size', 'product_id', 'id');
+	public function options() {
+		return $this->hasMany('App\ProductOption');
 	}
 }

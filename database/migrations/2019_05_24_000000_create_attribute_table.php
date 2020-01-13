@@ -15,7 +15,7 @@ class CreateAttributeTable extends Migration
 	{
 		Schema::create('attribute', function (Blueprint $table) {
 			$table->increments('id');
-			$table->tinyInteger('sort_order');
+			$table->tinyInteger('sort_order')->unsigned();
 		});
 	}
 

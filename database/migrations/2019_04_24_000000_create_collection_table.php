@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCollectionsTable extends Migration
+class CreateCollectionTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -18,6 +18,8 @@ class CreateCollectionsTable extends Migration
 			$table->integer('parent_id')->unsigned()->nullable();
 			$table->integer('updated_at')->unsigned();
 			$table->integer('created_at')->unsigned();
+
+			//$table->foreign('parent_id')->references('id')->on('collection');
 		});
 	}
 

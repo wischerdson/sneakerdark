@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Collection extends Model
+class Attribute extends Model
 {
-    protected $table = 'collection';
+    protected $table = 'attribute';
 	protected $guarded = [];
 	protected $timestamps = false;
 
 	public function descriptions() {
-		return $this->hasMany('App\CollectionDescription');
+		return $this->hasMany('App\AttributeDescription');
 	}
 }
