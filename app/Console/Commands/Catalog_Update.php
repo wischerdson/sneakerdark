@@ -8,6 +8,9 @@ use App;
 
 use XmlParser;
 
+use App\Collection;
+use App\CollectionDescription;
+
 class Catalog_Update extends Command
 {
 	/**
@@ -40,21 +43,61 @@ class Catalog_Update extends Command
 	 * @return mixed
 	 */
 
+	private function insertData($model, $data, $forceInsert = false) {
+		if (count($data) < 200 and !$forceInsert)
+			return false;
+
+		$model::insert($data);
+		return true;
+	}
+
 	public function handle()
 	{
-		// downloadFile(config('app.import_link'), storage_path('app/sneakerdark/').'bizoutmax.xml');
+		//downloadFile(config('app.import_link'), storage_path('app/sneakerdark/').'import_1.xml');
+		//downloadFile('https://sportomax.com/wa-data/public/shop/plugins/ymlexport/document.xml', storage_path('app/sneakerdark/').'import_1.xml');
 
 		$xml = XmlParser::load(storage_path('app/sneakerdark/').'import.xml');
-		//$xml = XmlParser::load(config('app.import_link'));
 
-		$increment = 1;
+		$collection = [];
+		$collectionDescription = [];
 
-		$xml->parseOffer(function ($data) use (&$increment) {
+		$xml->parseCategory([
+			'id' => 'category:id',
+			'parent_id' => ':parentId',
+			'name' => 'category',
+			'a' => [
+				'hehe' => ':id'
+			]
+		], function ($data) {
 			dump($data);
 		});
+
+		/*$xml->parseCategory(function ($data) use (&$collection, &$collectionDescription) {
+			dump((int) $data['id']);
+			$collection[] = [
+				'id' => (int) $data['id'],
+				'parent_id' => (int) $data['parentId'],
+				'created_at' => time(),
+				'updated_at' => time()
+			];
+			$collectionDescription[] = [
+				'collection_id' => (int) $data['id'],
+				'name' => (string) $data[0],
+				'meta_title' => (string) $data[0]
+			];
+
+			if ($this->insertData(Collection::class, $collection))
+				$collection = [];
+			if ($this->insertData(CollectionDescription::class, $collectionDescription))
+				$collectionDescription = [];
+		});
+
 		$xml->parseOffer(function ($data) {
 			
 		});
+		$xml->parseOffer(function ($data) {
+			
+		});*/
 
 		$xml->start();
 
@@ -71,8 +114,6 @@ class Catalog_Update extends Command
 
 		/*
 
-		
-
 		$xml->parseCategory([
 			'alternative_id' => ':id',
 			'alternative_parentId' => ':parentId',
@@ -80,9 +121,6 @@ class Catalog_Update extends Command
 		], function ($data) {
 			dump($data);
 		});*/
-
-
-
 		
 /*			[
 				'trigger' => 'offer',

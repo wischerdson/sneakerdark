@@ -3,23 +3,56 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Product extends Model
 {
+	use Sluggable;
+
 	protected $table = 'product';
 	protected $guarded = [];
-	protected $timestamps = false;
+	public $timestamps = false;
 
-	public function attributes() {
+	public function attributes()
+	{
 		return $this->hasMany('App\ProductAttribute');
 	}
-	public function descriptions() {
+	public function descriptions()
+	{
 		return $this->hasMany('App\ProductDescription');
 	}
-	public function images() {
+	public function images()
+	{
 		return $this->hasMany('App\ProductImage');
 	}
-	public function options() {
+	public function options()
+	{
 		return $this->hasMany('App\ProductOption');
+	}
+
+	/**
+	 * Return the sluggable configuration array for this model.
+	 *
+	 * @return array
+	 */
+	public function sluggable()
+	{
+		return [
+			'slug' => [
+				'source' => 'title'
+			]
+		];
+	}
+
+	public static function boot()
+	{
+		parent::boot();
+		self::creating(function ($model) {
+			$model->created_at = time();
+			$model->updated_at = time();
+		});
+		self::updating(function($model) {
+			$model->updated_at = time();
+		});
 	}
 }

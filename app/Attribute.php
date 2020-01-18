@@ -8,7 +8,7 @@ class Attribute extends Model
 {
     protected $table = 'attribute';
 	protected $guarded = [];
-	protected $timestamps = false;
+	public $timestamps = false;
 
 	public function descriptions() {
 		return $this->hasMany('App\AttributeDescription');

@@ -169,6 +169,7 @@ return [
 		 * Package Service Providers...
 		 */
 		Wsn\XmlParser\XmlParserServiceProvider::class,
+		Cviebrock\EloquentSluggable\ServiceProvider::class,
 
 		/*
 		 * Application Service Providers...

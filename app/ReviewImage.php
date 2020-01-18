@@ -8,7 +8,7 @@ class ReviewImage extends Model
 {
     protected $table = 'review_image';
 	protected $guarded = [];
-	protected $timestamps = false;
+	public $timestamps = false;
 
 	public function review() {
 		return $this->belongsTo('App\Review');

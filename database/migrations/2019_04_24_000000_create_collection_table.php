@@ -14,8 +14,8 @@ class CreateCollectionTable extends Migration
 	public function up()
 	{
 		Schema::create('collection', function (Blueprint $table) {
-			$table->increments('id');
-			$table->integer('parent_id')->unsigned()->nullable();
+			$table->bigIncrements('id');
+			$table->bigInteger('parent_id')->unsigned()->nullable();
 			$table->integer('updated_at')->unsigned();
 			$table->integer('created_at')->unsigned();
 

@@ -8,7 +8,7 @@ class ProductDescription extends Model
 {
     protected $table = 'product_description';
 	protected $guarded = [];
-	protected $timestamps = false;
+	public $timestamps = false;
 
 	public function product() {
 		return $this->belongsTo('App\Product');

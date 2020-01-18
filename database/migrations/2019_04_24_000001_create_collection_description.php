@@ -15,11 +15,11 @@ class CreateCollectionDescription extends Migration
 	{
 		Schema::create('collection_description', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('collection_id')->unsigned();
+			$table->bigInteger('collection_id')->unsigned();
 			$table->string('name', 40);
 			$table->string('description')->nullable();
 			$table->string('image')->nullable();
-			$table->string('url_alias');
+			$table->string('alias')->nullable();
 			$table->string('meta_title');
 			$table->string('meta_description')->nullable();
 
