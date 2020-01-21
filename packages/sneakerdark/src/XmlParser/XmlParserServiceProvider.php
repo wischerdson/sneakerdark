@@ -16,7 +16,7 @@ class XmlParserServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		$this->app->bind(XmlDocument::class, function () {
+		$this->app->bind('wsn.parser.xml', function () {
 			return new XmlDocument();
 		});
 	}

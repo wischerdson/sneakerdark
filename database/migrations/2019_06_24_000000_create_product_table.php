@@ -20,7 +20,7 @@ class CreateProductTable extends Migration
 			$table->double('base_price', 7, 2);
 			$table->double('price', 7, 2)->nullable();
 			$table->tinyInteger('sale')->unsigned()->nullable();
-			$table->bigInteger('collection_id')->unsigned();
+			$table->integer('collection_id')->unsigned();
 			$table->string('supplier_url');
 			$table->string('image');
 			$table->boolean('shipping')->default(1);

@@ -15,7 +15,7 @@ class CreateCollectionDescription extends Migration
 	{
 		Schema::create('collection_description', function (Blueprint $table) {
 			$table->increments('id');
-			$table->bigInteger('collection_id')->unsigned();
+			$table->integer('collection_id')->unsigned();
 			$table->string('name', 40);
 			$table->string('description')->nullable();
 			$table->string('image')->nullable();

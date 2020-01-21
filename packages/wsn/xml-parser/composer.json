@@ -16,10 +16,7 @@
         "laravel": {
             "providers": [
                 "Wsn\\XmlParser\\XmlParserServiceProvider"
-            ],
-            "aliases": {
-                "XmlParser": "Wsn\\XmlParser\\Facade"
-            }
+            ]
         }
     }
 }

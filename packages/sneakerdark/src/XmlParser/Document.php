@@ -40,7 +40,7 @@ class Document
 		return $array;
 	}
 
-	public function __construct($file)
+	public function load($file)
 	{
 		$this->reader = new \XMLReader();
 		$this->reader->open($file);
