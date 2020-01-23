@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f29100764e6d7e7ba05f2adae033ad5",
+    "content-hash": "11622be4768006711da0fc2e63cde3a2",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -460,6 +460,50 @@
                 "trusted proxy"
             ],
             "time": "2019-12-20T13:11:11+00:00"
+        },
+        {
+            "name": "ivanlemeshev/laravel5-cyrillic-slug",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ivanlemeshev/laravel5-cyrillic-slug.git",
+                "reference": "3da19af1054f54fd9ace9295e375305c3c3f1bd5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ivanlemeshev/laravel5-cyrillic-slug/zipball/3da19af1054f54fd9ace9295e375305c3c3f1bd5",
+                "reference": "3da19af1054f54fd9ace9295e375305c3c3f1bd5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "IvanLemeshev\\Laravel5CyrillicSlug\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Lemeshev",
+                    "email": "vanlmshv@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravael 5 slug maker for Cyrillic strings",
+            "homepage": "https://github.com/ivanlemeshev/laravel5-cyrillic-slug",
+            "keywords": [
+                "cyrillic",
+                "laravel",
+                "laravel5",
+                "slug"
+            ],
+            "time": "2015-02-28T19:45:40+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",

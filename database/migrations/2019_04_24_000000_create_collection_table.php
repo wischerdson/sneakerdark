@@ -17,6 +17,7 @@ class CreateCollectionTable extends Migration
 			$table->increments('id');
 			$table->bigInteger('supplier_id')->unsigned()->nullable();
 			$table->bigInteger('parent_id')->unsigned()->nullable();
+			$table->string('alias')->unique();
 			$table->integer('updated_at')->unsigned();
 			$table->integer('created_at')->unsigned();
 

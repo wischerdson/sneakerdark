@@ -7,6 +7,7 @@ use Storage;
 use App;
 
 use Wsn\XmlParser\Document as XmlParser;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 use App\Attribute;
 use App\AttributeDescription;
@@ -15,6 +16,8 @@ use App\CollectionDescription;
 use App\Product;
 use App\ProductDescription;
 use App\ProductAttribute;
+use App\ProductOption;
+use App\ProductOptionValue;
 
 class Catalog_Update extends Command
 {
@@ -23,7 +26,7 @@ class Catalog_Update extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'catalog:update {tables=collections,products,parameters,pictures,sizes}';
+	protected $signature = 'catalog:update';
 
 	/**
 	 * The console command description.
@@ -55,6 +58,7 @@ class Catalog_Update extends Command
 				$collection = new Collection;
 				$collection->supplier_id = $data['supplier_id'];
 				$collection->parent_id = $data['parent_id'];
+				$collection->alias = SlugService::createSlug(Collection::class, 'alias', $data['name']);
 				$collection->save();
 				
 				$collectionDescription = new CollectionDescription;
@@ -74,6 +78,9 @@ class Catalog_Update extends Command
 			'name' => 'offer.param:name'
 		], function ($data) use (&$attributes) {
 			foreach ((array) $data['name'] as $key => $value) {
+				if (preg_match('/(р|Р)азмер/i', $value))
+					continue;
+
 				if (!in_array($value, $attributes)) {
 					$attribute = new Attribute;
 					$attribute->save();
@@ -113,6 +120,8 @@ class Catalog_Update extends Command
 		], function ($data) use ($collections, &$newlyAddedProducts, $oldProducts, $attributes) {
 			$data['sku'] = $data['sku'] ?? $data['sku2'];
 
+			$productCurrentID = null;
+
 			if (in_array($data['sku'], $newlyAddedProducts))
 				return;
 
@@ -130,8 +139,10 @@ class Catalog_Update extends Command
 				$product->collection_id = $collections[$data['collection_id']];
 				$product->supplier_url = $data['supplier_url'];
 				$product->shipping = $data['shipping'] == 'true' ? 1 : 0;
+				$product->alias = SlugService::createSlug(Product::class, 'alias', $data['name']);
 				$product->save();
-
+				$productCurrentID = $product->id;
+				unset($product);
 
 				$data['meta_title'] = $data['name'].' купить по цене {{ $price }} в интернет-магазине sneakerdark.ru с доставкой';
 				
@@ -143,7 +154,7 @@ class Catalog_Update extends Command
 				$data['description'] = preg_replace('/ style=".*?"/', '', $data['description']);
 
 				$productDescription = new ProductDescription;
-				$productDescription->product_id = $product->id;
+				$productDescription->product_id = $productCurrentID;
 				$productDescription->name = $data['name'];
 				$productDescription->description = $data['description'];
 				$productDescription->model = $data['model'];
@@ -151,19 +162,80 @@ class Catalog_Update extends Command
 				$productDescription->meta_title = $data['meta_title'];
 				$productDescription->meta_description = $data['meta_description'];
 				$productDescription->save();
+				unset($productDescription);
 
 				foreach ((array) $data['attribute_name'] as $key => $value) {
-					if (preg_match('/(р|Р)азмер/i', $value))
-						continue;
-
-					$productAttribute = new ProductAttribute();
-					$productAttribute->product_id = $product->id;
-					$productAttribute->attribute_id = $attributes[$value];
-					$productAttribute->text = ((array) $data['attribute_value'])[$key];
-					$productAttribute->save();
+					if (preg_match('/(р|Р)азмер/i', $value)) {
+						$productOption = new ProductOption;
+						$productOption->product_id = $productCurrentID;
+						$productOption->name = $value;
+						$productOption->save();
+						unset($productOption);
+					} else {
+						$productAttribute = new ProductAttribute;
+						$productAttribute->product_id = $productCurrentID;
+						$productAttribute->attribute_id = $attributes[$value];
+						$productAttribute->text = ((array) $data['attribute_value'])[$key];
+						$productAttribute->save();
+						unset($productAttribute);
+					}
 				}
 
 				$newlyAddedProducts[] = $data['sku'];
+			}
+		});
+	}
+
+	private function import_optionValue_image($xml)
+	{
+		$sku_productId = Product::select('id', 'sku')->pluck('sku', 'id')->toArray();
+		$productsOptionsIds = ProductOption::select('id', 'product_id')->pluck('id', 'product_id')->toArray();
+		$sku_optionId = [];
+		$been = [];
+
+		foreach ($productsOptionsIds as $productId => $optionId) {
+			$sku = $sku_productId[$productId];
+			$sku_optionId[$sku] = $optionId;
+		}
+
+		unset($productsOptionsIds);
+
+		$xml->parseOffer([
+			'sku' => 'offer:group_id',
+			'sku2' => 'offer:id',
+			'attribute_name' => 'offer.param.name',
+			'attribute_value' => 'offer.param',
+			'instock' => 'offer.outlets.outlet:instock'
+		], function ($data) use ($sku_optionId, &$been) {
+			$data['sku'] = $data['sku'] ?? $data['sku2'];
+
+			foreach ((array) $data['attribute_name'] as $key => $value) {
+				if (preg_match('/(р|Р)азмер/i', $value)) {
+					$productOptionValue = ProductOptionValue::
+						where('product_option_id', $sku_optionId[$data['sku']])->
+						where('value', $data['attribute_value'][$key])->
+						first();
+
+					if (!$productOptionValue) {
+						$productOptionValue = new ProductOptionValue;
+						$productOptionValue->product_option_id = $sku_optionId[$data['sku']];
+						$productOptionValue->instock = $data['instock'];
+						$productOptionValue->value = $data['attribute_value'][$key];
+						$productOptionValue->save();
+					} else {
+						$productOptionValue->instock = $data['instock'];
+						$productOptionValue->save();
+					}
+				}
+			}
+
+			if (!in_array($data['sku'], $been)) {
+				$product = Product::where('sku', $data['sku'])->first();
+				$product->instock = $data['instock'];
+				$product->save();
+				$been[] = $data['sku'];
+			} else {
+				Product::where('sku', $data['sku'])->first()->increment('instock', $data['instock']);
 			}
 		});
 	}
@@ -178,18 +250,27 @@ class Catalog_Update extends Command
 		//downloadFile(config('app.import_link'), storage_path('app/sneakerdark/').'import_1.xml');
 		//downloadFile('https://sportomax.com/wa-data/public/shop/plugins/ymlexport/document.xml', storage_path('app/sneakerdark/').'import_1.xml');
 
-		$xml1 = new XmlParser(storage_path('app/sneakerdark/').'import_1.xml');
+		$file = storage_path('app/sneakerdark/').'import_1.xml';
 
-		$this->importCollections($xml1);
-		$this->importAttributes($xml1);
+		$xml = new XmlParser($file);
+		$this->importCollections($xml);
+		$this->importAttributes($xml);
+		$this->info('Collection, CollectionDescription, Attribute, AttributeDescription');
+		$xml->start();
 
+		unset($xml);
 
-		$xml1->start();
+		$xml = new XmlParser($file);
+		$this->importProducts($xml);
+		$this->info('Product, ProductDescription, ProductAttribute, ProductOption');
+		$xml->start();
 
-		$xml2 = new XmlParser(storage_path('app/sneakerdark/').'import_1.xml');
-		$this->importProducts($xml2);
+		unset($xml);
 
-		$xml2->start();
+		$xml = new XmlParser($file);
+		$this->import_optionValue_image($xml);
+		$this->info('ProductOptionValue');
+		$xml->start();
 
 		return;
 

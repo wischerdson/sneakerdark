@@ -38,8 +38,8 @@ class Product extends Model
 	public function sluggable()
 	{
 		return [
-			'slug' => [
-				'source' => 'title'
+			'alias' => [
+				'source' => ''
 			]
 		];
 	}

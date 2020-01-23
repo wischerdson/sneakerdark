@@ -26,7 +26,7 @@ class Collection extends Model
 	{
 		return [
 			'alias' => [
-				'source' => 'title'
+				'source' => ''
 			]
 		];
 	}

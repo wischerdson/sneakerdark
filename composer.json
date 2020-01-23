@@ -17,6 +17,7 @@
         "php": "^7.2",
         "cviebrock/eloquent-sluggable": "^6.0",
         "fideloper/proxy": "^4.0",
+        "ivanlemeshev/laravel5-cyrillic-slug": "^1.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "wsn/xml-parser": "*"

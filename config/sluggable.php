@@ -59,7 +59,7 @@ return [
      *    'method' => array('Str','slug'),
      */
 
-    'method' => null,
+    'method' => ['Slug', 'make'],
 
     /**
      * Separator to use when generating slugs.  Defaults to a hyphen.

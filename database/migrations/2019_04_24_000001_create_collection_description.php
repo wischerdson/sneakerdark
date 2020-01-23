@@ -19,7 +19,6 @@ class CreateCollectionDescription extends Migration
 			$table->string('name', 40);
 			$table->string('description')->nullable();
 			$table->string('image')->nullable();
-			$table->string('alias')->nullable();
 			$table->string('meta_title');
 			$table->string('meta_description')->nullable();
 
