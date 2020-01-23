@@ -16,16 +16,16 @@ class CreateProductTable extends Migration
 		Schema::create('product', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('sku', 40);
-			$table->string('alias');
+			$table->string('alias')->nullable();
 			$table->double('base_price', 7, 2);
 			$table->double('price', 7, 2)->nullable();
 			$table->tinyInteger('sale')->unsigned()->nullable();
 			$table->integer('collection_id')->unsigned();
 			$table->string('supplier_url');
-			$table->string('image');
+			$table->string('image')->nullable();
 			$table->boolean('shipping')->default(1);
-			$table->integer('viewed')->unsigned();
-			$table->integer('instock')->unsigned();
+			$table->integer('viewed')->unsigned()->default(0);
+			$table->integer('instock')->unsigned()->nullable();
 			$table->integer('minimum')->unsigned()->default(1);
 			$table->integer('created_at')->unsigned();
 			$table->integer('updated_at')->unsigned();

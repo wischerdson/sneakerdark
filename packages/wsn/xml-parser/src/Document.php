@@ -89,7 +89,7 @@ class Document
 
 				array_pop($this->openTags);
 			}
-			if ($this->reader->nodeType == \XMLReader::TEXT) {
+			if ($this->reader->nodeType == \XMLReader::TEXT or $this->reader->nodeType == \XMLReader::CDATA) {
 				$this->wasText = true;
 				$this->push($serialized, $this->reader->value);
 			}

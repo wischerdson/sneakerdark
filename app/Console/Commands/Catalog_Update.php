@@ -12,6 +12,9 @@ use App\Attribute;
 use App\AttributeDescription;
 use App\Collection;
 use App\CollectionDescription;
+use App\Product;
+use App\ProductDescription;
+use App\ProductAttribute;
 
 class Catalog_Update extends Command
 {
@@ -42,24 +45,20 @@ class Catalog_Update extends Command
 	private function importCollections($xml)
 	{
 		$collectionsIds = Collection::select('supplier_id')->pluck('supplier_id')->toArray();
-		$id = Collection::max('id');
 
 		$xml->parseCategory([
 			'supplier_id' => 'category:id',
 			'parent_id' => 'category:parentId',
 			'name' => 'category'
-		], function ($data) use ($collectionsIds, &$id, &$bar) {
+		], function ($data) use ($collectionsIds) {
 			if (!in_array($data['supplier_id'], $collectionsIds)) {
-				$id++;
-
 				$collection = new Collection;
-				$collection->id = $id;
 				$collection->supplier_id = $data['supplier_id'];
 				$collection->parent_id = $data['parent_id'];
 				$collection->save();
 				
 				$collectionDescription = new CollectionDescription;
-				$collectionDescription->collection_id = $id;
+				$collectionDescription->collection_id = $collection->id;
 				$collectionDescription->name = $data['name'];
 				$collectionDescription->meta_title = $data['name'];
 				$collectionDescription->save();
@@ -70,26 +69,21 @@ class Catalog_Update extends Command
 	private function importAttributes($xml)
 	{
 		$attributes = AttributeDescription::select('name')->distinct()->pluck('name')->toArray();
-		$id = Attribute::max('id') ?? 1;
 
 		$xml->parseOffer([
 			'name' => 'offer.param:name'
-		], function ($data) use (&$id, &$attributes) {
+		], function ($data) use (&$attributes) {
 			foreach ((array) $data['name'] as $key => $value) {
 				if (!in_array($value, $attributes)) {
 					$attribute = new Attribute;
-					$attribute->id = $id;
-					$attribute->sort_order = $id;
-					dump($attribute->save()->id);
+					$attribute->save();
 
 					$attributeDescription = new AttributeDescription;
-					$attributeDescription->attribute_id = $id;
+					$attributeDescription->attribute_id = $attribute->id;
 					$attributeDescription->name = $value;
 					$attributeDescription->save();
 
 					$attributes[] = $value;
-
-					$id++;
 				}
 			}
 		});
@@ -97,7 +91,81 @@ class Catalog_Update extends Command
 
 	private function importProducts($xml)
 	{
-		
+		$collections = (array) Collection::select(['id', 'supplier_id'])->pluck('id', 'supplier_id')->toArray();
+		$attributes = AttributeDescription::select('name', 'attribute_id')->distinct()->pluck('attribute_id', 'name')->toArray();
+		$oldProducts = Product::select('sku')->pluck('sku')->toArray();
+		$newlyAddedProducts = [];
+
+		$xml->parseOffer([
+			'sku' => 'offer:group_id',
+			'sku2' => 'offer:id',
+			'base_price' => 'offer.price',
+			'collection_id' => 'offer.categoryId',
+			'supplier_url' => 'offer.url',
+			'shipping' => 'offer.delivery',
+			'instock' => 'offer.outlets.outlet:instock',
+			'attribute_name' => 'offer.param.name',
+			'attribute_value' => 'offer.param',
+			'name' => 'offer.name',
+			'vendor' => 'offer.vendor',
+			'model' => 'offer.model',
+			'description' => 'offer.description'
+		], function ($data) use ($collections, &$newlyAddedProducts, $oldProducts, $attributes) {
+			$data['sku'] = $data['sku'] ?? $data['sku2'];
+
+			if (in_array($data['sku'], $newlyAddedProducts))
+				return;
+
+			if (in_array($data['sku'], $oldProducts)) {
+				$product = Product::where('sku', $data['sku'])->first();
+				$product->base_price = $data['base_price'];
+				$product->save();
+
+				$newlyAddedProducts[] = $data['sku'];
+			} else {
+				$product = new Product;
+				$product->sku = $data['sku'];
+				$product->base_price = $data['base_price'];
+				$product->price = $data['base_price'];
+				$product->collection_id = $collections[$data['collection_id']];
+				$product->supplier_url = $data['supplier_url'];
+				$product->shipping = $data['shipping'] == 'true' ? 1 : 0;
+				$product->save();
+
+
+				$data['meta_title'] = $data['name'].' купить по цене {{ $price }} в интернет-магазине sneakerdark.ru с доставкой';
+				
+				$data['meta_description'] = $data['name'].' купить в интернет-магазине sneakerdark.ru по выгодной цене {{ $price }}. Большой выбор товаров по низким ценам! Акции и скидки на сайте. Есть доставка. Звоните 8-800-505-42-51.';
+
+				$data['description'] = preg_replace('/&lt;/', '<', $data['description']);
+				$data['description'] = preg_replace('/&gt;/', '>', $data['description']);
+				$data['description'] = preg_replace('/&amp;/', '&', $data['description']);
+				$data['description'] = preg_replace('/ style=".*?"/', '', $data['description']);
+
+				$productDescription = new ProductDescription;
+				$productDescription->product_id = $product->id;
+				$productDescription->name = $data['name'];
+				$productDescription->description = $data['description'];
+				$productDescription->model = $data['model'];
+				$productDescription->vendor = $data['vendor'];
+				$productDescription->meta_title = $data['meta_title'];
+				$productDescription->meta_description = $data['meta_description'];
+				$productDescription->save();
+
+				foreach ((array) $data['attribute_name'] as $key => $value) {
+					if (preg_match('/(р|Р)азмер/i', $value))
+						continue;
+
+					$productAttribute = new ProductAttribute();
+					$productAttribute->product_id = $product->id;
+					$productAttribute->attribute_id = $attributes[$value];
+					$productAttribute->text = ((array) $data['attribute_value'])[$key];
+					$productAttribute->save();
+				}
+
+				$newlyAddedProducts[] = $data['sku'];
+			}
+		});
 	}
 
 	/**
@@ -110,37 +178,20 @@ class Catalog_Update extends Command
 		//downloadFile(config('app.import_link'), storage_path('app/sneakerdark/').'import_1.xml');
 		//downloadFile('https://sportomax.com/wa-data/public/shop/plugins/ymlexport/document.xml', storage_path('app/sneakerdark/').'import_1.xml');
 
-		$xml = new XmlParser(storage_path('app/sneakerdark/').'import.xml');
+		$xml1 = new XmlParser(storage_path('app/sneakerdark/').'import_1.xml');
 
-		$this->importCollections($xml);
-		$this->importAttributes($xml);
-		$this->importProducts($xml);
-		//$this->importProductsImages($xml);
+		$this->importCollections($xml1);
+		$this->importAttributes($xml1);
 
-		$xml->start();
+
+		$xml1->start();
+
+		$xml2 = new XmlParser(storage_path('app/sneakerdark/').'import_1.xml');
+		$this->importProducts($xml2);
+
+		$xml2->start();
 
 		return;
-
-		
-
-		
-		$xml->parseCategory([
-			'123_id' => 'category:id',
-			'123_parent_id' => 'category:parentId',
-			'123_name' => 'category'
-		], function ($data) {
-			dump($data);
-		});
-
-		$xml->parseOffer([
-			'sku' => 'offer:group_id',
-			'supplier_url' => 'offer.url',
-			'price' => 'offer.price',
-			'collection_id' => 'offer.categoryId',
-			'images' => 'offer.picture'
-		], function ($data) {
-			//dump($data);
-		});
 
 		/*$xml->parseCategory(function ($data) use (&$collection, &$collectionDescription) {
 			dump((int) $data['id']);
@@ -168,8 +219,6 @@ class Catalog_Update extends Command
 		$xml->parseOffer(function ($data) {
 			
 		});*/
-
-		$xml->start();
 
 		/*$xml->parseCategory([
 			'id' => ':id',
