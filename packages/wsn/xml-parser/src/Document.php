@@ -120,6 +120,7 @@ class Document
 						else {
 							$tmp = $array1[$key];
 							$array1[$key] = [$tmp];
+							$array1[$key][] = $replacement;
 						}
 					}
 				}

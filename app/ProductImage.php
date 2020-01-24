@@ -13,4 +13,16 @@ class ProductImage extends Model
 	public function product() {
 		return $this->belongsTo('App\Product');
 	}
+
+	public static function boot()
+	{
+		parent::boot();
+		self::creating(function ($model) {
+			$model->created_at = time();
+			$model->updated_at = time();
+		});
+		self::updating(function($model) {
+			$model->updated_at = time();
+		});
+	}
 }

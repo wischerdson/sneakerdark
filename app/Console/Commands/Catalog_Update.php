@@ -15,6 +15,7 @@ use App\Collection;
 use App\CollectionDescription;
 use App\Product;
 use App\ProductDescription;
+use App\ProductImage;
 use App\ProductAttribute;
 use App\ProductOption;
 use App\ProductOptionValue;
@@ -116,7 +117,8 @@ class Catalog_Update extends Command
 			'name' => 'offer.name',
 			'vendor' => 'offer.vendor',
 			'model' => 'offer.model',
-			'description' => 'offer.description'
+			'description' => 'offer.description',
+			'images' => 'offer.picture'
 		], function ($data) use ($collections, &$newlyAddedProducts, $oldProducts, $attributes) {
 			$data['sku'] = $data['sku'] ?? $data['sku2'];
 
@@ -144,6 +146,18 @@ class Catalog_Update extends Command
 				$productCurrentID = $product->id;
 				unset($product);
 
+				$productImages = [];
+				foreach ((array) $data['images'] as $image) {
+					$productImage = [];
+					$productImage['supplier_src'] = $image;
+					$productImage['product_id'] = $productCurrentID;
+					$productImage['created_at'] = time();
+					$productImage['updated_at'] = time();
+
+					$productImages[] = $productImage;
+				}
+				ProductImage::insert($productImages);
+				
 				$data['meta_title'] = $data['name'].' купить по цене {{ $price }} в интернет-магазине sneakerdark.ru с доставкой';
 				
 				$data['meta_description'] = $data['name'].' купить в интернет-магазине sneakerdark.ru по выгодной цене {{ $price }}. Большой выбор товаров по низким ценам! Акции и скидки на сайте. Есть доставка. Звоните 8-800-505-42-51.';
@@ -164,6 +178,7 @@ class Catalog_Update extends Command
 				$productDescription->save();
 				unset($productDescription);
 
+				$productAttributes = [];
 				foreach ((array) $data['attribute_name'] as $key => $value) {
 					if (preg_match('/(р|Р)азмер/i', $value)) {
 						$productOption = new ProductOption;
@@ -172,21 +187,22 @@ class Catalog_Update extends Command
 						$productOption->save();
 						unset($productOption);
 					} else {
-						$productAttribute = new ProductAttribute;
-						$productAttribute->product_id = $productCurrentID;
-						$productAttribute->attribute_id = $attributes[$value];
-						$productAttribute->text = ((array) $data['attribute_value'])[$key];
-						$productAttribute->save();
-						unset($productAttribute);
+						$productAttribute = [];
+						$productAttribute['product_id'] = $productCurrentID;
+						$productAttribute['attribute_id'] = $attributes[$value];
+						$productAttribute['text'] = ((array) $data['attribute_value'])[$key];
+						
+						$productAttributes[] = $productAttribute;
 					}
 				}
+				ProductAttribute::insert($productAttributes);
 
 				$newlyAddedProducts[] = $data['sku'];
 			}
 		});
 	}
 
-	private function import_optionValue_image($xml)
+	private function import_productOptionValue($xml)
 	{
 		$sku_productId = Product::select('id', 'sku')->pluck('sku', 'id')->toArray();
 		$productsOptionsIds = ProductOption::select('id', 'product_id')->pluck('id', 'product_id')->toArray();
@@ -247,6 +263,8 @@ class Catalog_Update extends Command
 	 */
 	public function handle()
 	{
+		$startExecutionTime = time();
+		$stopwatch = time();
 		//downloadFile(config('app.import_link'), storage_path('app/sneakerdark/').'import_1.xml');
 		//downloadFile('https://sportomax.com/wa-data/public/shop/plugins/ymlexport/document.xml', storage_path('app/sneakerdark/').'import_1.xml');
 
@@ -256,21 +274,29 @@ class Catalog_Update extends Command
 		$this->importCollections($xml);
 		$this->importAttributes($xml);
 		$this->info('Collection, CollectionDescription, Attribute, AttributeDescription');
+		$stopwatch = time();
 		$xml->start();
+		//$this->line('Execution time: '.(time() - $stopwatch).'s or '.((time() - $stopwatch)/60).'m');
+		$this->line('Execution time: '.(time() - $stopwatch).'s or '.((time() - $stopwatch)/60).'m');
 
 		unset($xml);
 
 		$xml = new XmlParser($file);
 		$this->importProducts($xml);
-		$this->info('Product, ProductDescription, ProductAttribute, ProductOption');
+		$this->info('Product, ProductDescription, ProductAttribute, ProductOption, ProductImage');
+		$stopwatch = time();
 		$xml->start();
+		$this->line('Execution time: '.(time() - $stopwatch).'s or '.((time() - $stopwatch)/60).'m');
 
 		unset($xml);
 
 		$xml = new XmlParser($file);
-		$this->import_optionValue_image($xml);
+		$this->import_productOptionValue($xml);
 		$this->info('ProductOptionValue');
+		$stopwatch = time();
 		$xml->start();
+		$this->line('Execution time: '.(time() - $stopwatch).'s or '.((time() - $stopwatch)/60).'m');
+		$this->line('Total execution time: '.(time() - $startExecutionTime).'s or '.((time() - $startExecutionTime)/60).'m');
 
 		return;
 
