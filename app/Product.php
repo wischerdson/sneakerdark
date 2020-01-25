@@ -17,9 +17,9 @@ class Product extends Model
 	{
 		return $this->hasMany('App\ProductAttribute');
 	}
-	public function descriptions()
+	public function description()
 	{
-		return $this->hasMany('App\ProductDescription');
+		return $this->hasOne('App\ProductDescription');
 	}
 	public function images()
 	{
@@ -54,5 +54,8 @@ class Product extends Model
 		self::updating(function($model) {
 			$model->updated_at = time();
 		});
+		/*static::addGlobalScope('age', function (Builder $builder) {
+            $builder->where('age', '>', 200);
+        });*/
 	}
 }

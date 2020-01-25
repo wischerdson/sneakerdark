@@ -4,7 +4,7 @@ export default {
 		search_total: 0,
 		search_totalSubject: '',
 		search: {
-			query: '',
+			q: '',
 			gender: ''
 		},
 		search_results: [],
@@ -57,10 +57,10 @@ export default {
 		async search (context, {url, params}) {
 			context.commit('search_wait', true)
 
-			await this.$axios.get(url, {params}).then(response => response.data).then((data) => {
-				context.commit('search_results', data.results)
-				context.commit('search_total', data.total)
-				context.commit('search_totalSubject', data.total_subject)
+			await this.$axios.get(url, {params}).then(response => response.data.data).then((data) => {
+				context.commit('search_results', data.products)
+				context.commit('search_total', data.count)
+				context.commit('search_totalSubject', data.subject)
 			}).catch(({response}) => {
 				this.$error(response)
   			}).finally(function () {

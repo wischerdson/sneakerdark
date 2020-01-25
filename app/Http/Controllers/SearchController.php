@@ -57,34 +57,35 @@ class SearchController extends SiteController
 		$searchQuery = $request->input('query');
 		$gender = $request->input('gender');
 
-		if (!$searchQuery) abort(404);
+		if (!$searchQuery)
+			abort(404);
 
-		$matches = Product::where('id', $searchQuery)->with('pictures')->with('sizes')->get()->toArray();
+		$matches = Product::where('sku', $searchQuery)->get()->toArray();
 
 		$tmp = Product::where(function ($query) use ($searchQuery) {
-			$query
-			->where('title', 'like', '%'.$searchQuery.'%')
-			->orWhere('model', 'like', '%'.$searchQuery.'%')
-			->orWhere('vendor', 'like', '%'.$searchQuery.'%')
-			->orWhereHas('parameters', function ($pQuery) use ($searchQuery) {
-				$pQuery->where('value', 'like', '%'.$searchQuery.'%');
+			$query->
+			whereHas('product_description', function ($productDescriptionQuery) use ($searchQuery) {
+				$productDescriptionQuery->
+				where('name', 'like', '%'.$searchQuery.'%')->
+				orWhere('model', 'like', '%'.$searchQuery.'%')->
+				orWhere('vendor', 'like', '%'.$searchQuery.'%');
+			})->
+			orWhereHas('product_attribute', function ($productAttributeQuery) use ($searchQuery, $gender) {
+				$productAttributeQuery->where('text', 'like', '%'.$searchQuery.'%');
 			});
 		});
-		if ($gender != 'all')
-			$tmp = $tmp->whereHas('parameters', function ($query) use ($gender) {
-				$query->where('value', '=', $gender);
+		if ($gender != 'all') {
+			$tmp = $tmp->whereHas('product_attribute', function ($productAttributeQuery) use ($gender) {
+				$productAttributeQuery->where('text', $gender);
 			});
+		}
 
-		$matches += $tmp
-			->with('pictures')
-			->with('sizes')
-			->get()
-			->toArray();
+		$matches += $tmp->get()->toArray();
 
 		$resultsNumber = count($matches);
 		$subject = smart_ending(count($matches), ['', 'а', 'ов'], 'результат');
 
-		$matches = $matches > 10 ? array_slice($matches, 0, 10) : $matches;
+		$matches = array_slice($matches, 0, 10);
 
 		foreach ($matches as $key => $value) {
 			$matches[$key]['url'] = route('catalog.product', ['product_id' => $value['id']]);

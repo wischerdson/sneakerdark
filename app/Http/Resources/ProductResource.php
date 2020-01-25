@@ -4,11 +4,19 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use App\Http\Resources\SizeResource;
-use App\Http\Resources\PictureResource;
-
 class ProductResource extends JsonResource
 {
+	private const FIELDS = [
+		'name' => [
+			'with' => 'description',
+			'column' => 'name'
+		],
+		'vendor' => [
+			'with' => 'description',
+			'column' => 'vendor'
+		]
+	];
+
 	/**
 	 * Transform the resource into an array.
 	 *
@@ -17,15 +25,27 @@ class ProductResource extends JsonResource
 	 */
 	public function toArray($request)
 	{
-		return [
+		$fields = $request->input('fields') ?? [];
+
+		$result = [
 			'id' => $this->id,
-			'title' => $this->title,
+			'sku' => $this->sku,
+			'image' => asset($this->image),
 			'price' => $this->price,
-			'collection_id' => $this->collection_id,
-			'pictures' => PictureResource::collection($this->pictures),
-			'sizes' => SizeResource::collection($this->sizes),
-			'vendor' => $this->vendor,
-			'url' => route('catalog.product', ['product_id' => $this->id])
+			'url' => route('catalog.product', ['product_alias' => $this->alias])
 		];
+
+		foreach ($fields as $field) {
+			if (!array_key_exists($field, self::FIELDS))
+				continue;
+
+			$rule = self::FIELDS[$field];
+			if (array_key_exists('column', $rule))
+				$result[$field] = $this->{$rule['with']}->{$rule['column']} ?? null;
+			else if (array_key_exists('collection', $rule))
+				$result[$field] = $rule['collection']::collection($this->{$rule['with']}) ?? null;
+		}
+
+		return $result;
 	}
 }

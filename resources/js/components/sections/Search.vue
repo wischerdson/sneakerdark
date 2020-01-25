@@ -12,15 +12,16 @@
 		data () {
 			return {
 				search: {
-					query: '',
-					gender: 'all'
+					q: '',
+					gender: 'all',
+					fields: ['name']
 				},
 				w: false
 			}
 		},
 		methods: {
 			update () {
-				if (!this.search.query)
+				if (!this.search.q)
 					return
 
 				this.w = false
@@ -31,7 +32,7 @@
 				})
 			},
 			getPicture (picture, noImageUrl) {
-				return picture.length ? picture[0].src : noImageUrl
+				return picture || noImageUrl
 			}
 		},
 		watch: {

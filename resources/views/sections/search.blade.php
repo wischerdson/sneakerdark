@@ -1,13 +1,13 @@
 <template id="template__section_search">
 	<transition name="search">
 		<div id="section_search" v-show="open">
-			<laradata name="api.search">{{ route('search.ajax') }}</laradata>
+			<laradata name="api.search">{{ route('api.search.index') }}</laradata>
 			<div class="top-bar">
 				<div class="content container large">
 					<div class="form-group">
 						<div class="field">
 							<input
-								v-model="search.query"
+								v-model="search.q"
 								type="text"
 								class="search-field form-control"
 								placeholder="Поиск по названию, модели, бренду или артикулу"
@@ -37,14 +37,14 @@
 				</div>
 			</div>
 			<div class="body">
-				<div class="field-is-empty-notice" v-if="!search.query">
+				<div class="field-is-empty-notice" v-if="!search.q">
 					<center>
 						@include('svg.magnifying-glass')
 						<p>Введите поисковый запрос</p>
 						<p>Например "Кроссовки Adidas Yeezy 350"</p>
 					</center>
 				</div>
-				<div class="no-results-notice" v-if="search.query && !total && !wait && !w">
+				<div class="no-results-notice" v-if="search.q && !total && !wait && !w">
 					<center>
 						<p>По Вашему запросу не было найдено ни одного товара</p>
 					</center>
@@ -53,15 +53,14 @@
 				<ul class="results container large" v-if="results && !wait">
 					<snippet-search-result
 						v-for="(value, index) in results"
-						:name="value.title"
-						:article="value.article"
+						:name="value.name"
+						:sku="value.sku"
 						:price="value.price"
-						:image="getPicture(value.pictures, '{{ asset('/image/no-image.jpg') }}')"
-						:sizes="value.sizes"
+						:image="getPicture(value.image, '{{ asset('/image/no-image.jpg') }}')"
 						:key="index"
 						:url="value.url"
 					></snippet-search-result>
-					<a :href="`{{ route('search', ['query' => '123']) }}/${search.query}`" v-if="total > 9" class="show-all-results btn primary">Посмотреть все результаты  &#8594;</a>
+					<a :href="`{{ route('search', ['query' => '123']) }}/${search.q}`" v-if="total > 9" class="show-all-results btn primary">Посмотреть все результаты  &#8594;</a>
 				</ul>
 			</div>
 		</div>

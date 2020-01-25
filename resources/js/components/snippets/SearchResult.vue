@@ -8,7 +8,7 @@
 				<div class="name">{{ name }}</div>
 				<div class="other">
 					<div class="text">
-						<div class="article">Артикул: {{ article }}</div>
+						<div class="article">Артикул: {{ sku }}</div>
 						<div class="price">{{ price }} руб</div>
 					</div>
 					<!-- <ul class="sizes">
@@ -28,7 +28,7 @@
 <script type="text/javascript">
 	
 	export default {
-		props: ['name', 'article', 'price', 'image', 'sizes', 'url']
+		props: ['name', 'sku', 'price', 'image', 'url']
 	}
 
 </script>
