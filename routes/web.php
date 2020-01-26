@@ -4,7 +4,6 @@ Route::get('badbrowser', ['uses' => 'HomeController@badbrowser', 'as' => 'badbro
 
 Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
 Route::get('search/{query}', ['uses' => 'SearchController@index', 'as' => 'search']);
-Route::get('search', ['uses' => 'SearchController@show', 'as' => 'search.ajax']);
 
 Route::group(['prefix' => 'catalog'], function () {
 	Route::get('product/{product_alias}', ['uses' => 'Catalog\ProductController@show', 'as' => 'catalog.product']);
@@ -22,6 +21,3 @@ Route::group(['prefix' => 'brands'], function () {
 });
 
 Route::get('/wishlist', ['uses' => 'WishlistController@index', 'as' => 'wishlist']);
-
-
-Route::get('test', ['uses' => 'HomeController@test']);

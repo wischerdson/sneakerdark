@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Collection;
 use App\Product;
 
-class CollectionController extends \App\Http\Controllers\SiteController
+class CollectionController extends Controller
 {
 	private $collections = [];
 

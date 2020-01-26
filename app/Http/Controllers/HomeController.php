@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use XmlParser;
 
-class HomeController extends SiteController
+class HomeController extends Controller
 {
 	public function index() {
 		$this->template = 'home';
@@ -17,10 +17,5 @@ class HomeController extends SiteController
 
 	public function badbrowser() {
 		return view('templates.badbrowser');
-	}
-
-	
-	public function test() {
-		return;
 	}
 }

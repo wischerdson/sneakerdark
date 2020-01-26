@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Collection;
 
-class ProductController extends \App\Http\Controllers\SiteController
+class ProductController extends Controller
 {
 	public function show($product_id) {
 		$product = Product::where('id', $product_id)

@@ -5,7 +5,6 @@ namespace Wsn\XmlParser;
 use Illuminate\Support\ServiceProvider;
 
 use Wsn\XmlParser\Document as XmlDocument;
-use Wsn\XmlParser\Reader as XmlReader;
 
 class XmlParserServiceProvider extends ServiceProvider
 {

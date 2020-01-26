@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class BrandsController extends SiteController
+class BrandsController extends Controller
 {
 	public function index() {
 		$this->template = 'brands';

@@ -276,7 +276,6 @@ class Catalog_Update extends Command
 		$this->info('Collection, CollectionDescription, Attribute, AttributeDescription');
 		$stopwatch = time();
 		$xml->start();
-		//$this->line('Execution time: '.(time() - $stopwatch).'s or '.((time() - $stopwatch)/60).'m');
 		$this->line('Execution time: '.(time() - $stopwatch).'s or '.((time() - $stopwatch)/60).'m');
 
 		unset($xml);
@@ -299,97 +298,6 @@ class Catalog_Update extends Command
 		$this->line('Total execution time: '.(time() - $startExecutionTime).'s or '.((time() - $startExecutionTime)/60).'m');
 
 		return;
-
-		/*$xml->parseCategory(function ($data) use (&$collection, &$collectionDescription) {
-			dump((int) $data['id']);
-			$collection[] = [
-				'id' => (int) $data['id'],
-				'parent_id' => (int) $data['parentId'],
-				'created_at' => time(),
-				'updated_at' => time()
-			];
-			$collectionDescription[] = [
-				'collection_id' => (int) $data['id'],
-				'name' => (string) $data[0],
-				'meta_title' => (string) $data[0]
-			];
-
-			if ($this->insertData(Collection::class, $collection))
-				$collection = [];
-			if ($this->insertData(CollectionDescription::class, $collectionDescription))
-				$collectionDescription = [];
-		});
-
-		$xml->parseOffer(function ($data) {
-			
-		});
-		$xml->parseOffer(function ($data) {
-			
-		});*/
-
-		/*$xml->parseCategory([
-			'id' => ':id',
-			'parentId' => ':parentId',
-			'title' => ':id'
-		], function ($data) {
-			dump($data);
-		});*/
-
-		//$xml->start();
-
-
-		/*
-
-		$xml->parseCategory([
-			'alternative_id' => ':id',
-			'alternative_parentId' => ':parentId',
-			'alternative_title' => 'category'
-		], function ($data) {
-			dump($data);
-		});*/
-		
-/*			[
-				'trigger' => 'offer',
-				'pattern' => [
-					'article' => 'vendorcode',
-					'price' => 'price',
-					'categoryId' => 'categoryid',
-					'pictures' => 'picture',
-					'title' => 'name',
-					'vendor' => 'vendor',
-					'model' => 'model',
-					'description' => 'description',
-					'instock' => 'outlets.outlet:instock',
-					'attributes' => [
-						[
-							'name' => 'param:name',
-							'unit' => 'param:unit',
-							'value' => 'param'
-						]
-					]
-				],
-				'callback' => function ($data) {
-
-				}
-			],
-			[
-				'trigger' => 'offer',
-				'pattern' => [
-					'attributes' => [
-						[
-							'name' => 'param:name',
-							'unit' => 'param:unit',
-							'value' => 'param'
-						]
-					]
-				],
-				'callback' => function ($data) {
-
-				}
-			]*/
-		//]);
-
-		//dd($xml);
 
 
 		/*$this->comment('Yml downloading...');
