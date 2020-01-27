@@ -10,9 +10,9 @@
 					<breadcrumb-item url="{{ route('home') }}">Главная</breadcrumb-item>
 					@foreach ($collectionsChain as $category)
 						@if ($loop->last)
-					<breadcrumb-item>{{ $category->title }}</breadcrumb-item>
+					<breadcrumb-item>{{ $category->description->name }}</breadcrumb-item>
 						@else
-					<breadcrumb-item url="{{ route('catalog', ['collection_id' => $category->id]) }}">{{ $category->title }}</breadcrumb-item>
+					<breadcrumb-item url="{{ route('catalog', ['collection_alias' => $category->alias]) }}">{{ $category->description->name }}</breadcrumb-item>
 						@endif
 					@endforeach
 				</breadcrumb>

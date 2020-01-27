@@ -7,7 +7,7 @@ Route::get('search/{query}', ['uses' => 'SearchController@index', 'as' => 'searc
 
 Route::group(['prefix' => 'catalog'], function () {
 	Route::get('product/{product_alias}', ['uses' => 'Catalog\ProductController@show', 'as' => 'catalog.product']);
-	Route::get('{collection_id}', ['uses' => 'Catalog\CollectionController@show', 'as' => 'catalog']);
+	Route::get('{collection_alias}', ['uses' => 'Catalog\CollectionController@show', 'as' => 'catalog']);
 });
 
 Route::group(['prefix' => 'legal'], function () {

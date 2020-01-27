@@ -25,11 +25,13 @@ class AppServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		/*\DB::listen(function ($query) {
-            dump([
+			dump($query->sql);
+			return;
+			dump([
 				'time' => $query->time,
 				'sql' => $query->sql,
 			]);
-        }); */
+		}); */
 		View::addExtension('svg', 'file');
 	}
 }

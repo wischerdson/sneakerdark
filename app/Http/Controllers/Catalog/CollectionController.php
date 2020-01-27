@@ -12,10 +12,10 @@ class CollectionController extends Controller
 {
 	private $collections = [];
 
-	public function show(Request $request, $collectionId) {
+	public function show(Request $request, $collection_alias) {
 		$this->template = 'catalog.collection';
 		$this->title = 'Коллекция - Sneakerdark';
-		$collection = Collection::find($collectionId);
+		$collection = Collection::findByAlias($collection_alias) ?? abort(404);
 		$this->vars['collection'] = $collection;
 		$this->vars['collectionsChain'] = $collection->chain;
 

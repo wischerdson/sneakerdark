@@ -9,6 +9,7 @@ use App\Product;
 use App\Parameter;
 use App\Size;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\FiltersResourceCollection;
 
 class CollectionResource extends JsonResource
 {
@@ -19,6 +20,17 @@ class CollectionResource extends JsonResource
 	 * @return array
 	 */
 	public function toArray($request)
+	{
+		$collectionIds = $this->children;
+		//$products = Product::whereIn('collection_id', $collectionIds)->select('id')->pluck('id')->toArray();
+
+		return new FiltersResourceCollection(Product::whereIn('collection_id', $collectionIds)->select('id')->pluck('id')->toArray());
+	}
+
+
+
+
+	/*public function toArray($request)
 	{
 		$filters = json_decode($request->input('filters'));
 		$sort = json_decode($request->input('sort'));
@@ -121,69 +133,7 @@ class CollectionResource extends JsonResource
 				'pages' => $pLinks
 			]
 		];
-	}
+	}*/
 
-	private function composeFilterList($productsIds) {
-		$result = [];
-
-		$result['category'] = [
-			'title' => 'Категория',
-			'list' => Parameter::
-				whereIn('key', ['Вид аксессуаров', 'Футбольная обувь', 'Предмет одежды', 'Категория'])
-				->whereIn('product_id', $productsIds)
-				->select('value')
-				->orderBy('value', 'asc')
-				->distinct()
-				->pluck('value')
-		];
-
-		$result['gender'] = [
-			'title' => 'Пол',
-			'list' => Parameter::
-				where('key', 'Пол')
-				->whereIn('product_id', $productsIds)
-				->select('value')
-				->distinct()
-				->pluck('value')
-		];
-
-		$result['size'] = [
-			'title' => 'Размер',
-			'list' => Size::
-				where('instock', '>', 0)
-				->whereIn('product_id', $productsIds)
-				->where('instock', '!=', 0)
-				->select('size')
-				->distinct()
-				->pluck('size')
-		];
-
-		$result['brand'] = [
-			'title' => 'Бренд',
-			'list' => Product::
-				whereIn('id', $productsIds)
-				->withoutGlobalScopes()
-				->select('vendor')
-				->orderBy('vendor', 'asc')
-				->distinct()
-				->pluck('vendor')
-		];
-
-		$prices = Product::
-			whereIn('id', $productsIds)
-			->withoutGlobalScopes()
-			->select('price')
-			->orderBy('price', 'asc')
-			->distinct()
-			->pluck('price')
-			->toArray();
-		
-		$result['price'] = [
-			'title' => 'Цена',
-			'min' => $prices[0],
-			'max' => end($prices)
-		];
-
-		return $result;
-	}
+	
 }

@@ -13,9 +13,9 @@ class Collection extends Model
 	protected $guarded = [];
 	public $timestamps = false;
 
-	public function descriptions()
+	public function description()
 	{
-		return $this->hasMany('App\CollectionDescription');
+		return $this->hasOne('App\CollectionDescription');
 	}
 
 	public function products()
@@ -23,16 +23,25 @@ class Collection extends Model
 		return $this->hasMany('App\Product');
 	}
 
-	public function getChildrenAttribute($id = null, $children = [], $collections = [])
+	public function scopeFindByAlias($query, $alias)
 	{
-		if (!$id)
-			$id = $this->id;
+		$result = $query->where('alias', $alias)->first();
+		if (is_null($result))
+			abort(404);
 
-		$collections = empty($collections) ? self::select(['id', 'parent_id'])->get()->toArray() : $collections;
+		return $result;
+	}
+
+	public function getChildrenAttribute($supplierId = null, $id = null, $children = [], $allCollections = [])
+	{
+		$supplierId = is_null($supplierId) ? $this->supplier_id : $supplierId;
+		$id = is_null($id) ? $this->id : $id;
+
+		$allCollections = empty($allCollections) ? self::select(['id', 'supplier_id', 'parent_id'])->get()->toArray() : $allCollections;
 		$children[] = $id;
-		foreach ($collections as $collection) {
-			if ($collection['parent_id'] == $id) {
-				$children = $this->getChildrenAttribute($collection['id'], $children, $collections);
+		foreach ($allCollections as $collection) {
+			if ($collection['parent_id'] == $supplierId) {
+				$children = $this->getChildrenAttribute($collection['supplier_id'], $collection['id'], $children, $allCollections);
 			}
 		}
 
@@ -43,8 +52,8 @@ class Collection extends Model
 	{
 		$result = [$this];
 		$parentId = $this->parent_id;
-		while ($parentId) {
-			$collection = self::find($parentId);
+		while (!is_null($parentId)) {
+			$collection = self::where('supplier_id', $parentId)->with('description')->first();
 			array_push($result, $collection);
 			$parentId = $collection->parent_id;
 		}
