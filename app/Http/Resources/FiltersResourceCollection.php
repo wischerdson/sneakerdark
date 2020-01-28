@@ -61,6 +61,8 @@ class FiltersResourceCollection extends ResourceCollection
 	private function filterProducts($request)
 	{
 		$appliedFilters = $request->input('applied_filters') ?? [];
+		if (is_string($appliedFilters))
+			$appliedFilters = json_decode($appliedFilters);
 		$filteredProductsIds = $this->collection->toArray();
 
 		foreach ($appliedFilters as $filterField => $filter) {

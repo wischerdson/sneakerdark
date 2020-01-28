@@ -75,11 +75,12 @@ export default {
 				params: data.params
 			}).then(response => response.data).then((data) => {
 				data = data.data
-				context.commit('collection_filters', data.filters)
+				if (Object.keys(data.filters).length)
+					context.commit('collection_filters', data.filters)
 				context.commit('collection_products', data.products)
 				context.commit('collection_pagination', data.pagination)
-				context.commit('collection_total', data.total)
-				context.commit('collection_totalSubject', data.total_subject)
+				context.commit('collection_total', data.count)
+				context.commit('collection_totalSubject', data.subject)
 			}).catch(({response}) => {
 				this.$error(response)
   			}).finally(() => {

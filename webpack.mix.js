@@ -1,9 +1,5 @@
 const mix = require('laravel-mix')
 
-
-mix.setPublicPath('public_html/')
-
-
 if (mix.inProduction()) {
 	mix.version();
 	mix.options({
@@ -31,8 +27,8 @@ mix.combine([
 	'resources/js/modules/materialize.cash.js',
 	'resources/js/modules/materialize.toasts.js',
 	'resources/js/modules/slick.js',
-	'public_html/js/v-app.js'
-], 'public_html/js/app.js')
+	'public/js/v-app.js'
+], 'public/js/app.js')
 
 // mix.browserSync('sneakerdark.loc');
 mix.disableNotifications();

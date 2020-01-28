@@ -16,6 +16,8 @@
 					gender: [],
 					size: [],
 					brand: [],
+					color: [],
+					season: [],
 					price: [0, 999999999],
 					sort: 1
 				},
@@ -38,14 +40,17 @@
 					return
 				}
 
+				const filtersFields = ['category', 'gender', 'season', 'color', 'brand', 'size', 'price']
+
 				this.$store.commit('collection_products', {})
 				this.$store.dispatch('collection_fetch', {
 					'api': this.$store.state.laradata['api.catalog'],
 					'params': {
 						'page': this.$url.params().page,
-						'filters': this.appliedFilters,
 						'sort': this.sort(this.appliedFilters.sort),
-						'attach_filter_list': this.firstRequest
+						'fields': ['name', 'vendor'],
+						'applied_filters': this.appliedFilters,
+						'filters_fields': this.firstRequest ? filtersFields : []
 					}
 				})
 
@@ -80,8 +85,8 @@
 				this.appliedFilters.sort = value
 			},
 			'$store.getters.collection_priceRange' (value) {
-				this.priceLimits.min = value.min
-				this.priceLimits.max = value.max
+				this.priceLimits.min = value.resource.min
+				this.priceLimits.max = value.resource.max
 			},
 			appliedFilters: {
 				deep: true,

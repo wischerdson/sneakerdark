@@ -7,13 +7,13 @@
 				:key="`filter_block_${key}`"
 			>
 				<div v-if="key != 'price'">
-					<div v-if="filter.list.length">
+					<div v-if="filter.resource.length">
 						<div class="section-title">@{{ filter.title }}</div>
 						<div class="section-body">
 							<has-scroll>
 								<checkbox
 									name="filters_category"
-									v-for="(item, index) in filter.list"
+									v-for="(item, index) in filter.resource"
 									:key="`filter_entity_${index}`"
 									v-if="item"
 									v-model="appliedFilters[key]"
