@@ -27,9 +27,11 @@ class CreateProductTable extends Migration
 			$table->integer('viewed')->unsigned()->default(0);
 			$table->integer('instock')->unsigned()->nullable();
 			$table->integer('minimum')->unsigned()->default(1);
+			$table->boolean('visible')->default(1);
 			$table->integer('created_at')->unsigned();
 			$table->integer('updated_at')->unsigned();
-			$table->boolean('visible')->default(1);
+			$table->boolean('delete_candidate')->default(false);
+			$table->integer('deleted_at')->unsigned()->nullable();
 
 			$table->foreign('collection_id')->references('id')->on('collection');
 		});

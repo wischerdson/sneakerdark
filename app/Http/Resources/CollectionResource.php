@@ -22,9 +22,9 @@ class CollectionResource extends JsonResource
 	public function toArray($request)
 	{
 		$collectionIds = $this->children;
-		//$products = Product::whereIn('collection_id', $collectionIds)->select('id')->pluck('id')->toArray();
+		$productsIds = Product::whereIn('collection_id', $collectionIds)->select('id')->pluck('id')->toArray();
 
-		return new FiltersResourceCollection(Product::whereIn('collection_id', $collectionIds)->select('id')->pluck('id')->toArray());
+		return new FiltersResourceCollection($productsIds);
 	}
 
 

@@ -26,11 +26,30 @@ class FiltersResourceCollection extends ResourceCollection
 		$filteredProductsIds = $this->filterProducts($request);
 		$count = count($filteredProductsIds);
 
+		$products = Product::
+			whereIn('id', $filteredProductsIds)->
+			where('instock', '>', 0)->
+			paginate(10 * 3, ['*'], 'page', $request->input('page'));
+
+		$pLinks = [];
+		for ($i = $products->currentPage()-3; $i <= $products->currentPage()+3; $i++) { 
+			if ($i > 1 and $i < $products->lastPage())
+				$pLinks[] = $i;
+		}
+
 		$result = [
 			'count' => $count,
 			'subject' => smart_ending($count, ['товар', 'товара', 'товаров']),
 			'filters' => [],
-			'products' => ProductResource::collection(Product::whereIn('id', $filteredProductsIds)->get())
+			'products' => ProductResource::collection($products),
+			'pagination' => [
+				'current_page' => $products->currentPage(),
+				'has_more_pages' => $products->hasMorePages(),
+				'per_page' => $products->perPage(),
+				'last_page' => $products->lastPage(),
+				'on_first_page' => $products->onFirstPage(),
+				'pages' => $pLinks
+			]
 		];
 		foreach ($filtersFields as $field) {
 			$result['filters'][$field] = $this->getSection($field);
@@ -70,13 +89,14 @@ class FiltersResourceCollection extends ResourceCollection
 				return ProductAttribute::whereIn('text', $filter)->pluck('product_id');
 			},
 			'brand' => function ($filter) {
-				return;
+				return ProductDescription::whereIn('vendor', $filter)->pluck('product_id');
 			},
 			'size' => function ($filter) {
-				return;
+				$t = ProductOptionValue::whereIn('value', $filter)->where('instock', '>', 0)->pluck('product_option_id');
+				return ProductOption::whereIn('id', $t)->pluck('product_id');
 			},
 			'price' => function ($filter) {
-				return;
+				return Product::where('price', '>=', $filter[0])->where('price', '<=', $filter[1])->pluck('id');
 			}
 		];
 
@@ -163,11 +183,13 @@ class FiltersResourceCollection extends ResourceCollection
 				'action' => function () {
 					return [
 						'min' => Product::
+							whereIn('id', $this->collection)->
 							orderBy('price', 'ASC')->
 							select('price')->
 							first()
 							->price,
 						'max' => Product::
+							whereIn('id', $this->collection)->
 							orderBy('price', 'DESC')->
 							select('price')->
 							first()
