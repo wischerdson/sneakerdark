@@ -29,6 +29,14 @@ class Product extends Model
 	{
 		return $this->hasMany('App\ProductOption');
 	}
+	public function sizes()
+	{
+		return $this->hasMany('App\ProductOption')->whereIn('name', [
+			'Размер обуви',
+            'Размер одежды',
+            'Размер Аксессуаров'
+		]);
+	}
 
 	/**
 	 * Return the sluggable configuration array for this model.

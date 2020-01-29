@@ -9,7 +9,7 @@
 						:key="`size_item_${index}`"
 						v-if="size.instock"
 					>
-						<button class="size btn">@{{ size.size }}</button>
+						<button class="size btn">@{{ size.value }}</button>
 					</li>
 				</ul>
 				<button v-show="!inWishlist" class="add-to-wishlist-btn btn" @click.prevent="addToWishlist">

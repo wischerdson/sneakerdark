@@ -22,13 +22,17 @@ class FiltersResourceCollection extends ResourceCollection
 	public function toArray($request)
 	{
 		$filtersFields = $request->input('filters_fields') ?? [];
-
+		$sort = $request->input('sort') ?? ['column' => 'created_at', 'mode' => 'desc'];
+		$sort = is_string($sort) ? json_decode($sort) : $sort;
+		$sort = (object) $sort;
+		
 		$filteredProductsIds = $this->filterProducts($request);
 		$count = count($filteredProductsIds);
 
 		$products = Product::
 			whereIn('id', $filteredProductsIds)->
 			where('instock', '>', 0)->
+			orderBy($sort->column, $sort->mode)->
 			paginate(10 * 3, ['*'], 'page', $request->input('page'));
 
 		$pLinks = [];

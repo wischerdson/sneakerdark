@@ -1,13 +1,21 @@
 export default (app, inject) => {
+
 	const plugin = {
+		instance: null,
+		getInstance () {
+			if (this.instance === null)
+				this.instance = new URL(window.location.href)
+
+			return this.instance
+		},
 		current () {
-			return window.location.origin + window.location.pathname
+			return this.getInstance().href
 		},
 		path () {
 			return window.location.pathname
 		},
 		params () {
-			const raw = window.location.search
+			const raw = decodeURI(window.location.search)
 
 			if (!raw)
 				return {}
@@ -21,6 +29,16 @@ export default (app, inject) => {
 			}
 
 			return result
+		},
+		getParam (paramName) {
+			return this.getInstance().searchParams.get(paramName)
+		},
+		hasParam (paramName) {
+			return this.getInstance().searchParams.has(paramName)
+		},
+		setParam (paramName, paramValue) {
+			this.getInstance().searchParams.set(paramName, paramValue)
+			return this.current()
 		},
 		setParams (array) {
 			let query = this.current()

@@ -30,13 +30,12 @@
 		},
 		methods: {
 			update () {
-				this.$storage.set(sessionStorage, {
-					name: `filters_conf_${this.$url.path()}`,
-					value: this.appliedFilters
-				})
+				let page = this.$url.hasParam('page') ? this.$url.getParam('page') : 1
 
-				if (this.$url.params().page > 1 && !this.firstRequest) {
-					window.location.href = this.$url.setParams({page: 1})
+				history.replaceState(this.appliedFilters, null, this.$url.setParam('f', JSON.stringify(this.appliedFilters)));
+
+				if (page > 1 && !this.firstRequest) {
+					window.location.href = this.$url.setParam('page', 1)
 					return
 				}
 
@@ -46,9 +45,9 @@
 				this.$store.dispatch('collection_fetch', {
 					'api': this.$store.state.laradata['api.catalog'],
 					'params': {
-						'page': this.$url.params().page,
+						'page': page,
 						'sort': this.sort(this.appliedFilters.sort),
-						'fields': ['name', 'vendor'],
+						'fields': ['name', 'vendor', 'sizes'],
 						'applied_filters': this.appliedFilters,
 						'filters_fields': this.firstRequest ? filtersFields : []
 					}
@@ -90,6 +89,7 @@
 			},
 			appliedFilters: {
 				deep: true,
+				immediate: true,
 				handler (value, oldValue) {
 					clearTimeout(updateTimeout)
 					updateTimeout = setTimeout(() => {
@@ -99,13 +99,14 @@
 			}
 		},
 		mounted () {
-			const tmp = this.appliedFilters
-			this.appliedFilters = {}
-			this.appliedFilters = this.$storage.extract(sessionStorage, {
-				name: `filters_conf_${this.$url.path()}`,
-				default: tmp
-			})
-			this.$store.commit('collection_sort', this.appliedFilters.sort)
+			if (this.$url.hasParam('f')) {
+				try {
+					this.appliedFilters = JSON.parse(this.$url.getParam('f'))
+					this.$store.commit('collection_sort', this.appliedFilters.sort)
+				} catch (e) {
+					history.replaceState(this.appliedFilters, null, this.$url.setParam('f', JSON.stringify(this.appliedFilters)));
+				}
+			}
 		}
 	}
 
