@@ -65,14 +65,14 @@
 					class="page-item"
 					v-show="!pagination.on_first_page"
 				>
-					<a :href="$url.setParams({page: pagination.current_page - 1})" class="page-link"></a>
+					<a :href="$url.setParam('page', pagination.current_page - 1, false)" class="page-link"></a>
 				</li>
 
 				<li
 					class="page-item"
 					:class="{active: pagination.on_first_page}"
 				>
-					<a :href="$url.setParams({page: 1})" class="page-link">1</a>
+					<a :href="$url.setParam('page', 1, false)" class="page-link">1</a>
 				</li>
 
 				<li v-if="pagination.current_page >= 6" class="page-item disabled"><span class="page-link">...</span></li>
@@ -83,7 +83,7 @@
 					:class="{active: page == pagination.current_page}"
 					:key="`pagination_link_${index}`"
 				>
-					<a :href="$url.setParams({page})" class="page-link">@{{ page }}</a>
+					<a :href="$url.setParam('page', page, false)" class="page-link">@{{ page }}</a>
 				</li>
 
 				<li
@@ -95,14 +95,14 @@
 					class="page-item"
 					:class="{active: pagination.last_page == pagination.current_page}"
 				>
-					<a :href="$url.setParams({page: pagination.last_page})" class="page-link">@{{ pagination.last_page }}</a>
+					<a :href="$url.setParam('page', pagination.last_page, false)" class="page-link">@{{ pagination.last_page }}</a>
 				</li>
 
 				<li
 					v-show="pagination.has_more_pages"
 					class="page-item"
 				>
-					<a :href="$url.setParams({page: pagination.current_page + 1})" class="page-link"></a>
+					<a :href="$url.setParam('page', pagination.current_page + 1, false)" class="page-link"></a>
 				</li>
 			</ul>
 		</nav>

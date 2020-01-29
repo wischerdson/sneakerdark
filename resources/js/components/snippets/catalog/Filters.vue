@@ -30,9 +30,10 @@
 		},
 		methods: {
 			update () {
-				let page = this.$url.hasParam('page') ? this.$url.getParam('page') : 1
+				let page = this.$url.getParam('page')
+				this.$url.setParam('f', JSON.stringify(this.appliedFilters))
 
-				history.replaceState(this.appliedFilters, null, this.$url.setParam('f', JSON.stringify(this.appliedFilters)));
+				history.replaceState(this.appliedFilters, null, this.$url.href);
 
 				if (page > 1 && !this.firstRequest) {
 					window.location.href = this.$url.setParam('page', 1)
@@ -99,14 +100,23 @@
 			}
 		},
 		mounted () {
+				console.log(this.$url.params)
+				
 			if (this.$url.hasParam('f')) {
 				try {
 					this.appliedFilters = JSON.parse(this.$url.getParam('f'))
 					this.$store.commit('collection_sort', this.appliedFilters.sort)
 				} catch (e) {
-					history.replaceState(this.appliedFilters, null, this.$url.setParam('f', JSON.stringify(this.appliedFilters)));
+					
 				}
 			}
+			if (!this.$url.hasParam('page'))
+				this.$url.setParam('page', 1)
+
+
+			
+
+			history.replaceState(this.appliedFilters, null, this.$url.href);
 		}
 	}
 

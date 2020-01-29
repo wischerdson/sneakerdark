@@ -1,27 +1,30 @@
 export default (app, inject) => {
 
 	const plugin = {
-		instance: null,
-		getInstance () {
-			if (this.instance === null)
-				this.instance = new URL(window.location.href)
+		origin: null,
+		href: null,
+		host: null,
+		protocol: null,
+		pathname: null,
+		search: null,
+		params: [],
 
-			return this.instance
+		__construct () {
+			this.origin = window.location.origin
+			this.href = window.location.href
+			this.host = window.location.host
+			this.protocol = window.location.protocol
+			this.search = decodeURI(window.location.search)
+			this.pathname = window.location.pathname
+			this.params = this.initParams()
 		},
-		current () {
-			return this.getInstance().href
-		},
-		path () {
-			return window.location.pathname
-		},
-		params () {
-			const raw = decodeURI(window.location.search)
-
-			if (!raw)
-				return {}
-
+		initParams () {
 			let result = {}
-			const params = (raw.substr(1)).split('&')
+
+			if (!this.search)
+				return result
+			
+			const params = this.search.substr(1).split('&')
 			
 			for (const key in params) {
 				const option = params[key].split('=')
@@ -30,30 +33,38 @@ export default (app, inject) => {
 
 			return result
 		},
-		getParam (paramName) {
-			return this.getInstance().searchParams.get(paramName)
+		setParams (params, remember) {
+			remember = remember === undefined ? true : remember
+			if (remember)
+				Object.assign(this.params, params)
+			return this.createSearch(Object.assign({}, this.params, params), remember)
+		},
+		setParam (paramName, paramValue, remember) {
+			remember = remember === undefined ? true : remember
+			let a = {}
+			a[paramName] = paramValue
+			return this.setParams(a, remember)
 		},
 		hasParam (paramName) {
-			return this.getInstance().searchParams.has(paramName)
+			return paramName in this.params
 		},
-		setParam (paramName, paramValue) {
-			this.getInstance().searchParams.set(paramName, paramValue)
-			return this.current()
+		getParam (paramName) {
+			return this.params[paramName]
 		},
-		setParams (array) {
-			let query = this.current()
-			let fst = true
-			for (const key in array) {
-				if (fst) {
-					query += '?'
-					fst = false
-					query += key + '=' + array[key]
-					continue
-				}
-				query += '&' + key + '=' + array[key]
+		createSearch (params, remember) {
+			let result = this.origin + this.pathname + '?'
+			let amp = ''
+
+			for (const key in params) {
+				result += amp + key + '=' + params[key]
+				amp = '&'
 			}
 
-			return query
+			result = encodeURI(result)
+
+			this.href = remember ? result : this.href
+
+			return result
 		}
 	}
 

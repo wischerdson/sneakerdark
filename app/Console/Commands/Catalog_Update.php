@@ -265,10 +265,25 @@ class Catalog_Update extends Command
 	{
 		$startExecutionTime = time();
 		$stopwatch = time();
-		//downloadFile(config('app.import_link'), storage_path('app/sneakerdark/').'import_1.xml');
-		//downloadFile('https://sportomax.com/wa-data/public/shop/plugins/ymlexport/document.xml', storage_path('app/sneakerdark/').'import_1.xml');
 
 		$file = storage_path('app/sneakerdark/').'import_1.xml';
+
+		downloadFile(config('app.import_link'), $file);
+		$hashFileExists = Storage::disk('sneakerdark')->exists('last_hash.txt');
+
+		if (!$hashFileExists)
+			Storage::disk('sneakerdark')->put('last_hash.txt', '');
+
+		$hashFileContent = Storage::disk('sneakerdark')->get('last_hash.txt');
+		$hash = hash_file('md5', $file);
+
+		if ($hashFileContent === $hash) {
+			$this->comment('No updates is required.');
+			return;
+		}
+		Storage::disk('sneakerdark')->put('last_hash.txt', $hash);
+
+		//downloadFile('https://sportomax.com/wa-data/public/shop/plugins/ymlexport/document.xml', storage_path('app/sneakerdark/').'import_1.xml');
 
 		$xml = new XmlParser($file);
 		$this->importCollections($xml);
@@ -276,7 +291,7 @@ class Catalog_Update extends Command
 		$this->info('Collection, CollectionDescription, Attribute, AttributeDescription');
 		$stopwatch = time();
 		$xml->start();
-		$this->line('Execution time: '.(time() - $stopwatch).'s or '.((time() - $stopwatch)/60).'m');
+		$this->line('Execution time: '.(time() - $stopwatch).'s');
 
 		unset($xml);
 
@@ -285,7 +300,7 @@ class Catalog_Update extends Command
 		$this->info('Product, ProductDescription, ProductAttribute, ProductOption, ProductImage');
 		$stopwatch = time();
 		$xml->start();
-		$this->line('Execution time: '.(time() - $stopwatch).'s or '.((time() - $stopwatch)/60).'m');
+		$this->line('Execution time: '.(time() - $stopwatch).'s');
 
 		unset($xml);
 
@@ -294,8 +309,10 @@ class Catalog_Update extends Command
 		$this->info('ProductOptionValue');
 		$stopwatch = time();
 		$xml->start();
-		$this->line('Execution time: '.(time() - $stopwatch).'s or '.((time() - $stopwatch)/60).'m');
-		$this->line('Total execution time: '.(time() - $startExecutionTime).'s or '.((time() - $startExecutionTime)/60).'m');
+		$this->line('Execution time: '.(time() - $stopwatch).'s');
+		$this->line('Total execution time: '.(time() - $startExecutionTime).'s');
+
+		\Artisan::call('catalog:images');
 
 		return;
 

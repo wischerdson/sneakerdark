@@ -6,10 +6,12 @@ export default (app) => {
 		app[key] = plugin
 		app.store[key] = plugin
 
+		if ('__construct' in plugin)
+			plugin.__construct()
+
 		Vue.use(() => {
-			if (Vue.prototype.hasOwnProperty(key)) {
+			if (Vue.prototype.hasOwnProperty(key))
 				return
-			}
 
 			Object.defineProperty(Vue.prototype, key, {
 				get () {
