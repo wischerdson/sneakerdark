@@ -1,7 +1,7 @@
 <template id="template__section_collections">
 	<div id="section_collections">
 		<div class="container large">
-			<div class="title">
+			<div class="section-title">
 				<h2>Коллекции</h2>
 				<hr>
 			</div>

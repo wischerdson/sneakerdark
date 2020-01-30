@@ -1,6 +1,6 @@
 <template id="template__section_brands">
 	<div id="section_brands" class="container large">
-		<div class="title">
+		<div class="section-title">
 			<h2>Бренды</h2>
 			<hr>
 		</div>

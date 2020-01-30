@@ -21,13 +21,4 @@ class CollectionController extends Controller
 
 		return $this->output();
 	}
-
-	private function fetchChildCategories($collectionId) {
-		$childCategories = Collection::where('parent_id', $collectionId)->get();
-		array_push($this->collections, $collectionId);
-		foreach ($childCategories as $childCollection) {
-			$this->fetchChildCategories($childCollection->id);
-		}
-		return;
-	}
 }

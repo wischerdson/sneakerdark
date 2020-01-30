@@ -1,5 +1,5 @@
 <template id="template__snippet_catalog_collection_product">
-	<li class="product-item">
+	<li class="_snippet_product-item">
 		<a :href="url">
 			<div class="picture-wrapper" :class="{'no-sizes': sizes.length === 0}">
 				<ul class="sizes-panel missing" @click.prevent="" v-show="sizes.length">
