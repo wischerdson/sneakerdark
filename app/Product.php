@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+
 use Cviebrock\EloquentSluggable\Sluggable;
 
 class Product extends Model
@@ -33,9 +35,32 @@ class Product extends Model
 	{
 		return $this->hasMany('App\ProductOption')->whereIn('name', [
 			'Размер обуви',
-            'Размер одежды',
-            'Размер Аксессуаров'
+			'Размер одежды',
+			'Размер Аксессуаров'
 		]);
+	}
+	public function scopeWithAttributes($query)
+	{
+		return $query->with(['attributes' => function ($q1) {
+			$q1
+			->join('attribute', 'product_attribute.attribute_id', '=', 'attribute.id')
+			->orderBy('attribute.sort_order', 'asc')
+			->with(['attribute' => function ($q2) {
+				$q2->with('description');
+			}]);
+		}]);
+	}
+	public function scopeWithOptions($query)
+	{
+		return $query->with(['options' => function ($q1) {
+			$q1->with(['values' => function ($q2) {
+				$q2->where('instock', '>', 0);
+			}]);
+		}]);
+	}
+	public function scopeColors($query, $model)
+	{
+		return $query->join('product_description', 'product.id', '=', 'product_description.id')->where('product_description.model', $model);
 	}
 
 	/**
@@ -62,8 +87,11 @@ class Product extends Model
 		self::updating(function($model) {
 			$model->updated_at = time();
 		});
-		/*static::addGlobalScope('age', function (Builder $builder) {
-            $builder->where('age', '>', 200);
-        });*/
+		static::addGlobalScope('instock', function (Builder $builder) {
+			$builder->where('instock', '>', 0);
+		});
+		/*static::addGlobalScope('deleted', function (Builder $builder) {
+			$builder->where('deleted_at', null);
+		});*/
 	}
 }

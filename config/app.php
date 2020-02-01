@@ -186,6 +186,7 @@ return [
 		 */
 		App\Providers\SmartEndingServiceProvider::class,
 		App\Providers\DownloadServiceProvider::class,
+		App\Providers\CompileBladeStringServiceProvider::class,
 	],
 
 	/*

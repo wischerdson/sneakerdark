@@ -10,7 +10,7 @@ class Attribute extends Model
 	protected $guarded = [];
 	public $timestamps = false;
 
-	public function descriptions() {
-		return $this->hasMany('App\AttributeDescription');
+	public function description() {
+		return $this->hasOne('App\AttributeDescription');
 	}
 }

@@ -181,7 +181,7 @@ class FiltersResourceCollection extends ResourceCollection
 						distinct()->
 						pluck('value')->
 						sort()->
-						toArray();;
+						toArray();
 				}
 			],
 			'price' => [

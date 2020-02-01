@@ -2,7 +2,7 @@
 	<footer id="section_footer">
 		<div class="desktop">
 			<div class="pictured-items-container container large">
-				<a class="pictured-item square" href="#">
+				<a class="pictured-item square" @click="$jivo.open">
 					<div>
 						<div class="image" style="background-image: url({{ asset('image/footer/footer-card-1.jpg') }})"></div>
 						<div class="overlay"></div>

@@ -5,9 +5,9 @@
 		</div>
 		<button class="close" @click="galleryIsOpen = false">@include('svg.cross')</button>
 		<ul class="picture-list" ref="gallery">
-			@foreach ($product->pictures as $picture)
+			@foreach ($product->images as $picture)
 			<li class="picture-item">
-				<img src="{{ $picture->src }}">
+				<img src="{{ asset($picture->src) }}">
 			</li>
 			@endforeach
 		</ul>

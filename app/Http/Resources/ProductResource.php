@@ -45,7 +45,8 @@ class ProductResource extends JsonResource
 				return $this->description->vendor;
 			},
 			'sizes' => function () {
-				return ProductOptionResource::collection($this->sizes)[0];
+				$t = ProductOptionResource::collection($this->sizes);
+				return $t->count() ? $t[0] : [];
 			}
 		];
 

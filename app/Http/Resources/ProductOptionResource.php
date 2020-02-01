@@ -18,7 +18,5 @@ class ProductOptionResource extends JsonResource
     public function toArray($request)
     {
         return ProductOptionValueResource::collection($this->values);
-        return ProductOptionValueResource::collection(ProductOptionValue::where('product_option_id', $this->collection->id));
-        return parent::toArray($request);
     }
 }

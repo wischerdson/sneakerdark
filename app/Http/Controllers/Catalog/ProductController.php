@@ -10,31 +10,31 @@ use App\Collection;
 
 class ProductController extends Controller
 {
-	public function show($product_id) {
-		$product = Product::where('id', $product_id)
-			->with('pictures')
-			->with('sizes')
-			->with('parameters')
-			->with('collection')
-			->first();
+	public function show($product_alias) {
+		$product = Product::where('alias', $product_alias)->withAttributes()->withOptions()->with([
+			'description',
+			'images'
+		])->first();
 
 		if (!$product) {
 			$this->template = 'catalog.product-not-found';
 			$this->title = 'Товар не найден - Sneakerdark';
-			$this->vars['product_article'] = $product_id;
 			return $this->output();
 		}
 
-
-		$collection = Collection::find($product->collection->id);
+		$collection = Collection::find($product->collection_id);
 		$this->vars['collectionsChain'] = $collection->chain;
 
 
-		$product->colors = Product::where('model', $product->model)->with('pictures')->get();
+		$product->colors = Product::colors($product->description->model)->get();
+
+		$metaTitle = $product->description->meta_title;
+		$price = $product->price.' '.smart_ending($product->price, ['рубль', 'рубля', 'рублей']);
+		$metaTitle = str_replace('{{ $price }}', $price, $metaTitle);
 
 		$this->template = 'catalog.product';
-		$this->title = $product->title.' - Sneakerdark';
-		$this->ogImage = $product->pictures[0]->src;
+		$this->title = $metaTitle;
+		$this->ogImage = asset($product->image);
 		$this->vars['product'] = $product;
 
 		return $this->output();

@@ -28,6 +28,12 @@ export default {
 		'Radio',
 		'HasScroll',
 		'Sticky',
-		'Laradata'
+		'Laradata',
+		{
+			'Tabs': [
+				'TabsContent',
+				'TabsItems'
+			]
+		}
 	]
 }

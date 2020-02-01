@@ -11,12 +11,12 @@
 								<div class="arrow" ref="sliderPrevArrow">@include('svg.keyboard-arrow-left')</div>
 							</div>
 							<div ref="pictures" @mousedown="enableZoom">
-								@foreach ($product->pictures as $picture)
+								@foreach ($product->images as $picture)
 								<div class="image-wrapper">
 									<div
 									:class="['image', {'transition': zoomTransition}]"
 									:style="`
-										background-image: url({{ $picture->src }});
+										background-image: url({{ asset($picture->src) }});
 										top: ${zoomTop}px;
 										left: ${zoomLeft}px;
 										right: ${zoomRight}px;
@@ -31,8 +31,8 @@
 							</div>
 						</div>
 						<div class="slider-navigation" ref="sliderNavigation">
-							@foreach ($product->pictures as $picture)
-							<div class="mini-image" style="background-image: url({{ $picture->src }})"></div>
+							@foreach ($product->images as $picture)
+							<div class="mini-image" style="background-image: url({{ asset($picture->src) }})"></div>
 							@endforeach
 						</div>
 					</div>
@@ -48,12 +48,12 @@
 				</div>
 			</div>
 			<div class="right">
-				<div class="vendor">{{ $product->vendor }}</div>
-				<h2>{{ $product->title }}</h2>
+				<div class="vendor">{{ $product->description->vendor }}</div>
+				<h2>{{ $product->description->name }}</h2>
 				<div class="info">
-					<div>Артикул: <span>{{ $product->id }}</span></div>
+					<div>Артикул: <span>{{ $product->sku }}</span></div>
 					&nbsp;&nbsp;/&nbsp;&nbsp;
-					<a href="#">{{ $product->vendor }}</a>
+					<a href="#">{{ $product->description->vendor }}</a>
 				</div>
 				<div class="price-wrapper">
 					<div class="compare-at-price">{{ $product->price * 1.2 }}</div>
@@ -62,58 +62,62 @@
 				</div>
 				
 				<ul class="parameter-list">
-					@foreach ($product->parameters as $parameter)
-						@if ($parameter->key == 'Пол')
+					@foreach ($product->attributes as $attribute)
+						@php
+							$attributeName = $attribute->attribute->description->name
+						@endphp
+						@if ($attributeName == 'Пол')
 							@continue
 						@endif
-						@if ($parameter->key == 'Цвет')
-						<input type="hidden" name="product_color" value="{{ $parameter->value }}">
+						@if ($attributeName == 'Цвет')
+						<input type="hidden" name="product_color" value="{{ $attribute->text }}">
 						@endif
 						<li class="parameter-item">
-							<span class="parameter-key">{{ $parameter->key }}</span>
-							<span class="parameter-value">{{ $parameter->value }}</span>
+							<span class="parameter-key">{{ $attributeName }}</span>
+							<span class="parameter-value">{{ $attribute->text }}</span>
 						</li>
 					@endforeach
 				</ul>
 
+				@if ($product->options->count())
+					@foreach ($product->options as $option)
+					<div class="sizes-wrapper">
+						<div class="title">{{ $option->name }} <button class="how-to-choose-size-btn">@include('svg.ruler')Таблица размеров</button></div>
+						<ul class="size-list">
+							@foreach ($option->values as $value)
 
-				@if (isset($product->sizes[0]))
-				<div class="sizes-wrapper">
-					<div class="title">Размер <button class="how-to-choose-size-btn">@include('svg.ruler')Таблица размеров</button></div>
-					<ul class="size-list">
-						@foreach ($product->sizes as $size)
-						@if ($size->instock !== 0)
-						<li class="size-item" instock="{{ $size->instock }}">
-							<input
-								type="radio"
-								name="product_size"
-								id="size_{{ $size->supplier_id }}"
-								value="{{ $size->id }}"
-								v-model="product.size"
-							>
-							<label for="size_{{ $size->supplier_id }}">
-								{{ $size->size }}
-							</label>
-							@if ($size->instock === 1)
-							<div class="tip">Осталась 1 шт.</div>
-							@endif
-						</li>
-						@endif
-						@endforeach
-					</ul>
-				</div>
+							<li class="size-item" instock="{{ $value->instock }}">
+								<input
+									type="radio"
+									name="product_size"
+									id="size_{{ $value->id }}"
+									value="{{ $value->id }}"
+									v-model="product.size"
+								>
+								<label for="size_{{ $value->id }}">
+									{{ $value->value }}
+								</label>
+								@if ($value->instock === 1)
+								<div class="tip">Осталась 1 шт.</div>
+								@endif
+							</li>
+
+							@endforeach
+						</ul>
+					</div>
+					@endforeach
 				@endif
 
-				@if (isset($product->colors) && count($product->colors) > 1)
+				@if ($product->colors->count() > 1)
 				<div class="colors-wrapper">
 					<div class="title">Доступные цвета</div>
 					<ul class="color-list">
 						@foreach ($product->colors as $color)
 						<li
 							class="color-item @if ($color->id == $product->id) current @endif"
-							style="background-image: url({{ $color->pictures[0]->src ?? asset('image/no-image.jpg') }})"
+							style="background-image: url({{ asset($color->image) ?? asset('image/no-image.jpg') }})"
 						>
-							<a href="{{ route('catalog.product', ['product_id' => $color->id]) }}">
+							<a href="{{ route('catalog.product', ['product_alias' => $color->alias]) }}">
 								@if ($color->id == $product->id)
 								<div class="tick">@include('svg.tick')</div>
 								@endif
@@ -153,14 +157,14 @@
 			</ul>
 			<div class="tab-content">
 				<div class="description" v-if="tabs.description" v-show="tabs.description.isActive">
-					<div class="text">{!! $product->description !!}</div>
+					<div class="text">{!! $product->description->description !!}</div>
 					@php
 
-						$a = count($product->pictures);
+						$a = $product->images->count();
 						$a = rand(0, $a - 1);
 
 					@endphp
-					<div class="rand-picture"><img src="{{ $product->pictures[$a]->src }}"></div>
+					<div class="rand-picture"><img src="{{ asset($product->images[$a]->src) }}"></div>
 				</div>
 				<div v-show="tabs.sizes.isActive">Размеры</div>
 				<div v-show="tabs.shipping.isActive">shipping</div>
@@ -169,8 +173,26 @@
 				<div v-show="tabs.guarantees.isActive">guarantees</div>
 			</div>
 			<div class="live-chat">
-				<button><span class="online-dot"></span> Online-чат с менеждером</button>
+				<button @click="$jivo.open"><span class="online-dot"></span> Online-чат с менеждером</button>
 			</div>
+
+
+			<tabs-items v-model="tabs">
+				<!-- <tab-item :key="1">Описание</tab-item>
+				<tab-item :key="2">Размеры</tab-item>
+				<tab-item :key="3">Отзывы</tab-item>
+				<tab-item :key="4">Оплата и доставка</tab-item>
+				<tab-item :key="5">Обмен и возврат</tab-item>
+				<tab-item :key="6">Гарантии</tab-item> -->
+			</tabs-items>
+			<tabs-content v-model="tabs">
+				<!-- <tab-content :key="1">{!! $product->description->description !!}</tab-content>
+				<tab-content :key="2">Размеры</tab-content>
+				<tab-content :key="3">shipping</tab-content>
+				<tab-content :key="4">refund</tab-content>
+				<tab-content :key="5">comments</tab-content>
+				<tab-content :key="6">guarantees</tab-content> -->
+			</tabs-content>
 		</div>
 		@include('snippets.shop-product-gallery')
 		@include('snippets.shop-product-found_cheaper_modal')
