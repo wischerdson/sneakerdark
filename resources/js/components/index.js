@@ -6,6 +6,7 @@ export default (app) => {
 		dir = (dir || '').toLowerCase()
 		
 		if (typeof components === 'string') {
+			let element = components
 			let prefixArray = dir.split('/').slice(2)
 			let prefix = ''
 
@@ -16,7 +17,12 @@ export default (app) => {
 				prefix += value
 			}
 
-			let element = prefix + components
+
+			if ((/^\&/gmi).test(element)) {
+				components = components.slice(1)
+				element = prefix + element.slice(1)
+			}
+
 			if ((/templates/gmi).test(dir))
 				element += 'Page'
 			if ((/sections/gmi).test(dir))

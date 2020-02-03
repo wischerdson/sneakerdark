@@ -15,14 +15,7 @@
 					color: null
 				},
 				sizeIsNotSelect: false,
-				tabs: {
-					description: {name: 'Описание', isActive: true},
-					sizes: {name: 'Размеры', isActive: false},
-					comments: {name: 'Отзывы', isActive: false},
-					shipping: {name: 'Оплата и доставка', isActive: false},
-					refund: {name: 'Обмен и возврат', isActive: false},
-					guarantees: {name: 'Гарантии', isActive: false}
-				},
+				tabs: {},
 				presentationSlide: 0,
 				gallerySlide: 0,
 				galleryIsOpen: false,
@@ -39,11 +32,6 @@
 			}
 		},
 		methods: {
-			setActiveTab (tab) {
-				for (let key in this.tabs) {
-					this.tabs[key].isActive = this.tabs[key] === tab
-				}
-			},
 			zoomHandler (e) {
 				if (!this.zoom)
 					return
@@ -95,8 +83,6 @@
 				if (this.sizeIsNotSelect)
 					return
 
-				console.log(this.product.size)
-
 				this.$store.commit('cart_add', {
 					id: this.$store.state.laradata.productId,
 					size: this.product.size
@@ -129,14 +115,6 @@
 			document.addEventListener('mousemove', this.zoomHandler)
 			document.addEventListener('mouseup', this.disableZoom)
 
-			const hasDesc = eval(this.$refs.tabList.getAttribute('has-desc'))
-
-			if (!hasDesc) {
-				this.tabs.description = {}
-				this.tabs.sizes.isActive = true
-			}
-
-
 			$(this.$refs.gallery).slick({
 				dots: true,
 				speed: 450,
@@ -149,7 +127,6 @@
 			$(this.$refs.gallery).on('afterChange', (event, slick, direction) => {
 				this.gallerySlide = slick.currentSlide
 			})
-
 		}
 	}
 

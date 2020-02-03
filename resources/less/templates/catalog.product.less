@@ -257,32 +257,12 @@
 		margin-top: 50px;
 		margin-bottom: 200px;
 
-		.tab-list {
-			display: grid;
-
-			.tab-item {
-				text-align: center;
-				font-size: 1.2rem;
-				padding: 5px 0;
-				border-bottom: 1px solid #d8d8d8;
-				color: #d8d8d8;
-				text-transform: uppercase;
-				cursor: pointer;
-				transition: all .15s ease-in-out;
-
-				&.active {
-					color: black;
-					border-bottom: 3px solid #7122e3;
-				}
-			}
-		}
-		.tab-content {
+		.product-info-tabs {
 			margin-top: 40px;
 
 			.description {
-				display: grid;
+				display: grid !important;
 				grid-template-columns: 1.2fr 1fr;
-				
 
 				.text {
 					& > *:first-child span {

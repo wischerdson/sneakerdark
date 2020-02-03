@@ -40,9 +40,9 @@
 						<breadcrumb>
 							<breadcrumb-item url="{{ route('home') }}">Главная</breadcrumb-item>
 							@foreach ($collectionsChain as $collection)
-							<breadcrumb-item url="#">{{ $collection->title }}</breadcrumb-item>
+							<breadcrumb-item url="{{ route('catalog', ['collection_alias' => $collection->alias]) }}">{{ $collection->description->name }}</breadcrumb-item>
 							@endforeach
-							<breadcrumb-item>{{ $product->title }}</breadcrumb-item>
+							<breadcrumb-item>{{ $product->description->name }}</breadcrumb-item>
 						</breadcrumb>
 					</div>
 				</div>
@@ -146,53 +146,43 @@
 			</div>
 		</div>
 		<div class="bottom">
-			<ul class="tab-list" ref="tabList" has-desc="{{ $product->description ? 1 : 0 }}" :style="`grid-template-columns: repeat(${Object.keys(tabs).length}, 1fr)`">
-				<li
-					@click="setActiveTab(tab)"
-					v-for="tab in tabs"
-					:class="[{'active': tab.isActive}, 'tab-item']"
-				>
-					@{{ tab.name }}
-				</li>
-			</ul>
-			<div class="tab-content">
-				<div class="description" v-if="tabs.description" v-show="tabs.description.isActive">
-					<div class="text">{!! $product->description->description !!}</div>
-					@php
+			<div class="product-info-tabs">
+				@php
+					$productDescription = $product->description->description;
+				@endphp
 
-						$a = $product->images->count();
-						$a = rand(0, $a - 1);
-
-					@endphp
-					<div class="rand-picture"><img src="{{ asset($product->images[$a]->src) }}"></div>
-				</div>
-				<div v-show="tabs.sizes.isActive">Размеры</div>
-				<div v-show="tabs.shipping.isActive">shipping</div>
-				<div v-show="tabs.refund.isActive">refund</div>
-				<div v-show="tabs.comments.isActive">comments</div>
-				<div v-show="tabs.guarantees.isActive">guarantees</div>
+				<tabs-items v-model="tabs" style="margin-top: 50px">
+					@if (!empty($productDescription))
+					<tab-item>Описание</tab-item>
+					@endif
+					<tab-item>Размеры</tab-item>
+					<tab-item>Отзывы</tab-item>
+					<tab-item>Оплата и доставка</tab-item>
+					<tab-item>Обмен и возврат</tab-item>
+					<tab-item>Гарантии</tab-item>
+				</tabs-items>
+				<tabs-content v-model="tabs">
+					@if (!empty($productDescription))
+					<tab-content class="description">
+						<div class="text">{!! $productDescription !!}</div>
+						@php
+							$a = $product->images->count();
+							$a = rand(0, $a - 1);
+						@endphp
+						<div class="rand-picture"><img src="{{ asset($product->images[$a]->src) }}"></div>
+					</tab-content>
+					@endif
+					<tab-content>Размеры</tab-content>
+					<tab-content>shipping</tab-content>
+					<tab-content>refund</tab-content>
+					<tab-content>comments</tab-content>
+					<tab-content>guarantees</tab-content>
+				</tabs-content>
 			</div>
+
 			<div class="live-chat">
 				<button @click="$jivo.open"><span class="online-dot"></span> Online-чат с менеждером</button>
 			</div>
-
-
-			<tabs-items v-model="tabs">
-				<!-- <tab-item :key="1">Описание</tab-item>
-				<tab-item :key="2">Размеры</tab-item>
-				<tab-item :key="3">Отзывы</tab-item>
-				<tab-item :key="4">Оплата и доставка</tab-item>
-				<tab-item :key="5">Обмен и возврат</tab-item>
-				<tab-item :key="6">Гарантии</tab-item> -->
-			</tabs-items>
-			<tabs-content v-model="tabs">
-				<!-- <tab-content :key="1">{!! $product->description->description !!}</tab-content>
-				<tab-content :key="2">Размеры</tab-content>
-				<tab-content :key="3">shipping</tab-content>
-				<tab-content :key="4">refund</tab-content>
-				<tab-content :key="5">comments</tab-content>
-				<tab-content :key="6">guarantees</tab-content> -->
-			</tabs-content>
 		</div>
 		@include('snippets.shop-product-gallery')
 		@include('snippets.shop-product-found_cheaper_modal')

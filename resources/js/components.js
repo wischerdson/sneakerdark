@@ -6,12 +6,12 @@ export default {
 		'Wishlist',
 		{
 			'Catalog': [
-				'Product',
-				'ProductNotFound',
-				'Collection'
+				'&Product',
+				'&ProductNotFound',
+				'&Collection'
 			],
 			'Legal': [
-				'Refund'
+				'&Refund'
 			]
 		}
 	],
@@ -32,7 +32,9 @@ export default {
 		{
 			'Tabs': [
 				'TabsContent',
-				'TabsItems'
+				'TabContent',
+				'TabsItems',
+				'TabItem'
 			]
 		}
 	]

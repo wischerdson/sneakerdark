@@ -22,6 +22,10 @@ export default (app) => {
 	}
 
 	require('./axios').default(app, inject)
+	require('./jquery').default(app, inject)
+	require('./jquery-ui').default(app, inject)
+	require('./slick').default(app, inject)
+	require('./materialize-css').default(app, inject)
 	require('./url').default(app, inject)
 	require('./jivo').default(app, inject)
 	require('./toasts').default(app, inject)

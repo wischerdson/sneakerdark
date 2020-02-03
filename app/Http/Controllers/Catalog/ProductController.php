@@ -22,10 +22,9 @@ class ProductController extends Controller
 			return $this->output();
 		}
 
-		$collection = Collection::find($product->collection_id);
+		$collection = Collection::with('description')->find($product->collection_id);
 		$this->vars['collectionsChain'] = $collection->chain;
-
-
+		
 		$product->colors = Product::colors($product->description->model)->get();
 
 		$metaTitle = $product->description->meta_title;

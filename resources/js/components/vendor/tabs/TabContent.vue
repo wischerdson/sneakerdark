@@ -1,5 +1,7 @@
 <template>
-	<div>123</div>
+	<div>
+		<slot></slot>
+	</div>
 </template>
 
 <script type="text/javascript">
