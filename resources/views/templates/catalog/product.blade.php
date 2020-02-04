@@ -37,6 +37,7 @@
 						</div>
 					</div>
 					<div>
+
 						<breadcrumb>
 							<breadcrumb-item url="{{ route('home') }}">Главная</breadcrumb-item>
 							@foreach ($collectionsChain as $collection)
@@ -155,7 +156,9 @@
 					@if (!empty($productDescription))
 					<tab-item>Описание</tab-item>
 					@endif
+					@if (!empty($sizeChart))
 					<tab-item>Размеры</tab-item>
+					@endif
 					<tab-item>Отзывы</tab-item>
 					<tab-item>Оплата и доставка</tab-item>
 					<tab-item>Обмен и возврат</tab-item>
@@ -172,7 +175,11 @@
 						<div class="rand-picture"><img src="{{ asset($product->images[$a]->src) }}"></div>
 					</tab-content>
 					@endif
-					<tab-content>Размеры</tab-content>
+					@if (!empty($sizeChart))
+					<tab-content class="sizeChart">
+						@include('snippets.'.$sizeChart)
+					</tab-content>
+					@endif
 					<tab-content>shipping</tab-content>
 					<tab-content>refund</tab-content>
 					<tab-content>comments</tab-content>

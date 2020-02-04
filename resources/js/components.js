@@ -13,7 +13,8 @@ export default {
 			'Legal': [
 				'&Refund'
 			]
-		}
+		},
+		'Test'
 	],
 	sections: [
 		'Header',
@@ -35,6 +36,12 @@ export default {
 				'TabContent',
 				'TabsItems',
 				'TabItem'
+			],
+			'Accordion': [
+				'Accordion',
+				'AccordionItem',
+				'AccordionItemHead',
+				'AccordionItemContent',
 			]
 		}
 	]

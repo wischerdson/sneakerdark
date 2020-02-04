@@ -100,8 +100,6 @@
 			}
 		},
 		mounted () {
-				console.log(this.$url.params)
-				
 			if (this.$url.hasParam('f')) {
 				try {
 					this.appliedFilters = JSON.parse(this.$url.getParam('f'))
@@ -112,9 +110,6 @@
 			}
 			if (!this.$url.hasParam('page'))
 				this.$url.setParam('page', 1)
-
-
-			
 
 			history.replaceState(this.appliedFilters, null, this.$url.href);
 		}

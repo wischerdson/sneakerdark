@@ -21,3 +21,4 @@ Route::group(['prefix' => 'brands'], function () {
 });
 
 Route::get('/wishlist', ['uses' => 'WishlistController@index', 'as' => 'wishlist']);
+Route::get('test', ['uses' => 'HomeController@test']);

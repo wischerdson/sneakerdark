@@ -25,4 +25,10 @@ class HomeController extends Controller
 	public function badbrowser() {
 		return view('templates.badbrowser');
 	}
+
+	public function test()
+	{
+		$this->template = 'test';
+		return $this->output();
+	}
 }
