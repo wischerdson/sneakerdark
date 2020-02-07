@@ -64,6 +64,7 @@
 				<main>
 					<{{ str_replace('.', '-', $template) }}-page></{{ str_replace('.', '-', $template) }}-page>
 				</main>
+				<laradata name="user_token">{{ bin2hex(openssl_random_pseudo_bytes(40, $cstrong)) }}</laradata>
 				<section-footer></section-footer>
 			</div>
 		</template>

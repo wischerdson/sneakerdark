@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Storage;
 use App;
 
-use Wsn\XmlParser\Document as XmlParser;
+use Sneakerdark\XmlParser\Document as XmlParser;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 use App\Attribute;
@@ -27,7 +27,7 @@ class Catalog_Update extends Command
 	 *
 	 * @var string
 	 */
-	protected $signature = 'catalog:update';
+	protected $signature = 'catalog:update {--force}';
 
 	/**
 	 * The console command description.
@@ -101,7 +101,7 @@ class Catalog_Update extends Command
 	{
 		$collections = (array) Collection::select(['id', 'supplier_id'])->pluck('id', 'supplier_id')->toArray();
 		$attributes = AttributeDescription::select('name', 'attribute_id')->distinct()->pluck('attribute_id', 'name')->toArray();
-		$oldProducts = Product::select('sku')->pluck('sku')->toArray();
+		$oldProducts = Product::withoutGlobalScope('instock')->select('sku')->pluck('sku')->toArray();
 		$newlyAddedProducts = [];
 
 		$xml->parseOffer([
@@ -112,7 +112,7 @@ class Catalog_Update extends Command
 			'supplier_url' => 'offer.url',
 			'shipping' => 'offer.delivery',
 			'instock' => 'offer.outlets.outlet:instock',
-			'attribute_name' => 'offer.param.name',
+			'attribute_name' => 'offer.param:name',
 			'attribute_value' => 'offer.param',
 			'name' => 'offer.name',
 			'vendor' => 'offer.vendor',
@@ -128,7 +128,8 @@ class Catalog_Update extends Command
 				return;
 
 			if (in_array($data['sku'], $oldProducts)) {
-				$product = Product::where('sku', $data['sku'])->first();
+				$product = Product::withoutGlobalScope('instock')->where('sku', $data['sku'])->first();
+				$product->deletion_candidate = false;
 				$product->base_price = $data['base_price'];
 				$product->save();
 
@@ -141,7 +142,8 @@ class Catalog_Update extends Command
 				$product->collection_id = $collections[$data['collection_id']];
 				$product->supplier_url = $data['supplier_url'];
 				$product->shipping = $data['shipping'] == 'true' ? 1 : 0;
-				$product->alias = SlugService::createSlug(Product::class, 'alias', $data['name']);
+				$slug = preg_replace('/\d/', '', $data['name']);
+				$product->alias = SlugService::createSlug(Product::class, 'alias', $data['name'].' '.$data['sku']);
 				$product->save();
 				$productCurrentID = $product->id;
 				unset($product);
@@ -204,7 +206,7 @@ class Catalog_Update extends Command
 
 	private function import_productOptionValue($xml)
 	{
-		$sku_productId = Product::select('id', 'sku')->pluck('sku', 'id')->toArray();
+		$sku_productId = Product::withoutGlobalScope('instock')->select('id', 'sku')->pluck('sku', 'id')->toArray();
 		$productsOptionsIds = ProductOption::select('id', 'product_id')->pluck('id', 'product_id')->toArray();
 		$sku_optionId = [];
 		$been = [];
@@ -216,10 +218,13 @@ class Catalog_Update extends Command
 
 		unset($productsOptionsIds);
 
+		Product::withoutGlobalScope('instock')->where('deletion_candidate', true)->update(['deleted_at' => time()]);
+		\DB::table('product')->update(['deletion_candidate' => false]);
+
 		$xml->parseOffer([
 			'sku' => 'offer:group_id',
 			'sku2' => 'offer:id',
-			'attribute_name' => 'offer.param.name',
+			'attribute_name' => 'offer.param:name',
 			'attribute_value' => 'offer.param',
 			'instock' => 'offer.outlets.outlet:instock'
 		], function ($data) use ($sku_optionId, &$been) {
@@ -246,12 +251,12 @@ class Catalog_Update extends Command
 			}
 
 			if (!in_array($data['sku'], $been)) {
-				$product = Product::where('sku', $data['sku'])->first();
+				$product = Product::withoutGlobalScope('instock')->where('sku', $data['sku'])->first();
 				$product->instock = $data['instock'];
 				$product->save();
 				$been[] = $data['sku'];
 			} else {
-				Product::where('sku', $data['sku'])->first()->increment('instock', $data['instock']);
+				Product::withoutGlobalScope('instock')->where('sku', $data['sku'])->first()->increment('instock', $data['instock']);
 			}
 		});
 	}
@@ -266,9 +271,11 @@ class Catalog_Update extends Command
 		$startExecutionTime = time();
 		$stopwatch = time();
 
-		$file = storage_path('app/sneakerdark/').'import_1.xml';
 
-		downloadFile(config('app.import_link'), $file);
+		$file = storage_path('app/sneakerdark/').'import_1.xml';
+		
+
+		/*downloadFile(config('app.import_link'), $file);
 		$hashFileExists = Storage::disk('sneakerdark')->exists('last_hash.txt');
 
 		if (!$hashFileExists)
@@ -277,15 +284,21 @@ class Catalog_Update extends Command
 		$hashFileContent = Storage::disk('sneakerdark')->get('last_hash.txt');
 		$hash = hash_file('md5', $file);
 
-		if ($hashFileContent === $hash) {
+		if ($hashFileContent === $hash && !$this->options()['force']) {
 			$this->comment('No updates is required.');
 			return;
 		}
-		Storage::disk('sneakerdark')->put('last_hash.txt', $hash);
+		Storage::disk('sneakerdark')->put('last_hash.txt', $hash);*/
+
+		new \Sneakerdark\Import\Main($file, $this);
+		return;
+
+
+		\DB::table('product')->update(['deletion_candidate' => true]);
 
 		//downloadFile('https://sportomax.com/wa-data/public/shop/plugins/ymlexport/document.xml', storage_path('app/sneakerdark/').'import_1.xml');
 
-		$xml = new XmlParser($file);
+		$xml = new \Sneakerdark\XmlParser\Document($file);
 		$this->importCollections($xml);
 		$this->importAttributes($xml);
 		$this->info('Collection, CollectionDescription, Attribute, AttributeDescription');

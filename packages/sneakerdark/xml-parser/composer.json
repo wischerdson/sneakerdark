@@ -1,0 +1,15 @@
+{
+    "name": "sneakerdark/xml-parser",
+    "description": "",
+    "license": "MIT",
+    "require": {},
+    "version": "1.0.0",
+    "autoload": {
+    	"psr-4": {
+    		"Sneakerdark\\XmlParser\\": ""
+        },
+        "classmap": [
+            "src"
+        ]
+    }
+}

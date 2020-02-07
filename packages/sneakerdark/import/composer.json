@@ -1,0 +1,19 @@
+{
+	"name": "sneakerdark/import",
+	"version": "1.0.0",
+	"authors": [
+		{
+			"name": "daniel-wesson",
+			"email": "daniil.j@icloud.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Sneakerdark\\Import\\": ""
+		},
+		"classmap": [
+			"src"
+		]
+	},
+	"require": {}
+}

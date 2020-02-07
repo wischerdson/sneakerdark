@@ -54,7 +54,7 @@ class DownloadImages extends Command
 
 		$bar->finish();
 
-		foreach (Product::where('image', null)->with('images')->cursor() as $product) {
+		foreach (Product::withoutGlobalScope('instock')->where('image', null)->with('images')->cursor() as $product) {
 			$product->image = $product->images[0]->src;
 			$product->save();
 		}

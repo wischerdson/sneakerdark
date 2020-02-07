@@ -1,6 +1,6 @@
 <?php
 
-namespace Wsn\XmlParser;
+namespace Sneakerdark\XmlParser;
 
 class Document
 {

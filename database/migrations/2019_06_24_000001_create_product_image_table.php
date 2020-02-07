@@ -18,6 +18,7 @@ class CreateProductImageTable extends Migration
 			$table->integer('product_id')->unsigned();
 			$table->string('src')->nullable();
 			$table->string('supplier_src');
+			$table->boolean('prohibit_changes')->default(false);
 			$table->integer('created_at')->unsigned();
 			$table->integer('updated_at')->unsigned();
 

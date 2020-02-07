@@ -168,7 +168,6 @@ return [
 		/*
 		 * Package Service Providers...
 		 */
-		Wsn\XmlParser\XmlParserServiceProvider::class,
 		Cviebrock\EloquentSluggable\ServiceProvider::class,
 		IvanLemeshev\Laravel5CyrillicSlug\SlugServiceProvider::class,
 
