@@ -7,8 +7,10 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use App\Collection as CollectionModel;
 use App\CollectionDescription;
 
-class Collection {
-	public function __construct($collectionsInfo, $xml) {
+class Collection
+{
+	public function __construct($collectionsInfo, $xml)
+	{
 		$collectionsIds = CollectionModel::select('supplier_id')->pluck('supplier_id')->toArray();
 
 		$xml->parseCategory([

@@ -7,10 +7,6 @@ use Sneakerdark\XmlParser\Document as XmlParser;
 class Main
 {
 	private $product = [];
-	private $image = [
-		'count' => 0,
-		'tmpProducts' => []
-	];
 	private $attribute;
 	private $option;
 
@@ -20,11 +16,17 @@ class Main
 		$console->info('Preparing data...');
 		$this->generalInformation($file);
 
-		$xml = new XmlParser($file);
+		/*$xml = new XmlParser($file);
 		$console->info('Importing collections...');
 		new Collection([], $xml);
 		$console->info('Importing attributes...');
 		new Attribute($this->product, $xml);
+		$xml->start();
+		unset($xml);*/
+
+		$xml = new XmlParser($file);
+		$console->info('Importing products...');
+		new Product($this->product, $xml);
 		$xml->start();
 		unset($xml);
 
@@ -33,9 +35,7 @@ class Main
 		$timeDiffS = $timeDiff - $timeDiffM*60;
 		$console->line('Execution time - '.$timeDiffM.'m '.$timeDiffS.'s');
 
-		/*$xml = new XmlParser($file);
-		new Product($this->product, $xml);
-		unset($xml);*/
+		
 	}
 
 	private function generalInformation($file)
@@ -53,14 +53,6 @@ class Main
 		$xml->parseOffer([
 			'sku1' => 'offer:group_id',
 			'sku2' => 'offer:id',
-			'images' => 'offer.picture'
-		], function ($data) {
-			$this->imagesInfo($data);
-		});
-
-		$xml->parseOffer([
-			'sku1' => 'offer:group_id',
-			'sku2' => 'offer:id',
 			'name' => 'offer.param:name',
 			'value' => 'offer.param'
 		], function ($data) {
@@ -68,8 +60,6 @@ class Main
 		});
 
 		$xml->start();
-
-		$this->image = $this->image['count'];
 	}
 
 	private function productsInfo($data)
@@ -85,16 +75,6 @@ class Main
 				'variations' => 1,
 				'instock' => $data['instock']
 			];
-		}
-	}
-
-	private function imagesInfo($data)
-	{
-		$data['sku'] = $data['sku1'] ?? $data['sku2'];
-
-		if (!in_array($data['sku'], $this->image['tmpProducts'])) {
-			$this->image['tmpProducts'][] = $data['sku'];
-			$this->image['count'] += count((array) $data['images']);
 		}
 	}
 
