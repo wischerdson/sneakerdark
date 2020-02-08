@@ -6,9 +6,7 @@ use Sneakerdark\XmlParser\Document as XmlParser;
 
 class Main
 {
-	private $product = [];
-	private $attribute;
-	private $option;
+	private $productInstock = [];
 
 	public function __construct($file, $console)
 	{
@@ -16,17 +14,25 @@ class Main
 		$console->info('Preparing data...');
 		$this->generalInformation($file);
 
-		/*$xml = new XmlParser($file);
+		$xml = new XmlParser($file);
 		$console->info('Importing collections...');
-		new Collection([], $xml);
+		new Collection($xml);
 		$console->info('Importing attributes...');
-		new Attribute($this->product, $xml);
+		new Attribute($xml);
+		$console->info('Importing options...');
+		new Option($xml);
 		$xml->start();
-		unset($xml);*/
+		unset($xml);
 
 		$xml = new XmlParser($file);
 		$console->info('Importing products...');
-		new Product($this->product, $xml);
+		new Product($xml, $this->productInstock);
+		$xml->start();
+		unset($xml);
+
+		$xml = new XmlParser($file);
+		$console->info('Importing products options...');
+		new ProductOption($xml);
 		$xml->start();
 		unset($xml);
 
@@ -34,8 +40,6 @@ class Main
 		$timeDiffM = floor($timeDiff/60);
 		$timeDiffS = $timeDiff - $timeDiffM*60;
 		$console->line('Execution time - '.$timeDiffM.'m '.$timeDiffS.'s');
-
-		
 	}
 
 	private function generalInformation($file)
@@ -50,14 +54,14 @@ class Main
 			$this->productsInfo($data);
 		});
 
-		$xml->parseOffer([
+		/*$xml->parseOffer([
 			'sku1' => 'offer:group_id',
 			'sku2' => 'offer:id',
 			'name' => 'offer.param:name',
 			'value' => 'offer.param'
 		], function ($data) {
 			$this->attributesInfo($data);
-		});
+		});*/
 
 		$xml->start();
 	}
@@ -67,18 +71,14 @@ class Main
 		$data['sku'] = $data['sku1'] ?? $data['sku2'];
 		$data['instock'] = (int) $data['instock'];
 
-		if (array_key_exists($data['sku'], $this->product)) {
-			$this->product[$data['sku']]['variations']++;
-			$this->product[$data['sku']]['instock'] += $data['instock'];
+		if (array_key_exists($data['sku'], $this->productInstock)) {
+			$this->productInstock[$data['sku']] += $data['instock'];
 		} else {
-			$this->product[$data['sku']] = [
-				'variations' => 1,
-				'instock' => $data['instock']
-			];
+			$this->productInstock[$data['sku']] = $data['instock'];
 		}
 	}
 
-	private function attributesInfo($data)
+	/*private function attributesInfo($data)
 	{
 		$data['sku'] = $data['sku1'] ?? $data['sku2'];
 		// Если данный товар не имеет опций, то прекратить выполнение функции
@@ -106,5 +106,5 @@ class Main
 				unset($this->product[$data['sku']]['options'][$value]);
 			}
 		}
-	}
+	}*/
 }

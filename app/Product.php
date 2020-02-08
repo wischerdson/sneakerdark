@@ -87,9 +87,6 @@ class Product extends Model
 		self::updating(function($model) {
 			$model->updated_at = time();
 		});
-		static::addGlobalScope('instock', function (Builder $builder) {
-			$builder->where('instock', '>', 0);
-		});
 		/*static::addGlobalScope('deleted', function (Builder $builder) {
 			$builder->where('deleted_at', null);
 		});*/

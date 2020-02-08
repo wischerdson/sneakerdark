@@ -16,10 +16,12 @@ class CreateProductOptionTable extends Migration
 		Schema::create('product_option', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('product_id')->unsigned();
+			$table->integer('option_id')->unsigned();
 			$table->integer('instock')->unsigned();
 			$table->string('value');
 			
 			$table->foreign('product_id')->references('id')->on('product');
+			$table->foreign('option_id')->references('id')->on('option');
 		});
 	}
 

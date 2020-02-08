@@ -6,22 +6,21 @@ use App\Attribute as AttributeModel;
 
 class Attribute
 {
-	public function __construct($productsInfo, $xml)
+	public function __construct($xml)
 	{
 		$attributes = AttributeModel::select('name')->distinct()->pluck('name')->toArray();
-		$buffer = [];
 
 		$xml->parseOffer([
 			'sku1' => 'offer:group_id',
 			'sku2' => 'offer:id',
-			'name' => 'offer.param:name',
-			'value' => 'offer.param'
-		], function ($data) use (&$attributes, &$buffer, $productsInfo) {
+			'name' => 'offer.param:name'
+		], function ($data) use (&$attributes) {
 			$data['sku'] = $data['sku1'] ?? $data['sku2'];
+			$willBeInsert = [];
 
-			foreach ((array) $data['name'] as $key1 => $value) {
+			foreach ((array) $data['name'] as $value) {
 				// Если данный параметр - опция, то ничего не делать
-				if (array_key_exists($value, $productsInfo[$data['sku']]['options'])) {
+				if (preg_match('/(р|Р)азмер/i', $value)) {
 					continue;
 				}
 				// Если данный атрибут уже есть в бд, то ничего не делать
@@ -29,12 +28,13 @@ class Attribute
 					continue;
 				}
 
-				$attribute = new AttributeModel;
-				$attribute->name = $value;
-				$attribute->save();
+				$attribute = [];
+				$attribute['name'] = $value;
 
 				$attributes[] = $value;
+				$willBeInsert[] = $attribute;
 			}
+			AttributeModel::insert($willBeInsert);
 		});
 	}
 }

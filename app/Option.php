@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Attribute extends Model
+class Option extends Model
 {
-    protected $table = 'attribute';
+	protected $table = 'option';
 	protected $guarded = [];
 	public $timestamps = false;
 }

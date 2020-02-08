@@ -9,7 +9,7 @@ use App\CollectionDescription;
 
 class Collection
 {
-	public function __construct($collectionsInfo, $xml)
+	public function __construct($xml)
 	{
 		$collectionsIds = CollectionModel::select('supplier_id')->pluck('supplier_id')->toArray();
 
