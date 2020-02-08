@@ -1699,7 +1699,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/sneakerdark/import",
-                "reference": "cd3df15a164e9103d673313dd7ed4b30afa8d28b"
+                "reference": "12f3f7a275436ea62379fa69edcd363c61c7480b"
             },
             "type": "library",
             "autoload": {

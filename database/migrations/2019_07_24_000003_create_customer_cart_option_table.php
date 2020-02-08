@@ -16,10 +16,10 @@ class CreateCustomerCartOptionTable extends Migration
 		Schema::create('customer_cart_option', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('customer_cart_id')->unsigned();
-			$table->integer('product_option_value_id')->unsigned()->nullable();
+			$table->integer('product_option_id')->unsigned()->nullable();
 
 			$table->foreign('customer_cart_id')->references('id')->on('customer_cart');
-			$table->foreign('product_option_value_id')->references('id')->on('product_option_value');
+			$table->foreign('product_option_id')->references('id')->on('product_option');
 		});
 	}
 

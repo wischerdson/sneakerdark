@@ -29,6 +29,7 @@ class CreateProductTable extends Migration
 			$table->boolean('visible')->default(1);
 			$table->integer('created_at')->unsigned();
 			$table->integer('updated_at')->unsigned();
+			$table->integer('deleted_at')->unsigned()->nullable();
 
 			$table->foreign('collection_id')->references('id')->on('collection');
 		});

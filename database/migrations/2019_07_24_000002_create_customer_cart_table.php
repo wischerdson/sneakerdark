@@ -17,8 +17,9 @@ class CreateCustomerCartTable extends Migration
 			$table->increments('id');
 			$table->integer('product_id')->unsigned();
 			$table->integer('customer_id')->unsigned();
+			$table->smallInteger('quantity')->unsigned()->default(1);
 			$table->integer('created_at')->unsigned();
-			$table->integer('removed_at')->unsigned()->nullable();
+			$table->integer('deleted_at')->unsigned()->nullable();
 
 			$table->foreign('product_id')->references('id')->on('product');
 			$table->foreign('customer_id')->references('id')->on('customer');
