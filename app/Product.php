@@ -33,11 +33,13 @@ class Product extends Model
 	}
 	public function sizes()
 	{
-		return $this->hasMany('App\ProductOption')->whereIn('name', [
-			'Размер обуви',
-			'Размер одежды',
-			'Размер Аксессуаров'
-		]);
+		return $this->hasMany('App\ProductOption')->whereHas('option', function (Builder $query) {
+			$query->whereIn('name', [
+				'Размер обуви',
+				'Размер одежды',
+				'Размер Аксессуаров'
+			]);
+		});
 	}
 	public function scopeWithAttributes($query)
 	{

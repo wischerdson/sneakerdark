@@ -16,7 +16,7 @@
 				:productId="{{ $product->id }}"
 				:sizes="[
 					@if ($product->sizes->count())
-						@foreach ($product->sizes[0]->values as $size)
+						@foreach ($product->sizes as $size)
 					{instock: {{ $size->instock }}, value: '{{ $size->value}}'},
 						@endforeach
 					@endif

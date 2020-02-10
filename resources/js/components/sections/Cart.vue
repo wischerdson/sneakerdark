@@ -28,6 +28,7 @@
 		},
 		methods: {
 			update () {
+				return
 				console.log(this.$store.state.laradata['api.cart'])
 				this.$store.dispatch('cart_fetchProductsDetails', {
 					api: this.$store.state.laradata['api.cart'],

@@ -268,14 +268,14 @@ class Catalog_Update extends Command
 	 */
 	public function handle()
 	{
-		$startExecutionTime = time();
+/*		$startExecutionTime = time();
 		$stopwatch = time();
 
-
+*/
 		$file = storage_path('app/sneakerdark/').'import_1.xml';
 		
 
-		/*downloadFile(config('app.import_link'), $file);
+		downloadFile(config('app.import_link'), $file);
 		$hashFileExists = Storage::disk('sneakerdark')->exists('last_hash.txt');
 
 		if (!$hashFileExists)
@@ -288,9 +288,12 @@ class Catalog_Update extends Command
 			$this->comment('No updates is required.');
 			return;
 		}
-		Storage::disk('sneakerdark')->put('last_hash.txt', $hash);*/
+		Storage::disk('sneakerdark')->put('last_hash.txt', $hash);
 
 		new \Sneakerdark\Import\Main($file, $this);
+		\Artisan::call('catalog:images');
+
+		
 		return;
 
 

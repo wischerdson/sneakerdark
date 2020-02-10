@@ -45,8 +45,8 @@ class DownloadImages extends Command
 
 		foreach (ProductImage::where('src', null)->cursor() as $image) {
 			preg_match('/https?:\/\/.*\.(\w+)$/i', $image->supplier_src, $matches);
-			$file = 'image/products/'.$image->product_id.'-'.$image->id.'.'.$matches[1];
-			//downloadFile($image->supplier_src, public_path().'/'.$file);
+			$file = 'image/products/'.$image->product->alias.'-'.$image->id.'.'.$matches[1];
+			downloadFile($image->supplier_src, public_path().'/'.$file);
 			$image->src = $file;
 			$image->save();
 			$bar->advance();
@@ -54,7 +54,7 @@ class DownloadImages extends Command
 
 		$bar->finish();
 
-		foreach (Product::withoutGlobalScope('instock')->where('image', null)->with('images')->cursor() as $product) {
+		foreach (Product::where('image', null)->with('images')->cursor() as $product) {
 			$product->image = $product->images[0]->src;
 			$product->save();
 		}

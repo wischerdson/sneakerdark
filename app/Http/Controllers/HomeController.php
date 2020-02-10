@@ -15,9 +15,12 @@ class HomeController extends Controller
 
 		$collectionsIds = Collection::where('supplier_id', 1789)->first()->children;
 
-		$this->vars['newProducts'] = Product::whereIn('collection_id', $collectionsIds)->with(['sizes' => function ($query) {
-			$query->with('values');
-		}, 'description'])->orderBy('created_at', 'desc')->limit(8)->get();
+		$this->vars['newProducts'] = Product::
+			whereIn('collection_id', $collectionsIds)->
+			with(['sizes', 'description'])->
+			orderBy('created_at', 'desc')->
+			limit(8)->
+			get();
 
 		return $this->output();
 	}
@@ -28,6 +31,8 @@ class HomeController extends Controller
 
 	public function test()
 	{
+		$token = openssl_random_pseudo_bytes(40, $cstrong);
+		return bin2hex($token);
 		$this->template = 'test';
 		return $this->output();
 	}
