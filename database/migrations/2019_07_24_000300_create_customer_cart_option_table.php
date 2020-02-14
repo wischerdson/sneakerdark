@@ -14,8 +14,8 @@ class CreateCustomerCartOptionTable extends Migration
 	public function up()
 	{
 		Schema::create('customer_cart_option', function (Blueprint $table) {
-			$table->increments('id');
-			$table->integer('customer_cart_id')->unsigned();
+			$table->bigIncrements('id');
+			$table->bigInteger('customer_cart_id')->unsigned();
 			$table->integer('product_option_id')->unsigned()->nullable();
 
 			$table->foreign('customer_cart_id')->references('id')->on('customer_cart');

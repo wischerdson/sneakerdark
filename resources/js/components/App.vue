@@ -11,6 +11,13 @@
 			}
 		},
 		mounted () {
+			this.$store.dispatch('cart', {
+				url: this.$store.state.laradata['api.cart.index'],
+				params: {
+					fields: ['name', 'vendor']
+				}
+			})
+			
 			this.$store.commit('wishlist_set', this.$storage.extract(localStorage, {
 				name: 'wishlist',
 				default: []

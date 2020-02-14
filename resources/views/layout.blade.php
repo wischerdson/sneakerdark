@@ -56,6 +56,12 @@
 </head>
 <body>
 	<div id="app">
+		@include('sections.header')
+		@include('sections.cart')
+		@include('sections.search')
+		@include('templates.'.$template)
+		@include('sections.footer')
+
 		<template id="template__layout">
 			<div>
 				<section-header></section-header>
@@ -64,15 +70,12 @@
 				<main>
 					<{{ str_replace('.', '-', $template) }}-page></{{ str_replace('.', '-', $template) }}-page>
 				</main>
-				<laradata name="user_token">{{ bin2hex(openssl_random_pseudo_bytes(40, $cstrong)) }}</laradata>
 				<section-footer></section-footer>
+
+				<laradata name="api.cart.index">{{ route('api.cart.index') }}</laradata>
+				<laradata name="api.cart.store">{{ route('api.cart.store') }}</laradata>
 			</div>
 		</template>
-		@include('sections.header')
-		@include('sections.cart')
-		@include('sections.search')
-		@include('templates.'.$template)
-		@include('sections.footer')
 
 		@include('vendor.checkbox')
 		@include('vendor.radio')

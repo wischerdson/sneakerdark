@@ -11,7 +11,7 @@
 				zoomBottom: '',
 				zoomTransition: true,
 				product: {
-					size: null,
+					optionId: null,
 					color: null
 				},
 				sizeIsNotSelect: false,
@@ -79,15 +79,26 @@
 				this.zoomTransition = true
 			},
 			addToCart () {
-				this.sizeIsNotSelect = document.querySelector('input[name="product_size"]') && !this.product.size
+				this.sizeIsNotSelect = !this.product.optionId && parseInt(this.$store.state.laradata.optionsCount)
 				if (this.sizeIsNotSelect)
 					return
 
-				this.$store.commit('cart_add', {
-					id: this.$store.state.laradata.productId,
-					size: this.product.size
+				this.$store.dispatch('cart_store', {
+					url: this.$store.state.laradata['api.cart.store'],
+					params: {
+						product_id: this.$store.state.laradata.productId,
+						option_id: this.product.optionId
+					}
 				})
+
 				this.$store.commit('cart_open')
+
+				this.$store.dispatch('cart', {
+					url: this.$store.state.laradata['api.cart.index'],
+					params: {
+						fields: ['name', 'vendor']
+					}
+				})
 			}
 		},
 		mounted () {

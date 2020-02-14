@@ -31,8 +31,6 @@ class HomeController extends Controller
 
 	public function test()
 	{
-		$token = openssl_random_pseudo_bytes(40, $cstrong);
-		return bin2hex($token);
 		$this->template = 'test';
 		return $this->output();
 	}

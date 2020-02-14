@@ -9,22 +9,20 @@
 		transition: opacity .35s cubic-bezier(0.46, 0.01 , 0.32, 1);
 	}
 	.box {
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
+		.absolutely-covered;
+		left: initial;
 		width: 100%;
 		max-width: 450px;
 		background-color: white;
-		padding: 0 30px;
 		transition: transform .35s cubic-bezier(0.46, 0.01 , 0.32, 1);
+		display: grid;
+		grid-gap: 15px;
+		grid-template-rows: auto 1fr auto;
 
 		.top {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 20px 0;
-			border-bottom: 1px solid #ebebeb;
+			text-align: center;
+			padding: 20px 30px;
+			border-bottom: 1px solid #e1e1e1;
 			position: relative;
 
 			.title {
@@ -37,114 +35,95 @@
 			}
 			.close {
 				position: absolute;
-				right: 0px;
+				right: 20px;
 				top: 16px;
 				cursor: pointer;
 				padding: 10px;
-				margin-right: -10px;
+				transition: all .15s ease-in-out;
 
 				svg {
 					width: 12px;
-					fill: #9d9d9d;
+					fill: #cecece;
+					transition: inherit;
+				}
+				&:hover {
+					background-color: #f5f5f5;
+
+					svg {
+						fill: #787878;
+					}
 				}
 			}
 		}
 		& > .content {
-			overflow: hidden;
-			position: absolute;
-			top: 80px;
-			bottom: 165.4px;
-			left: 30px;
-			right: 30px;
-			width: calc(450px - 60px);
-			
-			.has-scroll {
-				pointer-events: none;
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				height: 30px;
-				//background: linear-gradient(to bottom, transparent, #161616 100%);
+			.product-list {
+				// @import "../snippets/cart.item.less";
+
+				.list-complete-enter, .list-complete-leave-to {
+					opacity: 0;
+					transform: scale(0);
+					position: relative;
+				}
+				.list-complete-leave-active {
+					position: absolute;
+					left: 0;
+					right: 0;
+					z-index: 0;
+				}
 			}
 
-			.product-list-wrapper {
-				overflow-y: auto;
-				max-height: 100%;
-				width: inherit;
-				padding-right: 25px;
-				box-sizing: content-box;
-				height: inherit;
-
-				.product-list {
-					width: inherit;
-					padding-bottom: 120px;
-
-					@import "../snippets/cart.item.less";
-
-					.list-complete-enter, .list-complete-leave-to {
-						opacity: 0;
-						transform: scale(0);
-						position: relative;
-					}
-					.list-complete-leave-active {
-						position: absolute;
-						left: 0;
-						right: 0;
-						z-index: 0;
-					}
-				}
-
-				.cart-is-empty {
-					.absolutely-covered;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					font-size: 1.4rem;
-				}
+			.cart-is-empty {
+				.absolutely-covered;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.4rem;
 			}
 		}
 		.bottom {
-			position: absolute;
-			bottom: 0;
-			left: 30px;
-			right: 30px;
-			border-top: 1px solid #343535;
-			padding-top: 15px;
-			padding-bottom: 30px;
-
 			.subtotal {
 				display: flex;
-				margin-bottom: 15px;
-				
-				* {
+				background-color: #f3f3f3;
+				padding: 25px 30px;
+
+				div {
+					font-size: 1.25rem;
 					font-weight: 400;
-					letter-spacing: .1rem;
-					font-size: 1.4rem;
-					text-transform: uppercase;
+					color: #616161;
 				}
+
 				.sum {
 					margin-left: auto;
+					color: #373737;
+					font-weight: 500;
 
 					&:after {
-						content: '\20BD';
-						color: fade(white, 60%);
+						content: ' руб.';
+						color: inherit;
 					}
 				}
 			}
-			.annotation {
-				margin-bottom: 15px;
-				color: fade(white, 60%);
-				font-size: 1.1rem;
-			}
-			.checkout {
-				display: block;
-				width: 100%;
-				padding: 14px 20px;
-				text-transform: uppercase;
-				font-weight: 400;
-				letter-spacing: .07rem;
-				background-color: #7122e3;
+			.buttons {
+				padding: 25px 30px;
+
+				.btn {
+					display: block;
+					width: 100%;
+					font-size: 1rem;
+					letter-spacing: .03rem;
+				}
+				
+				.checkout {
+					padding: 14px 20px;
+					background-color: @main-color;
+				}
+				.close {
+					border: 2px solid #dbdbdb;
+					margin-top: 9px;
+					padding: 12px 20px;
+					color: black;
+					background-color: transparent;
+				}
 			}
 		}
 		.fade-enter-active, .fade-leave-active {

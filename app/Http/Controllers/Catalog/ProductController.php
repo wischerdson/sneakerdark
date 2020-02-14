@@ -41,12 +41,12 @@ class ProductController extends Controller
 		$gender = ProductAttribute::
 			where('product_id', $product->id)->
 			join('attribute', 'attribute_id', '=', 'attribute.id')->
-			join('attribute_description', 'attribute.id', '=', 'attribute_description.attribute_id')->
-			where('name', 'Пол')->
+			where('attribute.name', 'Пол')->
 			first();
 
 		$type = ProductOption::
 			where('product_id', $product->id)->
+			join('option', 'option_id', '=', 'option.id')->
 			where('name', 'like', '%размер%')->
 			first();
 

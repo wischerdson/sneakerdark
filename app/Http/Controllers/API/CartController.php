@@ -4,9 +4,14 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 use App\Product;
-use App\Size;
+use App\Customer;
+use App\CustomerCart;
+use App\CustomerCartOption;
+
+use App\Http\Resources\CartResource;
 
 class CartController extends Controller
 {
@@ -17,71 +22,15 @@ class CartController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		$productsIds = [];
-		$productsR = (array) json_decode($request->input('products'));
-		//return $productsR;
-		foreach ($productsR as $key => $value) {
-			$productsIds[] = $key;
-		}
+		//dd($request->input());
+		$guest = $request->cookie('guest_token');
+		$customer = Customer::where('guest_token', $guest)->select('id')->first();
+		if (!$customer)
+			return 'Invalid guest token';
 
+		$customerCart = CustomerCart::where('customer_id', $customer->id)->with('option')->get();
 
-		$products = Product::
-			whereIn('id', $productsIds)
-			->withoutGlobalScopes()
-			->with(['pictures' => function ($q) {
-				return $q->first();
-			}, 'parameters' => function ($q) {
-				return $q->where('key', 'Цвет')->first();
-			}])
-			->get();
-
-		$result = [];
-		foreach ($products as $product) {
-			$size = $productsR[$product->id]->size;
-			$quantity = $productsR[$product->id]->quantity;
-			$size = Size::find($size);
-
-			$result[] = [
-				'id' => $product->id,
-				'price' => $product->price,
-				'size' => [
-					'size' => $size ? $size->size : '',
-					'instock' => $size ? $size->instock : 10
-				],
-				'picture' => $product->pictures,
-				'quantity' => $quantity,
-				'name' => $product->title,
-				'vendor' => $product->vendor,
-				'color' => $product->parameters
-			];
-		}
-
-		return $result;
-
-		return [
-			'products' => [
-				[
-					'id' => 18047,
-					'price' => 1450,
-					'size' => 54,
-					'picture' => 'https://...',
-					'quantity' => 5,
-					'name' => 'Поло Lacoste',
-					'vendor' => 'Lacoste',
-					'color' => 'Черный'
-				]
-			]
-		];
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create()
-	{
-		//
+		return CartResource::collection($customerCart);
 	}
 
 	/**
@@ -92,29 +41,51 @@ class CartController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
-	}
+		$guest = $request->cookie('guest_token');
+		$customer = Customer::where('guest_token', $guest)->select('id')->first();
+		if (!$customer)
+			return 'Invalid guest token';
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+		$product = (object) $request->input('params');
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function edit($id)
-	{
-		//
+		$productHasOptions = Product::
+			where('id', $product->product_id)->
+			has('options')->
+			exists();
+
+		if ($productHasOptions and !$product->option_id)
+			return 'Required product option id';
+
+
+		$productAdded = CustomerCart::
+			where('customer_id', $customer->id)->
+			where('product_id', $product->product_id)->
+			when(!is_null($product->option_id), function ($query1) use ($product) {
+				return $query1->
+				whereHas('option', function (Builder $query2) use ($product) {
+					$query2->where('product_option_id', $product->option_id);
+				});
+			})
+			->first();
+
+		if ($productAdded) {
+			$productAdded->increment('quantity');
+			return $productAdded->id;
+		}
+
+		$customerCart = new CustomerCart;
+		$customerCart->product_id = $product->product_id;
+		$customerCart->customer_id = $customer->id;
+		$customerCart->save();
+
+		if (!is_null($product->option_id)) {
+			$customerCartOption = new CustomerCartOption;
+			$customerCartOption->customer_cart_id = $customerCart->id;
+			$customerCartOption->product_option_id = $product->option_id;
+			$customerCartOption->save();
+		}
+
+		return $customerCart->id;
 	}
 
 	/**

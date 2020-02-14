@@ -15,7 +15,7 @@ class CreateSearchHistoryTable extends Migration
 	{
 		Schema::create('search_history', function (Blueprint $table) {
 			$table->bigIncrements('id');
-			$table->integer('customer_id')->unsigned()->nullable();
+			$table->bigInteger('customer_id')->unsigned()->nullable();
 			$table->string('query');
 			$table->string('gender')->nullable();
 			$table->integer('created_at')->unsigned();

@@ -16,7 +16,7 @@ class CreateProductViewsTable extends Migration
 		Schema::create('product_views', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->integer('product_id')->unsigned();
-			$table->integer('customer_id')->unsigned();
+			$table->bigInteger('customer_id')->unsigned();
 			$table->integer('views')->unsigned();
 			$table->integer('created_at')->unsigned();
 			$table->integer('updated_at')->unsigned();

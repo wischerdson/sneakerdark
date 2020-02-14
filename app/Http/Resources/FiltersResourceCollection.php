@@ -4,12 +4,12 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-use App\AttributeDescription;
+use App\Attribute;
+use App\Option;
 use App\Product;
 use App\ProductDescription;
 use App\ProductAttribute;
 use App\ProductOption;
-use App\ProductOptionValue;
 
 class FiltersResourceCollection extends ResourceCollection
 {
@@ -98,11 +98,14 @@ class FiltersResourceCollection extends ResourceCollection
 				return ProductDescription::whereIn('vendor', $filter)->pluck('product_id');
 			},
 			'size' => function ($filter) {
-				$t = ProductOptionValue::whereIn('value', $filter)->where('instock', '>', 0)->pluck('product_option_id');
-				return ProductOption::whereIn('id', $t)->pluck('product_id');
+				return ProductOption::whereIn('value', $filter)->where('instock', '>', 0)->pluck('product_id');
 			},
 			'price' => function ($filter) {
-				return Product::where('price', '>=', $filter[0])->where('price', '<=', $filter[1])->pluck('id');
+				return Product::
+					where('price', '>=', $filter[0])->
+					where('price', '<=', $filter[1])->
+					where('deleted_at', null)->
+					pluck('id');
 			}
 		];
 
@@ -164,8 +167,7 @@ class FiltersResourceCollection extends ResourceCollection
 			'size' => [
 				'title' => 'Размер',
 				'action' => function () {
-					$optionsIds = ProductOption::
-						whereIn('product_id', $this->collection)->
+					$optionsIds = Option::
 						whereIn('name', [
 							'Размер обуви',
 			                'Размер одежды',
@@ -174,8 +176,9 @@ class FiltersResourceCollection extends ResourceCollection
 						pluck('id')->
 						toArray();
 
-					return ProductOptionValue::
-						whereIn('product_option_id', $optionsIds)->
+					return ProductOption::
+						whereIn('option_id', $optionsIds)->
+						whereIn('product_id', $this->collection)->
 						where('instock', '>', 0)->
 						select('value')->
 						distinct()->
@@ -190,12 +193,14 @@ class FiltersResourceCollection extends ResourceCollection
 					return [
 						'min' => Product::
 							whereIn('id', $this->collection)->
+							where('deleted_at', null)->
 							orderBy('price', 'ASC')->
 							select('price')->
 							first()
 							->price,
 						'max' => Product::
 							whereIn('id', $this->collection)->
+							where('deleted_at', null)->
 							orderBy('price', 'DESC')->
 							select('price')->
 							first()
@@ -216,7 +221,7 @@ class FiltersResourceCollection extends ResourceCollection
 
 	private function distinctByAttributes($attributes)
 	{
-		$attributesIds = AttributeDescription::whereIn('name', $attributes)->pluck('id')->toArray();
+		$attributesIds = Attribute::whereIn('name', $attributes)->pluck('id')->toArray();
 		return ProductAttribute::
 			whereIn('attribute_id', $attributesIds)->
 			whereIn('product_id', $this->collection)->

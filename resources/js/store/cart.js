@@ -3,7 +3,7 @@ import Vue from 'vue'
 export default {
 	state: {
 		cart: {},
-		cart_isOpen: false,
+		cart_isOpen: true,
 		cart_wait: false
 	},
 	mutations: {
@@ -47,19 +47,24 @@ export default {
 		}
 	},
 	actions: {
-		async cart_fetchProductsDetails (context, data) {
+		async cart (context, data) {
 			context.commit('cart_wait', true)
 
-			await this.$axios.get(data.api, {
+			await this.$axios.get(data.url, {
 				params: data.params
-			}).then(response => response.data).then((data) => {
-				
-				console.log(data)
-				
+			}).then(response => response.data.data).then((data) => {
+				context.commit('cart_set', data)
 			}).catch(({response}) => {
 				this.$error(response)
   			}).finally(() => {
 				context.commit('cart_wait', false)
+			})
+		},
+		async cart_store (context, data) {
+			await this.$axios.post(data.url, {
+				params: data.params
+			}).then(response => response.data).then((data) => {
+				console.log(data)
 			})
 		}
 	}

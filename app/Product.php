@@ -46,18 +46,15 @@ class Product extends Model
 		return $query->with(['attributes' => function ($q1) {
 			$q1
 			->join('attribute', 'product_attribute.attribute_id', '=', 'attribute.id')
-			->orderBy('attribute.sort_order', 'asc')
-			->with(['attribute' => function ($q2) {
-				$q2->with('description');
-			}]);
+			->orderBy('attribute.sort_order', 'asc');
 		}]);
 	}
 	public function scopeWithOptions($query)
 	{
 		return $query->with(['options' => function ($q1) {
-			$q1->with(['values' => function ($q2) {
-				$q2->where('instock', '>', 0);
-			}]);
+			$q1->
+			where('instock', '>', 0)->
+			with('option');
 		}]);
 	}
 	public function scopeColors($query, $model)

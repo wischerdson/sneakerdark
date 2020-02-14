@@ -18,7 +18,7 @@ class ProductResource extends JsonResource
 	 */
 	public function toArray($request)
 	{
-		$fields = $request->input('fields') ?? [];
+		$fields = (array) $request->input('fields') ?? [];
 
 		$result = [
 			'id' => $this->id,
@@ -45,8 +45,7 @@ class ProductResource extends JsonResource
 				return $this->description->vendor;
 			},
 			'sizes' => function () {
-				$t = ProductOptionResource::collection($this->sizes);
-				return $t->count() ? $t[0] : [];
+				return ProductOptionResource::collection($this->sizes);
 			}
 		];
 

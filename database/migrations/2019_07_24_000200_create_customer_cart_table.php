@@ -14,9 +14,9 @@ class CreateCustomerCartTable extends Migration
 	public function up()
 	{
 		Schema::create('customer_cart', function (Blueprint $table) {
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->integer('product_id')->unsigned();
-			$table->integer('customer_id')->unsigned();
+			$table->bigInteger('customer_id')->unsigned();
 			$table->smallInteger('quantity')->unsigned()->default(1);
 			$table->integer('created_at')->unsigned();
 			$table->integer('deleted_at')->unsigned()->nullable();

@@ -10,10 +10,18 @@ class ProductOption extends Model
 	protected $guarded = [];
 	public $timestamps = false;
 
-	public function product() {
+	public function product()
+	{
 		return $this->belongsTo('App\Product');
 	}
-	public function option() {
+
+	public function option()
+	{
 		return $this->belongsTo('App\Option');
+	}
+
+	public function customerCartsOptions()
+	{
+		return $this->hasMany('App\CustomerCartOption');
 	}
 }

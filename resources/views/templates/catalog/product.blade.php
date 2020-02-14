@@ -65,7 +65,7 @@
 				<ul class="parameter-list">
 					@foreach ($product->attributes as $attribute)
 						@php
-							$attributeName = $attribute->attribute->description->name
+							$attributeName = $attribute->name
 						@endphp
 						@if ($attributeName == 'Пол')
 							@continue
@@ -80,32 +80,43 @@
 					@endforeach
 				</ul>
 
+				<laradata name="optionsCount">{{ $product->options->count() }}</laradata>
+
 				@if ($product->options->count())
+					@php
+						$oldOptions = [];
+					@endphp
 					@foreach ($product->options as $option)
-					<div class="sizes-wrapper">
-						<div class="title">{{ $option->name }} <button class="how-to-choose-size-btn">@include('svg.ruler')Таблица размеров</button></div>
-						<ul class="size-list">
-							@foreach ($option->values as $value)
+						@if (!in_array($option->option_id, $oldOptions))
+							@php
+								$oldOptions[] = $option->option_id;
+								$currentOption = $option->option_id;
+							@endphp
+							<div class="sizes-wrapper">
+								<div class="title">{{ $option->option->name }} <button class="how-to-choose-size-btn">@include('svg.ruler')Таблица размеров</button></div>
+								<ul class="size-list">
+									@foreach ($product->options as $value)
+										@if ($value->option_id != $currentOption)
+											@continue
+										@endif
 
-							<li class="size-item" instock="{{ $value->instock }}">
-								<input
-									type="radio"
-									name="product_size"
-									id="size_{{ $value->id }}"
-									value="{{ $value->id }}"
-									v-model="product.size"
-								>
-								<label for="size_{{ $value->id }}">
-									{{ $value->value }}
-								</label>
-								@if ($value->instock === 1)
-								<div class="tip">Осталась 1 шт.</div>
-								@endif
-							</li>
-
-							@endforeach
-						</ul>
-					</div>
+										<li class="size-item" instock="{{ $value->instock }}">
+											<input
+												type="radio"
+												name="product_size"
+												id="option_{{ $value->id }}"
+												value="{{ $value->id }}"
+												v-model="product.optionId"
+											>
+											<label for="option_{{ $value->id }}">{{ $value->value }}</label>
+											@if ($value->instock === 1)
+												<div class="tip">Осталась 1 шт.</div>
+											@endif
+										</li>
+									@endforeach
+								</ul>
+							</div>
+						@endif
 					@endforeach
 				@endif
 

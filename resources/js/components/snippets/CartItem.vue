@@ -1,12 +1,13 @@
 <template>
 	<li class="product-item">
-		<div class="left">
+		{{ name }}
+		<!-- <div class="left">
 			<a class="product-picture">
-				<img :src="picture">
+				<img :src="image">
 			</a>
 		</div>
 		<div class="right">
-			<a class="product-name" :href="url">{{ title }}</a>
+			<a class="product-name" :href="url">{{ name }}</a>
 			<div class="product-meta">{{ size }}/{{ color }}</div>
 			<div class="qty-price-wrapper">
 				<div class="quantity">
@@ -17,14 +18,14 @@
 				<div class="remove" @click="quantity = 0">Удалить</div>
 				<div class="price">{{ price * quantity }}</div>
 			</div>
-		</div>
+		</div> -->
 	</li>
 </template>
 
 <script type="text/javascript">
 	
 	export default {
-		props: ['title', 'color', 'size', 'picture', 'url', 'quantity', 'price', 'id'],
+		props: ['name', 'image', 'url', 'quantity', 'price', 'productId'],
 		watch: {
 			/*quantity (newQuantity, oldQuantity) {
 				let cart = this.$store.getters.cart

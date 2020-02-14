@@ -4,48 +4,34 @@
 
 	export default {
 		template: '#template__section_cart',
-		watch: {
-			'$store.getters.cart': {
-				deep: true,
-				handler (value) {
-					this.$storage.set(localStorage, {
-						name: 'cart',
-						value
-					})
-				}
-			},
-			'$store.getters.cart_isOpen' (value) {
-				value ? this.update() : null
+		components: {
+			CartItem
+		},
+		methods: {
+			close () {
+				this.$store.commit('cart_close')
 			}
+		},
+		watch: {
+			
 		},
 		computed: {
 			isOpen () {
 				return this.$store.getters.cart_isOpen
 			},
-			subtotal () {
-				return 123
+			items () {
+				console.log(this.$store.getters.cart)
+				return this.$store.getters.cart
+			},
+			itemsCount () {
+				return Object.keys(this.items).length
+			},
+			isEmpty () {
+				return this.itemsCount > 0
 			}
-		},
-		methods: {
-			update () {
-				return
-				console.log(this.$store.state.laradata['api.cart'])
-				this.$store.dispatch('cart_fetchProductsDetails', {
-					api: this.$store.state.laradata['api.cart'],
-					params: {
-						products: this.$store.getters.cart
-					}
-				})
-			}
-		},
-		components: {
-			CartItem
 		},
 		mounted () {
-			this.$store.commit('cart_set', this.$storage.extract(localStorage, {
-				name: 'cart',
-				default: {}
-			}))
+			
 		}
 	}
 

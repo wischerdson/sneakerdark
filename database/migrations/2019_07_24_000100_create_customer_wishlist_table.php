@@ -14,11 +14,11 @@ class CreateCustomerWishlistTable extends Migration
 	public function up()
 	{
 		Schema::create('customer_wishlist', function (Blueprint $table) {
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->integer('product_id')->unsigned();
-			$table->integer('customer_id')->unsigned();
+			$table->bigInteger('customer_id')->unsigned();
 			$table->integer('created_at')->unsigned();
-			$table->integer('removed_at')->unsigned()->nullable();
+			$table->integer('deleted_at')->unsigned()->nullable();
 
 			$table->foreign('product_id')->references('id')->on('product');
 			$table->foreign('customer_id')->references('id')->on('customer');

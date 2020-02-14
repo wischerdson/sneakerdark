@@ -14,15 +14,9 @@ class CreateCustomerTable extends Migration
 	public function up()
 	{
 		Schema::create('customer', function (Blueprint $table) {
-			$table->increments('id');
-			$table->string('first_name', 32);
-			$table->string('last_name', 32);
-			$table->string('email', 96);
-			$table->text('password');
-			$table->string('phone', 15);
+			$table->bigIncrements('id');
+			$table->string('guest_token', 40)->nullable();
 			$table->integer('created_at')->unsigned();
-			$table->integer('account_created_at')->unsigned()->nullable();
-			$table->integer('updated_at')->unsigned();
 		});
 	}
 

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class Token extends Controller
+use App\Customer;
+
+class GuestTokenController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
@@ -35,7 +37,20 @@ class Token extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		$tokenBin;
+		$token;
+
+		do {
+			$tokenBin = openssl_random_pseudo_bytes(40, $cstrong);
+			$token = bin2hex($tokenBin);
+			$token = substr($token, 0, 39);
+		} while (Customer::where('guest_token', $token)->exists());
+
+		$customer = new Customer;
+		$customer->guest_token = $token;
+		$customer->save();
+
+		return $token;
 	}
 
 	/**
