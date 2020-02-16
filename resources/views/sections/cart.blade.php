@@ -7,19 +7,33 @@
 					<div class="title">Корзина (@{{ itemsCount }})</div>
 					<div class="close" @click="close">@include('svg.cross')</div>
 				</div>
-				<div class="content">
-					<ul class="product-list">
+		
+				<div class="middle">
+					<div class="product-list">
+						<transition-group name="list-complete" tag="ul">
 						<cart-item
 							v-for="item in items"
 							:key="`cart_item_${item.id}`"
 							:productId="item.product.id"
+							:vendor="item.product.vendor"
 							:name="item.product.name"
 							:image="item.product.image"
 							:url="item.product.url"
 							:quantity="item.quantity"
 							:price="item.product.price"
+							:product-instock="item.product.instock"
+							:options="item.option"
 						></cart-item>
-					</ul>
+						
+						</transition-group>
+						<cart-item v-show="false"></cart-item>
+					</div>
+					<transition name="fade">
+						<div v-if="!wait" v-show="isEmpty" class="cart-is-empty">Ваша корзина пуста</div>
+					</transition>
+				</div>
+
+				
 					
 					<!-- <div class="product-list-wrapper" ref="productListVisibleFrame">
 						<div class="product-list" ref="productList">
@@ -38,17 +52,15 @@
 							></cart-item>
 							</transition-group>
 						</div>
-						<transition name="fade">
-							<div v-show="!Object.keys($store.getters.cart).length" class="cart-is-empty">Ваша корзина пуста</div>
-						</transition>
+						
 					</div>
 					<div class="has-scroll"></div> -->
-				</div>
+
 				<transition name="fade">
-					<div class="bottom" v-show="isEmpty">
+					<div class="bottom" v-show="!isEmpty && !wait">
 						<div class="subtotal">
 							<div>Сумма заказа</div>
-							<div class="sum">1654</div>
+							<div class="sum">@{{ total }}</div>
 						</div>
 						<div class="buttons">
 							<button class="btn primary checkout">Оформить заказ</button>
@@ -60,3 +72,5 @@
 		</section>
 	</transition>
 </template>
+
+@include('snippets.cart-item')

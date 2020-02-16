@@ -14,7 +14,7 @@
 			this.$store.dispatch('cart', {
 				url: this.$store.state.laradata['api.cart.index'],
 				params: {
-					fields: ['name', 'vendor']
+					fields: ['name', 'vendor', 'instock']
 				}
 			})
 			

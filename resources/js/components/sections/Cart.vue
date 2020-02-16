@@ -20,14 +20,21 @@
 				return this.$store.getters.cart_isOpen
 			},
 			items () {
-				console.log(this.$store.getters.cart)
 				return this.$store.getters.cart
 			},
 			itemsCount () {
 				return Object.keys(this.items).length
 			},
+			wait () {
+				return this.$store.getters.cart_wait
+			},
 			isEmpty () {
-				return this.itemsCount > 0
+				return this.itemsCount <= 0
+			},
+			total () {
+				return this.isEmpty ? 0 : this.items.reduce(function(total, item) {
+					return item.product.price + total
+				}, 0)
 			}
 		},
 		mounted () {

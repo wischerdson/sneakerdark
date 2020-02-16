@@ -46,6 +46,9 @@ class ProductResource extends JsonResource
 			},
 			'sizes' => function () {
 				return ProductOptionResource::collection($this->sizes);
+			},
+			'instock' => function () {
+				return $this->instock;
 			}
 		];
 
