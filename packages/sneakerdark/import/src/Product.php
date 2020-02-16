@@ -17,6 +17,7 @@ class Product
 		$attributes = Attribute::select('name', 'id')->distinct()->pluck('id', 'name')->toArray();
 		
 		ProductModel::whereNotIn('sku', array_keys($productsInfo))->update(['deleted_at' => time()]);
+		ProductModel::whereIn('sku', array_keys($productsInfo))->update(['deleted_at' => null]);
 
 		$xml->parseOffer([
 			'sku1' => 'offer:group_id',

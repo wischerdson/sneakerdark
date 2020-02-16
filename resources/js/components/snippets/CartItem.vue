@@ -11,7 +11,7 @@
 			'quantity': Number,
 			'price': Number,
 			'productId': Number,
-			'product-instock': {},
+			'productInstock': {},
 			'options': {
 				type: Array,
 				default () {
@@ -40,11 +40,11 @@
 		},
 		computed: {
 			option () {
-				return this.options.length ? this.options[0] : false
+				return this.options.length ? this.options[0] : {}
 			},
 			instock () {
-				const instock = this.option ? this.option.instock : this.productInstock
-				return Math.min(instock, 15)
+				const instock = Object.keys(this.option).length ? this.option.instock : this.productInstock
+				return instock ? Math.min(instock, 15) : 0
 			}
 		}
 	}

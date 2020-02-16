@@ -3,7 +3,7 @@ import Vue from 'vue'
 export default {
 	state: {
 		cart: {},
-		cart_isOpen: true,
+		cart_isOpen: false,
 		cart_wait: false
 	},
 	mutations: {
