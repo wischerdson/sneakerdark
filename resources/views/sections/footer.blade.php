@@ -107,7 +107,7 @@
 			<div class="bottom container large">
 				<div class="blank"></div>
 				<div class="copyright container large">Copyright © {{ date('Y') }} Sneakerdark</div>
-				<div class="designed-by">Разработано студией <img src="{{ asset('image/capitalup-logo.png') }}" alt="Capitalup logo"></div>
+				<div class="designed-by">Разработано студией <a target="_blank" href="https://capitalup.ru"><img src="{{ asset('image/capitalup-logo.png') }}" alt="Capitalup logo"></a></div>
 			</div>
 		</div>
 	</footer>
