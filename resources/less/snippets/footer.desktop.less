@@ -132,11 +132,23 @@
 	}
 	.bottom {
 		padding: 10px;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
 
 		.copyright {
 			text-align: center;
 			color: #979797;
 			font-weight: 400;
+		}
+		.designed-by {
+			text-align: right;
+			font-weight: 400;
+			color: #979797;
+
+			img {
+				height: 10px;
+				margin-left: 5px;
+			}
 		}
 	}
 }
